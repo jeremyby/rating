@@ -28,3 +28,7 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug'
 
+group :development, :test do
+  gem 'rspec'
+  gem "rspec-rails", "~> 2.6"
+end
