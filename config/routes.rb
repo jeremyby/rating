@@ -1,5 +1,14 @@
 Rating::Application.routes.draw do
-  get "home/index"
+  resources :user_sessions
+  resources :authorizations
+  resources :countries
+
+  match 'login' => "user_sessions#new",      :as => :login
+  match 'logout' => "user_sessions#destroy", :as => :logout
+  
+  match '/auth/:provider/callback' => "authorizations#create"
+  match '/auth/failure'  => "authorizations#failure"
+  match '/auth/:provider'  => "authorizations#blank"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
