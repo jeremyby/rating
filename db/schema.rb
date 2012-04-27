@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120327081920) do
+ActiveRecord::Schema.define(:version => 20120426104233) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -20,11 +20,35 @@ ActiveRecord::Schema.define(:version => 20120327081920) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "countries", :force => true do |t|
-    t.string   "code"
-    t.string   "short_name"
+  create_table "ratables", :force => true do |t|
+    t.string   "type"
+    t.string   "slug"
+    t.integer  "parent_id"
+    t.string   "name"
     t.string   "full_name"
     t.text     "intro"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "ratables", ["name"], :name => "index_ratables_on_name", :unique => true
+  add_index "ratables", ["slug"], :name => "index_ratables_on_slug", :unique => true
+
+  create_table "rating_versions", :force => true do |t|
+    t.integer  "rating_id"
+    t.integer  "version"
+    t.integer  "value"
+    t.integer  "user_id"
+    t.integer  "ratable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ratings", :force => true do |t|
+    t.integer  "value"
+    t.integer  "user_id"
+    t.integer  "ratable_id"
+    t.integer  "version"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

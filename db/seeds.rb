@@ -8,8 +8,21 @@
 
 Country.create(
   [
-    { :code => 'us', :short_name => 'United States', :full_name => 'United States of America', :intro => 'Some cool introduction about the States.'},
-    { :code => 'cn', :short_name => 'China', :full_name => "People's Republic of China", :intro => 'The biggest evil country of the world.'},
-    { :code => 'uk', :short_name => 'United Kingdom', :full_name => 'United Kingkom of bla bla', :intro => 'The great little country.'}
+    { :name => 'United States', :full_name => 'United States of America', :intro => 'Some cool introduction about the States.'},
+    { :name => 'China', :full_name => "People's Republic of China", :intro => 'The biggest evil country of the world.'},
+    { :name => 'United Kingdom', :full_name => 'United Kingkom of bla bla', :intro => 'The great little country.'}
+  ]
+)
+
+Organization.create(
+  [
+    {:name => 'UN', :full_name  => 'United Nations'},
+    {:name => 'IMF', :full_name => 'International Monetary Fund'}
+  ]
+)
+
+User.create(
+  [
+    {:login => 'yangb', :email  => 'b.yang@live.com', :password => '19781115', :password_confirmation  => '19781115'}
   ]
 )

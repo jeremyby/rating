@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation
   has_many :authorizations, :dependent => :destroy
   
+  has_many :ratings
+  
   acts_as_authentic do |c|
     c.ignore_blank_passwords = true #ignoring passwords
     c.validate_password_field = false #ignoring validations for password fields
@@ -21,8 +23,8 @@ class User < ActiveRecord::Base
     end
   end
   
-  def self.create_with_omniauth(omniauth)
-    user = User.new(:login  => omniauth['info']['name'], :email  => omniauth['info']['email'])
+  def self.create_with_omniauth(info)
+    user = User.new(:login  => info.name, :email  => info.email)
     user.save(:validate  => false) #create the user without performing validations. This is because most of the fields are not set.
     user.reset_persistence_token! #set persistence_token else sessions will not be created
     user

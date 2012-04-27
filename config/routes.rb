@@ -1,14 +1,16 @@
-Rating::Application.routes.draw do
-  resources :user_sessions
-  resources :authorizations
-  resources :countries
+Oddandriches::Application.routes.draw do
+  root :to => 'home#index'
 
-  match 'login' => "user_sessions#new",      :as => :login
-  match 'logout' => "user_sessions#destroy", :as => :logout
+  resources :user_session, :only => [:create]
+  match 'login' => "user_session#new",      :as => :login
+  match 'logout' => "user_session#destroy", :as => :logout
   
+  resources :authorizations
   match '/auth/:provider/callback' => "authorizations#create"
   match '/auth/failure'  => "authorizations#failure"
   match '/auth/:provider'  => "authorizations#blank"
+  
+  resources :users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -67,6 +69,5 @@ Rating::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
   
-  root :to => 'home#index'
-    
+  resources :ratables, :path => '', :only => [:show]    
 end

@@ -15,8 +15,16 @@
 <div>
 	<h2>The Countires</h2>
 	<ul>
-		<% Country.all.each do |c| %>
-			<li><%= link_to c.short_name, c %></li>
+		<% Ratable::Country.all.each do |c| %>
+			<li><%= link_to c.name, c %></li>
+		<% end %>
+	</ul>
+</div>
+<div>
+	<h2>The I18N Organizations</h2>
+	<ul>
+		<% Ratable::Organization.all.each do |o| %>
+			<li><%= link_to o.name, o %></li>
 		<% end %>
 	</ul>
 </div>
