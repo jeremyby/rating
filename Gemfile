@@ -11,7 +11,6 @@ gem 'haml'
 gem 'haml-rails'
 gem 'friendly_id'
 gem 'acts_as_tree_rails3'
-gem 'acts_as_versioned'
 
 
 # Gems used only for assets and not required

@@ -1,0 +1,7 @@
+- @country = @ratable
+
+%h2= @country.name
+%div= @country.full_name
+
+- if current_user
+ %div= link_to 'Rate this country', new_ratable_rating_path(@country)

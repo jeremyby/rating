@@ -1,0 +1,1 @@
+require 'lib/dynamic_form/lib/dynamic_form'

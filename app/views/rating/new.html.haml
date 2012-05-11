@@ -1,0 +1,9 @@
+%h1 Ratings#new
+
+= form_for @rating, :url => {:action => "create"} do |f|
+ = f.error_messages
+ %div
+  =f.label "Rating:"
+  =f.text_field :value
+ %div
+  =f.submit "Submit"
