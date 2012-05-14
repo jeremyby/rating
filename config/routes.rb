@@ -1,9 +1,9 @@
 Oddandriches::Application.routes.draw do
   root :to => 'home#index'
 
-  resources :user_session, :only => [:create]
-  match 'login' => "user_session#new",      :as => :login
-  match 'logout' => "user_session#destroy", :as => :logout
+  resources :user_sessions, :only => [:create]
+  match 'login' => "user_sessions#new",      :as => :login
+  match 'logout' => "user_sessions#destroy", :as => :logout
   
   resources :authorizations
   match '/auth/:provider/callback' => "authorizations#create"
@@ -11,6 +11,7 @@ Oddandriches::Application.routes.draw do
   match '/auth/:provider'  => "authorizations#blank"
   
   resources :users
+  match 'signup'  => "users#new", :as  => :signup
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -70,6 +71,8 @@ Oddandriches::Application.routes.draw do
   # match ':controller(/:action(/:id(.:format)))'
   
   resources :ratables, :path => '', :only => [:show] do
-    resources :rating
+    resources :rating, :only => [:new, :create, :update]
   end
+  
+  match ':ratable_id/rating/edit' => "rating#edit", :as => :edit_rating
 end

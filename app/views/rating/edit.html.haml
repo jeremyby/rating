@@ -1,2 +1,2 @@
 %h1 Ratings#edit
-%p Find me in app/views/ratings/edit.html.haml
+= render 'form', :rating  => @rating, :url => ratable_rating_path(@ratable, @rating), :button => "Update"

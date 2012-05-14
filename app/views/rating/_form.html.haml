@@ -1,0 +1,7 @@
+= form_for rating, :url => url do |f|
+ = f.error_messages
+ %div
+  =f.label "Rating:"
+  =f.text_field :value
+ %div
+  =f.submit button

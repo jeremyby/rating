@@ -1,0 +1,16 @@
+:javascript
+ if (window.location.hash == '#_=_') window.location.hash = '';
+
+%h1 Home
+%div
+ %h2 The Countires
+ %ul
+  - Ratable::Country.all.each do |c|
+   %li= link_to c.name, c
+
+%div
+ %h2 The I18N Organizations
+ %ul
+  -Ratable::Organization.all.each do |o|
+   %li= link_to o.name, o
+
