@@ -10,7 +10,10 @@
  %body
   = render 'layouts/header'
   
-  %p= flash[:notice]
+  - if notice
+   %p.notification.notice= flash[:notice]
+  - if alert
+   %p.notification.alert= flash[:alert]
   
   .container
    = yield

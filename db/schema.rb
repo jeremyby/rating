@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120426104233) do
+ActiveRecord::Schema.define(:version => 20120515071403) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -24,13 +24,15 @@ ActiveRecord::Schema.define(:version => 20120426104233) do
     t.string   "type"
     t.string   "slug"
     t.integer  "parent_id"
+    t.string   "code"
     t.string   "name"
+    t.string   "alias"
     t.string   "full_name"
-    t.text     "intro"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
+  add_index "ratables", ["code"], :name => "index_ratables_on_code", :unique => true
   add_index "ratables", ["name"], :name => "index_ratables_on_name", :unique => true
   add_index "ratables", ["slug"], :name => "index_ratables_on_slug", :unique => true
 
@@ -40,6 +42,14 @@ ActiveRecord::Schema.define(:version => 20120426104233) do
     t.integer  "ratable_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "scores", :force => true do |t|
+    t.float    "value"
+    t.float    "previous_score"
+    t.integer  "ratable_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "users", :force => true do |t|

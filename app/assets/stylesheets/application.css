@@ -5,4 +5,5 @@
  *= require_self
  *= require normalize
  *= require layout
+ *= require notification
 */

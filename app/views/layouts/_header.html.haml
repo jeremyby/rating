@@ -1,6 +1,6 @@
 %header#page_header{:role => "banner"}
  %nav#utility
-  %p
+  %div
    - if current_user
     Signed in as #{current_user.email}. Not you?
     = link_to "Log out", logout_path

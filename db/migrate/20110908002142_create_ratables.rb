@@ -5,13 +5,15 @@ class CreateRatables < ActiveRecord::Migration
       t.string :slug
       t.integer :parent_id
       
+      t.string :code
       t.string :name
+      t.string :alias
       t.string :full_name
-      t.text :intro
 
       t.timestamps
     end
-
+    
+    add_index :ratables, :code, :unique => true
     add_index :ratables, :name, :unique => true
     add_index :ratables, :slug, :unique => true
   end

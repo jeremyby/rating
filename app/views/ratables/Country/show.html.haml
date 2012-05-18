@@ -2,14 +2,16 @@
 
 %h2= @country.name
 
-%div= @country.full_name
+- unless @country.score.blank?
+ %div #{@country.full_name} has a rating score of #{@country.score.value}
 
-%p
+%div
  - if current_user
   - @rating = Rating.find_by_user_id_and_ratable_id(current_user.id, @country.id)
+  
   - if @rating.blank?
    %div= link_to 'Rate this country', new_ratable_rating_path(@country)
   - else
-   %h3 Your rating is #{@rating.value}
+   %h4 Your rating is #{@rating.value}
    %div= link_to 'Change your rating', edit_rating_path(@country)
   
