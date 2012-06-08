@@ -1,12 +1,16 @@
-class Ratable < ActiveRecord::Base
-  acts_as_tree
-  
+class Country < ActiveRecord::Base
   has_many :ratings
   has_one :score
   
   extend FriendlyId
   friendly_id :name, :use => :slugged
   
+  validates_presence_of :code, :name
+  validates_uniqueness_of :code, :name
+  
+  def self.top_rated(limit, offset=0)
+    Country.includes(:score).joins(:score).order('scores.value DESC').limit(limit).offset(offset)
+  end
   
   def rating_score
     return nil if self.score.blank?
@@ -23,15 +27,5 @@ class Ratable < ActiveRecord::Base
     when 10..20   then return 'C'
     when 0..10    then return 'D'
     end
-  end
-  
-  def self.inherited(child)
-    child.instance_eval do
-      alias :original_model_name :model_name
-      def model_name
-        Ratable.model_name
-      end
-    end
-    super
   end
 end

@@ -1,7 +1,5 @@
-- @country = @ratable
-
 - if current_user
- - @rating = Rating.find_by_user_id_and_ratable_id(current_user.id, @country.id)
+ - @rating = Rating.find_by_user_id_and_country_id(current_user.id, @country.id)
 
 %h1= @country.name
 
@@ -15,7 +13,7 @@
  %p There are not enough ratings for #{@country.name}. Please rate for this country now.
 
 - if @rating.blank?
- %p= link_to 'Rate this country', new_ratable_rating_path(@country)
+ %p= link_to 'Rate this country', new_country_rating_path(@country)
 - else
  %h4 Your rating is #{@rating.value}
  %p= link_to 'Change your rating', edit_rating_path(@country)

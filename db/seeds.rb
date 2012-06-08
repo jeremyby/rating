@@ -8,13 +8,6 @@
 
 require 'db/seeds/countries.rb'
 
-Organization.create(
-  [
-    {:name => 'UN', :full_name  => 'United Nations'},
-    {:name => 'IMF', :full_name => 'International Monetary Fund'}
-  ]
-)
-
 User.create(
   [
     {:login => 'yangb', :email  => 'b.yang@live.com', :password => '19781115', :password_confirmation  => '19781115'},
@@ -30,12 +23,12 @@ kp = Country.find_by_code('kp').id
 
 Rating.create(
   [
-    {:ratable_id => us, :user_id => 1, :value => 91.0},
-    {:ratable_id => us, :user_id => 2, :value => 88.0},
-    {:ratable_id => us, :user_id => 3, :value => 70.0},
-    {:ratable_id => cn, :user_id => 2, :value => 75.0},
-    {:ratable_id => cn, :user_id => 4, :value => 98.0},
-    {:ratable_id => kp, :user_id => 2, :value => 6.0},
-    {:ratable_id => kp, :user_id => 4, :value => 91.0}
+    {:country_id => us, :user_id => 1, :value => 91.0},
+    {:country_id => us, :user_id => 2, :value => 88.0},
+    {:country_id => us, :user_id => 3, :value => 70.0},
+    {:country_id => cn, :user_id => 2, :value => 75.0},
+    {:country_id => cn, :user_id => 4, :value => 98.0},
+    {:country_id => kp, :user_id => 2, :value => 6.0},
+    {:country_id => kp, :user_id => 4, :value => 91.0}
   ]
 )

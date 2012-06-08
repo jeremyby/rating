@@ -20,8 +20,7 @@ ActiveRecord::Schema.define(:version => 20120515071403) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "ratables", :force => true do |t|
-    t.string   "type",       :null => false
+  create_table "countries", :force => true do |t|
     t.string   "slug"
     t.integer  "parent_id"
     t.string   "code"
@@ -32,14 +31,14 @@ ActiveRecord::Schema.define(:version => 20120515071403) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "ratables", ["code"], :name => "index_ratables_on_code", :unique => true
-  add_index "ratables", ["name"], :name => "index_ratables_on_name", :unique => true
-  add_index "ratables", ["slug"], :name => "index_ratables_on_slug", :unique => true
+  add_index "countries", ["code"], :name => "index_countries_on_code", :unique => true
+  add_index "countries", ["name"], :name => "index_countries_on_name", :unique => true
+  add_index "countries", ["slug"], :name => "index_countries_on_slug", :unique => true
 
   create_table "ratings", :force => true do |t|
     t.float    "value"
     t.integer  "user_id"
-    t.integer  "ratable_id"
+    t.integer  "country_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -47,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20120515071403) do
   create_table "scores", :force => true do |t|
     t.float    "value",          :default => 50.0, :null => false
     t.float    "previous_score"
-    t.integer  "ratable_id"
+    t.integer  "country_id"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
   end

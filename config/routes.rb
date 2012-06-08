@@ -70,10 +70,10 @@ Oddandriches::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
   
-  resources :ratables, :path => '', :only => [:index, :show] do
+  resources :countries, :path => '', :only => [:index, :show] do
     resources :rating, :only => [:new, :create, :update]
   end
   
-  match '/all/:ratable_type' => "ratables#index", :as => :index_ratable
-  match ':ratable_id/rating/edit' => "rating#edit", :as => :edit_rating
+  match '/all/countries' => "countries#index", :as => :index_countries
+  match ':country_id/rating/edit' => "rating#edit", :as => :edit_rating
 end
