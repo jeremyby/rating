@@ -1,16 +1,28 @@
 :javascript
  if (window.location.hash == '#_=_') window.location.hash = '';
 
-%h1 Home
-%div
- %h2 The Countires
- %ul
-  - Ratable::Country.all.each do |c|
-   %li= link_to c.name, c
+- content_for :slider do
+ #slider
+  %h1 Country rating of your own
+  %h2 Your opinion matters now
+
+- content_for :actioner do
+ #actioner
+  %h3 Start by rate your own country ->
+  #img
 
 %div
- %h2 The I18N Organizations
- %ul
-  -Ratable::Organization.all.each do |o|
-   %li= link_to o.name, o
+ %table#home
+  %thead
+   %tr
+    %th Rank
+    %th Country
+    %th Credit Rating 
+  %tbody
+   - @countries.each_with_index do |c, i|
+    %tr
+     %td= i+1
+     %td= link_to c.name, c
+     %td.rating= c.rating_score
 
+%div= link_to "See all countries...", index_ratable_path(:ratable_type => 'country')

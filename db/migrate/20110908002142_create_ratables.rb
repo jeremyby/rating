@@ -1,12 +1,12 @@
 class CreateRatables < ActiveRecord::Migration
   def change
     create_table :ratables do |t|
-      t.string :type
+      t.string :type,               :null => false
       t.string :slug
       t.integer :parent_id
       
       t.string :code
-      t.string :name
+      t.string :name,               :null => false
       t.string :alias
       t.string :full_name
 

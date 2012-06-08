@@ -1,19 +1,21 @@
-%h1 Login
+- content_for :actioner do
+ #actioner
+  %h3 Login
 
 = form_for @user_session do |f| 
  = f.error_messages
 
- %div  
+ %p
   = f.label :login
   = f.text_field :login
 
- %div
+ %p
   = f.label :password 
   = f.password_field :password
 
- %div
+ %p
   = f.check_box :remember_me 
   = f.label :remember_me
 
- %div
+ %p
   = f.submit "Login"

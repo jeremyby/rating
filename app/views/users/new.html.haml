@@ -2,18 +2,18 @@
 
 = form_for @user do |f|
  = f.error_messages
- %div
+ %p
   =f.label "Login:"
   =f.text_field :login
- %div
+ %p
   =f.label "Email:"
   =f.text_field :email
- %div
+ %p
   =f.label "Password:"
   =f.password_field :password
- %div
+ %p
   =f.label "Password Confirmation:"
   =f.password_field :password_confirmation
- %div
+ %p
   =f.submit "Submit"
 

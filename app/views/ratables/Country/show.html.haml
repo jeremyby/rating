@@ -1,17 +1,22 @@
 - @country = @ratable
 
-%h2= @country.name
+- if current_user
+ - @rating = Rating.find_by_user_id_and_ratable_id(current_user.id, @country.id)
 
-- unless @country.score.blank?
- %div #{@country.full_name} has a rating score of #{@country.score.value}
+%h1= @country.name
 
-%div
- - if current_user
-  - @rating = Rating.find_by_user_id_and_ratable_id(current_user.id, @country.id)
-  
-  - if @rating.blank?
-   %div= link_to 'Rate this country', new_ratable_rating_path(@country)
-  - else
-   %h4 Your rating is #{@rating.value}
-   %div= link_to 'Change your rating', edit_rating_path(@country)
+- unless @country.full_name.blank? && @country.alias.blank?
+ %h2= (@country.full_name.blank? ? '':@country.full_name) + (@country.alias.blank? ? '':' (' + @country.alias + ')')
+ 
+
+- if @country.ratings.size >= 1
+ %div #{@country.name} has a rating score of #{@country.rating_score}
+- else
+ %p There are not enough ratings for #{@country.name}. Please rate for this country now.
+
+- if @rating.blank?
+ %p= link_to 'Rate this country', new_ratable_rating_path(@country)
+- else
+ %h4 Your rating is #{@rating.value}
+ %p= link_to 'Change your rating', edit_rating_path(@country)
   

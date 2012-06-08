@@ -1,0 +1,31 @@
+table#home {
+  font-size: 12px;
+  width: 300px;
+  margin: 0;
+  text-align: left;
+  
+  th {
+    padding: 10px 8px;
+    font: {
+      weight: normal;
+      style: italic;
+    }
+  }
+  
+  td {
+    padding: 9px 8px 0 8px;
+    
+    a,
+    a:link,
+    a:hover,
+    a:active,
+    a:visited {
+      color: #000;
+      text-decoration: none;
+    }
+    
+    &.rating {
+      font-weight: bold;
+    }
+  }
+}

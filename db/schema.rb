@@ -21,11 +21,11 @@ ActiveRecord::Schema.define(:version => 20120515071403) do
   end
 
   create_table "ratables", :force => true do |t|
-    t.string   "type"
+    t.string   "type",       :null => false
     t.string   "slug"
     t.integer  "parent_id"
     t.string   "code"
-    t.string   "name"
+    t.string   "name",       :null => false
     t.string   "alias"
     t.string   "full_name"
     t.datetime "created_at", :null => false
@@ -45,11 +45,11 @@ ActiveRecord::Schema.define(:version => 20120515071403) do
   end
 
   create_table "scores", :force => true do |t|
-    t.float    "value"
+    t.float    "value",          :default => 50.0, :null => false
     t.float    "previous_score"
     t.integer  "ratable_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   create_table "users", :force => true do |t|
