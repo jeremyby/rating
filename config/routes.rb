@@ -1,4 +1,8 @@
 Oddandriches::Application.routes.draw do
+  get "votings/create"
+
+  get "votings/update"
+
   root :to => 'home#index'
 
   resources :user_sessions, :only => [:create]
@@ -70,10 +74,16 @@ Oddandriches::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
   
-  resources :countries, :path => '', :only => [:index, :show] do
-    resources :rating, :only => [:new, :create, :update]
-  end
+  match "/:country_id/:poll_id/votings"  => "votings#create", :via => :post, :as => :create_country_poll_vote
+  match "votings/:id" => "votings#update", :via => :put, :as  => :update_vote
   
   match '/all/countries' => "countries#index", :as => :index_countries
-  match ':country_id/rating/edit' => "rating#edit", :as => :edit_rating
+  match ':country_id' => "countries#show"
+  
+  #match ':country_id/rating/edit' => "rating#edit", :as => :edit_rating
+  
+  resources :countries, :path => "", :only => [:index, :show] do
+    #resources :rating, :only => [:new, :create, :update]
+    resources :polls, :path => ""
+  end
 end

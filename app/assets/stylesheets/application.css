@@ -6,5 +6,6 @@
  *= require normalize
  *= require layout
  *= require home
+ *= require poll
  *= require notification
 */

@@ -2,10 +2,15 @@ body {
   background: url('/assets/bg.png');
 }
 
+.clear {
+  overflow: auto;
+  width: 100%;
+}
+
 #page_header,
 #slider,
 #actioner,
-#footer {
+#page_footer {
   overflow: hidden;
   width: 980px;
   margin: 0 auto;
@@ -49,10 +54,15 @@ header#page_header {
   background: url('/assets/2bits.png') top left repeat-x;
   height: 160px;
   
-  h1, h2 {
-    font-size: 1.5em;
-    margin: 0;
+  h1 {
+    font-size: 1.6em;
+    margin: 40px 0 0 20px;
    } 
+   
+  h2 {
+    font-size: 1.4em;
+    margin-left: 65px;
+  }
 }
 
 #actioner {
@@ -60,27 +70,25 @@ header#page_header {
   padding: 0;
   margin-bottom: -25px;
   
-  h3 {
+  #action {
     background: url('/assets/atn_bg.png') top left repeat-x;
     height: 80px;
-    color: #fff;
     margin: 0;
     padding: 0;
-    font-weight: normal;
-    text-align: center;
-    vertical-align: middle;
+
+    h3 {
+      color: #fff;
+      font-weight: normal;
+      margin: 0;
+      padding: 30px 0 0 20px;
+    }
   }
   
-  #img {
+  #tri {
     position: relative;
-    left: 25px;
+    left: 45px;
     height: 25px;
     background: url('/assets/tri.png') top left no-repeat;
-  }
-  
-  img {
-    position: relative;
-    left: 25px;
   }
 }
 
@@ -91,12 +99,45 @@ div.container{
   
   #contenter {
     width: 980px;
+    min-height: 500px;
     background: #fff;
     margin: 0 auto;
     padding: 0;
     
     .wrapper {
-      padding: 20px 25px;
+      padding: 20px;
+    }
+  }
+}
+
+footer#page_footer {
+  font-size: 0.7em;
+  height: 80px;
+  padding: 0 0 0 10px;
+  
+  ul {
+    margin-left: -10px;
+    padding: 10px 0 0 0;
+    
+    li {
+      border-right: 1px solid #fef8e7;
+      display: inline;
+      margin: 0;
+      
+      &:last-child {
+        border-right: none;
+      }
+  
+      a {
+        padding: 5px 10px;
+        
+        &:link,
+        &:hover,
+        &:visited,
+        &.active {
+          color: #fff;
+        }
+      }
     }
   }
 }

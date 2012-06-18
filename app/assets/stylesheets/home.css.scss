@@ -1,14 +1,17 @@
 table#home {
-  font-size: 12px;
-  width: 300px;
+  width: 400px;
   margin: 0;
   text-align: left;
   
   th {
     padding: 10px 8px;
     font: {
+      font-size: 0.8em;
       weight: normal;
-      style: italic;
+    }
+    
+    &.center {
+      text-align: center;
     }
   }
   
@@ -24,7 +27,12 @@ table#home {
       text-decoration: none;
     }
     
+    &.rank {
+      text-align: center;
+    }
+    
     &.rating {
+      text-align: center;
       font-weight: bold;
     }
   }

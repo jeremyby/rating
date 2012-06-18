@@ -10,7 +10,6 @@ gem 'json'
 gem 'haml'
 gem 'haml-rails'
 gem 'friendly_id'
-gem 'acts_as_tree_rails3'
 
 
 # Gems used only for assets and not required
@@ -33,8 +32,8 @@ gem 'omniauth-facebook'
 # Use unicorn as the web server
 # gem 'unicorn'
 
-# Deploy with Capistrano
-# gem 'capistrano'
+#Deploy with Capistrano
+#gem 'capistrano'
 
 # To use debugger
 # gem 'ruby-debug'

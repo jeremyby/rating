@@ -1,28 +1,47 @@
 :javascript
- if (window.location.hash == '#_=_') window.location.hash = '';
+  if (window.location.hash == '#_=_') window.location.hash = '';
 
 - content_for :slider do
- #slider
-  %h1 Country rating of your own
-  %h2 Your opinion matters now
+  #slider
+    %h1 Choose side for questions that decides your country's credit rating
+    %h2 or even more - Create your own polls
 
 - content_for :actioner do
- #actioner
-  %h3 Start by rate your own country ->
-  #img
+  #actioner
+    #action
+      %h3 Start by checking out your own country ->
+    #tri
 
-%div
- %table#home
-  %thead
-   %tr
-    %th Rank
-    %th Country
-    %th Credit Rating 
-  %tbody
-   - @countries.each_with_index do |c, i|
-    %tr
-     %td= i+1
-     %td= link_to c.name, c
-     %td.rating= c.rating_score
+/ %div
+/  %table#home
+/   %thead
+/    %tr
+/     %th.center Rank
+/     %th Country
+/     %th.center Credit Rating 
+/   %tbody
+/    - @countries.each_with_index do |c, i|
+/     %tr
+/      %td.rank= i+1
+/      %td= link_to c.name, c
+/      %td.rating= c.rating_score
 
-%div= link_to "See all countries...", index_countries_path
+
+%ul
+  - @countries.each do |c|
+    %li
+      %p= link_to c.name, c
+
+
+/ - polls = Poll.where("country_code <> ?", "nil")
+/ 
+/ %ul
+/  - polls.each do |p|
+/   %li
+/    %p
+/     %span= link_to p.question, country_poll_path(p.country, p)
+/     - unless p.default_format?
+/      %span= p.positive
+/      %span or #{p.negative}?
+  
+%p= link_to "See all countries...", index_countries_path

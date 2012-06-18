@@ -1,19 +1,23 @@
-%h1 Signup
+- content_for :actioner do
+  #actioner
+    #action
+      %h3 Signup
+    #tri
 
 = form_for @user do |f|
- = f.error_messages
- %p
-  =f.label "Login:"
-  =f.text_field :login
- %p
-  =f.label "Email:"
-  =f.text_field :email
- %p
-  =f.label "Password:"
-  =f.password_field :password
- %p
-  =f.label "Password Confirmation:"
-  =f.password_field :password_confirmation
- %p
-  =f.submit "Submit"
+  = f.error_messages
+  %p
+    =f.label "Login:"
+    =f.text_field :login
+  %p
+    =f.label "Email:"
+    =f.text_field :email
+  %p
+    =f.label "Password:"
+    =f.password_field :password
+  %p
+    =f.label "Password Confirmation:"
+    =f.password_field :password_confirmation
+  %p
+    =f.submit "Submit"
 

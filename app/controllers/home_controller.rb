@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @countries = Country.top_rated(10)
+    @countries = Country.most_polled(10)
   end
 end

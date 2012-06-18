@@ -3,6 +3,10 @@ class CountriesController < ApplicationController
   end
   
   def show
-    @country = Country.find(params[:id])
+    begin
+      @country = Country.find(params[:country_id])   
+    rescue ActiveRecord::RecordNotFound
+      redirect_to '/404.html'
+    end
   end    
 end

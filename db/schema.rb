@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120515071403) do
+ActiveRecord::Schema.define(:version => 20120611085949) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -24,16 +24,32 @@ ActiveRecord::Schema.define(:version => 20120515071403) do
     t.string   "slug"
     t.integer  "parent_id"
     t.string   "code"
-    t.string   "name",       :null => false
+    t.string   "name",        :null => false
     t.string   "alias"
     t.string   "full_name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "polls_count"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "countries", ["code"], :name => "index_countries_on_code", :unique => true
   add_index "countries", ["name"], :name => "index_countries_on_name", :unique => true
   add_index "countries", ["slug"], :name => "index_countries_on_slug", :unique => true
+
+  create_table "polls", :force => true do |t|
+    t.string   "slug"
+    t.string   "question",                         :null => false
+    t.integer  "votings_count"
+    t.string   "positive",      :default => "Yes"
+    t.string   "negative",      :default => "No"
+    t.integer  "user_id"
+    t.string   "country_code",  :default => "all"
+    t.integer  "category",      :default => 4
+    t.integer  "coverage",      :default => 0
+    t.integer  "weight",        :default => -1
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
 
   create_table "ratings", :force => true do |t|
     t.float    "value"
@@ -71,5 +87,14 @@ ActiveRecord::Schema.define(:version => 20120515071403) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token", :unique => true
+
+  create_table "votings", :force => true do |t|
+    t.integer  "poll_id"
+    t.integer  "user_id"
+    t.string   "country_code"
+    t.integer  "vote"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
 end

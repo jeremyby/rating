@@ -1,0 +1,41 @@
+- content_for :actioner do
+  #actioner
+    #action
+      %h3 Picking positive answers will raise the country's rating, negative ones will hurt it ->
+    #tri
+
+%h1 
+  Poll on
+  %span= @country.name
+
+- if current_user
+  - @voting = Voting.where(:poll_id => @poll.id, :country_code => @country.code, :user_id => current_user.id).first
+
+- if @voting.blank?
+  - @voting = Voting.new
+
+.clear
+  %h2.q
+    - url = @voting.new_record? ? create_country_poll_vote_path(@country, @poll) : update_vote_path(@voting)
+    = form_for @voting, :url => url do |f| 
+      Question:
+      - if @poll.question_positive?
+        =f.submit @poll.question, {:class => "positive", :name => "positive"}
+        or
+        =f.submit @poll.negative, {:class => "negative", :name => "negative"}
+      - else
+        %span= @poll.question
+        %p.a
+          =f.submit @poll.positive, {:class => "positive", :name => "positive"}
+          or
+          =f.submit @poll.negative, {:class => "negative", :name => "negative"}
+
+
+
+- unless @voting.new_record?
+  %p
+    You have voted for
+    - if @voting.vote > 0
+      %span= @poll.question_positive? ? @poll.question : @poll.positive
+    - else
+      %span= @poll.negative

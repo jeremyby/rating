@@ -8,6 +8,8 @@ class CreateCountries < ActiveRecord::Migration
       t.string :name,               :null => false
       t.string :alias
       t.string :full_name
+      
+      t.integer :polls_count
 
       t.timestamps
     end

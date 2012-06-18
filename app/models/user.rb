@@ -1,8 +1,11 @@
 class User < ActiveRecord::Base
   attr_accessor :password_confirmation
-  has_many :authorizations, :dependent => :destroy
+  has_many :authorizations,   :dependent => :destroy
   
   has_many :ratings
+  
+  has_many :polls
+  has_many :votings
   
   acts_as_authentic do |c|
     c.ignore_blank_passwords = true #ignoring passwords
