@@ -4,6 +4,7 @@ class VotingsController < ApplicationController
   def create
     @country = Country.find(params[:country_id])
     @poll = Poll.find(params[:poll_id])
+    
     @voting = current_user.votings.build( 
                                           :poll => @poll,
                                           :country => @country,
@@ -19,6 +20,7 @@ class VotingsController < ApplicationController
   def update
     voting = Voting.find(params[:id])
     voting.vote = get_vote_value(params[:positive])
+    
     poll = voting.poll
     
     if voting.save

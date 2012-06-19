@@ -512,7 +512,7 @@ window.Modernizr = (function( window, document, undefined ) {
         return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
     };
 
-    // FIXME: Once FF10 is sunsetted, we can drop prefixed MozWebSocket
+    // FIX-ME: Once FF10 is sunsetted, we can drop prefixed MozWebSocket
     // bugzil.la/695635
     tests['websockets'] = function() {
         for ( var i = -1, len = cssomPrefixes.length; ++i < len; ){
@@ -634,7 +634,7 @@ window.Modernizr = (function( window, document, undefined ) {
             str3 = 'linear-gradient(left top,#9f9, white);';
 
         setCss(
-             // legacy webkit syntax (FIXME: remove when syntax not in use anymore)
+             // legacy webkit syntax (FIX-ME: remove when syntax not in use anymore)
               (str1 + '-webkit- '.split(' ').join(str2 + str1) 
              // standard syntax             // trailing 'background-image:' 
               + prefixes.join(str3 + str1)).slice(0, -str1.length)
@@ -924,7 +924,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
 
     // Run through all tests and detect their support in the current UA.
-    // todo: hypothetically we could be doing an array of tests and use a basic loop here.
+    // to-do: hypothetically we could be doing an array of tests and use a basic loop here.
     for ( var feature in tests ) {
         if ( hasOwnProperty(tests, feature) ) {
             // run the test, throw the return value into the Modernizr,

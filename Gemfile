@@ -41,4 +41,6 @@ gem 'omniauth-facebook'
 group :development, :test do
   gem 'rspec'
   gem "rspec-rails"
+  gem "autotest"
+  gem "autotest-rails"
 end

@@ -36,6 +36,6 @@
   %p
     You have voted for
     - if @voting.vote > 0
-      %span= @poll.question_positive? ? @poll.question : @poll.positive
+      %span= @poll.question_positive? ? "Yes" : @poll.positive
     - else
       %span= @poll.negative

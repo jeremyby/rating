@@ -1,47 +1,32 @@
 require 'spec_helper'
 
 describe PollsController do
-
-  describe "GET 'index'" do
-    it "returns http success" do
-      get 'index'
-      response.should be_success
-    end
-  end
-
-  describe "GET 'show'" do
-    it "returns http success" do
+  describe "GET 'show' no params" do
+    it "should go page something wrong" do
       get 'show'
+      response.should redirect_to("/404.html")
+    end
+  end
+  
+  
+  describe "GET 'show' wrong poll" do
+    it "should go page not found" do
+      get 'show', :id => "non-exist poll", :country_id => "us"
+      response.should redirect_to("/404.html")
+    end
+  end
+  
+  describe "GET 'show' wrong country" do
+    it "should go page not found" do
+      get 'show', :id => "are-you-generally-happy-living-in-this-country", :country_id => "aa"
+      response.should redirect_to("/404.html")
+    end
+  end
+  
+  describe "GET 'show'" do
+    it "should work" do
+      get 'show', :id => "are-you-generally-happy-living-in-this-country", :country_id => "united-states"
       response.should be_success
     end
   end
-
-  describe "GET 'new'" do
-    it "returns http success" do
-      get 'new'
-      response.should be_success
-    end
-  end
-
-  describe "GET 'create'" do
-    it "returns http success" do
-      get 'create'
-      response.should be_success
-    end
-  end
-
-  describe "GET 'edit'" do
-    it "returns http success" do
-      get 'edit'
-      response.should be_success
-    end
-  end
-
-  describe "GET 'update'" do
-    it "returns http success" do
-      get 'update'
-      response.should be_success
-    end
-  end
-
 end
