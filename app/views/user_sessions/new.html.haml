@@ -1,15 +1,13 @@
 - content_for :actioner do
-  #actioner
-    #action
-      %h3 Login
-    #tri
+  %h3 Login
+
 
 = form_for @user_session do |f| 
   = f.error_messages
 
   %p
-    = f.label :login
-    = f.text_field :login
+    = f.label :email
+    = f.text_field :email
 
   %p
     = f.label :password 

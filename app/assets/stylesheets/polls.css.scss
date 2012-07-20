@@ -1,0 +1,65 @@
+.positive {
+
+}
+
+.negative {
+ 
+}
+
+#question {  
+  
+  #question_body {
+    position: relative;
+    padding-left: 5px;
+    
+    #images {
+      padding: 20px 0 0 0;    
+
+      span {
+        padding-right: 20px;
+      }
+    }
+  
+    .q {
+      letter-spacing: 0.6px;
+      line-height: 180%;
+    
+      font-size: 2.5em;
+    
+      margin: 0.2em 0;
+  
+    }
+  }
+
+  #answer {
+    position: relative;
+    left: 30%;
+
+    margin: 0;
+    max-width: 660px;
+    
+    letter-spacing: 0.3px;
+    line-height: 160%;
+    
+    font-size: 2.2em;
+    
+    div {
+      float: left;
+      
+      p {
+        margin: 0;
+      }
+      
+      &.or {
+        padding: 0 12px 3px 10px;
+        
+        span {
+          font-style: italic;
+          font-size: 0.7em;
+          
+          color: #f16022;
+        }
+      }
+    }
+  }  
+}

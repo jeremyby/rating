@@ -1,0 +1,35 @@
+.clear {
+  overflow: auto;
+  width: 100%;
+}
+
+.bold {
+  font-style: bold;
+}
+
+.italic {
+  font-style: italic;
+}
+
+span.green {
+  color: green;
+}
+
+span.red {
+  color: red;
+}
+
+.zigzag {
+  font-weight: normal;
+  
+  span {
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: 0 3px;
+  }
+}
+
+.impact {
+  font-family: impact;
+  letter-spacing: 1px;
+}

@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Oddandriches::Application.load_tasks
+Askacountry::Application.load_tasks

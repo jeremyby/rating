@@ -1,39 +1,22 @@
-table#home {
-  width: 400px;
-  margin: 0;
-  text-align: left;
-  
-  th {
-    padding: 10px 8px;
-    font: {
-      font-size: 0.8em;
-      weight: normal;
-    }
+#slider {
+  p {
+    margin: 0;
+    padding: 20px;
     
-    &.center {
-      text-align: center;
+    color: #eee;
+    font-family: impact;
+    font-weight: normail;
+    font-size: 2.5em;
+    text-align: center;
+    letter-spacing: 1px;
+    
+    img {
+      position: relative;
+      top: -20px;
     }
   }
-  
-  td {
-    padding: 9px 8px 0 8px;
-    
-    a,
-    a:link,
-    a:hover,
-    a:active,
-    a:visited {
-      color: #000;
-      text-decoration: none;
-    }
-    
-    &.rank {
-      text-align: center;
-    }
-    
-    &.rating {
-      text-align: center;
-      font-weight: bold;
-    }
-  }
+}
+
+ul {
+  padding-left: 15px;
 }

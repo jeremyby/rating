@@ -1,5 +1,4 @@
 class Country < ActiveRecord::Base
-  has_many :ratings
   has_one :score
   
   has_many :polls,      :primary_key => "code",     :foreign_key => "country_code"

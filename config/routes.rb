@@ -1,20 +1,15 @@
-Oddandriches::Application.routes.draw do
-  get "votings/create"
-
-  get "votings/update"
-
+Askacountry::Application.routes.draw do
   root :to => 'home#index'
 
   resources :user_sessions, :only => [:create]
   match 'login' => "user_sessions#new",      :as => :login
   match 'logout' => "user_sessions#destroy", :as => :logout
   
-  resources :authorizations
   match '/auth/:provider/callback' => "authorizations#create"
   match '/auth/failure'  => "authorizations#failure"
   match '/auth/:provider'  => "authorizations#blank"
   
-  resources :users
+  resources :users, :except => [:new, :index]
   match 'signup'  => "users#new", :as  => :signup
 
   # The priority is based upon order of creation:
@@ -73,17 +68,13 @@ Oddandriches::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
+    
+  match "/:country_id/:id"  => "polls#show", :via => :get, :as => :country_poll
   
-  match "/:country_id/:poll_id/votings"  => "votings#create", :via => :post, :as => :create_country_poll_vote
-  match "votings/:id" => "votings#update", :via => :put, :as  => :update_vote
+  match "/all/countries" => "countries#index", :as => :index_countries
   
-  match '/all/countries' => "countries#index", :as => :index_countries
-  match ':country_id' => "countries#show"
-  
-  #match ':country_id/rating/edit' => "rating#edit", :as => :edit_rating
-  
-  resources :countries, :path => "", :only => [:index, :show] do
-    #resources :rating, :only => [:new, :create, :update]
-    resources :polls, :path => ""
+  resources :countries, :path => "", :only => [:show] do
+    resources :poll_pack, :only => [:new, :index, :create]
+    resources :polls,  :except => [:index, :show]
   end
 end

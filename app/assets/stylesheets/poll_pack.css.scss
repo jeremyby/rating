@@ -1,0 +1,155 @@
+.ui-widget-overlay {
+  opacity: 0.9;
+  background: #555;
+}
+
+.ui-dialog {
+  
+  #close {
+    position: absolute;
+    top: 3px;
+    right: 7px;
+    
+    font-size: 13px;
+    
+    color: #ccc;
+    
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  
+  #poll_pack {
+    margin: 5px 15px;
+    
+    #q_holder {
+      position: relative;
+      
+      .vote {
+        position: absolute;
+      }
+    }
+    
+    #loading {
+      position: relative;
+      left: 260px;
+      top: 250px;
+      width: 300px;
+      text-align: center;
+    }
+    
+    #counter {
+      text-align: right;
+      margin-right: -10px;
+      
+      span {
+        color: #f16022;
+      }
+    }
+    
+    #bar {
+      position: relative;
+      top: 25px;
+      left: 385px;
+      width: 60px;
+      height: 20px;
+      
+      .ui-progressbar-value {
+      }
+    }
+    
+    .table {
+      position: absolute;
+      display: table;
+
+      .cell {
+        display: table-cell; 
+        vertical-align: middle; 
+        text-align: center;
+      }
+    }
+    
+    #question {
+      #question_body {
+        height: 270px;
+        
+        .table {
+          height: 270px;
+          
+          .cell {
+            text-align: left;
+          
+            #images {
+              padding: 0;
+            }
+        
+            .q {
+              letter-spacing: 0.4px;
+              line-height: 140%;
+
+              font-size: 2em;
+            }
+          }
+        }
+      }
+
+
+      #answer {
+        top: 0px;
+        left: 85px;
+        
+        height: 180px;
+        width: 800px;
+        letter-spacing: 0.2px;
+        
+        background: url('/assets/or.png') 319px 2px no-repeat;
+
+        font-size: 1.4em;
+        
+        .yes,
+        .no {
+          top: 0;
+                          
+          width: 300px;
+          height: 180px;
+          
+          background: #f8f8f8;
+          
+          cursor: pointer;
+          
+          &.positive p {
+            background: url('/assets/plus.png') top left no-repeat;
+          }
+
+          &.negative p {
+            background: url('/assets/minus.png') top right no-repeat;
+          }
+        }
+
+        .yes {
+          left: 15px;
+        }
+        
+        .or {
+          display: none;
+        }
+        
+        .no {
+          left: 345px;
+        }
+        
+        .green {
+          background: #ccffcc;
+        }
+        
+        .red {
+          background: #ffcccc;
+        }
+      }
+    }
+  }
+  
+  .ui-dialog-titlebar {
+    display: none;
+  }
+}

@@ -1,45 +1,35 @@
-- if current_user
-  - @rating = Rating.find_by_user_id_and_country_id(current_user.id, @country.id)
-
-
-- content_for :actioner do
-  #actioner
-    #action
-      %h3 Wanna help to give better rating of the country? Make your own questions! ->
-    #tri
-
-%h1= @country.name
 
 - unless @country.full_name.blank? && @country.alias.blank?
   %h2= (@country.full_name.blank? ? '':@country.full_name) + (@country.alias.blank? ? '':' (' + @country.alias + ')')
- 
-
-- if @country.ratings.size >= 1
-  %p #{@country.name} has a rating score of #{@country.rating_score}
-- else
-  %p There are not enough ratings for #{@country.name}. Please rate for this country now.
 
 
+%h2 
+  What is 
+  %span Your Opinion
+  of
+  %span #{@country.name}?
 
-/ - if @rating.blank?
-/  %p= link_to 'Rate this country', new_country_rating_path(@country)
-/ - else
-/  %h4 Your rating is #{@rating.value}
-/  %p= link_to 'Change your rating', edit_rating_path(@country)
+- if current_user
+  %p        
+    %h2 
+      Answer 10 questions in 1 
+      %span.italic Poll Pack
+    %p= link_to "Start Now", "#", :id => "poll_pack_start"
   
   
 
 %h2 Give positive or negative answers to the question below
 
-- @polls = Poll.where("country_code = ? or country_code = ?", @country.code, "all")
+- @polls = Poll.approved.where("country_code = ? or country_code = 'all'", @country.code)
 
-%ul
+%ul.poll_list
   - @polls.each do |p|
     %li
       %p
-        %span= link_to p.question, country_poll_path(@country, p)
-        - unless p.default_format?
-          %span= p.positive
-          %span or #{p.negative}?
+        %span.question
+          = poll_category_image p
+          
+          = link_to p.question, country_poll_path(@country, p)
+          
         by
-        %span= link_to p.owner.login, p.owner
+        %span= link_to p.owner.name, p.owner

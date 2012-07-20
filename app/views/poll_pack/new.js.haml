@@ -1,0 +1,11 @@
+:plain
+  var polls = [];
+
+- @polls.each do |p|
+  :plain
+    polls.push(
+      {
+        id: #{p.id},
+        html: "#{j render 'polls/poll', :poll => p }"
+      }
+    )

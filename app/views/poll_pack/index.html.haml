@@ -1,0 +1,22 @@
+- content_for :actioner do
+  %h3 You just finished a poll pack on #{@country.name}
+
+    
+%h1 Check out your votes
+
+%ul.poll_list
+  - @polls.each do |p|
+    %li
+      %p
+        %span.question
+          = poll_category_image p
+          
+          = link_to p.question, country_poll_path(@country, p)
+          
+        %span
+          You have voted 
+          %span.bold
+            - if p.votings.first.vote > 0 
+              %span.green= p.positive
+            -else
+              %span.red= p.negative

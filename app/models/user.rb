@@ -1,16 +1,18 @@
 class User < ActiveRecord::Base
   attr_accessor :password_confirmation
-  has_many :authorizations,   :dependent => :destroy
-  
-  has_many :ratings
+  belongs_to  :country,               :foreign_key => "country_code",     :primary_key => "code"
+  has_many :authorizations,           :dependent => :destroy
   
   has_many :polls
-  has_many :votings
+  has_many :votings, :dependent => :destroy
   
   acts_as_authentic do |c|
     c.ignore_blank_passwords = true #ignoring passwords
     c.validate_password_field = false #ignoring validations for password fields
   end
+  
+  validates_presence_of :name, :email, :country_code
+  validates_uniqueness_of :email
   
   #here we add required validations for a new record and pre-existing record
   validate do |user|
@@ -26,10 +28,22 @@ class User < ActiveRecord::Base
     end
   end
   
-  def self.create_with_omniauth(info)
-    user = User.new(:login  => info.name, :email  => info.email)
-    user.save(:validate  => false) #create the user without performing validations. This is because most of the fields are not set.
+  def self.create_with_omniauth(info, country_code)
+    user = User.new(:name => info.name, :email => info.email, :country_code => country_code)
+    user.save(:validate => false) #create the user without performing validations. This is because most of the fields are not set.
     user.reset_persistence_token! #set persistence_token else sessions will not be created
     user
+  end
+  
+  
+  def get_poll_pack_for(country_code)
+    same_country = (self.country_code == country_code)
+    
+    # refact below line for easy reading
+    coverage_condition = same_country ? [0, 1] : [0, 2]
+    
+    votings = self.votings.reload
+    
+    Poll.approved.where("(country_code = ? OR country_code = 'all') AND coverage IN (?) AND id not IN (?)", country_code, coverage_condition, votings.empty? ? 0 : votings.map(&:poll_id))
   end
 end

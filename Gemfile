@@ -11,13 +11,13 @@ gem 'haml'
 gem 'haml-rails'
 gem 'friendly_id'
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
+  gem 'jquery-ui-rails'
 end
 
 gem 'jquery-rails'
@@ -28,6 +28,14 @@ gem "rails3-generators"
 gem "system_timer"
 gem 'omniauth'
 gem 'omniauth-facebook'
+
+gem "rmagick"
+gem "carrierwave"
+gem "mime-types"
+
+gem "geocoder"
+
+gem 'acts_as_commentable_with_threading'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -41,6 +49,7 @@ gem 'omniauth-facebook'
 group :development, :test do
   gem 'rspec'
   gem "rspec-rails"
+  
   gem "autotest"
   gem "autotest-rails"
 end

@@ -10,20 +10,38 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120611085949) do
+ActiveRecord::Schema.define(:version => 20120715060128) do
 
   create_table "authorizations", :force => true do |t|
-    t.string   "provider"
-    t.string   "uid"
-    t.integer  "user_id"
+    t.string   "provider",   :null => false
+    t.string   "uid",        :null => false
+    t.integer  "user_id",    :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
+  add_index "authorizations", ["user_id"], :name => "index_authorizations_on_user_id"
+
+  create_table "comments", :force => true do |t|
+    t.integer  "commentable_id",   :default => 0
+    t.string   "commentable_type", :default => ""
+    t.string   "title",            :default => ""
+    t.text     "body",             :default => ""
+    t.string   "subject",          :default => ""
+    t.integer  "user_id",          :default => 0,  :null => false
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
   create_table "countries", :force => true do |t|
     t.string   "slug"
-    t.integer  "parent_id"
-    t.string   "code"
+    t.string   "code",        :null => false
     t.string   "name",        :null => false
     t.string   "alias"
     t.string   "full_name"
@@ -40,23 +58,16 @@ ActiveRecord::Schema.define(:version => 20120611085949) do
     t.string   "slug"
     t.string   "question",                         :null => false
     t.integer  "votings_count"
-    t.string   "positive",      :default => "Yes"
-    t.string   "negative",      :default => "No"
-    t.integer  "user_id"
-    t.string   "country_code",  :default => "all"
-    t.integer  "category",      :default => 4
-    t.integer  "coverage",      :default => 0
-    t.integer  "weight",        :default => -1
+    t.string   "yes",           :default => "Yes", :null => false
+    t.string   "no",            :default => "No",  :null => false
+    t.boolean  "yes_positive",  :default => true,  :null => false
+    t.integer  "user_id",                          :null => false
+    t.string   "country_code",                     :null => false
+    t.integer  "category",      :default => 4,     :null => false
+    t.integer  "coverage",      :default => 0,     :null => false
+    t.integer  "weight",        :default => -1,    :null => false
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
-  end
-
-  create_table "ratings", :force => true do |t|
-    t.float    "value"
-    t.integer  "user_id"
-    t.integer  "country_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "scores", :force => true do |t|
@@ -68,10 +79,11 @@ ActiveRecord::Schema.define(:version => 20120611085949) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "login",                             :null => false
+    t.string   "name",                              :null => false
     t.string   "email",                             :null => false
     t.string   "crypted_password"
     t.string   "password_salt"
+    t.string   "country_code",                      :null => false
     t.string   "persistence_token"
     t.integer  "login_count",        :default => 0, :null => false
     t.integer  "failed_login_count", :default => 0, :null => false
@@ -82,19 +94,22 @@ ActiveRecord::Schema.define(:version => 20120611085949) do
     t.string   "last_login_ip"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["login"], :name => "index_users_on_login", :unique => true
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token", :unique => true
 
   create_table "votings", :force => true do |t|
-    t.integer  "poll_id"
-    t.integer  "user_id"
-    t.string   "country_code"
-    t.integer  "vote"
+    t.integer  "poll_id",      :null => false
+    t.integer  "user_id",      :null => false
+    t.string   "country_code", :null => false
+    t.integer  "vote",         :null => false
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  add_index "votings", ["poll_id"], :name => "index_votings_on_poll_id"
+  add_index "votings", ["user_id"], :name => "index_votings_on_user_id"
 
 end

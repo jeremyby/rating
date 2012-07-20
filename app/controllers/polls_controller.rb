@@ -1,14 +1,15 @@
 class PollsController < ApplicationController
-  def index
-  end
+  before_filter :require_user, :except => :show
+  before_filter :get_country
 
   def show
     begin        
-      @country = Country.find(params[:country_id])
-      @poll = Poll.find(params[:id])     
+      @poll = Poll.find(params[:id])
+      
+      # return anchor for voting controller
+      session[:return_to] = request.url
     rescue ActiveRecord::RecordNotFound
-      #TODO: need to replace default 404 page
-      redirect_to '/404.html'
+      page_404
     end
   end
 
@@ -22,6 +23,9 @@ class PollsController < ApplicationController
   end
 
   def update
+  end
+  
+  def destroy
   end
 end
 

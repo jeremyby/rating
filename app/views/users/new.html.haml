@@ -1,14 +1,11 @@
 - content_for :actioner do
-  #actioner
-    #action
-      %h3 Signup
-    #tri
+  %h3 Signup
 
 = form_for @user do |f|
   = f.error_messages
   %p
-    =f.label "Login:"
-    =f.text_field :login
+    =f.label "Your display name:"
+    =f.text_field :name
   %p
     =f.label "Email:"
     =f.text_field :email

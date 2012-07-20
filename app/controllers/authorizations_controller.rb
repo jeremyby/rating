@@ -17,7 +17,7 @@ class AuthorizationsController < ApplicationController
       flash[:notice] = "Welcome back #{info.provider} user"
       UserSession.create(@auth.user, true) #User is present. Login the user with his social account
     else
-      user = User.create_with_omniauth(info) #Create a new user
+      user = User.create_with_omniauth(info, geocode_from_request) #Create a new user
       @new_auth = user.authorizations.create(:provider => info.provider, :uid  => info.uid) 
       flash[:notice] = "Welcome #{info.provider} user. Your account has been created."
       UserSession.create(user, true) #Log the authorizing user in.

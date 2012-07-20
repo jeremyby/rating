@@ -1,10 +1,13 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
-      t.string    :login,               :null => false
+      t.string    :name,                :null => false
       t.string    :email,               :null => false
       t.string    :crypted_password
       t.string    :password_salt
+      
+      t.string    :country_code,        :null => false
+      
       t.string    :persistence_token
       #t.string    :single_access_token, :null => false                # optional, see Authlogic::Session::Params
       #t.string    :perishable_token,    :null => false                # optional, see Authlogic::Session::Perishability
@@ -20,8 +23,7 @@ class CreateUsers < ActiveRecord::Migration
       
       t.timestamps
     end
-    
-    add_index :users, ["login"], :name => "index_users_on_login", :unique => true
+
     add_index :users, ["email"], :name => "index_users_on_email", :unique => true
     add_index :users, ["persistence_token"], :name => "index_users_on_persistence_token", :unique => true
   end

@@ -1,5 +1,5 @@
 class VotingsController < ApplicationController
-  before_filter :require_user
+  before_filter {|c| c.require_user true}
   
   def create
     @country = Country.find(params[:country_id])
@@ -27,7 +27,6 @@ class VotingsController < ApplicationController
       redirect_to country_poll_path(poll.country, poll)
     end
   end
-  
   
   private
   def get_vote_value(positive)

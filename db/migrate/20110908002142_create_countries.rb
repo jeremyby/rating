@@ -2,9 +2,8 @@ class CreateCountries < ActiveRecord::Migration
   def change
     create_table :countries do |t|
       t.string :slug
-      t.integer :parent_id
       
-      t.string :code
+      t.string :code,               :null => false
       t.string :name,               :null => false
       t.string :alias
       t.string :full_name
