@@ -1,22 +1,47 @@
-#slider {
-  p {
-    margin: 0;
-    padding: 20px;
-    
-    color: #eee;
-    font-family: impact;
-    font-weight: normail;
-    font-size: 2.5em;
+.title {
+  padding-top: 4px;
+  background: url("/assets/2bits.png") center left repeat-x; 
+}
+
+#find-country {
+  position: relative;
+  top: 60px;
+  
+  float: right;
+  width: 340px;
+  height: 300px;
+  
+  .title {
     text-align: center;
-    letter-spacing: 1px;
-    
-    img {
-      position: relative;
-      top: -20px;
-    }
   }
 }
 
-ul {
-  padding-left: 15px;
+#features { 
+  position: relative;
+  top: 60px;
+  width: 600px;
+  
+  
+  #countries {
+    padding-top: 20px;
+    
+    .country {
+      height: 200px;
+      
+      h2 {
+        margin: 0;
+        color: #f16022;
+        font-weight: normal;
+      }
+      
+      ul {
+        list-style-type: none;
+        padding: 0;
+        
+        li {
+          padding: 5px 0;
+        }
+      }
+    }
+  }
 }

@@ -1,7 +1,44 @@
 :javascript
   if (window.location.hash == '#_=_') window.location.hash = '';
 
+- content_for :actioner do
+  #actioner.home
+    .wrapper= image_tag("/assets/headline.png")
 
+#find-country
+  .title= image_tag("/assets/find.png")
+
+
+#features
+  .title= image_tag("/assets/hot.png")
+
+  #countries.clear
+    .country{:style => {:background => ":url('/assets/flags/cn.png') top right no-repeat;"}}
+      %h2 China
+      %ul
+        %li Is China's 2-digit economy growth going to continue?
+        %li Why China backs North Korea?
+        %li Is it true that the next leader of China is decided before some kind of election?
+    .country{:style => {:background => ":url('/assets/flags/us.png') top right no-repeat;"}}
+      %h2 United States
+    .country{:style => {:background => ":url('/assets/flags/sy.png') top right no-repeat;"}}
+      %h2 Syria
+    
+    
+    
+/   .img= image_tag("/assets/flags/china.png")
+/   .img= image_tag("/assets/flags/united-states.png")
+/   .img= image_tag("/assets/flags/syria.png")
+/ #current
+/ %h3 Featuring
+/ %h1#country China
+
+    
+/ %h1
+/   %span.domain 
+/     Ask a 
+/     %span.country country
+/   anything, and find answers of the people
 
 
 / %ul

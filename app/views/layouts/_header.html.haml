@@ -6,9 +6,9 @@
         = link_to "Log out", logout_path
       - else
         = link_to "Sign up", signup_path 
-        |
+        %span or
         = link_to "Log in", login_path
-        |
-        = link_to "Log in with Facebook", "/auth/facebook"
-
-  = link_to image_tag("/assets/logo2.png"), root_url, :id => "logo", :title => "Ask a Country"
+        / |
+        / = link_to "Log in with Facebook", "/auth/facebook"
+  - logo = @home_logo_display ? "logo-s" : "logo"
+  = link_to image_tag("/assets/#{logo}.png"), root_url, :id => "logo", :title => "Ask a Country"

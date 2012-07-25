@@ -1,13 +1,14 @@
+- content_for :actioner do
+  #actioner
+    .wrapper
+      %h2 #{ @country.name }
+
 
 - unless @country.full_name.blank? && @country.alias.blank?
   %h2= (@country.full_name.blank? ? '':@country.full_name) + (@country.alias.blank? ? '':' (' + @country.alias + ')')
 
 
-%h2 
-  What is 
-  %span Your Opinion
-  of
-  %span #{@country.name}?
+
 
 - if current_user
   %p        
@@ -18,7 +19,11 @@
   
   
 
-%h2 Give positive or negative answers to the question below
+%h2 
+  What is 
+  %span Your Opinion
+  of
+  %span #{@country.name}?
 
 - @polls = Poll.approved.where("country_code = ? or country_code = 'all'", @country.code)
 
