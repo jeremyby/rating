@@ -1,5 +1,3 @@
-require 'lib/pollcategory'
-
 Poll_Catogories = [
   [],
   PollCategory.new("eco", "Economics Perspective"),

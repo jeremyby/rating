@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120715060128) do
+ActiveRecord::Schema.define(:version => 20120822023707) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider",   :null => false
@@ -56,18 +56,21 @@ ActiveRecord::Schema.define(:version => 20120715060128) do
 
   create_table "polls", :force => true do |t|
     t.string   "slug"
-    t.string   "question",                         :null => false
+    t.string   "question",                                  :null => false
     t.integer  "votings_count"
-    t.string   "yes",           :default => "Yes", :null => false
-    t.string   "no",            :default => "No",  :null => false
-    t.boolean  "yes_positive",  :default => true,  :null => false
-    t.integer  "user_id",                          :null => false
-    t.string   "country_code",                     :null => false
-    t.integer  "category",      :default => 4,     :null => false
-    t.integer  "coverage",      :default => 0,     :null => false
-    t.integer  "weight",        :default => -1,    :null => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.string   "yes",                    :default => "Yes", :null => false
+    t.string   "no",                     :default => "No",  :null => false
+    t.boolean  "yes_positive",           :default => true,  :null => false
+    t.integer  "user_id",                                   :null => false
+    t.string   "country_code",                              :null => false
+    t.integer  "category",               :default => 4,     :null => false
+    t.integer  "coverage",               :default => 0,     :null => false
+    t.integer  "weight",                 :default => -1,    :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.boolean  "featured",               :default => false
+    t.integer  "positive_votings_count"
+    t.integer  "negative_votings_count"
   end
 
   create_table "scores", :force => true do |t|
@@ -79,22 +82,23 @@ ActiveRecord::Schema.define(:version => 20120715060128) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "name",                              :null => false
-    t.string   "email",                             :null => false
+    t.string   "name",                                  :null => false
+    t.string   "email",                                 :null => false
     t.string   "crypted_password"
     t.string   "password_salt"
-    t.string   "country_code",                      :null => false
+    t.string   "country_code",                          :null => false
     t.string   "persistence_token"
-    t.integer  "login_count",        :default => 0, :null => false
-    t.integer  "failed_login_count", :default => 0, :null => false
+    t.integer  "login_count",        :default => 0,     :null => false
+    t.integer  "failed_login_count", :default => 0,     :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.string   "avatar"
+    t.boolean  "admin",              :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

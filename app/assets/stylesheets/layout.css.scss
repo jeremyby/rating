@@ -7,6 +7,7 @@ body {
 
 #page_header,
 #slider,
+#action,
 #page_footer {
   width: 960px;
   margin: 0 auto;
@@ -24,25 +25,22 @@ body {
 }
 
 header#page_header {
-/*  height: 125px;*/
-  height: 40px;
-  
+  height: 40px;  
   position: relative;
-
 
   nav#utility {
     float: right;
     font-size: 0.75em;
     padding-top: 12px;
-    
+  
     span {
       font-style: italic;
       font-size: 0.875em;
-      
+    
       color: #f16022;
     }
   }
-
+  
   #logo {
     position: absolute;
     top: 11px;
@@ -50,38 +48,43 @@ header#page_header {
   }
 }
 
-#slider {
-/*  background: transparent url('/assets/2bits.png') middle left repeat-x;*/
-}
-
-
 #actioner {
-  background: #dcd9cf url('/assets/bg1.png') top left repeat-x;
-  height: 40px;
+  background: url('/assets/bg1.png') top left repeat-x;
+  padding-top: 2px;
   
-  &.home {
-    height: 260px;
-  }
-  
-  .wrapper {
-    width: 960px;
-    margin: 0 auto;
+  .inner {
+    background: #f16022 url('/assets/bg-atn.png') top left repeat;
     
-    position: relative;
+    #action {      
+      height: 42px;
+      
+      &.home {
+        height: 252px;
+      }
     
+      position: relative;
     
-    img {
-      position: absolute;
-      top: 209px;
-      left: 140px;
+      h2 {
+        margin: 0;
+        padding-top: 10px;
+      
+        font-size: 1.3em;
+        font-weight: 450;
+        font-family: "fontin sans", verdana;
+      }
+    
+      img {
+        position: absolute;
+        top: 100px;
+        left: 40px;
+      }
     }
   }
 }
 
 
 div.container{
-/*  background : #f5f5f0 url('/assets/bg2.png') top left repeat-x;*/
-  background : #f5f5f0;
+  background : #f5f5f0 url('/assets/bg2.png') top left repeat-x;
   padding: 0;
   font-size: 0.875em; 
   
@@ -91,7 +94,7 @@ div.container{
 /*    background: #fff;*/
     
     margin: 0 auto;
-    padding: 10px 0;
+    padding: 20px 0;
   }
 }
 

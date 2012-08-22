@@ -2,7 +2,10 @@
 %html
   %head
     %meta{:charset => "utf-8"}
-    %title #{logo_string}
+    %title
+      - title = yield :title_string
+      = title.present?  ? title : "Ask a Country"
+
     = stylesheet_link_tag "application"
     = javascript_include_tag "application" 
     = csrf_meta_tags
@@ -10,7 +13,9 @@
   %body
     = render 'layouts/header'
     
-    = yield :actioner
+    #actioner
+      .inner
+        = yield :actioner
   
     .container
       #contenter

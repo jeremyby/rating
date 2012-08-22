@@ -1,20 +1,20 @@
 - content_for :actioner do
-  %h3 Signup
+  #action
+    %h2 Sign Up
 
 = form_for @user do |f|
-  = f.error_messages
   %p
-    =f.label "Your display name:"
-    =f.text_field :name
+    =f.text_field :name, "Your display name: "
+  
   %p
-    =f.label "Email:"
-    =f.text_field :email
+    =f.text_field :email, "Email: "
+  
   %p
-    =f.label "Password:"
-    =f.password_field :password
+    =f.password_field :password, "Password: "
+  
   %p
-    =f.label "Password Confirmation:"
-    =f.password_field :password_confirmation
+    =f.password_field :password_confirmation, "Password Confirmation: "
+
   %p
     =f.submit "Submit"
 

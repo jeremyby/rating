@@ -1,7 +1,11 @@
+- title = "Ask #{@country.name}"
+
+- content_for :title_string do
+  = title
+
 - content_for :actioner do
-  #actioner
-    .wrapper
-      %h2 #{ @country.name }
+  #action
+    %h2= title
 
 
 - unless @country.full_name.blank? && @country.alias.blank?
@@ -11,6 +15,8 @@
 
 
 - if current_user
+  %p= link_to "Create a question", new_country_poll_path(@country)
+
   %p        
     %h2 
       Answer 10 questions in 1 

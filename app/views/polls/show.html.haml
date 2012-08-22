@@ -1,5 +1,12 @@
+- title = "Asking #{@country.name}"
+
+- content_for :title_string do
+  = title + ": " + @poll.question
+  
 - content_for :actioner do
-  %h3 Picking positive answers will raise the country's rating, negative ones will hurt it ->
+  #action
+    %h2= title
+
 
 - if current_user
   - @voting = Voting.where(:poll_id => @poll.id, :country_code => @country.code, :user_id => current_user.id).first
@@ -8,13 +15,33 @@
   - @voting = Voting.new
 
 
-= render @poll      
+#q_panel.panel
+  .banner
+    = image_tag "/assets/q_banner.png"
+  = render @poll      
+  
+
+#info.clear
+  #result
+    %p #{@poll.votings.size} people have voted
+    %p in which, #{@poll.yes_votes_size} chose "#{words_truncate @poll.yes, 10}"
+    %p and #{@poll.no_votes_size} voted "#{words_truncate @poll.no, 10}"
+  .avatar    
+    = link_to (image_tag @poll.owner.avatar_url(:thumb)), user_path(@poll.owner)
+  = link_to @poll.owner.name, user_path(@poll.owner)
+  created this poll #{time_ago_in_words(@poll.created_at)} ago
+  %br
+  home country: #{Country.find_by_code(@poll.owner.country_code).name}
+  %br
+  has #{@poll.owner.polls.approved.count} polls, and voted in #{@poll.owner.votings.count} questions
+
 
 
 - unless @voting.new_record?
   %p
-    You have voted for
-    - if @voting.vote > 0
-      %span= @poll.positive
-    - else
-      %span= @poll.negative
+    You have voted for "#{@voting.vote > 0 ? @poll.positive : @poll.negative}"
+      
+
+#d_panel.panel
+  .banner
+    = image_tag "/assets/d_banner.png"

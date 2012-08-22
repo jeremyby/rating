@@ -1,4 +1,4 @@
-module ApplicationHelper  
+module ApplicationHelper
   def poll_category_image(poll)
     cat = Poll_Catogories[poll.category]
     image_tag "/assets/#{cat.code}.png", :alt => cat.name, :title => "The question is in the #{cat.name} category"
@@ -20,7 +20,7 @@ module ApplicationHelper
     end
   end
   
-  def logo_string
-    "Ask #{@country.present? ? @country.name : 'a Country'}"
+  def words_truncate(str, wordcount) 
+    str.split[0..(wordcount-1)].join(" ") + (str.split.size > wordcount ? "..." : "") 
   end
 end

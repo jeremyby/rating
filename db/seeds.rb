@@ -8,16 +8,23 @@
 
 require 'db/seeds/countries.rb'
 
-User.create(
-  [
-    {:name => 'yangb', :email  => 'b.yang@live.com', :country_code => "us", :password => '19781115', :password_confirmation  => '19781115'},
-    {:name => 'goodguy', :email  => 'aaa@abc.com', :country_code => "us", :password => '111111', :password_confirmation  => '111111'},
-    {:name => 'mideastguy', :email  => 'bbb@abc.com', :country_code => "ir", :password => '111111', :password_confirmation  => '111111'},
-    {:name => 'commy', :email  => 'ccc@abc.com', :country_code => "kp", :password => '111111', :password_confirmation  => '111111'},
-    {:name => '斯美丽', :email  => 'chino_carol@hotmail.com', :country_code => "cn", :password => '310carol', :password_confirmation  => '310carol'},
-  ]
-)
+countries = %w(us cn uk kp sy)
 
+users = [
+  {:name => 'yangb', :email  => 'b.yang@live.com', :country_code => "us", :password => '19781115', :password_confirmation  => '19781115'},
+  {:name => 'goodguy', :email  => 'aaa@abc.com', :country_code => "us", :password => '111111', :password_confirmation  => '111111'},
+  {:name => 'mideastguy', :email  => 'bbb@abc.com', :country_code => "ir", :password => '111111', :password_confirmation  => '111111'},
+  {:name => 'commy', :email  => 'ccc@abc.com', :country_code => "kp", :password => '111111', :password_confirmation  => '111111'},
+  {:name => '斯美丽', :email  => 'chino_carol@hotmail.com', :country_code => "cn", :password => '310carol', :password_confirmation  => '310carol'}
+]
+
+1000.times do |i|
+  users << {:name => "user#{i+1}", :email  => "user#{i+1}@abc.com", :country_code => countries[rand(5)], :password => '111111', :password_confirmation  => '111111'}
+end
+
+users << {:name => 'jeremyby', :email  => 'jeremyby@gmail.com', :country_code => "us", :password => '19781115', :password_confirmation  => '19781115'}
+
+User.create(users)
 
 Poll.create(
   [
@@ -56,16 +63,5 @@ Poll.create(
   ]
 )
 
-Voting.create(
-  [
-    {:poll_id => 1, :user_id => 1, :country_code => "us", :vote => 1},
-    {:poll_id => 2, :user_id => 1, :country_code => "us", :vote => 1},
-    {:poll_id => 4, :user_id => 1, :country_code => "cn", :vote => -1},
-    {:poll_id => 3, :user_id => 4, :country_code => "us", :vote => -1},
-    {:poll_id => 7, :user_id => 4, :country_code => "cn", :vote => 1}
-  ]
-)
 
-us = Country.find_by_code('us').id
-cn = Country.find_by_code('cn').id
-kp = Country.find_by_code('kp').id
+

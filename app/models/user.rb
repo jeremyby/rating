@@ -1,5 +1,10 @@
 class User < ActiveRecord::Base
+  include ActiveModel::MassAssignmentSecurity
+  
   attr_accessor :password_confirmation
+  
+  attr_accessible :name, :email, :country_code, :password, :password_confirmation, :avatar
+  
   belongs_to  :country,               :foreign_key => "country_code",     :primary_key => "code"
   has_many :authorizations,           :dependent => :destroy
   
@@ -9,24 +14,28 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.ignore_blank_passwords = true #ignoring passwords
     c.validate_password_field = false #ignoring validations for password fields
+    c.merge_validates_format_of_email_field_options :message => 'does not look like an email address'
   end
   
-  validates_presence_of :name, :email, :country_code
-  validates_uniqueness_of :email
+  presence_msg = "is required"
+  
+  validates_presence_of :name, :message => presence_msg
   
   #here we add required validations for a new record and pre-existing record
   validate do |user|
     if user.new_record? #adds validation if it is a new record
-      user.errors.add(:password, "is required") if user.password.blank?
-      user.errors.add(:password_confirmation, "is required") if user.password_confirmation.blank?
+      user.errors.add(:password, presence_msg) if user.password.blank?
+      user.errors.add(:password_confirmation, presence_msg) if user.password_confirmation.blank?
       user.errors.add(:password, "Password and confirmation must match") if user.password != user.password_confirmation
     elsif !(!user.new_record? && user.password.blank? && user.password_confirmation.blank?) #adds validation only if password or password_confirmation are modified
-      user.errors.add(:password, "is required") if user.password.blank?
-      user.errors.add(:password_confirmation, "is required") if user.password_confirmation.blank?
-      user.errors.add(:password, " and confirmation must match.") if user.password != user.password_confirmation
-      user.errors.add(:password, " and confirmation should be atleast 4 characters long.") if user.password.length < 4 || user.password_confirmation.length < 4
+      user.errors.add(:password, presence_msg) if user.password.blank?
+      user.errors.add(:password_confirmation, presence_msg) if user.password_confirmation.blank?
+      user.errors.add(:password, "confirmation must match") if user.password != user.password_confirmation
+      user.errors.add(:password, "confirmation should be atleast 4 characters long.") if user.password.length < 4 || user.password_confirmation.length < 4
     end
   end
+  
+  mount_uploader :avatar, AvatarUploader
   
   def self.create_with_omniauth(info, country_code)
     user = User.new(:name => info.name, :email => info.email, :country_code => country_code)
@@ -35,6 +44,22 @@ class User < ActiveRecord::Base
     user
   end
   
+  def assign_attributes(values, options = {})
+    sanitize_for_mass_assignment(values, options[:as]).each do |k, v|
+      send("#{k}=", v)
+    end
+  end
+  
+  def is_admin?
+    self.admin
+  end
+  
+  
+  #********************************************
+  #
+  #   Business Logic
+  #
+  #********************************************
   
   def get_poll_pack_for(country_code)
     same_country = (self.country_code == country_code)
