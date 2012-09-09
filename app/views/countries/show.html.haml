@@ -1,17 +1,23 @@
-- title = "Ask #{@country.name}"
+- content_for :js do
+  = javascript_include_tag "poll_pack"
+
+
+- title = @country.name
 
 - content_for :title_string do
-  = title
+  = "Ask " + title
 
 - content_for :actioner do
-  #action
-    %h2= title
+  .action
+    %h1= title
 
+/ 
+/ - unless @country.full_name.blank? && @country.alias.blank?
+/   %h2= (@country.full_name.blank? ? '':@country.full_name) + (@country.alias.blank? ? '':' (' + @country.alias + ')')
+/   
 
-- unless @country.full_name.blank? && @country.alias.blank?
-  %h2= (@country.full_name.blank? ? '':@country.full_name) + (@country.alias.blank? ? '':' (' + @country.alias + ')')
-
-
+/ - @mw = MediaWiki::Gateway.new('http://en.wikipedia.org/w/api.php')
+/ #{ @mw.render("China") }
 
 
 - if current_user
@@ -25,7 +31,7 @@
   
   
 
-%h2 
+%h2
   What is 
   %span Your Opinion
   of

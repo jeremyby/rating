@@ -9,21 +9,27 @@
     = stylesheet_link_tag "application"
     = javascript_include_tag "application" 
     = csrf_meta_tags
+    = yield :js
   
   %body
     = render 'layouts/header'
     
-    #actioner
-      .inner
-        = yield :actioner
+    - actioner = yield :actioner
+    - if actioner.present?
+      .actioner
+        = actioner
   
-    .container
-      #contenter
+    .contenter
+      .inner
         - if notice
           %p.notification.notice= flash[:notice]
         - if alert
           %p.notification.alert= flash[:alert]
   
         = yield
-     
+    
+    - bottom = yield :bottom
+    - if bottom.present?
+      = bottom
+    
     = render 'layouts/footer'

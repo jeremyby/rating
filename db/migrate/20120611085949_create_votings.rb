@@ -15,5 +15,6 @@ class CreateVotings < ActiveRecord::Migration
     
     add_index :votings, :poll_id
     add_index :votings, :user_id
+    add_index :votings, :country_code
   end
 end

@@ -22,23 +22,26 @@ end
 
 gem 'jquery-rails'
 
-gem "authlogic"
-gem "rails3-generators"
+gem 'authlogic'
+gem 'rails3-generators'
 
-gem "system_timer"
 gem 'omniauth'
 gem 'omniauth-facebook'
 
-gem "rmagick"
-gem "carrierwave"
-gem "mime-types"
+gem 'rmagick'
+gem 'carrierwave'
+gem 'mime-types'
 
-gem "geocoder"
+gem 'feedzirra'
+
+gem 'geoip'
 
 gem 'acts_as_commentable_with_threading'
 
 # Use unicorn as the web server
 # gem 'unicorn'
+
+gem 'thin'
 
 #Deploy with Capistrano
 #gem 'capistrano'
@@ -48,8 +51,9 @@ gem 'acts_as_commentable_with_threading'
 
 group :development, :test do
   gem 'rspec'
-  gem "rspec-rails"
+  gem 'rspec-rails'
+  gem 'cucumber'
   
-  gem "autotest"
-  gem "autotest-rails"
+  gem 'autotest'
+  gem 'autotest-rails'
 end

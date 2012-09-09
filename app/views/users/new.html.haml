@@ -1,20 +1,21 @@
 - content_for :actioner do
-  #action
+  .action
     %h2 Sign Up
 
 = form_for @user do |f|
   %p
-    =f.text_field :name, "Your display name: "
+    = f.text_field :first_name, "Your first name: " 
+    = f.text_field :last_name, ", and your last name is optional: "
   
   %p
-    =f.text_field :email, "Email: "
+    = f.text_field :email, "Email: "
   
   %p
-    =f.password_field :password, "Password: "
+    = f.password_field :password, "Password: "
   
   %p
-    =f.password_field :password_confirmation, "Password Confirmation: "
+    = f.password_field :password_confirmation, "Password Confirmation: "
 
   %p
-    =f.submit "Submit"
+    = f.submit "Submit"
 
