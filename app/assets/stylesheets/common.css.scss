@@ -1,28 +1,78 @@
+$lf-size: 1.5em;
+$sf-size: 0.875em;
+
+
 @font-face {
-    font-family: 'fontin sans bold';
-    src: url('fontin_sans_bold.eot');
-    src: url('fontin_sans_bold.eot?#iefix') format('embedded-opentype'),
-         url('fontin_sans_bold.woff') format('woff'),
-         url('fontin_sans_bold.ttf') format('truetype'),
-         url('fontin_sans_bold.svg#fontin_sans_rgbold') format('svg');
-    font-weight: bold;
-    font-style: normal;
+  font-family: 'Museo Slab';
+  src:  url('23F132_0_0.eot');
+  src:  url('23F132_0_0.eot?#iefix') format('embedded-opentype'),
+        url('23F132_0_0.woff') format('woff'),
+        url('23F132_0_0.ttf') format('truetype');
+}
+
+ 
+@font-face {
+  font-family: 'Museo Slab Italic';
+  src:  url('23F132_1_0.eot');
+  src:  url('23F132_1_0.eot?#iefix') format('embedded-opentype'),
+        url('23F132_1_0.woff') format('woff'),
+        url('23F132_1_0.ttf') format('truetype');
+  font-style: italic;
+}
+
+
+@font-face {
+  font-family: 'Museo Sans';
+  src:  url('23F157_0_0.eot');
+  src:  url('23F157_0_0.eot?#iefix') format('embedded-opentype'),
+        url('23F157_0_0.woff') format('woff'),
+        url('23F157_0_0.ttf') format('truetype');
+}
+ 
+  
+@font-face {
+  font-family: 'Museo Sans Italic';
+  src:  url('23F157_1_0.eot');
+  src:  url('23F157_1_0.eot?#iefix') format('embedded-opentype'),
+        url('23F157_1_0.woff') format('woff'),
+        url('23F157_1_0.ttf') format('truetype');
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'fontin sans';
-    src: url('fontin_sans.eot');
-    src: url('fontin_sans.eot?#iefix') format('embedded-opentype'),
-         url('fontin_sans.woff') format('woff'),
-         url('fontin_sans.ttf') format('truetype'),
-         url('fontin_sans.svg#fontin_sans_rgregular') format('svg');
+    font-family: 'museo slab dark';
+    src: url('museo_slab_900-webfont.eot');
+    src: url('museo_slab_900-webfont.eot?#iefix') format('embedded-opentype'),
+         url('museo_slab_900-webfont.woff') format('woff'),
+         url('museo_slab_900-webfont.ttf') format('truetype'),
+         url('museo_slab_900-webfont.svg#museo_slab_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'museo slab bold';
+    src: url('museo_slab_700-webfont.eot');
+    src: url('museo_slab_700-webfont.eot?#iefix') format('embedded-opentype'),
+         url('museo_slab_700-webfont.woff') format('woff'),
+         url('museo_slab_700-webfont.ttf') format('truetype'),
+         url('museo_slab_700-webfont.svg#museo_slab_700regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 .clear {
   overflow: auto;
   width: 100%;
+}
+
+.lf {
+  font-size: $lf-size;
+}
+
+.sf {
+  font-size: $sf-size;
 }
 
 .bold {
@@ -40,6 +90,18 @@ span.green {
 span.red {
   color: red;
 }
+
+h1,
+h2,
+h3 {
+  font-family: "museo slab bold", georgia;
+  letter-spacing: -0.9px;
+}
+
+h3 {
+  letter-spacing: -0.7px;
+}
+
 
 .zigzag {
   font-weight: normal;
@@ -80,7 +142,7 @@ span.red {
       letter-spacing: 0.5px;
       line-height: 160%;
       
-      font-size: 2.6em;
+      font-size: 2em;
     
       margin: 0.5em 0;
   
@@ -130,7 +192,30 @@ span.red {
   
   .banner {
     position: absolute;
+    height: 53px;
     top: 20px;
     left: -20px;
+    
+    background: url("/assets/banner.png") bottom left no-repeat;
+    
+    div {
+      height: 40px;
+      padding: 0 25px;
+      
+      background: #333;
+      
+      p {
+        margin: 0;
+        padding-top: 11px;
+        
+        color: #fff;
+        letter-spacing: 1.5px;
+        
+        font: {
+          family: "museo slab bold";
+          size: 15px;
+        }
+      }
+    }
   }
 }

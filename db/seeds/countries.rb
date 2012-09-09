@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 Country.create(
   [
     { :code => "all", :name => "All countries"},

@@ -4,13 +4,17 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
   
   protected
-  def geocode_from_request
+  def country_code_from_request
     #TODO: need to be tested when deployed
     # request.env["REMOTE_ADDR"] = "184.106.169.25"
-    code = request.location.country_code.downcase
-    code = "us" if code == "rd"
     
-    return code
+    info = $geoip.country(request.env["REMOTE_ADDR"])
+    
+    if info.country_code > 0
+      info.country_code2.downcase
+    else
+      "us"
+    end
   end
   
   def get_country

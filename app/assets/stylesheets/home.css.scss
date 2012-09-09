@@ -1,3 +1,29 @@
+.actioner {
+  .home {
+    height: 120px;
+  
+    h1 {
+      font-size: 3.6em;
+    }
+  }
+}
+
+#bottom {
+  position: absolute;
+  width: 100%;
+  
+  
+  .actioner {
+    #and {
+      height: 75px;
+    }
+  }
+}
+
+
+
+
+
 .title {
   padding-top: 4px;
   background: url("/assets/2bits.png") center left repeat-x; 
@@ -31,7 +57,6 @@
       h2 {
         margin: 0;
         color: #f16022;
-        font-weight: normal;
       }
       
       ul {

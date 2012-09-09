@@ -1,9 +1,11 @@
-:javascript
-  if (window.location.hash == '#_=_') window.location.hash = '';
+- content_for :js do
+  :javascript
+    if (window.location.hash == '#_=_') window.location.hash = '';
+  =  javascript_include_tag params[:controller]
 
 - content_for :actioner do
-  #action.home
-    .wrapper= image_tag("/assets/headline.png")
+  .action.home
+    %h1 ask a country anything
 
 #find-country
   .title= image_tag("/assets/find.png")
@@ -24,8 +26,21 @@
     .country{:style => {:background => ":url('/assets/flags/sy.png') top right no-repeat;"}}
       %h2 Syria
     
-    
-    
+- content_for :bottom do
+  #bottom
+    .actioner
+      #and.action.home
+        %h1 and . . .
+      .action.home
+        %h1 find the answer of the people
+        
+    .contenter
+      .inner
+        %h2 List of Questions
+  
+
+
+
 /   .img= image_tag("/assets/flags/china.png")
 /   .img= image_tag("/assets/flags/united-states.png")
 /   .img= image_tag("/assets/flags/syria.png")

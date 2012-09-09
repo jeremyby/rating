@@ -9,4 +9,4 @@
 //= require jquery_ujs
 //= require jquery.ui.dialog
 //= require jquery.ui.progressbar
-//= require_tree .
+

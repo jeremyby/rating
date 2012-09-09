@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   
   attr_accessor :password_confirmation
   
-  attr_accessible :name, :email, :country_code, :password, :password_confirmation, :avatar
+  attr_accessible :first_name, :last_name, :email, :country_code, :password, :password_confirmation, :avatar
   
   belongs_to  :country,               :foreign_key => "country_code",     :primary_key => "code"
   has_many :authorizations,           :dependent => :destroy
@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   
   presence_msg = "is required"
   
-  validates_presence_of :name, :message => presence_msg
+  validates_presence_of :first_name, :message => presence_msg
   
   #here we add required validations for a new record and pre-existing record
   validate do |user|
@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
   
   def self.create_with_omniauth(info, country_code)
+    #TODO: first/last names
     user = User.new(:name => info.name, :email => info.email, :country_code => country_code)
     user.save(:validate => false) #create the user without performing validations. This is because most of the fields are not set.
     user.reset_persistence_token! #set persistence_token else sessions will not be created
