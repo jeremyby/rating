@@ -5,8 +5,6 @@ class Voting < ActiveRecord::Base
   scope :positive, where("vote = 1")
   scope :negative, where("vote = -1")
   
-  attr_accessible :poll_id, :vote, :country_code
-  
   validates_presence_of :poll_id, :user_id, :country_code, :vote
   
   #TODO: figure out why validate inclusion does not work

@@ -8,9 +8,10 @@
           = link_to "Log out", logout_path
         - else
           = link_to "Sign up", signup_path 
-          %span.sf.italic or
+          %span or
           = link_to "Log in", login_path
           / |
           / = link_to "Log in with Facebook", "/auth/facebook"
           
-    = link_to image_tag("/assets/logo.png"), root_url, :id => "logo", :class => request.path == "/" ? "vague" : "", :title => "Ask a Country Home"
+    /TODO: refactor here
+    = link_to request.fullpath == "/" ? image_tag("/assets/logo.png") : image_tag("/assets/home.png") , root_url, :id => "logo", :title => "Ask a Country Home"

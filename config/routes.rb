@@ -1,4 +1,17 @@
 Askacountry::Application.routes.draw do
+  root :to => 'home#index'
+
+  resources :user_sessions, :only => [:create]
+  match 'login' => "user_sessions#new",      :as => :login
+  match 'logout' => "user_sessions#destroy", :as => :logout
+  
+  match '/auth/:provider/callback' => "authorizations#create"
+  match '/auth/failure'  => "authorizations#failure"
+  match '/auth/:provider'  => "authorizations#blank"
+  
+  resources :users, :except => [:new, :index]
+  match 'signup'  => "users#new", :as  => :signup
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -54,28 +67,14 @@ Askacountry::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
-  
-  root :to => 'home#index'
-
-  resources :user_sessions, :only => [:create]
-  match 'login' => "user_sessions#new",      :as => :login
-  match 'logout' => "user_sessions#destroy", :as => :logout
-
-  match '/auth/:provider/callback' => "authorizations#create"
-  match '/auth/failure'  => "authorizations#failure"
-  match '/auth/:provider'  => "authorizations#blank"
-
-  resources :users, :except => [:new, :index]
-  match 'signup'  => "users#new", :as  => :signup
-
+  # match ':controller(/:action(/:id(.:format)))'
+    
   match "/:country_id/:id"  => "polls#show", :via => :get, :as => :country_poll
-
-  match "/all" => "countries#index", :as => :index_countries
-
+  
+  match "/all/countries" => "countries#index", :as => :index_countries
+  
   resources :countries, :path => "", :only => [:show] do
     resources :poll_pack, :only => [:new, :index, :create]
     resources :polls,  :except => [:index, :show]
   end
-  
 end

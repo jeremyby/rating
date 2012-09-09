@@ -1,7 +1,7 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
-      t.string    :name
+      t.string    :name,                :null => false
       t.string    :email,               :null => false
       t.string    :crypted_password
       t.string    :password_salt
@@ -26,6 +26,5 @@ class CreateUsers < ActiveRecord::Migration
 
     add_index :users, ["email"], :name => "index_users_on_email", :unique => true
     add_index :users, ["persistence_token"], :name => "index_users_on_persistence_token", :unique => true
-    add_index :users, :country_code
   end
 end

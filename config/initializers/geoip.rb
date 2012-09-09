@@ -1,1 +1,0 @@
-$geoip = GeoIP.new("db/GeoIP.dat")

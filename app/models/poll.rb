@@ -5,7 +5,7 @@ class Poll < ActiveRecord::Base
   attr_accessor :question_reformat
   
   #TODO: need to restrict mass assignment below
-  attr_accessible :question, :country_code, :category, :coverage, :weight, :yes, :no, :yes_positive
+  # attr_accessible :title, :body
   
   validates_presence_of :user_id, :question, :country_code, :category, :coverage, :weight
   validates_uniqueness_of :question

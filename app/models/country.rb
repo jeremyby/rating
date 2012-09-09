@@ -4,8 +4,6 @@ class Country < ActiveRecord::Base
   has_many :polls,      :primary_key => "code",     :foreign_key => "country_code"
   has_many :votings,    :primary_key => "code",     :foreign_key => "country_code"
   
-  attr_accessible :code, :name, :full_name, :alias
-  
   extend FriendlyId
   friendly_id :name, :use => :slugged
   

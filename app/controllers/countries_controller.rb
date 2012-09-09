@@ -4,7 +4,7 @@ class CountriesController < ApplicationController
   
   def show
     begin
-      @country = Country.find(params[:id])
+      @country = Country.find(params[:id])   
     rescue ActiveRecord::RecordNotFound
       #TODO: need to replace default 404 page
       redirect_to '/404.html'

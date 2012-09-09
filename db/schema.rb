@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120824080902) do
+ActiveRecord::Schema.define(:version => 20120822023707) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider",   :null => false
@@ -74,9 +73,6 @@ ActiveRecord::Schema.define(:version => 20120824080902) do
     t.integer  "negative_votings_count"
   end
 
-  add_index "polls", ["country_code"], :name => "index_polls_on_country_code"
-  add_index "polls", ["user_id"], :name => "index_polls_on_user_id"
-
   create_table "scores", :force => true do |t|
     t.float    "value",          :default => 50.0, :null => false
     t.float    "previous_score"
@@ -86,7 +82,7 @@ ActiveRecord::Schema.define(:version => 20120824080902) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "name"
+    t.string   "name",                                  :null => false
     t.string   "email",                                 :null => false
     t.string   "crypted_password"
     t.string   "password_salt"
@@ -103,11 +99,8 @@ ActiveRecord::Schema.define(:version => 20120824080902) do
     t.datetime "updated_at",                            :null => false
     t.string   "avatar"
     t.boolean  "admin",              :default => false
-    t.string   "first_name"
-    t.string   "last_name"
   end
 
-  add_index "users", ["country_code"], :name => "index_users_on_country_code"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token", :unique => true
 
@@ -120,7 +113,6 @@ ActiveRecord::Schema.define(:version => 20120824080902) do
     t.datetime "updated_at",   :null => false
   end
 
-  add_index "votings", ["country_code"], :name => "index_votings_on_country_code"
   add_index "votings", ["poll_id"], :name => "index_votings_on_poll_id"
   add_index "votings", ["user_id"], :name => "index_votings_on_user_id"
 
