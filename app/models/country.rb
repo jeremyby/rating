@@ -16,9 +16,15 @@ class Country < ActiveRecord::Base
     Country.where("polls_count > 0 AND code <> 'all'").order("polls_count DESC").limit(limit).offset(offset)
   end
   
-  def self.top_rated(limit, offset=0)
-    Country.includes(:score).joins(:score).order('scores.value DESC').limit(limit).offset(offset)
+  
+  def top_polls(limit, offset=0)
+    self.polls.approved.where(:featured => true).order("votings_count DESC").limit(limit).offset(offset)
   end
+  
+  
+  # def self.top_rated(limit, offset=0)
+  #   Country.includes(:score).joins(:score).order('scores.value DESC').limit(limit).offset(offset)
+  # end
   
   def rating_score
     return nil if self.score.blank?

@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   
   attr_accessor :password_confirmation
   
+  before_save :process_names
+  
   attr_accessible :first_name, :last_name, :email, :country_code, :password, :password_confirmation, :avatar
   
   belongs_to  :country,               :foreign_key => "country_code",     :primary_key => "code"
@@ -62,6 +64,10 @@ class User < ActiveRecord::Base
   #
   #********************************************
   
+  def country
+    Country.find_by_code(self.country_code)
+  end
+  
   def get_poll_pack_for(country_code)
     same_country = (self.country_code == country_code)
     
@@ -71,5 +77,21 @@ class User < ActiveRecord::Base
     votings = self.votings.reload
     
     Poll.approved.where("(country_code = ? OR country_code = 'all') AND coverage IN (?) AND id not IN (?)", country_code, coverage_condition, votings.empty? ? 0 : votings.map(&:poll_id))
+  end
+  
+  private
+  
+  def process_names
+    if self.first_name.present?
+      # self.first_name.capitalize!
+      self.name = self.first_name
+      
+      if self.last_name.present?
+        self.last_name.capitalize! 
+        self.name += " #{self.last_name}"
+      end
+    end
+    
+    #TODO: setting up unique id here
   end
 end

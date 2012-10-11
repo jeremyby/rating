@@ -1,8 +1,24 @@
 %h1= @user.name
+%p 
+  34 following, 354 followers
+
 %p
-  home country is #{Country.find_by_code(@user.country_code).name}
+  home country: #{Country.find_by_code(@user.country_code).name}
+  
+%p
+  knows the following countries well enough to answer questions about them:
+  %ul
+    %li China
+    %li United Kingdom
+      
 %p
   watching country:
   %ul
     %li China
     %li United States
+    
+%h2 
+  Recent Activities
+%ul
+  %li Added a question for China: blah blah blah
+  %li Voted for "No" on the question for United States: blah blah

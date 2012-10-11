@@ -4,11 +4,11 @@ class Poll < ActiveRecord::Base
   
   attr_accessor :question_reformat
   
-  #TODO: need to restrict mass assignment below
-  attr_accessible :question, :country_code, :category, :coverage, :weight, :yes, :no, :yes_positive
+  attr_accessible :question, :category, :coverage, :yes, :no, :positive_no, :country_code, :weight, :user_id
   
   validates_presence_of :user_id, :question, :country_code, :category, :coverage, :weight
   validates_uniqueness_of :question
+  validates_exclusion_of :category, :in => %w( nil ), :message => "need to be a valid category"
   
   has_many    :votings
   
@@ -26,6 +26,11 @@ class Poll < ActiveRecord::Base
     return q.split[0..9].join(" ").downcase.tr("^a-z|^0-9|^\s", "")
   end
   
+  def assign_attributes(values, options = {})
+    sanitize_for_mass_assignment(values, options[:as]).each do |k, v|
+      send("#{k}=", v)
+    end
+  end
   
   #********************************************
   #
@@ -34,18 +39,18 @@ class Poll < ActiveRecord::Base
   #********************************************
   
   def positive
-    self.yes_positive ? self.yes : self.no
+    self.positive_no ? self.no : self.yes
   end
   
   def negative
-    self.yes_positive ? self.no : self.yes
+    self.positive_no ? self.yes : self.no
   end
   
   def yes_votes_size
-    self.yes_positive ? self.positive_votings_count : self.negative_votings_count
+    self.positive_no ? self.negative_votings_count : self.positive_votings_count
   end
   
   def no_votes_size
-    self.yes_positive ? self.negative_votings_count : self.positive_votings_count
+    self.positive_no ? self.positive_votings_count : self.negative_votings_count
   end
 end

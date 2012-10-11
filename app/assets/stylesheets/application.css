@@ -4,10 +4,8 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
  *= require normalize
- *= require common
  *= require layout
  *= require home
- *= require countries
  *= require jquery.ui.dialog
  *= require jquery.ui.progressbar
  *= require poll_pack

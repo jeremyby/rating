@@ -14,7 +14,8 @@ class PollsController < ApplicationController
   end
 
   def new
-    @poll = Poll.new(:country => @country, :owner => current_user)
+    @poll = Poll.new
+    @poll.country_code = @country.code
   end
 
   def create

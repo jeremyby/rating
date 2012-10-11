@@ -1,0 +1,12 @@
+%ul.poll_list
+  - polls.each do |p|
+    %li
+      .legend
+        = poll_category_image p
+        
+      .question
+        = link_to p.question, country_poll_path(country, p)
+        
+      .info  
+        by
+        %span= link_to p.owner.first_name, p.owner

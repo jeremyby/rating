@@ -1,7 +1,7 @@
 module ApplicationHelper
   def poll_category_image(poll)
-    cat = Poll_Catogories[poll.category]
-    image_tag "/assets/#{cat.code}.png", :alt => cat.name, :title => "The question is in the #{cat.name} category"
+    name = Poll_Cats[poll.category]
+    image_tag "/assets/#{poll.category}.png", :alt => name, :title => "The question is in the #{name} category"
   end
   
   def poll_creator_image(poll)

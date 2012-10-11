@@ -1,6 +1,6 @@
 - content_for :actioner do
-  #action
-    %h2= current_user ? current_user.name : @user.name
+  .action
+    %h1= current_user ? current_user.name : @user.name
     
 - if @user == current_user
   = render "setting", :user => current_user

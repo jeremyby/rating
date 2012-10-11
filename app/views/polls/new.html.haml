@@ -1,7 +1,25 @@
 - content_for :actioner do
-  #actioner
-    .wrapper
-      %h2 Create a poll for #{ @country.name }
+  .action
+    %h1 Ask #{ @country.name } a new question 
 
-%h1 Polls#new
-%p Find me in app/views/polls/new.html.haml
+= form_for @poll, :url => country_polls_path(@country) do |f|
+  %p
+    = f.label_text_field :question, "Question: "
+
+  %p
+    = f.label "Answers:"
+    = f.text_field :yes
+    = f.label "or"
+    = f.text_field :no
+    
+  %p
+    = f.check_box :positive_no, " Yes answer is negative?"
+  
+  %p
+    This question is in the category of
+    = f.select :category, Poll_Cats.collect{|pc| [pc[1], pc[0]]}, :selected => 0
+    , and
+    = f.select :coverage, [["anyone", 0], ["only those who are from #{@country.name}", 1], ["anyone who lives outside #{@country.name}", 2]]
+    can answer it
+  %p
+    = f.submit "Submit"

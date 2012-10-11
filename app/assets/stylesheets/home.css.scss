@@ -3,7 +3,19 @@
     height: 120px;
   
     h1 {
-      font-size: 3.6em;
+      font-size: 3.125em;
+    }
+  }
+  
+  .arrow {
+    position: absolute;
+    top: 47px;
+    left: 885px;
+    
+    background: #f16022;;
+    
+    img {
+      opacity: 0.4
     }
   }
 }
@@ -11,7 +23,6 @@
 #bottom {
   position: absolute;
   width: 100%;
-  
   
   .actioner {
     #and {
@@ -21,52 +32,12 @@
 }
 
 
-
-
-
-.title {
-  padding-top: 4px;
-  background: url("/assets/2bits.png") center left repeat-x; 
-}
-
-#find-country {
-  position: relative;
-  top: 60px;
+#ask {
+  background: #fff;
   
-  float: right;
-  width: 340px;
-  height: 300px;
+  width: 60%;
   
-  .title {
-    text-align: center;
-  }
-}
-
-#features { 
-  position: relative;
-  top: 60px;
-  width: 600px;
+  border: 1px solid #ddd;
   
-  
-  #countries {
-    padding-top: 20px;
-    
-    .country {
-      height: 200px;
-      
-      h2 {
-        margin: 0;
-        color: #f16022;
-      }
-      
-      ul {
-        list-style-type: none;
-        padding: 0;
-        
-        li {
-          padding: 5px 0;
-        }
-      }
-    }
-  }
+  padding: 10px 20px;
 }

@@ -1,8 +1,9 @@
-Poll_Catogories = [
-  [],
-  PollCategory.new("eco", "Economy Perspective"),
-  PollCategory.new("cul", "Culture, Art and Education"),
-  PollCategory.new("pol", "Politics and Government"),
-  PollCategory.new("int", "International"),
-  PollCategory.new("ppl", "People Happiness")
-]
+Poll_Cats = {
+  "nil" => "pick one below",
+  "eco" => "Economy Perspective",
+  "cul" => "Culture, Art and Education",
+  "pol" => "Politics and Government",
+  "int" => "International",
+  "ppl" => "People Happiness"
+}
+

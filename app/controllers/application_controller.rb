@@ -4,13 +4,13 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
   
   protected
-  def country_code_from_request    
+  def country_code_from_request
     info = $geoip.country(request.env["REMOTE_ADDR"])
     
     if info.country_code > 0
       info.country_code2.downcase
     else
-      "us"
+      "cn"
     end
   end
   

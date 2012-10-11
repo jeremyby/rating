@@ -1,54 +1,168 @@
+$lf-size: 1.5em;
+$sf-size: 0.875em;
+
+
+@font-face {
+  font-family: 'Museo Slab';
+  src:  url('23F132_0_0.eot');
+  src:  url('23F132_0_0.eot?#iefix') format('embedded-opentype'),
+        url('23F132_0_0.woff') format('woff'),
+        url('23F132_0_0.ttf') format('truetype');
+}
+
+ 
+@font-face {
+  font-family: 'Museo Slab Italic';
+  src:  url('23F132_1_0.eot');
+  src:  url('23F132_1_0.eot?#iefix') format('embedded-opentype'),
+        url('23F132_1_0.woff') format('woff'),
+        url('23F132_1_0.ttf') format('truetype');
+  font-style: italic;
+}
+
+
+@font-face {
+  font-family: 'Museo Sans';
+  src:  url('23F157_0_0.eot');
+  src:  url('23F157_0_0.eot?#iefix') format('embedded-opentype'),
+        url('23F157_0_0.woff') format('woff'),
+        url('23F157_0_0.ttf') format('truetype');
+}
+ 
+  
+@font-face {
+  font-family: 'Museo Sans Italic';
+  src:  url('23F157_1_0.eot');
+  src:  url('23F157_1_0.eot?#iefix') format('embedded-opentype'),
+        url('23F157_1_0.woff') format('woff'),
+        url('23F157_1_0.ttf') format('truetype');
+  font-style: italic;
+}
+
+@font-face {
+    font-family: 'museo slab dark';
+    src: url('museo_slab_900-webfont.eot');
+    src: url('museo_slab_900-webfont.eot?#iefix') format('embedded-opentype'),
+         url('museo_slab_900-webfont.woff') format('woff'),
+         url('museo_slab_900-webfont.ttf') format('truetype'),
+         url('museo_slab_900-webfont.svg#museo_slab_900regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'museo slab bold';
+    src: url('museo_slab_700-webfont.eot');
+    src: url('museo_slab_700-webfont.eot?#iefix') format('embedded-opentype'),
+         url('museo_slab_700-webfont.woff') format('woff'),
+         url('museo_slab_700-webfont.ttf') format('truetype'),
+         url('museo_slab_700-webfont.svg#museo_slab_700regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.clear {
+  overflow: auto;
+  width: 100%;
+}
+
+.lf {
+  font-size: $lf-size;
+}
+
+.sf {
+  font-size: $sf-size;
+}
+
+@font-face {
+    font-family: 'museo';
+    src: url('museo300-regular-webfont.eot');
+    src: url('museo300-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('museo300-regular-webfont.woff') format('woff'),
+         url('museo300-regular-webfont.ttf') format('truetype'),
+         url('museo300-regular-webfont.svg#museo_300regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'museo bold';
+    src: url('museo500-regular-webfont.eot');
+    src: url('museo500-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('museo500-regular-webfont.woff') format('woff'),
+         url('museo500-regular-webfont.ttf') format('truetype'),
+         url('museo500-regular-webfont.svg#museo_500regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'museo bolder';
+    src: url('museo700-regular-webfont.eot');
+    src: url('museo700-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('museo700-regular-webfont.woff') format('woff'),
+         url('museo700-regular-webfont.ttf') format('truetype'),
+         url('museo700-regular-webfont.svg#museo_700regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 body {
   line-height:1.125em;
-  font: 100% verdana, arial, sans-serif;
+  font: 100% verdana, sans-serif;
   background: url('/assets/bg.png');
-  color: #444; 
+  color: #333; 
 }
 
 a,
 a:link,
-a:active {
-  color: #15c;
-  text-decoration: none;
-}
-
+a:active,
 a:visited {
-  color: #6d459c;
+  color: #16387c;
+  text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
 }
 
-
 #page_header .inner,
-#slider,
-.actioner .action,
 #page_footer {
   width: 960px;
   margin: 0 auto;
+  padding: 0;
   
-  color: #fff;
+  color: #eee;
   
   a,
   a:link,
   a:active,
   a:visited {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    color: #fff;
-    text-decoration: underline;
+    color: #eee;
   }
 }
 
 #page_header {
   font-size: 0.75em;
   
-  position: relative;
+  position: fixed;
+  top: 0;
   
+  z-index: 100;
+  
+  background: url('/assets/bg.png');
+  
+  width: 100%;
+
   box-shadow: 0 2px 5px -2px #444;
   -webkit-box-shadow: 0 2px 5px -2px #444;
   -moz-box-shadow: 0 2px 5px -2px #444;
@@ -59,43 +173,58 @@ a:hover {
     display: table;
     
     nav#utility {
+      width: 100%;
       display: table-cell; 
       vertical-align: middle;
       text-align: right;
       
       span {
         color: #f16022;
+        font-style: italic;
       }
     }
   
     #logo {
       position: absolute;
-      top: 11px;
-      left: 0;
+      top: 9px;
+      left: 3px;
+      opacity: 0.4;
       
-      &.vague {
-        opacity: 0.2;
+      &:hover {
+        opacity: 0.8;
       }
     }
   }
 }
 
 .actioner {
-  font-size: 0.875em;
-
-  background: #f16022;
+  margin-top: 40px;
   
-  .action {      
+  background: #f5f5f0;
+/*  background: #ed713b;*/
+  
+  .action {
+    width: 960px;
+    margin: 0 auto;
+    padding: 0;
+    
     height: 60px;
 
     position: relative;
     display: table;
 
     h1 {
+      color: #f16022;
+      
       margin: 0;
       
       display: table-cell; 
       vertical-align: middle;
+      
+      a {
+        color: #f16022;
+      }
+      
     }
   }
 }
@@ -107,24 +236,32 @@ a:hover {
   background : #f5f5f0;
   padding: 0;
   
+  box-shadow: 0 -2px 5px -2px #444 inset;
+  -webkit-box-shadow: 0 -2px 5px -2px #444 inset;
+  -moz-box-shadow: 0 -2px 5px -2px #444 inset;
+  
   .inner {
     width: 960px;
-    min-height: 600px;
+    min-height: 480px;
     
     margin: 0 auto;
     padding: 20px 0;
+    
+    .light a {
+      color: #888;
+    }
   }
 }
 
-footer#page_footer {
+footer#page_footer {  
   font-size: 0.75em;
   
-  height: 80px;
-  padding: 0 0 0 10px;
+  height: 50px;
+  padding-left: 10px;
   
   ul {
-    margin-left: -10px;
-    padding: 10px 0 0 0;
+    margin: 0 0 7px -10px;
+    padding: 6px 0 0 0;
     
     li {
       border-right: 1px solid #fef8e7;
@@ -136,14 +273,7 @@ footer#page_footer {
       }
   
       a {
-        padding: 5px 10px;
-        
-        &:link,
-        &:hover,
-        &:visited,
-        &.active {
-          color: #fff;
-        }
+        padding: 0 10px;
       }
     }
   }
@@ -174,5 +304,153 @@ footer#page_footer {
       image: image-url("cross.png"); 
     } 
   } 
+}
+
+
+
+h1 {
+  font-family: "museo bolder", impact;
+}
+
+h2 {
+  color: #444;
+}
+
+.light {
+  font-family: "museo slab";
+  color: #888;
+}
+
+.zigzag {
+  font-weight: normal;
+  
+  span {
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: 0 3px;
+  }
+}
+
+
+.table {
+  position: relative;
+  display: table;
+
+  .cell {
+    display: table-cell; 
+    vertical-align: middle; 
+    text-align: center;
+  }
+}
+
+ul.poll_list {
+  padding-left: 0;
+  list-style: none;
+  
+  span.question {
+    padding: 2px;
+    
+    a,
+    a:link,
+    a:active,
+    a:visited  {
+      font-weight: bold;
+    }
+    
+    img {
+      margin: 0 3px -2px 0;
+    }
+  }  
+}
+
+/*show poll, poll_pack*/
+#question {  
+  #question_body {
+    #legends {
+      span {
+        padding-right: 20px;
+      }
+    }
+    
+    .q {
+      line-height: 160%;
+      
+      font-family: "museo slab bold", georgia, serif;
+      font-size: 2.1em;
+      letter-spacing: 1px;
+    
+      margin: 0.5em 0;
+  
+    }
+  }
+
+  #answer {
+    margin: 0;
+    
+    letter-spacing: 0.3px;
+    line-height: 160%;
+    
+    font-size: 1.5em;
+    
+    div {
+      float: left;
+      
+      p {
+        margin: 0;
+      }
+      
+      &.or {
+        padding: 0 12px 3px 10px;
+        
+        span {
+          font-style: italic;
+          font-size: 0.7em;
+          
+          color: #f16022;
+        }
+      }
+    }
+  }  
+}
+
+/*show poll*/
+.panel {
+  margin: 0 auto;
+  padding: 40px 0;
+  width: 958px;
+  background: #fff;
+  
+  border: 1px solid #ddd;
+  
+  position: relative;
+  
+  .banner {
+    position: absolute;
+    height: 53px;
+    top: 20px;
+    left: -20px;
+    
+    background: url("/assets/banner.png") bottom left no-repeat;
+    
+    div {
+      height: 40px;
+      padding: 0 25px;
+      
+      background: #333;
+      
+      p {
+        margin: 0;
+        padding-top: 11px;
+        
+        color: #fff;
+        letter-spacing: 1.5px;
+        
+        font: {
+          size: 16px;
+          weight: bold;
+        }
+      }
+    }
+  }
 }
 

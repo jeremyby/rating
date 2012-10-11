@@ -1,9 +1,9 @@
 - content_for :actioner do
   .action
-    %h2 Login
+    %h1 Login
 
 = form_for @user_session do |f| 
-  = f.text_field :email, "Email: "
+  = f.label_text_field :email, "Email: "
 
   = f.password_field :password, "Password: "
 

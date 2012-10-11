@@ -1,6 +1,10 @@
 class HomeController < ApplicationController
   def index
-    @home_logo_display = true
-    @countries = Country.most_polled(10)
+    if current_user
+      render "users/home"
+    else
+      @country = Country.find_by_code(country_code_from_request)
+      
+    end
   end
 end

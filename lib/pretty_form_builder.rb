@@ -4,8 +4,8 @@ class PrettyFormBuilder < ActionView::Helpers::FormBuilder
     @template.content_tag(:div, checkbox, :class => "wrapper")
   end
   
-  def text_field(field, label_text, options = {})
-    textfield = label(field, label_text) + super(field, options)
+  def label_text_field(field, label_text, options = {})
+    textfield = label(field, label_text) + text_field(field, options)
     @template.content_tag(:div, textfield, :class => "wrapper")
   end
 

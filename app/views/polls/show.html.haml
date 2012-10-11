@@ -1,4 +1,4 @@
-- title = "Asking #{@country.name}"
+- title = "Ask #{@country.name}"
 
 - content_for :title_string do
   = title + ": " + @poll.question
@@ -11,10 +11,14 @@
   - @voting = Voting.new
 
 
+- content_for :actioner do
+  .action
+    %h1 Asking #{link_to @country.name, @country}
+
 #q_panel.panel
   .banner
     %div
-      %p Asking #{@country.name}
+      %p Question
   = render @poll      
   
 
@@ -36,8 +40,10 @@
 
   .avatar 
     = link_to (image_tag @poll.owner.avatar_url(:thumb)), user_path(@poll.owner)
-  created by #{link_to @poll.owner.name, user_path(@poll.owner)} #{time_ago_in_words(@poll.created_at)} ago
-  who is from #{Country.find_by_code(@poll.owner.country_code).name} and has asked #{@poll.owner.polls.approved.count} questions, and voted on #{@poll.owner.votings.count} questions
+  .user_info
+    created by #{link_to @poll.owner.name, user_path(@poll.owner)} #{time_ago_in_words(@poll.created_at)} ago
+    - user_country = Country.find_by_code(@poll.owner.country_code)
+    who is from #{link_to user_country.name, user_country} and has asked #{@poll.owner.polls.approved.count} questions, and voted on #{@poll.owner.votings.count} questions
 
 
 
@@ -49,4 +55,4 @@
 #d_panel.panel
   .banner
     %div
-      %p People Saying
+      %p Comments

@@ -1,10 +1,10 @@
 = form_for @user, :url => user_path(@user), :method => :put, :html => {:multipart => true} do |f|
   %p
-    = f.text_field :first_name, "First name: " 
-    = f.text_field :last_name, "Last name: "
+    = f.label_text_field :first_name, "First name: " 
+    = f.label_text_field :last_name, "Last name: "
   
   %p
-    =f.text_field :email, "Email: "
+    =f.label_text_field :email, "Email: "
   
   %p
     =f.password_field :password, "New Password: ", :value => ""
@@ -13,7 +13,7 @@
     =f.password_field :password_confirmation, "Password Confirmation: "
   
   %p
-    Your avatar: #{image_tag @user.avatar_url(:thumb) }
+    Your avatar: #{@user.avatar? ? image_tag(@user.avatar_url(:thumb)) : "not set" }
     %br
     = f.label :avatar, "Your new look: "
     = f.file_field :avatar

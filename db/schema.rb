@@ -61,10 +61,10 @@ ActiveRecord::Schema.define(:version => 20120824080902) do
     t.integer  "votings_count"
     t.string   "yes",                    :default => "Yes", :null => false
     t.string   "no",                     :default => "No",  :null => false
-    t.boolean  "yes_positive",           :default => true,  :null => false
+    t.boolean  "positive_no",            :default => false, :null => false
     t.integer  "user_id",                                   :null => false
     t.string   "country_code",                              :null => false
-    t.integer  "category",               :default => 4,     :null => false
+    t.string   "category",                                  :null => false
     t.integer  "coverage",               :default => 0,     :null => false
     t.integer  "weight",                 :default => -1,    :null => false
     t.datetime "created_at",                                :null => false

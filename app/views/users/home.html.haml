@@ -1,0 +1,10 @@
+- content_for :actioner do
+  .action
+    %h1 Home
+    
+    
+- @country = current_user.country
+
+
+%h2 Recent Activities
+= render "polls/poll_list", :polls => @country.polls.approved.order("created_at DESC").limit(10), :country => @country

@@ -1,5 +1,5 @@
-- yes_class = poll.yes_positive ? "positive" : "negative"
-- no_class = poll.yes_positive ? "negative" : "positive"
+- no_class = poll.positive_no ? "positive" : "negative"
+- yes_class = poll.positive_no ? "negative" : "positive"
 
 - positive_title = "This answer is the \"positive\" answer set by the creator. Voting for the positive answer will improve the overall rating of this country."
 - negative_title = "This is the \"negative\" answer set by the creator. Negative votes will hurt the overall rating of this country."
@@ -19,10 +19,10 @@
         .q
           = poll.question
   #answer.table
-    .yes{:class => "#{yes_class}", :title => "#{poll.yes_positive ? positive_title : negative_title}"}
+    .yes{:class => "#{yes_class}", :title => "#{poll.positive_no ? negative_title : positive_title}"}
       %p.cell= poll.yes
     .or
       %p.cell
         %span or
-    .no{:class => "#{no_class}", :title => "#{poll.yes_positive ? negative_title : positive_title}"}
+    .no{:class => "#{no_class}", :title => "#{poll.positive_no ? positive_title : negative_title}"}
       %p.cell= poll.no

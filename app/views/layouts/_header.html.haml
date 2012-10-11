@@ -3,6 +3,8 @@
     %nav#utility
       %div
         - if current_user
+          = link_to "Home", root_url
+          &nbsp;
           = link_to current_user.name, user_path(current_user)
           &nbsp;
           = link_to "Log out", logout_path

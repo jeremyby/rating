@@ -43,17 +43,23 @@
 }
 
 #info {
-  padding: 20px 1px;
+  padding: 20px 0;
   
-  .avatar {
-    float: right;
+  a {
+    font-weight: bold;
   }
   
-  #result {
+  .avatar {
     float: left;
     
+    img {
+      border: 4px solid white;
+    }
+  }
+  
+  #result {    
     table {
-      width: 450px;
+      width: 960px;
       
       tr {        
         &.head {
@@ -69,7 +75,7 @@
         
         &.left {
           text-align: right;
-          width: 20%;
+          width: 450px;
         }
         
         &.number {
@@ -80,7 +86,7 @@
         
         &.right {
           padding: 0;
-          width: 100%;
+          width: 480px;
         }
       }
     }
