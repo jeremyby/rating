@@ -1,42 +1,47 @@
 - content_for :js do
-  = javascript_include_tag "poll_pack"
-
-
-- title = "Ask #{@country.name}"
+  = javascript_include_tag "search", "country"
 
 - content_for :title_string do
-  = title
+  = "Ask #{@country.pretty}"
 
-- content_for :actioner do
-  .action
-    %h1= title
+#cshead(style="background-image: url('/assets/flags/#{@country.code}-l.png');")
+  .head
+    %h1
+      = (@country.full_name.blank? ? @country.pretty : @country.full_name) + (@country.alias.present? ? " (#{@country.alias})" : "")
 
-/ 
-/ - unless @country.full_name.blank? && @country.alias.blank?
-/   %h2= (@country.full_name.blank? ? '':@country.full_name) + (@country.alias.blank? ? '':' (' + @country.alias + ')')
-/   
+    %h3#facts
+      Did you know?
+      = @country.random_fact
+      = link_to image_tag("/assets/refresh.png"), "#"
 
-/ - @mw = MediaWiki::Gateway.new('http://en.wikipedia.org/w/api.php')
-/ #{ @mw.render("China") }
-
-
-- if current_user
-  %p= link_to "Create a question", new_country_poll_path(@country)
-
-  %p        
-    %h2 
-      Answer 10 questions in 1 
-      %span.italic Poll Pack
-    %p= link_to "Start Now", "#", :id => "poll_pack_start"
+#csbody.clear
+  #csside
+    %ul.links
+      #follow_li= render 'countries/follow' 
+      %li.wiki= link_to "Know more about the country", @country.link, :target =>"_blank"
+      %li.search.ui-widget
+        %label(for="search")
+          %span go to
+        %input#search(value="another country")
+  
+    %h2 Who is asking
+    #wias.clear
+      - countries = @country.top_asking_countries
+      - countries.each do |c|
+        %a(href="/#{c.slug}")
+          .wia
+            = image_tag "/assets/flags/#{c.code}-o.png"
+            %br 
+              %span= c.pretty
   
   
+  #csbox.box
+    #qs
+      %h2 Top questions
 
-%h2
-  What is 
-  %span Your Opinion
-  of
-  %span #{@country.name}?
+      - @polls = @country.top_polls(10)
 
-- @polls = Poll.approved.where("country_code = ? or country_code = 'all'", @country.code)
-
-= render "polls/poll_list", :polls => @polls, :country => @country
+      = render "polls/poll_list", :polls => @polls, :country => @country
+    
+    %p= link_to "Create a new question", new_country_poll_path(@country)
+    

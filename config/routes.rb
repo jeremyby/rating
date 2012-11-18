@@ -57,7 +57,10 @@ Askacountry::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
   
   root :to => 'home#index'
-
+  
+  match 'about' => "home#about", :via => :get, :as => :about
+  match 'search' => "home#search", :via => :get, :as => :search
+  
   resources :user_sessions, :only => [:create]
   match 'login' => "user_sessions#new",      :as => :login
   match 'logout' => "user_sessions#destroy", :as => :logout
@@ -69,13 +72,12 @@ Askacountry::Application.routes.draw do
   resources :users, :except => [:new, :index]
   match 'signup'  => "users#new", :as  => :signup
 
-  match "/:country_id/:id"  => "polls#show", :via => :get, :as => :country_poll
-
-  match "/all" => "countries#index", :as => :index_countries
-
   resources :countries, :path => "", :only => [:show] do
+    get 'follow', :on => :member
+    get 'unfollow', :on => :member
     resources :poll_pack, :only => [:new, :index, :create]
     resources :polls,  :except => [:index, :show]
   end
   
+  match "/:country_id/:id"  => "polls#show", :via => :get, :as => :country_poll
 end

@@ -1,13 +1,42 @@
-- content_for :actioner do
-  .action
-    %h1 Login
 
-= form_for @user_session do |f| 
-  = f.label_text_field :email, "Email: "
+- content_for :title_string do
+  = 'Log in to Ask a Country'
 
-  = f.password_field :password, "Password: "
+- content_for :js do
+  = javascript_include_tag 'home'
 
-  = f.check_box :remember_me, " remember_me"
+- #flash.now[:alert]  = login_validation_error if @user_session.errors.present?
 
+#auth
+  %h2 or, through these sites
+  .links
+    = link_to image_tag('/assets/facebook.png'), '/auth/facebook'
+    = link_to image_tag('/assets/twitter.png'), '/auth/twitter'
+    = link_to image_tag('/assets/google.png'), '/auth/google'
+
+#login.home
+  %h1 Log In to your account
+
+  .form
+    = form_for @user_session do |f|
+      .wrapper.clear
+        = f.label :email, 'Email:'
+        .stroke= f.text_field :email, :tabindex => 1
+    
+      .wrapper.clear
+        .forgot= link_to 'Forgot password?', '#'
+        = f.label :password, 'Password:'
+      
+        .stroke= f.password_field :password, :tabindex => 2
+    
+      .wrapper.clear
+        .remember
+          = f.check_box :remember_me, :tabindex => 3, :value => '1'
+          = f.label :remember_me, 'Remember me'
+        .submit=f.submit "Submit", :type => :image, :src => "/assets/login.png", :tabindex => 4
+
+#asu
+  %h2 Need a new account?
   %p
-    = f.submit "Login"
+    = link_to "Sign up ", signup_path
+    in no time.

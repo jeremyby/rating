@@ -5,10 +5,14 @@ class CreateCountries < ActiveRecord::Migration
       
       t.string :code,               :null => false
       t.string :name,               :null => false
+      t.string :pretty_name
       t.string :alias
       t.string :full_name
       
+      t.text   :link
+      
       t.integer :polls_count
+      t.integer :watchings_count
 
       t.timestamps
     end

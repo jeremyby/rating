@@ -6,8 +6,8 @@
  *= require normalize
  *= require layout
  *= require home
- *= require jquery.ui.dialog
- *= require jquery.ui.progressbar
+ *= require jquery.ui.all
  *= require poll_pack
  *= require polls
+ *= require country
 */

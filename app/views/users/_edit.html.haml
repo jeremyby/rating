@@ -7,10 +7,10 @@
     =f.label_text_field :email, "Email: "
   
   %p
-    =f.password_field :password, "New Password: ", :value => ""
+    =f.label_password_field :password, "New Password: ", :value => ""
   
   %p
-    =f.password_field :password_confirmation, "Password Confirmation: "
+    =f.label_password_field :password_confirmation, "Password Confirmation: "
   
   %p
     Your avatar: #{@user.avatar? ? image_tag(@user.avatar_url(:thumb)) : "not set" }

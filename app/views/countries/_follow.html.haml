@@ -1,0 +1,8 @@
+- if current_user.blank?
+  %li.follow= link_to "Follow", follow_country_path(@country), :title => "Follow the county of #{@country.pretty} and keep posted of new questions for the country."
+- elsif !current_user.watching?(@country)
+  %li.follow= link_to "Follow", follow_country_path(@country), :id => "follow", :title => "Follow the county of #{@country.pretty} and keep posted of new questions for the country."
+- else
+  %li.unfollow
+    %span following
+    = link_to "X", unfollow_country_path(@country), :id => "follow", :title => "Stop following #{@country.pretty}."

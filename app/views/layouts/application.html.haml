@@ -16,22 +16,15 @@
   %body
     = render 'layouts/header'
     
-    - actioner = yield :actioner
-    - if actioner.present?
-      .actioner
-        = actioner
-  
     .contenter
-      #content.inner
-        - if notice
-          %p.notification.notice= flash[:notice]
-        - if alert
-          %p.notification.alert= flash[:alert]
-  
-        = yield
-    
-    - bottom = yield :bottom
-    - if bottom.present?
-      = bottom
+      .wrapper
+        #content.inner
+          #notification
+            - if flash[:notice]
+              %span.msg#notice= flash[:notice].html_safe
+            - if flash[:alert]
+              %span.msg#alert= flash[:alert].html_safe
+
+          = yield
     
     = render 'layouts/footer'

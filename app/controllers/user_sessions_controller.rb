@@ -4,6 +4,7 @@ class UserSessionsController < ApplicationController
   
   def new
     @user_session = UserSession.new
+    @user_session.remember_me = true
   end
 
   def create    
@@ -18,7 +19,7 @@ class UserSessionsController < ApplicationController
   
   def destroy
     current_user_session.destroy
-    flash[:notice] = "Logout successful!"
+    flash[:notice] = "You have logged out."
     redirect_back_or_default root_url
   end
 end

@@ -26,6 +26,10 @@ class Poll < ActiveRecord::Base
     return q.split[0..9].join(" ").downcase.tr("^a-z|^0-9|^\s", "")
   end
   
+  # def positiveness
+  #   ((self.positive_votings_count.to_f / self.votings_count.to_f)*100).round(1)
+  # end
+  
   def assign_attributes(values, options = {})
     sanitize_for_mass_assignment(values, options[:as]).each do |k, v|
       send("#{k}=", v)
@@ -44,6 +48,14 @@ class Poll < ActiveRecord::Base
   
   def negative
     self.positive_no ? self.yes : self.no
+  end
+  
+  def yes_pn
+    self.positive_no ? "negative" : "positive"
+  end
+  
+  def no_pn
+    self.positive_no ? "positive" : "negative"
   end
   
   def yes_votes_size

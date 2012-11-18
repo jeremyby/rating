@@ -1,23 +1,43 @@
-- content_for :actioner do
-  .action
-    %h1 Sign Up
 
-= form_for @user do |f|
-  %p
-    = f.label :first_name, "Your first name"
-    = f.text_field :first_name
-    = f.label :last_name, ", and last name"
-    = f.text_field :last_name
-  
-  %p
-    = f.label_text_field :email, "Email: "
-  
-  %p
-    = f.password_field :password, "Password: "
-  
-  %p
-    = f.password_field :password_confirmation, "Password Confirmation: "
+- content_for :title_string do
+  = 'Sign up to Ask a Country'
 
-  %p
-    = f.submit "Submit"
+- flash.now[:alert] = signup_validation_error if @user.errors.present?
 
+#goodie
+  %h2 Goodies
+  
+
+#signup.home
+  %h1 Sign Up a new account
+
+  .form
+    = form_for @user do |f|
+      .wrapper.clear
+        = f.label :email, "Email: "
+        .stroke= f.text_field :email, :tabindex => 1
+    
+      #flnames.wrapper.clear
+        %table
+          %tr
+            %td
+              = f.label :first_name, "First name:"
+              .stroke= f.text_field :first_name, :tabindex => 2
+            %td.optional
+              = f.label :last_name, "last name:"
+              .stroke= f.text_field :last_name, :tabindex => 3
+  
+      .wrapper.clear
+        = f.label :password, "Password: "
+        .stroke= f.password_field :password , :tabindex => 4
+  
+      .wrapper.clear
+        = f.label :password_confirmation, "Password again: "
+        .stroke= f.password_field :password_confirmation, :tabindex => 5
+
+      .wrapper
+        .submit= f.submit "Submit", :type => :image, :src => "/assets/signup.png", :tabindex => 6
+
+#ali
+  %h2 Already have an account?
+  %p= link_to 'Log in here.', login_path

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120824080902) do
+ActiveRecord::Schema.define(:version => 20121116094821) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider",   :null => false
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20120824080902) do
     t.integer  "user_id",    :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "token"
   end
 
   add_index "authorizations", ["user_id"], :name => "index_authorizations_on_user_id"
@@ -42,18 +43,36 @@ ActiveRecord::Schema.define(:version => 20120824080902) do
 
   create_table "countries", :force => true do |t|
     t.string   "slug"
-    t.string   "code",        :null => false
-    t.string   "name",        :null => false
+    t.string   "code",            :null => false
+    t.string   "name",            :null => false
     t.string   "alias"
     t.string   "full_name"
     t.integer  "polls_count"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.text     "link"
+    t.string   "pretty_name"
+    t.integer  "watchings_count"
   end
 
   add_index "countries", ["code"], :name => "index_countries_on_code", :unique => true
   add_index "countries", ["name"], :name => "index_countries_on_name", :unique => true
   add_index "countries", ["slug"], :name => "index_countries_on_slug", :unique => true
+
+  create_table "dbgraphs", :force => true do |t|
+    t.text     "value"
+    t.integer  "country_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.text     "link"
+  end
+
+  create_table "facts", :force => true do |t|
+    t.string   "value"
+    t.integer  "country_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "polls", :force => true do |t|
     t.string   "slug"
@@ -86,7 +105,6 @@ ActiveRecord::Schema.define(:version => 20120824080902) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "name"
     t.string   "email",                                 :null => false
     t.string   "crypted_password"
     t.string   "password_salt"
@@ -123,5 +141,16 @@ ActiveRecord::Schema.define(:version => 20120824080902) do
   add_index "votings", ["country_code"], :name => "index_votings_on_country_code"
   add_index "votings", ["poll_id"], :name => "index_votings_on_poll_id"
   add_index "votings", ["user_id"], :name => "index_votings_on_user_id"
+
+  create_table "watchings", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "country_code"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "watchings", ["country_code"], :name => "index_watchings_on_country_code"
+  add_index "watchings", ["user_id", "country_code"], :name => "index_watchings_on_user_id_and_country_code", :unique => true
+  add_index "watchings", ["user_id"], :name => "index_watchings_on_user_id"
 
 end

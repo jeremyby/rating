@@ -17,7 +17,6 @@ group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
-  gem 'jquery-ui-rails'
 end
 
 gem 'jquery-rails'
@@ -27,14 +26,20 @@ gem 'rails3-generators'
 
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2', :github => 'jeremyby/omniauth-google-oauth2'
 
 gem 'rmagick'
 gem 'carrierwave'
 gem 'mime-types'
 
-gem 'feedzirra'
-
 gem 'geoip'
+
+gem 'equivalent-xml'
+gem 'linkeddata'
+gem 'rdf-json'
+
+# gem 'treyconnell-ruby-aaws'
 
 gem 'acts_as_commentable_with_threading'
 

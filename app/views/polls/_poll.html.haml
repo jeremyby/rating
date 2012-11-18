@@ -1,8 +1,8 @@
-- no_class = poll.positive_no ? "positive" : "negative"
-- yes_class = poll.positive_no ? "negative" : "positive"
 
-- positive_title = "This answer is the \"positive\" answer set by the creator. Voting for the positive answer will improve the overall rating of this country."
-- negative_title = "This is the \"negative\" answer set by the creator. Negative votes will hurt the overall rating of this country."
+- s1 = "This answer is the \"positive\" answer set by the creator. Voting for the positive answer will improve the overall rating of this country."
+- s2 = "This is the \"negative\" answer set by the creator. Negative votes will hurt the overall rating of this country."
+
+- title = {"positive" => s1, "negative" => s2}
 
 #question.clear
   #question_body
@@ -19,10 +19,10 @@
         .q
           = poll.question
   #answer.table
-    .yes{:class => "#{yes_class}", :title => "#{poll.positive_no ? negative_title : positive_title}"}
+    .yes(class="#{poll.yes_pn}" title="#{title[poll.yes_pn]}")
       %p.cell= poll.yes
     .or
       %p.cell
         %span or
-    .no{:class => "#{no_class}", :title => "#{poll.positive_no ? positive_title : negative_title}"}
+    .no(class="#{poll.no_pn}" title="#{title[poll.no_pn]}")
       %p.cell= poll.no

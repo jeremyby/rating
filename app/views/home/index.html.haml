@@ -1,17 +1,42 @@
+- content_for :js do
+  = javascript_include_tag "search"
 
-%h1 Ask a country anything
+#hhead
+  %h1 Find the answer of the people.
+  %h3 
+    Ask a country anything you wanna know in
+    %em closed-ended questions,
+    and help the world understand a country better by 
+    %em voting for the right answers.
 
-%h2 People are asking #{@country.name}:
-.sub not from #{@country.name}? see #{link_to "your home country", "#"}
 
-#ask
-  = render "polls/poll_list", :polls => @country.top_polls(5), :country => @country
-
-%h2 Your answers wanted! Let's Quiz
-
-%h1 and . . .
-
-%h1 Find the answer of the people
+#hq
+  %h2 
+    Top question for
+    %a(href="#{country_path(@country)}")#{@country.name}#{image_tag "/assets/flags/#{@country.code}-m.png"}
   
-%h2 List of Questions
+  - poll = @country.polls.featured.last
+  - poll = @country.top_polls(1)[0] if poll.blank?
+  
+  .poll.box
+    %a(href="#{country_poll_path(@country, poll)}")
+      =poll.question 
 
+      %span(class="answer #{poll.yes_pn}")= poll.yes
+      %span.or or
+      %span(class="answer #{poll.no_pn}")= poll.no
+      ?
+  .clear
+
+
+#hactions
+  #hgo.action
+    %h2
+      Find your yountry
+    #widget.ui-widget
+      %label(for="search") go to
+      %input#search(value="your home country")
+  #hask.action
+    %h2 Wanna ask a country, too?
+    %a Create a Question now &rarr;
+  .clear

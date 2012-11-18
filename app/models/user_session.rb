@@ -1,11 +1,3 @@
-class UserSession < Authlogic::Session::Base  
-  # before_validation :check_presence
-  # 
-  # # generalize_credentials_error_messages true
-  # 
-  # private
-  #   def check_presence
-  #     errors.add(:email, "can't be blank") if email.blank?
-  #     errors.add(:password, "can't be blank") if password.blank?
-  # end
+class UserSession < Authlogic::Session::Base
+  generalize_credentials_error_messages "Your account information is not vaild."
 end

@@ -6,24 +6,42 @@ class AuthorizationsController < ApplicationController
   def create
     #raise request.env["omniauth.auth"].to_yaml
     info = UserInfo.new(request.env['omniauth.auth']) #this is where you get all the data from your provider through omniauth
-    # provider, uid = omniauth['provider'].capitalize, omniauth['uid']
     
     @auth = Authorization.find_by_provider_and_uid(info.provider, info.uid)
-        
-    if current_user
-      flash[:notice] = "Successfully added #{info.provider} authentication"
-      current_user.authorizations.create(:provider => info.provider, :uid => info.uid) #Add an auth to existing user
-    elsif @auth
+    @user = User.find_by_email(info.email)
+    
+    if @auth.present? #Need to be the first, to avoid duplicate auth
       flash[:notice] = "Welcome back #{info.provider} user"
-      UserSession.create(@auth.user, true) #User is present. Login the user with his social account
-    else
-      user = User.create_with_omniauth(info, geocode_from_request) #Create a new user
-      @new_auth = user.authorizations.create(:provider => info.provider, :uid  => info.uid) 
+      UserSession.create(@auth.user, true) #Returning user with same auth. Login the user with his social account
+      
+    elsif current_user # this is 'connecting to' feature, not login
+      flash[:notice] = "Successfully added #{info.provider} authentication."
+      current_user.authorizations.create(:provider => info.provider, :uid => info.uid, :token => info.token) #Add an auth to existing user
+  
+      redirect_to user_path(current_user)
+      return true
+      
+    elsif @user.present? #Email has already been signed up
+      @user.authorizations.create(:provider => info.provider, :uid  => info.uid, :token => info.token) 
+      
+      flash[:notice] = "A #{info.provider} authentication has been added to your account."
+      UserSession.create(@user, true)
+    
+    elsif info.email.blank? # Trying to login with Twitter
+      flash[:alert] = "Dear Twitter user. Please sign up first then connect your account to Twitter.<br/> Sorry for your trouble(blame the birdy)."
+      
+      redirect_to login_path
+      return true
+      
+    else # All other possibilities exhausted, let us create a new user
+      user = User.create_with_omniauth(info, country_code_from_request)
+      user.authorizations.create(:provider => info.provider, :uid  => info.uid, :token => info.token) 
+      
       flash[:notice] = "Welcome #{info.provider} user. Your account has been created."
       UserSession.create(user, true) #Log the authorizing user in.
     end
     
-    redirect_to '/'
+    redirect_to root_url
   end
 
   def failure
