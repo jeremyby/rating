@@ -540,7 +540,6 @@ ul.poll_list {
   
   .form {
     padding-top: 20px;
-    margin-right: 130px;
   }
   
   label {
@@ -588,6 +587,13 @@ ul.poll_list {
         border: 1px solid #bbb;
         background: #fefefa;
         
+        &.error {
+          background: #ffdfdf;
+          
+          -moz-box-shadow: none;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+        }
         
         &:focus {
           background: #fff;
@@ -596,7 +602,7 @@ ul.poll_list {
       }
       
       .validation-error input {
-        background: red;
+        background: #ffdfdf;
         
         -moz-box-shadow: none;
         -webkit-box-shadow: none;
@@ -613,4 +619,3 @@ ul.poll_list {
     }
   }
 }
-

@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
       # logger.debug "ApplicationController::require_user"    
       unless current_user
         store_location
-        flash[:alert] = "You need to log in to access the page."
+        flash[:alert] = "You need to log in first."
         redirect_to login_path
         return false
       end

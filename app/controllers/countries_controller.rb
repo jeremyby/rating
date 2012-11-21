@@ -38,7 +38,7 @@ class CountriesController < ApplicationController
       page_404 if c.blank?
       
       store_location(country_path(c))
-      flash[:alert] = "You must be logged in to access this page"
+      flash[:alert] = "This feature requires your account info. Please log in first."
       redirect_to "/login"
       return false
     end

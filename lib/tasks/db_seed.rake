@@ -66,17 +66,17 @@ namespace :db do
           
           facts = []
           
-          facts << {:value => "The largest city of #{c.name} is #{@largest_city.to_s.split('/').last.split('_').join(' ')}."} if @largest_city.present?
-          facts << {:value => "#{c.name}'s capital city is #{@capital.to_s.split('/').last.split('_').join(' ')}."} if @capital.present?
-          facts << {:value => "The national motto of #{c.name} is: #{@motto.to_s}."} if @motto.present?
-          facts << {:value => "The total area of #{c.name} ranks the #{@area_rank.to_s.to_i.ordinalize} in the world."} if @area_rank.present?
-          facts << {:value => "The calling code for #{c.name} is #{@calling_code.to_s}."} if @calling_code.present?
-          facts << {:value => "People in #{c.name} drive on the #{@drives_on.to_s} side."} if @drives_on.present?
-          facts << {:value => "The estimated population of #{c.name} ranks the #{@population_estimate_rank.to_s.to_i.ordinalize} in the world."} if @population_estimate_rank.present?
-          facts << {:value => "The population of #{c.name} ranks the #{@population_census_rank.to_s.to_i.ordinalize} in the world."} if @population_census_rank.present?
-          facts << {:value => "The nominal GDP of #{c.name} ranks the #{@gdp_nominal_rank.to_s.to_i.ordinalize} in the world."} if @gdp_nominal_rank.present?
-          facts << {:value => "The GDP (PPP) per capita of #{c.name} ranks the #{@gdp_ppp_per_capita_rank.to_s.to_i.ordinalize} in the world."} if @gdp_ppp_per_capita_rank.present?
-          facts << {:value => "People from #{c.name} is referred as #{@demonym.to_s}."} if @demonym.present?
+          facts << {:value => "The largest city of #{c.pretty} is #{@largest_city.to_s.split('/').last.split('_').join(' ')}."} if @largest_city.present?
+          facts << {:value => "#{c.pretty}'s capital city is #{@capital.to_s.split('/').last.split('_').join(' ')}."} if @capital.present?
+          facts << {:value => "The national motto of #{c.pretty} is: #{@motto.to_s}."} if @motto.present?
+          facts << {:value => "The total area of #{c.pretty} ranks the #{@area_rank.to_s.to_i.ordinalize} in the world."} if @area_rank.present?
+          facts << {:value => "The calling code for #{c.pretty} is #{@calling_code.to_s}."} if @calling_code.present?
+          facts << {:value => "People in #{c.pretty} drive on the #{@drives_on.to_s} side."} if @drives_on.present?
+          facts << {:value => "The estimated population of #{c.pretty} ranks the #{@population_estimate_rank.to_s.to_i.ordinalize} in the world."} if @population_estimate_rank.present?
+          facts << {:value => "The population of #{c.pretty} ranks the #{@population_census_rank.to_s.to_i.ordinalize} in the world."} if @population_census_rank.present?
+          facts << {:value => "The nominal GDP of #{c.pretty} ranks the #{@gdp_nominal_rank.to_s.to_i.ordinalize} in the world."} if @gdp_nominal_rank.present?
+          facts << {:value => "The GDP (PPP) per capita of #{c.pretty} ranks the #{@gdp_ppp_per_capita_rank.to_s.to_i.ordinalize} in the world."} if @gdp_ppp_per_capita_rank.present?
+          facts << {:value => "People from #{c.pretty} is referred as #{@demonym.to_s}."} if @demonym.present?
           
           c.facts.create(facts)
           

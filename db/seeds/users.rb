@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-countries = %w(us cn uk kp sy)
+countries = %w(us cn gb kp sy)
 
 users = [
   {:first_name => 'yangb', :email  => 'b.yang@live.com', :country_code => "us", :password => '19781115', :password_confirmation  => '19781115'},

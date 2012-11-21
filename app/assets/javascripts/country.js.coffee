@@ -1,4 +1,4 @@
-$(document).ready ->  
+$(document).ready ->
   $poll_counter = 0
   
   $.pace = 25  

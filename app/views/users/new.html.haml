@@ -2,6 +2,9 @@
 - content_for :title_string do
   = 'Sign up to Ask a Country'
 
+- content_for :js do
+  = javascript_include_tag 'home'
+
 - flash.now[:alert] = signup_validation_error if @user.errors.present?
 
 #goodie

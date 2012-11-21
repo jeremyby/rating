@@ -1,8 +1,34 @@
-- content_for :actioner do
-  .action
-    %h1= current_user ? current_user.name : @user.name
+%h1= @user.name
+
+- @is_owner = (@user == current_user)
+
+
+%h3 Watching
+%h3 Questions
+%h3 Settings
+= #render "edit", :user => @user
+
+
+%p 
+  34 following, 354 followers
+
+%p
+  home country: #{Country.find_by_code(@user.country_code).name}
+  
+%p
+  knows the following countries well enough to answer questions about them:
+  %ul
+    %li China
+    %li United Kingdom
+      
+%p
+  watching country:
+  %ul
+    %li China
+    %li United States
     
-- if @user == current_user
-  = render "setting", :user => current_user
-- else
-  = render "show", :user => @user
+%h2 
+  Recent Activities
+%ul
+  %li Added a question for China: blah blah blah
+  %li Voted for "No" on the question for United States: blah blah

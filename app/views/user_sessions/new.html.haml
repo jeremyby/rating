@@ -5,7 +5,7 @@
 - content_for :js do
   = javascript_include_tag 'home'
 
-- #flash.now[:alert]  = login_validation_error if @user_session.errors.present?
+- flash.now[:alert]  = login_validation_error if @user_session.errors.present?
 
 #auth
   %h2 or, through these sites

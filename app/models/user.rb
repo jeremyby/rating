@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
   end
   
   def name
-    self.last_name.present? ? self.first_name + " #{self.last_name.capitalize!}" : self.first_name
+    self.last_name.present? ? self.first_name + " #{self.last_name.capitalize}" : self.first_name
   end
   
   #********************************************
