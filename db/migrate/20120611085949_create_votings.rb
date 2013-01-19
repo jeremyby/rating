@@ -6,8 +6,8 @@ class CreateVotings < ActiveRecord::Migration
       t.string      :country_code,            :null => false
       
       # users' vote on a poll question
-      #  1 => positive
-      # -1 => negative 
+      #  1 => yes
+      # -1 => no 
       t.integer     :vote,                    :null => false
       
       t.timestamps

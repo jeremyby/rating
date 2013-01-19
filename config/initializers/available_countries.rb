@@ -1,0 +1,1 @@
+Available_Countries = %w(us cn)

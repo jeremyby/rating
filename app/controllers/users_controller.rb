@@ -1,7 +1,21 @@
 class UsersController < ApplicationController
+  require 'UserInfo'
+  
+  can_edit_on_the_spot
+  
   def new
-    @user = User.new
-
+    @info = session[:info]
+    session[:info] = nil
+    
+    if @info.present?
+      @user = User.build_from_info(@info, country_code_from_request)
+      
+      render 'new_auth'
+    else
+      @user = User.new
+      
+      render 'new'
+    end
   end
 
   def create

@@ -27,9 +27,9 @@ namespace :db do
           
             c.create_dbgraph(:value => string)
           
-            puts "#{graph.count} statements got retrieved for #{c.name}"
+            puts "#{graph.count} statements got retrieved for #{c}"
           else
-            puts "no statement got retrieved for #{c.name}"
+            puts "no statement got retrieved for #{c}"
           end
         end
       end
@@ -66,23 +66,23 @@ namespace :db do
           
           facts = []
           
-          facts << {:value => "The largest city of #{c.pretty} is #{@largest_city.to_s.split('/').last.split('_').join(' ')}."} if @largest_city.present?
-          facts << {:value => "#{c.pretty}'s capital city is #{@capital.to_s.split('/').last.split('_').join(' ')}."} if @capital.present?
-          facts << {:value => "The national motto of #{c.pretty} is: #{@motto.to_s}."} if @motto.present?
-          facts << {:value => "The total area of #{c.pretty} ranks the #{@area_rank.to_s.to_i.ordinalize} in the world."} if @area_rank.present?
-          facts << {:value => "The calling code for #{c.pretty} is #{@calling_code.to_s}."} if @calling_code.present?
-          facts << {:value => "People in #{c.pretty} drive on the #{@drives_on.to_s} side."} if @drives_on.present?
-          facts << {:value => "The estimated population of #{c.pretty} ranks the #{@population_estimate_rank.to_s.to_i.ordinalize} in the world."} if @population_estimate_rank.present?
-          facts << {:value => "The population of #{c.pretty} ranks the #{@population_census_rank.to_s.to_i.ordinalize} in the world."} if @population_census_rank.present?
-          facts << {:value => "The nominal GDP of #{c.pretty} ranks the #{@gdp_nominal_rank.to_s.to_i.ordinalize} in the world."} if @gdp_nominal_rank.present?
-          facts << {:value => "The GDP (PPP) per capita of #{c.pretty} ranks the #{@gdp_ppp_per_capita_rank.to_s.to_i.ordinalize} in the world."} if @gdp_ppp_per_capita_rank.present?
-          facts << {:value => "People from #{c.pretty} is referred as #{@demonym.to_s}."} if @demonym.present?
+          facts << {:value => "The largest city of #{c} is #{@largest_city.to_s.split('/').last.split('_').join(' ')}."} if @largest_city.present?
+          facts << {:value => "#{c}'s capital city is #{@capital.to_s.split('/').last.split('_').join(' ')}."} if @capital.present?
+          facts << {:value => "The national motto of #{c} is: #{@motto.to_s}."} if @motto.present?
+          facts << {:value => "The total area of #{c} ranks the #{@area_rank.to_s.to_i.ordinalize} in the world."} if @area_rank.present?
+          facts << {:value => "The calling code for #{c} is #{@calling_code.to_s}."} if @calling_code.present?
+          facts << {:value => "People in #{c} drive on the #{@drives_on.to_s} side."} if @drives_on.present?
+          facts << {:value => "The estimated population of #{c} ranks the #{@population_estimate_rank.to_s.to_i.ordinalize} in the world."} if @population_estimate_rank.present?
+          facts << {:value => "The population of #{c} ranks the #{@population_census_rank.to_s.to_i.ordinalize} in the world."} if @population_census_rank.present?
+          facts << {:value => "The nominal GDP of #{c} ranks the #{@gdp_nominal_rank.to_s.to_i.ordinalize} in the world."} if @gdp_nominal_rank.present?
+          facts << {:value => "The GDP (PPP) per capita of #{c} ranks the #{@gdp_ppp_per_capita_rank.to_s.to_i.ordinalize} in the world."} if @gdp_ppp_per_capita_rank.present?
+          facts << {:value => "People from #{c} is referred as #{@demonym.to_s}."} if @demonym.present?
           
           c.facts.create(facts)
           
-          puts "#{facts.size} facts are created for #{c.name}"
+          puts "#{facts.size} facts are created for #{c}"
         else
-          puts "No facts for #{c.name}"
+          puts "No facts for #{c}"
         end
         
         Country.find_by_code("ug").facts.create(:value => "The capital city of Uganda is Kampala.")

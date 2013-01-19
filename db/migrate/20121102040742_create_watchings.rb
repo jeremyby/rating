@@ -3,6 +3,7 @@ class CreateWatchings < ActiveRecord::Migration
     create_table :watchings do |t|
       t.integer :user_id
       t.string :country_code
+      t.string :knowledge
 
       t.timestamps
     end

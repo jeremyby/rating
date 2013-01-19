@@ -16,25 +16,25 @@
 
   .form
     = form_for @user do |f|
-      .wrapper.clear
+      .wrapper
         = f.label :email, "Email: "
         .stroke= f.text_field :email, :tabindex => 1
     
-      #flnames.wrapper.clear
+      #flnames.wrapper
         %table
           %tr
             %td
               = f.label :first_name, "First name:"
               .stroke= f.text_field :first_name, :tabindex => 2
             %td.optional
-              = f.label :last_name, "last name:"
+              = f.label :last_name, "Last name:"
               .stroke= f.text_field :last_name, :tabindex => 3
   
-      .wrapper.clear
+      .wrapper
         = f.label :password, "Password: "
         .stroke= f.password_field :password , :tabindex => 4
   
-      .wrapper.clear
+      .wrapper
         = f.label :password_confirmation, "Password again: "
         .stroke= f.password_field :password_confirmation, :tabindex => 5
 

@@ -5,7 +5,8 @@ class HomeController < ApplicationController
     else
       @country = Country.find_by_code(country_code_from_request)
       
-      if @country.polls_count.blank?
+      unless Available_Countries.include?(@country.code)
+        flash.now[:notice] = "Sorry we don't provide service for #{@country} yet. But you can <a href='/#{@country.slug}'>help to activate it</a>"
         @country = Country.find_by_code('us')
       end
     end

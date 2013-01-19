@@ -10,35 +10,44 @@ class AuthorizationsController < ApplicationController
     @auth = Authorization.find_by_provider_and_uid(info.provider, info.uid)
     @user = User.find_by_email(info.email)
     
+    provider = info.provider.capitalize
+    
     if @auth.present? #Need to be the first, to avoid duplicate auth
-      flash[:notice] = "Welcome back #{info.provider} user"
+      flash[:notice] = "Welcome back #{provider} user"
       UserSession.create(@auth.user, true) #Returning user with same auth. Login the user with his social account
       
     elsif current_user # this is 'connecting to' feature, not login
-      flash[:notice] = "Successfully added #{info.provider} authentication."
-      current_user.authorizations.create(:provider => info.provider, :uid => info.uid, :token => info.token) #Add an auth to existing user
+      flash[:notice] = "Successfully added #{provider} authentication."
+      current_user.authorizations.create(:provider => info.provider, :uid => info.uid, :token => info.token, :link => info.link) #Add an auth to existing user
   
       redirect_to user_path(current_user)
       return true
       
-    elsif @user.present? #Email has already been signed up
-      @user.authorizations.create(:provider => info.provider, :uid  => info.uid, :token => info.token) 
+    elsif @user.present? # A user has already signed up with that email
+      @user.authorizations.create(:provider => info.provider, :uid  => info.uid, :token => info.token, :link => info.link) 
       
-      flash[:notice] = "A #{info.provider} authentication has been added to your account."
+      flash[:notice] = "A #{provider} authentication has been added to your account."
       UserSession.create(@user, true)
     
-    elsif info.email.blank? # Trying to login with Twitter
-      flash[:alert] = "Dear Twitter user. Please sign up first then connect your account to Twitter.<br/> Sorry for your trouble(blame the birdy)."
+    # elsif info.email.blank? # Trying to login with Twitter
+    #   flash[:alert] = "Dear Twitter user. Please sign up first then connect your account to Twitter.<br/> Sorry for your trouble(blame the birdy)."
+    #   
+    #   redirect_to login_path
+    #   return true
+    # 
+    # else # All other possibilities exhausted, let us create a new user
+    #   user = User.create_with_omniauth(info, country_code_from_request)
+    #   user.authorizations.create(:provider => info.provider, :uid  => info.uid, :token => info.token, :link => info.link) 
+    #   
+    #   flash[:notice] = "Welcome #{info.provider} user. Your account has been created."
+    #   UserSession.create(user, true) #Log the authorizing user in.
+    
+    else
+      flash[:notice] = "Welcome! #{info.name[0]} from #{provider}."
+      session[:info] = info
       
-      redirect_to login_path
+      redirect_to signup_path
       return true
-      
-    else # All other possibilities exhausted, let us create a new user
-      user = User.create_with_omniauth(info, country_code_from_request)
-      user.authorizations.create(:provider => info.provider, :uid  => info.uid, :token => info.token) 
-      
-      flash[:notice] = "Welcome #{info.provider} user. Your account has been created."
-      UserSession.create(user, true) #Log the authorizing user in.
     end
     
     redirect_to root_url

@@ -8,13 +8,11 @@ class CreatePolls < ActiveRecord::Migration
       t.string    :yes,           :default => "Yes",              :null => false
       t.string    :no,            :default => "No",               :null => false
       
-      t.boolean   :positive_no,   :default => false,              :null => false
-      
       t.integer   :user_id,                                       :null => false
       
       # country the poll is polling
       # 'all' if the poll is applicable to all countries
-      t.string    :country_code,  :null => false
+      t.string    :country_code,                                  :null => false
       
       # polls are categorized into 5 categories, starting from 1, not 0
       # which were initialized in lib
@@ -29,6 +27,9 @@ class CreatePolls < ActiveRecord::Migration
       # -1 for not approved
       # 0 for waiting for the owner's first vote
       t.integer   :weight,        :default => -1,                 :null => false
+      
+      t.text  :description
+      
       
       t.timestamps
     end

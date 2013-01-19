@@ -1,0 +1,219 @@
+.lc
+  margin-right: 360px
+
+.rc
+  float: right
+  width: 320px
+
+#sph 
+  margin: 25px 0 0 65px
+  
+  .info
+    .user
+      a 
+        font-family: "museo slab"
+      
+      img 
+        margin-left: 2px
+  
+  .poll
+    position: relative
+    
+    .flag
+      position: absolute
+      left: -65px
+      top: -3px
+    
+    .question
+      margin: 3px 0
+      line-height: 1.4em
+      
+      span
+      
+        &.yes
+          padding-left: 5px
+          border-left: 8px solid #cef0ce
+        
+        &.no
+          padding-left: 5px
+          border-left: 8px solid #ffdfdf
+        
+      em
+        font-size: 0.78em
+        font-weight: 600
+        
+    .answers
+
+      h3
+        margin: 0
+        
+        span
+          &.answer
+            font-size: 1.1em
+            
+            color: #444
+            cursor: pointer
+            
+            padding: 4px 8px 0 9px
+            
+          &.qm
+            font-size: 1.2em
+
+
+
+#spb
+  margin: 15px 0 0 65px
+  
+  .lc  
+    .desc
+      +small-text
+      
+      padding: 10px 1em
+
+      line-height: 1.5em
+
+      background: #fff
+      border: 2px dashed #cecece
+      
+      color: #666
+    
+    #actions
+      margin: 25px 0 10px 0
+      
+      .ata
+        a
+          +button
+    
+    h2
+      margin: 0
+    
+    .comments
+      h3
+        margin: 0
+
+      .detail
+        margin-top: 5px
+        display: none
+
+      .comments_holder
+        max-height: 300px
+
+        overflow-y: auto
+
+        .comment
+          +clearfix
+
+          margin-bottom: 5px
+
+          .avatar
+            float: left
+
+          .user
+            margin: 3px 0 2px 29px
+
+          .body
+            margin: 0 0 2px 29px
+
+          .atns
+            margin-left: 29px
+
+            a
+              margin-right: 5px
+
+          .reply
+            margin: 5px 0 0 29px
+
+          .comment
+            margin: 5px 0 5px 29px
+
+
+      form
+        textarea
+          padding: 2px 5px 0 5px
+
+      .form
+        textarea
+          height: 50px
+          width: 360px
+          max-width: 450px
+
+      .reply
+        display: none
+
+        textarea
+          height: 18px
+    
+    
+    #poll_comments
+      margin-bottom: 25px
+        
+      .comment
+        .user,
+        .atns
+          +small-text
+    
+    
+    #votings
+      +small-text
+      
+      .voting
+        padding: 10px
+      
+        img
+          margin-bottom: -5px
+        
+        .comment_body
+          +border-radius(5px)
+          margin-top: 5px
+          padding: 5px 10px
+        
+        &.yes
+          margin-right: 100px
+          border-left: 8px solid #cef0ce
+          
+          .comment_body
+            background: #cef0ce
+        
+        &.no
+          margin-left: 100px
+          border-right: 8px solid #ffdfdf
+          
+          .voter
+            text-align: right
+          
+          .comment_body
+            background: #ffdfdf
+      
+        .comments
+          .comments_holder
+            max-height: 200px
+            
+          .form
+            textarea
+              width: 320px
+              max-width: 320px
+              
+          .comment
+            .reply
+              textarea
+                width: 240px
+                max-width: 240px
+
+
+  .rc
+    ul
+      margin: 0
+      padding: 0
+      list-style:  none
+      
+      li
+        margin-bottom: 5px
+      
+      li.share
+        padding-left: 15px
+      
+    .polls
+      h2
+        font-size: 1.4em
+        margin: 24px 0 10px 0
+      

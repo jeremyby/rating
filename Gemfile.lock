@@ -1,21 +1,28 @@
 GIT
   remote: git://github.com/jeremyby/omniauth-google-oauth2.git
-  revision: e1d422a031ca44d4342c9b3a7b8d05bb5cbf81f9
+  revision: 6a0ddee1e4144aa2e968aaa4d70c505ae93160cc
   specs:
     omniauth-google-oauth2 (0.1.13)
       omniauth (~> 1.0)
       omniauth-oauth2
 
+GIT
+  remote: git://github.com/jeremyby/on_the_spot.git
+  revision: 0c47d848ca14bdbc94fce2abc45db618a4e0ab8e
+  specs:
+    on_the_spot (1.0.1)
+      json_pure (>= 1.4.6)
+
 GEM
   remote: http://rubygems.org/
   specs:
-    ZenTest (4.8.2)
-    actionmailer (3.2.9)
-      actionpack (= 3.2.9)
+    ZenTest (4.8.3)
+    actionmailer (3.2.11)
+      actionpack (= 3.2.11)
       mail (~> 2.4.4)
-    actionpack (3.2.9)
-      activemodel (= 3.2.9)
-      activesupport (= 3.2.9)
+    actionpack (3.2.11)
+      activemodel (= 3.2.11)
+      activesupport (= 3.2.11)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       journey (~> 1.0.4)
@@ -23,18 +30,18 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    activemodel (3.2.9)
-      activesupport (= 3.2.9)
+    activemodel (3.2.11)
+      activesupport (= 3.2.11)
       builder (~> 3.0.0)
-    activerecord (3.2.9)
-      activemodel (= 3.2.9)
-      activesupport (= 3.2.9)
+    activerecord (3.2.11)
+      activemodel (= 3.2.11)
+      activesupport (= 3.2.11)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activeresource (3.2.9)
-      activemodel (= 3.2.9)
-      activesupport (= 3.2.9)
-    activesupport (3.2.9)
+    activeresource (3.2.11)
+      activemodel (= 3.2.11)
+      activesupport (= 3.2.11)
+    activesupport (3.2.11)
       i18n (~> 0.6)
       multi_json (~> 1.0)
     acts_as_commentable_with_threading (1.1.2)
@@ -43,7 +50,7 @@ GEM
       awesome_nested_set (>= 2.0)
     addressable (2.3.2)
     arel (3.0.2)
-    authlogic (3.1.3)
+    authlogic (3.2.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
     autotest (4.4.6)
@@ -54,9 +61,10 @@ GEM
       activerecord (>= 3.0.0)
     backports (2.6.5)
     builder (3.0.4)
-    carrierwave (0.7.1)
+    carrierwave (0.8.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
+    chunky_png (1.2.7)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -64,6 +72,12 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    compass (0.13.alpha.0)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.2.0.alpha.93)
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
     cucumber (1.2.1)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.3)
@@ -80,7 +94,8 @@ GEM
     faraday (0.8.4)
       multipart-post (~> 1.1)
     friendly_id (4.0.9)
-    geoip (1.2.0)
+    fssm (0.2.9)
+    geoip (1.2.1)
     gherkin (2.11.5)
       json (>= 1.4.6)
     haml (3.1.7)
@@ -95,15 +110,15 @@ GEM
     httpauth (0.2.0)
     i18n (0.6.1)
     journey (1.0.4)
-    jquery-rails (2.1.3)
-      railties (>= 3.1.0, < 5.0)
-      thor (~> 0.14)
-    json (1.7.5)
-    json-ld (0.3.1)
+    jquery-rails (2.1.4)
+      railties (>= 3.0, < 5.0)
+      thor (>= 0.14, < 2.0)
+    json (1.7.6)
+    json-ld (0.3.2)
       backports
-      json (>= 1.6.5)
-      rdf (>= 0.3.5)
-    json_pure (1.7.5)
+      json (>= 1.7.5)
+      rdf (>= 0.3.11)
+    json_pure (1.7.6)
     jwt (0.1.5)
       multi_json (>= 1.0)
     linkeddata (0.3.5)
@@ -123,9 +138,9 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.19)
-    multi_json (1.3.7)
+    multi_json (1.5.0)
     multipart-post (1.1.5)
-    nokogiri (1.5.5)
+    nokogiri (1.5.6)
     oauth (0.4.7)
     oauth2 (0.8.0)
       faraday (~> 0.8)
@@ -133,6 +148,10 @@ GEM
       jwt (~> 0.1.4)
       multi_json (~> 1.0)
       rack (~> 1.2)
+    oily_png (1.0.2)
+      chunky_png (~> 1.2.1)
+    omg-text (0.0.2)
+      compass (>= 0.10.0.rc3)
     omniauth (1.1.1)
       hashie (~> 1.2)
       rack
@@ -148,60 +167,60 @@ GEM
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
     polyglot (0.3.3)
-    rack (1.4.1)
+    rack (1.4.3)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (3.2.9)
-      actionmailer (= 3.2.9)
-      actionpack (= 3.2.9)
-      activerecord (= 3.2.9)
-      activeresource (= 3.2.9)
-      activesupport (= 3.2.9)
+    rails (3.2.11)
+      actionmailer (= 3.2.11)
+      actionpack (= 3.2.11)
+      activerecord (= 3.2.11)
+      activeresource (= 3.2.11)
+      activesupport (= 3.2.11)
       bundler (~> 1.0)
-      railties (= 3.2.9)
+      railties (= 3.2.11)
     rails3-generators (1.0.0)
       railties (>= 3.0.0)
-    railties (3.2.9)
-      actionpack (= 3.2.9)
-      activesupport (= 3.2.9)
+    railties (3.2.11)
+      actionpack (= 3.2.11)
+      activesupport (= 3.2.11)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
-    rake (10.0.1)
-    rdf (0.3.9)
+    rake (10.0.3)
+    rdf (0.3.11.1)
       addressable (>= 2.2.6)
     rdf-isomorphic (0.3.4)
       rdf (>= 0.2.3)
     rdf-json (0.3.0)
       json_pure (>= 1.4.2)
       rdf (~> 0.3.0)
-    rdf-microdata (0.2.5)
+    rdf-microdata (0.3.0)
       htmlentities (>= 4.3.0)
       json (>= 1.6.1)
       rdf (>= 0.3.4)
       rdf-xsd (>= 0.3.4)
-    rdf-n3 (0.3.7)
-      rdf (>= 0.3.4)
-    rdf-rdfa (0.3.15)
-      haml (>= 3.1.6)
-      htmlentities (>= 4.3.0)
-      rdf (>= 0.3.5)
-      rdf-xsd (>= 0.3.7)
-    rdf-rdfxml (0.3.8)
-      rdf (>= 0.3.4)
-      rdf-xsd (>= 0.3.5)
+    rdf-n3 (0.3.8)
+      rdf (>= 0.3.11)
+    rdf-rdfa (0.3.19.1)
+      haml (>= 3.1.7)
+      htmlentities (>= 4.3.1)
+      rdf (>= 0.3.11)
+      rdf-xsd (>= 0.3.8)
+    rdf-rdfxml (0.3.9)
+      rdf (>= 0.3.11)
+      rdf-xsd (>= 0.3.8)
     rdf-trig (0.1.4)
       rdf (>= 0.3.9)
       rdf-turtle (>= 0.3.0)
     rdf-trix (0.3.0)
       rdf (~> 0.3.0)
-    rdf-turtle (0.3.0)
-      rdf (>= 0.3.4)
+    rdf-turtle (0.3.2)
+      rdf (>= 0.3.11)
     rdf-xsd (0.3.8)
       rdf (>= 0.3.4)
     rdoc (3.12)
@@ -211,33 +230,40 @@ GEM
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
-    rspec-core (2.12.0)
-    rspec-expectations (2.12.0)
+    rspec-core (2.12.2)
+    rspec-expectations (2.12.1)
       diff-lcs (~> 1.1.3)
-    rspec-mocks (2.12.0)
-    rspec-rails (2.12.0)
+    rspec-mocks (2.12.1)
+    rspec-rails (2.12.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
-    sass (3.2.3)
+    sass (3.2.5)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    sprockets (2.2.1)
+    sassy-buttons (0.1.4)
+      compass (>= 0.12.2)
+      sass (>= 3.2.0)
+    sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.6)
+    statistics2 (0.54)
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
     thor (0.16.0)
+    thumbs_up (0.6.2)
+      activerecord
+      statistics2
     tilt (1.3.3)
     treetop (1.4.12)
       polyglot
@@ -257,6 +283,7 @@ DEPENDENCIES
   autotest-rails
   carrierwave
   coffee-rails
+  compass-rails
   cucumber
   equivalent-xml
   friendly_id
@@ -267,10 +294,13 @@ DEPENDENCIES
   json
   linkeddata
   mime-types
+  oily_png
+  omg-text
   omniauth
   omniauth-facebook
   omniauth-google-oauth2!
   omniauth-twitter
+  on_the_spot!
   rails
   rails3-generators
   rdf-json
@@ -278,6 +308,8 @@ DEPENDENCIES
   rspec
   rspec-rails
   sass-rails
+  sassy-buttons
   sqlite3
   thin
+  thumbs_up
   uglifier

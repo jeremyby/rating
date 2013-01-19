@@ -10,13 +10,15 @@ class ApplicationController < ActionController::Base
       if info.country_code > 0
         info.country_code2.downcase
       else
-        "us"
+        flash.now[:alert] = "We can't tell which country you are from, so United States it is."
+        return 'us'
       end
     end
   
     def get_country
       begin
-        @country = Country.find(params[:country_id])
+        # if no country_id param, empty @country will be evaluated, instead of 404
+        @country = Country.find(params[:country_id]) if params[:country_id].present?
       rescue ActiveRecord::RecordNotFound
         page_404
       end
@@ -45,9 +47,15 @@ class ApplicationController < ActionController::Base
     def require_user
       # logger.debug "ApplicationController::require_user"    
       unless current_user
-        store_location
-        flash[:alert] = "You need to log in first."
-        redirect_to login_path
+        if request.xhr?
+          flash.now[:notice] = "Your account info is needed here. Please <a href='#{login_path}'>log in</a> first.".html_safe
+          render 'layouts/notify'
+        else
+          store_location
+          flash[:notice] = "Your account info is needed here. Please log in first."
+          redirect_to login_path
+        end
+        
         return false
       end
     end

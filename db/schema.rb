@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116094821) do
+ActiveRecord::Schema.define(:version => 20130115080800) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider",   :null => false
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20121116094821) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "token"
+    t.text     "link"
   end
 
   add_index "authorizations", ["user_id"], :name => "index_authorizations_on_user_id"
@@ -76,21 +77,21 @@ ActiveRecord::Schema.define(:version => 20121116094821) do
 
   create_table "polls", :force => true do |t|
     t.string   "slug"
-    t.string   "question",                                  :null => false
+    t.string   "question",                             :null => false
     t.integer  "votings_count"
-    t.string   "yes",                    :default => "Yes", :null => false
-    t.string   "no",                     :default => "No",  :null => false
-    t.boolean  "positive_no",            :default => false, :null => false
-    t.integer  "user_id",                                   :null => false
-    t.string   "country_code",                              :null => false
-    t.string   "category",                                  :null => false
-    t.integer  "coverage",               :default => 0,     :null => false
-    t.integer  "weight",                 :default => -1,    :null => false
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
-    t.boolean  "featured",               :default => false
-    t.integer  "positive_votings_count"
-    t.integer  "negative_votings_count"
+    t.string   "yes",               :default => "Yes", :null => false
+    t.string   "no",                :default => "No",  :null => false
+    t.integer  "user_id",                              :null => false
+    t.string   "country_code",                         :null => false
+    t.string   "category",                             :null => false
+    t.integer  "coverage",          :default => 0,     :null => false
+    t.integer  "weight",            :default => -1,    :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.boolean  "featured",          :default => false
+    t.integer  "yes_votings_count"
+    t.integer  "no_votings_count"
+    t.text     "description"
   end
 
   add_index "polls", ["country_code"], :name => "index_polls_on_country_code"
@@ -129,6 +130,20 @@ ActiveRecord::Schema.define(:version => 20121116094821) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token", :unique => true
 
+  create_table "votes", :force => true do |t|
+    t.boolean  "vote",          :default => false, :null => false
+    t.integer  "voteable_id",                      :null => false
+    t.string   "voteable_type",                    :null => false
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  add_index "votes", ["voteable_id", "voteable_type"], :name => "index_votes_on_voteable_id_and_voteable_type"
+  add_index "votes", ["voter_id", "voter_type", "voteable_id", "voteable_type"], :name => "fk_one_vote_per_user_per_entity", :unique => true
+  add_index "votes", ["voter_id", "voter_type"], :name => "index_votes_on_voter_id_and_voter_type"
+
   create_table "votings", :force => true do |t|
     t.integer  "poll_id",      :null => false
     t.integer  "user_id",      :null => false
@@ -147,6 +162,7 @@ ActiveRecord::Schema.define(:version => 20121116094821) do
     t.string   "country_code"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "knowledge"
   end
 
   add_index "watchings", ["country_code"], :name => "index_watchings_on_country_code"

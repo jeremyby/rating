@@ -8,9 +8,8 @@
         = link_to p.question, country_poll_path(country, p)
         
       .info  
-        %span.italic by
-        %a(href="#{user_path(p.owner)}") #{p.owner.first_name}#{image_tag "/assets/flags/#{p.owner.country_code}.png", :title => "#{p.owner.first_name.capitalize} is from #{p.owner.country.name}."}
-
+        %span by
+        %a(href="#{user_path(p.owner)}") #{p.owner}#{country_image p.owner.country, :title => "#{p.owner} is from #{p.owner.country}"}
         &nbsp;
         %span
           %span.number=p.votings_count

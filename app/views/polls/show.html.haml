@@ -3,56 +3,97 @@
 - content_for :title_string do
   = title + ": " + @poll.question
 
+- content_for :js do
+  = javascript_include_tag 'poll'
 
 - if current_user
   - @voting = Voting.where(:poll_id => @poll.id, :country_code => @country.code, :user_id => current_user.id).first
 
-- if @voting.blank?
-  - @voting = Voting.new
+- @voting ||= Voting.new
 
 
-- content_for :actioner do
-  .action
-    %h1 Asking #{link_to @country.name, @country}
-
-#q_panel.panel
-  .banner
-    %div
-      %p Question
-  = render @poll      
-  
-
-#info.clear
-  #result
-    %table
-      %tr.head
-        %td.left
-        %td.number= @poll.votings.size
-        %td.right people have voted
-      %tr
-        %td.left in which,
-        %td.number= @poll.yes_votes_size
-        %td.right chose "#{words_truncate @poll.yes, 10}"
-      %tr
-        %td.left and
-        %td.number= @poll.no_votes_size
-        %td.right said "#{words_truncate @poll.no, 10}"
-
-  .avatar 
-    = link_to (image_tag @poll.owner.avatar_url(:thumb)), user_path(@poll.owner)
-  .user_info
-    created by #{link_to @poll.owner.name, user_path(@poll.owner)} #{time_ago_in_words(@poll.created_at)} ago
-    - user_country = Country.find_by_code(@poll.owner.country_code)
-    who is from #{link_to user_country.name, user_country} and has asked #{@poll.owner.polls.approved.count} questions, and voted on #{@poll.owner.votings.count} questions
-
-
-
-- unless @voting.new_record?
-  %p
-    You have voted for "#{@voting.vote > 0 ? @poll.positive : @poll.negative}"
+#sph
+  .info
+    .user.slab
+      = user_country_flag_link @poll.owner, :title => "#{@poll.owner} is from #{@poll.owner.country}"
+      is asking #{link_to @country, country_path(@country)}:
+  .poll
+    .flag= country_o_image @country, :size => '50x50'
+    
+    %h1.question
+      %span(class = '#{@poll.or_negative? ? "yes" : "none"}')= @poll.question
+      - unless @poll.simple?
+        - unless @poll.or_negative?
+          %span(class="yes")= @poll.yes.capitalize
+        %em or
+        %span(class="no") #{@poll.no.capitalize}?
       
+    / .answers
+    /   %h3
+    /     %span(class="answer yes") #{@poll.yes}
+    /     or
+    /     %span(class="answer no") #{@poll.no}
+    /     %span.qm ?
 
-#d_panel.panel
-  .banner
-    %div
-      %p Comments
+#spb
+  .rc  
+    %ul
+      %li= link_to 'Follow Question', '#'
+      Share to
+      %li.share= link_to 'Facebook', '#'
+      %li.share= link_to 'Twitter', '#'
+      %li.share= link_to 'Google', '#'
+    
+    .polls
+      %h2 Other questions for #{@country.code.upcase}
+      - polls = @country.top_polls(10)
+      %ul
+        - polls.each do |p|
+          %li= link_to p.question, country_poll_path(@country, p)
+
+  .lc
+    - if @poll.description.present?
+      .desc= @poll.description
+    
+    #actions
+      %nobr.ata
+        - case @poll.coverage
+        - when 0
+          The question is open for everyone's answer.
+        - when 1
+          %strong Only
+          people from #{ @country } can answer the question.
+        - when 2
+          Only people who are
+          %strong not
+          from #{ @country } can answer the question.
+
+        = link_to 'Vote Now!', '#'
+    
+    = render 'comments'
+  
+    - if @complex.blank?
+      %h2 Waiting for 10 people's votes
+    - else
+      %h2 
+        #{@poll.votings_count} people have voted
+        .tab-fix
+        
+      #votings
+        - @complex.each do |c|
+          - if c.kind_of?(Hash) # the complex item is a list of voters
+            = render 'complex_list', :item => c
+          - else
+            - # the commentable is the only root comment of the voting
+            - # serving as the message user left when voting
+            - comment = c.root_comments[0]
+
+            .voting(class = '#{c.vote > 0 ? "yes" : "no"}' id = 'voting_#{c.id}')
+              .voter
+                = voting_user_info(c.voter, c.vote)
+
+              .comment_body= comment.body
+              
+              = render 'complex_comments', :voting => c, :comment => comment
+
+              

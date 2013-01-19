@@ -1,32 +1,31 @@
 - content_for :js do
-  = javascript_include_tag "search"
+  = javascript_include_tag 'search'
 
 #hhead
   %h1 Find the answer of the people.
   %h3 
     Ask a country anything you wanna know in
     %em closed-ended questions,
-    and help the world understand a country better by 
+    and help the world understand a country better
+    by 
     %em voting for the right answers.
 
 
 #hq
   %h2 
     Top question for
-    %a(href="#{country_path(@country)}")#{@country.name}#{image_tag "/assets/flags/#{@country.code}-m.png"}
+    = country_m_flag_link(@country)
   
-  - poll = @country.polls.featured.last
-  - poll = @country.top_polls(1)[0] if poll.blank?
+  / - poll = @country.polls.featured.sample
+  - poll = @country.polls.first
   
   .poll.box
     %a(href="#{country_poll_path(@country, poll)}")
       =poll.question 
 
-      %span(class="answer #{poll.yes_pn}")= poll.yes
-      %span.or or
-      %span(class="answer #{poll.no_pn}")= poll.no
-      ?
-  .clear
+      %span(class="answer yes") &nbsp;#{poll.yes}&nbsp;
+      or
+      %span(class="answer no") &nbsp;#{poll.no}&nbsp;
 
 
 #hactions
@@ -39,4 +38,3 @@
   #hask.action
     %h2 Wanna ask a country too?
     %a Create a Question now &rarr;
-  .clear

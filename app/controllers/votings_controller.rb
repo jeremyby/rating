@@ -8,7 +8,7 @@ class VotingsController < ApplicationController
     @voting = current_user.votings.build( 
                                           :poll => @poll,
                                           :country => @country,
-                                          :vote => get_vote_value(params[:positive])
+                                          :vote => get_vote_value(params[:vote])
                                         )
     
     if @voting.save
@@ -19,7 +19,7 @@ class VotingsController < ApplicationController
 
   def update
     voting = Voting.find(params[:id])
-    voting.vote = get_vote_value(params[:positive])
+    voting.vote = get_vote_value(params[:vote])
     
     poll = voting.poll
     
@@ -31,9 +31,9 @@ class VotingsController < ApplicationController
   private
   def get_vote_value(positive)
     if positive.blank?
-      Voting::NEGATIVE_VOTE
+      Voting::YES_VOTE
     else
-      Voting::POSITIVE_VOTE
+      Voting::NO_VOTE
     end
   end
 end

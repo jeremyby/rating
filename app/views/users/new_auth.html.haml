@@ -1,0 +1,40 @@
+
+- title = "Log In with #{@info.provider.capitalize}"
+
+- content_for :title_string do
+  = title
+
+/ - content_for :js do
+/   = javascript_include_tag 'home'
+/ 
+/ - flash.now[:alert] = signup_validation_error if @user.errors.present?
+  
+
+#signup.home
+  %h1= title
+  
+  .form
+    = form_for @user do |f|
+      .wrapper
+        = f.label :email, "Email: "
+        .stroke= f.text_field :email, :tabindex => 1
+    
+      #flnames.wrapper
+        %table
+          %tr
+            %td
+              = f.label :first_name, "First name:"
+              .stroke= f.text_field :first_name, :tabindex => 2
+            %td.optional
+              = f.label :last_name, "last name:"
+              .stroke= f.text_field :last_name, :tabindex => 3
+              
+      .wrapper
+        Your Avatar:
+        = image_tag @info.image
+        %br
+        = f.label :avatar, "Upload a new avatar:"
+        = f.file_field :avatar, :value => @info.image, :tabindex => 4
+            
+      .wrapper
+        .submit= f.submit "Submit", :type => :image, :src => "/assets/signup.png", :tabindex => 5

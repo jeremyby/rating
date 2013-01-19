@@ -1,0 +1,5 @@
+#notification
+  - if flash[:notice]
+    %span.msg#notice= flash[:notice].html_safe
+  - if flash[:alert]
+    %span.msg#alert= flash[:alert].html_safe

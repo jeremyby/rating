@@ -28,7 +28,7 @@ class Country < ActiveRecord::Base
   end
   
   
-  def pretty
+  def to_s
     self.pretty_name.present? ? self.pretty_name : self.name
   end
   

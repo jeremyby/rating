@@ -68,16 +68,29 @@ Askacountry::Application.routes.draw do
   match '/auth/:provider/callback' => "authorizations#create"
   match '/auth/failure'  => "authorizations#failure"
   match '/auth/:provider'  => "authorizations#blank"
-
-  resources :users, :except => [:new, :index]
-  match 'signup'  => "users#new", :as  => :signup
-
-  resources :countries, :path => "", :only => [:show] do
-    get 'follow', :on => :member
-    get 'unfollow', :on => :member
-    resources :poll_pack, :only => [:new, :index, :create]
-    resources :polls,  :except => [:index, :show]
+  
+  resources :polls, :only => [:new, :create]
+  
+  resources :comments, :only => [:create, :destroy]
+  
+  resources :users, :except => [:new, :index] do
+    collection do
+      put :update_attribute_on_the_spot
+      get :get_attribute_on_the_spot
+    end
   end
   
-  match "/:country_id/:id"  => "polls#show", :via => :get, :as => :country_poll
+  match 'signup'  => "users#new", :as => :signup
+
+  resources :countries, :path => "", :only => [:show] do
+    member do
+      post 'follow'
+      post 'unfollow'
+    end
+    
+    resources :poll_pack, :only => [:new, :index, :create]
+    resources :polls, :path => "", :except => [:index, :new, :create] 
+  end
+  
+  # match "/:country_id/:id"  => "polls#show", :via => :get, :as => :country_poll
 end

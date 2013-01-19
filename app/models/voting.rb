@@ -2,8 +2,8 @@ class Voting < ActiveRecord::Base
   after_create :increment_counters
   after_destroy :decrement_counters
   
-  scope :positive, where("vote = 1")
-  scope :negative, where("vote = -1")
+  scope :yes, where("vote = 1")
+  scope :no, where("vote = -1")
   
   attr_accessible :poll_id, :vote, :country_code
   
@@ -17,13 +17,14 @@ class Voting < ActiveRecord::Base
   belongs_to :country,  :foreign_key => "country_code",     :primary_key => "code"
   belongs_to :voter,    :foreign_key => "user_id",          :class_name => "User"
   
-  POSITIVE_VOTE = 1
-  NEGATIVE_VOTE = -1
+  YES_VOTE = 1
+  NO_VOTE = -1
   
+  acts_as_commentable
   
   protected
   def get_counter
-    self.vote > 0 ? :positive_votings_count : :negative_votings_count
+    self.vote > 0 ? :yes_votings_count : :no_votings_count
   end
   
   private

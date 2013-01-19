@@ -1,25 +1,40 @@
-- content_for :actioner do
-  .action
-    %h1 Ask #{ @country.name } a new question 
+- if @country.blank?
+  - content_for :js do
+    = javascript_include_tag 'search'
 
-= form_for @poll, :url => country_polls_path(@country) do |f|
-  %p
-    = f.label_text_field :question, "Question: "
+- content_for :title_string do
+  Ask #{ @country.present? ? @country : 'a country' } a question
 
-  %p
-    = f.label "Answers:"
-    = f.text_field :yes
-    = f.label "or"
-    = f.text_field :no
+#np
+  %h1 Create a question
+  %h3
+    - if @country.present?
+      Asking #{@country}#{country_m_image(@country)}
+    - else
+      .search.ui-widget
+        %label(for="search") Asking 
+        %input#search(value="a country")
+        
+  = form_for @poll, :url => @country.present? ? country_polls_path(@country) : polls_path do |f|
+    %p
+      = f.label_text_field :question, "Question: ", :size => 50
+      
+    %p
+      Describe if necessary: 
+      = f.text_area :description, :size => '50x10'
+    %p
+      Answers:
+      = f.text_field :yes
+      or
+      = f.text_field :no
     
-  %p
-    = f.check_box :positive_no, " Yes answer is negative?"
-  
-  %p
-    This question is in the category of
-    = f.select :category, Poll_Cats.collect{|pc| [pc[1], pc[0]]}, :selected => 0
-    , and
-    = f.select :coverage, [["anyone", 0], ["only those who are from #{@country.name}", 1], ["anyone who lives outside #{@country.name}", 2]]
-    can answer it
-  %p
-    = f.submit "Submit"
+    %p
+      This question is in the category of
+      = f.select :category, Poll_Cats.collect{|pc| [pc[1], pc[0]]}, :selected => 0
+      and
+      = f.select :coverage, [["anyone", 0], ["only those who are from the country", 1], ["anyone who lives outside the country", 2]]
+      can answer it
+    %p
+      = f.hidden_field :country_code, :value => (@country.present? ? @country.code : nil)
+      
+      = f.submit "Submit"

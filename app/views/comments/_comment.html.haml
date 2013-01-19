@@ -1,0 +1,14 @@
+- id = "comment_#{comment.id}"
+
+.comment(id = '#{id}')
+  .avatar= user_small_avatar_link(comment.user)
+  .user= link_to comment.user, user_path(comment.user)
+  .body= comment.body
+  .atns
+    = link_to 'Upvote', '#'
+    = link_to_function 'Reply', 'reply_button($(this).parent())', :class => 'rbtn'
+    - if comment.user == current_user && !comment.has_children?
+      = link_to 'Delete', comment_path(comment), :method => :delete, :remote => true, :confirm => 'Deleting the comment. Are your sure?'
+  
+  - if comment.has_children?
+    = render :partial => 'comments/comment', :collection => comment.children, :as => :comment

@@ -1,4 +1,3 @@
-
 $(document).ready ->
   $('.validation-error input').each ->
     $(this).focus ->
@@ -7,4 +6,4 @@ $(document).ready ->
   if $('#notification').children().length > 0
      setTimeout(->
         $('#notification').fadeOut(1000)
-       , 5000)
+       , 10000)

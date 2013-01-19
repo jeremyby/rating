@@ -1,19 +1,31 @@
-%h1= @user.name
-
 - @is_owner = (@user == current_user)
 
+- content_for :js do
+  = javascript_include_tag 'user' if @is_owner
+
+%h1= @user.name
+#avatar= image_tag(@user.avatar_url)
 
 %h3 Watching
 %h3 Questions
-%h3 Settings
-= #render "edit", :user => @user
+%h3 Profile
 
+%table#edits
+  %tr
+    %td 
+      %span#fnl First Name: 
+    %td= @is_owner ? on_the_spot_edit(@user, :first_name) : @user.first_name
 
-%p 
-  34 following, 354 followers
+  %tr
+    %td
+      %span#lnl Last Name: 
+    %td= @is_owner ? on_the_spot_edit(@user, :last_name, :type => :text) : @user.last_name
+
+/= render "edit", :user => @user
+
 
 %p
-  home country: #{Country.find_by_code(@user.country_code).name}
+  home country: #{@user.country.name}
   
 %p
   knows the following countries well enough to answer questions about them:

@@ -1,0 +1,2 @@
+$("#voting_<%= @commentable.id %> .comments").replaceWith("<%= escape_javascript(render 'polls/complex_comments')%>");
+$('#voting_<%= @commentable.id %> .comments .detail').show()

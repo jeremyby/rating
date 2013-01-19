@@ -11,7 +11,7 @@
     = csrf_meta_tags
     = yield :js
     
-    = favicon_link_tag "/favicon.ico"
+    = favicon_link_tag "/assets/favicon.png"
   
   %body
     = render 'layouts/header'
@@ -19,11 +19,7 @@
     .contenter
       .wrapper
         #content.inner
-          #notification
-            - if flash[:notice]
-              %span.msg#notice= flash[:notice].html_safe
-            - if flash[:alert]
-              %span.msg#alert= flash[:alert].html_safe
+          = render 'layouts/notification'
 
           = yield
     

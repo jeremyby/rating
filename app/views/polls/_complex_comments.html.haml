@@ -1,0 +1,20 @@
+- voting ||= @commentable
+- comment ||= voting.root_comments[0]
+
+.comments
+  .actions
+    = link_to 'Like', '#'
+    = link_to_function pluralize(comment.children.size, 'comment'), '$(this).parent().next(".detail").toggle()'
+    
+  .detail
+    .comments_holder
+      = render :partial => 'comments/comment', :collection => comment.children, :as => :comment
+  
+    .form
+      - new_comment = voting.comment_threads.new
+      - new_comment.parent_id = comment.id
+      
+      = render 'comments/form', :comment => new_comment
+      
+    .reply
+      = render 'comments/form', :comment => new_comment, :reply => true

@@ -13,8 +13,6 @@
     =f.label_password_field :password_confirmation, "Password Confirmation: "
   
   %p
-    Your avatar: #{@user.avatar? ? image_tag(@user.avatar_url) : "not set" }
-    %br
     = f.label :avatar, "Your new look: "
     = f.file_field :avatar
 

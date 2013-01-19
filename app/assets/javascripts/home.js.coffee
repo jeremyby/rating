@@ -5,7 +5,7 @@ $(document).ready ->
   # login validation checkes
   $('#user_session_email').focusout ->
     check_email($(this))
-
+    
   $('#user_session_password').focusout ->
     check_password($(this))
 
@@ -42,12 +42,12 @@ validate_email = (email) ->
   return re.test(email)
 
 reset_field = (f) ->
-  if f.hasClass('error')
-    f.removeClass('error').tooltip('close')
+  if f.hasClass('error') # when user focus the field to correct the error
+    f.removeClass('error').attr('title', '').tooltip('destroy')
+  else
+    f.attr('title', '') # user corrected the error and focus out
 
 check_error = (f, msg) ->
-  reset_field(f)
-  
   f.tooltip({
     position: { my: "left center", at: "right+15px center" }
   })
@@ -61,6 +61,7 @@ check_email = (f) ->
     check_error(f, 'Your email address looks kind of funny.')
     return false
   else
+    reset_field(f) 
     return true
 
 check_name = (f) ->
@@ -68,6 +69,7 @@ check_name = (f) ->
     check_error(f, 'A name is required for people to know you.')
     return false
   else
+    reset_field(f) 
     return true
 
 check_password = (f) ->
@@ -75,6 +77,7 @@ check_password = (f) ->
     check_error(f, 'We need 6 charaters here minimal.')
     return false
   else
+    reset_field(f)
     return true
     
 check_password_again = (f) ->
@@ -82,4 +85,5 @@ check_password_again = (f) ->
     check_error(f, 'This is not the same as above.')
     return false
   else
+    reset_field(f) 
     return true

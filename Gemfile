@@ -17,9 +17,16 @@ group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
+  
+  gem 'compass-rails'
+  gem 'oily_png'
+  
+  gem 'sassy-buttons'
+  gem 'omg-text'
 end
 
 gem 'jquery-rails'
+gem 'on_the_spot', :github => 'jeremyby/on_the_spot'
 
 gem 'authlogic'
 gem 'rails3-generators'
@@ -42,6 +49,7 @@ gem 'rdf-json'
 # gem 'treyconnell-ruby-aaws'
 
 gem 'acts_as_commentable_with_threading'
+gem 'thumbs_up'
 
 # Use unicorn as the web server
 # gem 'unicorn'
