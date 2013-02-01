@@ -1,12 +1,59 @@
-.lc
-  margin-right: 360px
+.comments
+  .detail
+    margin-top: 5px
+    display: none
 
-.rc
-  float: right
-  width: 320px
+  .comments_holder
+    max-height: 300px
+
+    overflow-y: auto
+
+    .comment
+      +clearfix
+
+      margin-bottom: 5px
+
+      .avatar
+        float: left
+
+      .user
+        margin: 3px 0 2px 29px
+
+      .body
+        margin: 0 0 2px 29px
+
+      .atns
+        margin-left: 29px
+
+        a
+          margin-right: 5px
+
+      .reply
+        margin: 5px 0 0 29px
+
+      .comment
+        margin: 5px 0 5px 29px
+
+
+  .form
+    textarea
+      height: 50px
+      width: 360px
+      max-width: 450px
+
+  .reply
+    display: none
+
+    textarea
+      height: 18px
+
+
 
 #sph 
-  margin: 25px 0 0 65px
+  margin: 25px 0 20px 65px
+  padding-bottom: 15px
+  
+  border-bottom: 1px solid #ccc
   
   .info
     .user
@@ -18,6 +65,7 @@
   
   .poll
     position: relative
+    margin: 5px 0 0 0
     
     .flag
       position: absolute
@@ -28,154 +76,240 @@
       margin: 3px 0
       line-height: 1.4em
       
-      span
+      .yes
+        padding-left: 5px
+        border-left: 8px solid #cef0ce
       
-        &.yes
-          padding-left: 5px
-          border-left: 8px solid #cef0ce
-        
-        &.no
-          padding-left: 5px
-          border-left: 8px solid #ffdfdf
+      .no
+        padding-left: 5px
+        border-left: 8px solid #ffdfdf
         
       em
         font-size: 0.78em
         font-weight: 600
-        
-    .answers
-
-      h3
-        margin: 0
-        
-        span
-          &.answer
-            font-size: 1.1em
-            
-            color: #444
-            cursor: pointer
-            
-            padding: 4px 8px 0 9px
-            
-          &.qm
-            font-size: 1.2em
-
-
-
-#spb
-  margin: 15px 0 0 65px
-  
-  .lc  
+    
+  .lc
     .desc
       +small-text
       
+      margin: 7px 0 15px 0
       padding: 10px 1em
 
       line-height: 1.5em
 
       background: #fff
       border: 2px dashed #cecece
+
+      color: #666
+
+    .comments_head
+      margin: 7px 0 0 0
       
       color: #666
-    
-    #actions
-      margin: 25px 0 10px 0
-      
-      .ata
-        a
-          +button
-    
-    h2
-      margin: 0
-    
-    .comments
-      h3
-        margin: 0
 
-      .detail
-        margin-top: 5px
-        display: none
-
-      .comments_holder
-        max-height: 300px
-
-        overflow-y: auto
-
-        .comment
-          +clearfix
-
-          margin-bottom: 5px
-
-          .avatar
-            float: left
-
-          .user
-            margin: 3px 0 2px 29px
-
-          .body
-            margin: 0 0 2px 29px
-
-          .atns
-            margin-left: 29px
-
-            a
-              margin-right: 5px
-
-          .reply
-            margin: 5px 0 0 29px
-
-          .comment
-            margin: 5px 0 5px 29px
-
-
-      form
-        textarea
-          padding: 2px 5px 0 5px
-
-      .form
-        textarea
-          height: 50px
-          width: 360px
-          max-width: 450px
-
-      .reply
-        display: none
-
-        textarea
-          height: 18px
-    
-    
-    #poll_comments
-      margin-bottom: 25px
+      img
+        margin: 0 5px -2px 0
         
+        &.w
+          margin-left: 2px
+        
+      span.sep
+        color: #ccc
+
+    #poll_comments
       .comment
         .user,
         .atns
           +small-text
+          
+
+#spb
+  margin: 25px 0 0 65px
+  
+  .lc
+    .ata
+      margin: 0 0 25px 0
+      padding-bottom: 22px
+      
+      border-bottom: 1px solid #e3e3e3
+      
+      h2.vote
+        margin: 0
+        
+        line-height: 40px
+        
+        span        
+          &.yes
+            padding: 5px 0 5px 5px
+            border-left: 8px solid #cef0ce
+
+            
+          &.no
+            padding: 5px 0
+            border-right: 8px solid #ffdfdf
+
+        
+          &.edit
+            margin-left: 5px
+            font-size: 0.65em
+            font-weight: normal
+          
+          
+        #vote_button
+          position: relative
+          top: -2px
+          left: 10px
+          
+          +button
+        
+        
+      #vote
+        display: none
+        
+        +clearfix
+        
+        .answers
+          
+          
+          margin-bottom: 25px
+
+          background: #fff
+          border: 1px solid #e3e3e3
+        
+          color: #444
+          
+        .q,
+        .table
+          font:
+            size: 1.125em
+            weight: normal
+          
+        
+        .q
+          margin: 12px 1em
+        
+        .table
+          margin: 0
+          width: 100%
+          
+          .cell
+            padding: 10px
+            
+            
+            &.or
+              width: 10%
+              position: relative
+              top: 1px
+              font-style: italic
+              color: #f16022
+            
+            &.yes
+              cursor: pointer
+              
+              width: 45%
+              border-left: 8px solid #fff
+              
+              &.checked
+                background: #cef0ce
+              
+              &:hover,
+              &.checked
+                border-left: 8px solid #cef0ce
+            
+            &.no
+              cursor: pointer
+            
+              width: 45%
+              border-right: 8px solid #fff
+              
+              &.checked
+                background: #ffdfdf
+              
+              &:hover,
+              &.checked
+                border-right: 8px solid #ffdfdf
+        
+        .explain
+        
+          margin-bottom: 15px
+          
+          h2
+            margin-bottom: 3px
+            
+          .sub
+            +small-text
+            margin: 0 0 5px 0
+            font-weight: normal
+        
+          textarea
+            height: 80px
+            width: 100%
+            max-width: 573px
+            border: 1px solid #e3e3e3
+            
+            font-family: verdana
+            
+            +small-text
+            
+            color: #444
+            
+            vertical-align: top
+            -webkit-transition: height 0.2s
+            -moz-transition: height 0.2s
+            transition: height 0.2s
+        
+        .submit
+          padding-right: 15px
+          
+          float: right
+          
+          a
+            +small-text
+            
+            color: #888
+            margin-left: 5px
+          
+          input
+            +button
     
-    
+        .styler
+          +small-text
+          
+          padding-left: 1em
+          color: #888
+          line-height: 21px
+          
+          em,
+          strong
+            padding: 0 1px
+          
+          
     #votings
-      +small-text
+      h2
+        margin: 0
       
       .voting
+        +small-text
+      
         padding: 10px
       
         img
           margin-bottom: -5px
         
         .comment_body
-          +border-radius(5px)
+          +border-radius(12px)
           margin-top: 5px
-          padding: 5px 10px
+          padding: 8px 12px
         
         &.yes
-          margin-right: 100px
+          margin-right: 80px
           border-left: 8px solid #cef0ce
           
           .comment_body
             background: #cef0ce
         
         &.no
-          margin-left: 100px
+          margin-left: 80px
           border-right: 8px solid #ffdfdf
           
           .voter
@@ -201,6 +335,7 @@
 
 
   .rc
+    
     ul
       margin: 0
       padding: 0
@@ -208,6 +343,14 @@
       
       li
         margin-bottom: 5px
+      
+      li.follow
+        margin-bottom: 10px
+        
+        a
+          
+          font-weight: bold
+          font-size: 1.05em
       
       li.share
         padding-left: 15px

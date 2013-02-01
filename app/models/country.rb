@@ -8,8 +8,9 @@ class Country < ActiveRecord::Base
   
   has_many :residents,  :primary_key => "code",     :foreign_key => "country_code",     :class_name => "User"
   
-  has_many :watchings,  :primary_key => "code",     :foreign_key => "country_code"
-  has_many :watchers,   :through => :watchings
+  has_many :followings, :as => :followable, :dependent => :destroy
+  has_many :followers, :through => :followings, :source => :user
+
   
   has_many :polls,      :primary_key => "code",     :foreign_key => "country_code"
   has_many :votings,    :primary_key => "code",     :foreign_key => "country_code"
@@ -22,19 +23,19 @@ class Country < ActiveRecord::Base
   validates_presence_of :code, :name
   validates_uniqueness_of :code, :name
   
+  def to_s
+    self.pretty_name.present? ? self.pretty_name : self.name
+  end
   
   def self.most_polled(limit, offset=0)
     Country.real.where("polls_count > 0").order("polls_count DESC").limit(limit).offset(offset)
   end
   
   
-  def to_s
-    self.pretty_name.present? ? self.pretty_name : self.name
-  end
-  
   def top_polls(limit, offset=0)
     self.polls.approved.order("votings_count DESC").limit(limit).offset(offset)
   end
+  
   
   def top_asking_countries
     Country.joins(:residents)
@@ -51,10 +52,6 @@ class Country < ActiveRecord::Base
     
     facts[rand(facts.size) - 1].value
   end
-  
-  # def self.top_rated(limit, offset=0)
-  #   Country.joins(:score).order('scores.value DESC').limit(limit).offset(offset)
-  # end
   
   def rating_score
     return nil if self.score.blank?

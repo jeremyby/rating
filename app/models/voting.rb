@@ -5,12 +5,13 @@ class Voting < ActiveRecord::Base
   scope :yes, where("vote = 1")
   scope :no, where("vote = -1")
   
-  attr_accessible :poll_id, :vote, :country_code
+  attr_accessible :poll_id, :country_code, :vote, :explain
   
   validates_presence_of :poll_id, :user_id, :country_code, :vote
   
-  #TODO: figure out why validate inclusion does not work
   validates_inclusion_of :vote, :in => [1, -1]
+  
+  validates_uniqueness_of :poll_id, :scope => [:country_code, :user_id]
   
   belongs_to :poll
 

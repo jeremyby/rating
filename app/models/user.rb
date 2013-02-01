@@ -10,8 +10,9 @@ class User < ActiveRecord::Base
   belongs_to  :country,               :foreign_key => 'country_code',     :primary_key => 'code'
   has_many :authorizations,           :dependent => :destroy
 
-  has_many :watchings, :dependent => :destroy
-  has_many :watching_countries, :through => :watchings
+  has_many :followings, :dependent => :destroy
+  has_many :watching_countries, :through => :followings, :source => :followable, :source_type => 'Country'
+  has_many :following_polls, :through => :followings, :source => :followable, :source_type => 'Poll'
 
   has_many :polls
   has_many :votings, :dependent => :destroy
@@ -21,9 +22,9 @@ class User < ActiveRecord::Base
     c.validate_password_field = false #ignoring validations for password fields
     c.merge_validates_format_of_email_field_options :message => 'does not look like an email address'
   end
-  
+
   acts_as_voter
-  
+
   presence_msg = 'is required'
 
   validates_presence_of :first_name, :message => presence_msg
@@ -81,29 +82,30 @@ class User < ActiveRecord::Base
   def country
     Country.find_by_code(self.country_code)
   end
-  
+
   def lives_in?(country)
     self.country_code == (country.class == Country ? country.code : country)
   end
 
-  def watching?(country)
-    !Watching.where('user_id = ? AND country_code = ?', self.id, country.code).empty?
+  def following?(followable)
+    !self.followings.where(:followable_id => followable.id, :followable_type => followable.class).blank?
   end
 
-  def watch(country)
-    self.watchings.create(:country_code => country.code)
+  def follow(followable)
+    self.followings.create!(:followable => followable)
   end
 
-  def unwatch(country)
-    w = self.watchings.where('country_code = ?', country.code)
-    w[0].destroy
+  def unfollow(followable)
+    f = self.followings.where(:followable_id => followable.id, :followable_type => followable.class)
+    f.first.destroy
   end
 
-  def can_answer?(country)
-    return true if self.lives_in?(country)
-    
-    watch = Watching.find_by_user_id_and_country_code(self.id, country.code)
-    return watch.present? && watch.knowledge.present?
+  def can_answer?(poll)
+    case poll.coverage
+    when 0 then return true
+    when 1 then return self.lives_in?(poll.country_code)
+    when 2 then return !self.lives_in?(poll.country_code)
+    end
   end
 
   def get_poll_pack_for(country_code)

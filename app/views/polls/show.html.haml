@@ -4,12 +4,11 @@
   = title + ": " + @poll.question
 
 - content_for :js do
-  = javascript_include_tag 'poll'
+  = javascript_include_tag 'poll', 'jquery.autosize-min'
+
 
 - if current_user
   - @voting = Voting.where(:poll_id => @poll.id, :country_code => @country.code, :user_id => current_user.id).first
-
-- @voting ||= Voting.new
 
 
 #sph
@@ -18,7 +17,7 @@
       = user_country_flag_link @poll.owner, :title => "#{@poll.owner} is from #{@poll.owner.country}"
       is asking #{link_to @country, country_path(@country)}:
   .poll
-    .flag= country_o_image @country, :size => '50x50'
+    .flag= link_to (country_o_image @country, :size => '50x50'), country_path(@country)
     
     %h1.question
       %span(class = '#{@poll.or_negative? ? "yes" : "none"}')= @poll.question
@@ -27,73 +26,97 @@
           %span(class="yes")= @poll.yes.capitalize
         %em or
         %span(class="no") #{@poll.no.capitalize}?
-      
-    / .answers
-    /   %h3
-    /     %span(class="answer yes") #{@poll.yes}
-    /     or
-    /     %span(class="answer no") #{@poll.no}
-    /     %span.qm ?
-
-#spb
-  .rc  
-    %ul
-      %li= link_to 'Follow Question', '#'
-      Share to
-      %li.share= link_to 'Facebook', '#'
-      %li.share= link_to 'Twitter', '#'
-      %li.share= link_to 'Google', '#'
-    
-    .polls
-      %h2 Other questions for #{@country.code.upcase}
-      - polls = @country.top_polls(10)
-      %ul
-        - polls.each do |p|
-          %li= link_to p.question, country_poll_path(@country, p)
 
   .lc
     - if @poll.description.present?
       .desc= @poll.description
-    
-    #actions
-      %nobr.ata
-        - case @poll.coverage
-        - when 0
-          The question is open for everyone's answer.
-        - when 1
-          %strong Only
-          people from #{ @country } can answer the question.
-        - when 2
-          Only people who are
-          %strong not
-          from #{ @country } can answer the question.
 
-        = link_to 'Vote Now!', '#'
-    
-    = render 'comments'
+    .comments_head
+      = poll_coverage_info(@poll, @country)
+      %span.sep
+        |
+      = link_to_function pluralize(@poll.comment_threads.size, 'comment'), '$("#poll_comments .detail").toggle()', :id => 'ltpcs'
+
+    = render 'poll_comments'
+
+#spb
+  .rc  
+    %ul
+      #follow= render 'follow'
+      
+      Share to
+      %li.share= link_to 'Facebook', '#'
+      %li.share= link_to 'Twitter', '#'
+      %li.share= link_to 'Google', '#'
+    .polls
+      %h2 More Questions
+      - polls = @poll.more_polls
+      
+      %ul
+        - polls.each do |p|
+          %li= link_to question_answers(p), country_poll_path(@country, p)
+
+  .lc
+    - @voting ||= Voting.new(:vote => 0)
   
-    - if @complex.blank?
-      %h2 Waiting for 10 people's votes
-    - else
-      %h2 
-        #{@poll.votings_count} people have voted
-        .tab-fix
+    .ata
+      - if !@voting.new_record?
+        = render 'edit_vote'
         
-      #votings
+      - else
+        %h2.vote
+          - if @poll.simple?
+            What is your opinion on the question?
+          - else
+            Which one is your answer?
+    
+          = link_to_function 'Vote NOW!', '$(this).hide(); $("#vote").show()', :id => 'vote_button'
+          
+        #vote
+          - if !current_user.present?
+            .msg 
+              Your account information is required here. Please
+              %a(href='/login?return_to=#{request.path}') log in
+              first.
+          
+          - elsif current_user.can_answer?(@poll)
+            = render 'vote_form', :url => country_poll_votings_path(@country, @poll)
+          
+          - else
+            %p
+              You cannot answer the question because its creator is asking for answers
+              from <strong>people</strong> who are
+              - if @poll.coverage == 1
+                <strong>from #{@country}</strong>.
+              - else
+                <strong>not from #{@country}</strong>.
+            %div
+              You may want to
+              %ul
+                %li
+                  = link_to 'follow the question', '#'
+                  to keep updated
+                %li
+                  create
+                  = link_to 'a new question', '#'
+                  from this one
+                %li
+                  check
+                  = link_to 'your profile', user_path(current_user)
+
+
+                        
+    #votings
+      - if @complex.blank?
+        %h2 Waiting for 10 people's votes
+      - else
+        %h2= voted_number(@poll.votings_count)
+    
         - @complex.each do |c|
           - if c.kind_of?(Hash) # the complex item is a list of voters
             = render 'complex_list', :item => c
           - else
-            - # the commentable is the only root comment of the voting
-            - # serving as the message user left when voting
-            - comment = c.root_comments[0]
+            = render 'complex_item', :voting => c
 
-            .voting(class = '#{c.vote > 0 ? "yes" : "no"}' id = 'voting_#{c.id}')
-              .voter
-                = voting_user_info(c.voter, c.vote)
-
-              .comment_body= comment.body
-              
-              = render 'complex_comments', :voting => c, :comment => comment
 
               

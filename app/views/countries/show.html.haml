@@ -17,7 +17,7 @@
 #csbody
   #csside
     %ul.links
-      #follow_li= render 'countries/follow' 
+      #watch= render 'countries/watch' 
       %li.wiki= link_to "Know more about the country", @country.link, :target =>"_blank"
       %li.search.ui-widget
         %label(for="search")
@@ -39,9 +39,7 @@
     #qs
       %h2 Top questions
 
-      - @polls = @country.top_polls(10)
-
-      = render "polls/poll_list", :polls => @polls, :country => @country
+      = render "polls/poll_list", :polls => @country.top_polls(10)
     
     %p= link_to "Create a new question", :controller => 'polls', :action => 'new', :c => @country.code
     

@@ -3,11 +3,11 @@ $(document).ready ->
     reset_field($(this))
 
   # login validation checkes
-  $('#user_session_email').focusout ->
-    check_email($(this))
-    
-  $('#user_session_password').focusout ->
-    check_password($(this))
+  # $('#user_session_email').focusout ->
+  #   check_email($(this))
+  #   
+  # $('#user_session_password').focusout ->
+  #   check_password($(this))
 
   $('#login .submit input').click (e) ->
     a = check_email($('#user_session_email'))
@@ -15,17 +15,17 @@ $(document).ready ->
     e.preventDefault() unless a && b
   
   # sign up validations
-  $('#user_email').focusout ->
-    check_email($(this))
-  
-  $('#user_first_name').focusout ->
-    check_name($(this))
-    
-  $('#user_password').focusout ->
-    check_password($(this))
-    
-  $('#user_password_confirmation').focusout ->
-    check_password_again($(this))
+  # $('#user_email').focusout ->
+  #   check_email($(this))
+  # 
+  # $('#user_first_name').focusout ->
+  #   check_name($(this))
+  #   
+  # $('#user_password').focusout ->
+  #   check_password($(this))
+  #   
+  # $('#user_password_confirmation').focusout ->
+  #   check_password_again($(this))
   
   $('#signup .submit input').click (e) ->
     a = check_email($('#user_email'))

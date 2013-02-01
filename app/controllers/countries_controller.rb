@@ -1,27 +1,27 @@
 class CountriesController < ApplicationController
-  before_filter :require_user_redirect_country, :only => [:follow, :unfollow]
-  before_filter :xhr_check, :only => [:follow, :unfollow]
   before_filter :get_country_from_id
-  
+  before_filter :set_return_to, :only => [:watch, :unwatch]
+  before_filter :require_user, :only => [:watch, :unwatch]
+
+
   def index
   end
-  
+
   def show
 
   end
-  
-  def follow
-    current_user.watch(@country)
-    
-    render :partial => 'countries/follow'
-  end
-  
-  def unfollow
-    current_user.unwatch(@country)
 
-    render :partial => 'countries/follow'
+  def watch
+    current_user.follow(@country)
+
   end
-  
+
+  def unwatch
+    current_user.unfollow(@country)
+
+    render 'countries/watch'
+  end
+
   private
   def get_country_from_id
     begin
@@ -31,16 +31,8 @@ class CountriesController < ApplicationController
       redirect_to '/404.html'
     end
   end
-  
-  def require_user_redirect_country
-    unless current_user
-      c = Country.find(params[:id])
-      page_404 if c.blank?
-      
-      store_location(country_path(c))
-      flash[:alert] = "This feature requires your account info. Please log in first."
-      redirect_to "/login"
-      return false
-    end
+
+  def set_return_to
+    @return_to = country_path(@country)
   end
 end

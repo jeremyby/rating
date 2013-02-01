@@ -4,6 +4,7 @@ class CreateVotings < ActiveRecord::Migration
       t.integer     :poll_id,                 :null => false
       t.integer     :user_id,                 :null => false
       t.string      :country_code,            :null => false
+      t.text        :explain
       
       # users' vote on a poll question
       #  1 => yes

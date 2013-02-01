@@ -33,26 +33,29 @@ class ApplicationController < ActionController::Base
     end
   
     def current_user_session
-      logger.debug "ApplicationController::current_user_session"
+      #logger.debug "ApplicationController::current_user_session"
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find
     end
 
     def current_user
-      logger.debug "ApplicationController::current_user"
+      #logger.debug "ApplicationController::current_user"
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.user
     end
     
     def require_user
       # logger.debug "ApplicationController::require_user"    
-      unless current_user
+      unless current_user        
         if request.xhr?
-          flash.now[:notice] = "Your account info is needed here. Please <a href='#{login_path}'>log in</a> first.".html_safe
+          url = "/login"
+          url.concat("?return_to=#{@return_to}") unless @return_to.blank?
+          
+          flash.now[:alert] = "Your account info is needed here. Please <a href='#{url}'>log in</a> first.".html_safe
           render 'layouts/notify'
         else
           store_location
-          flash[:notice] = "Your account info is needed here. Please log in first."
+          flash[:alert] = "Your account info is needed here. Please log in first."
           redirect_to login_path
         end
         

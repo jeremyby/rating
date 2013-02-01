@@ -5,6 +5,8 @@ class UserSessionsController < ApplicationController
   def new
     @user_session = UserSession.new
     @user_session.remember_me = true
+    
+    session[:return_to] = params[:return_to] if params[:return_to].present?
   end
 
   def create    

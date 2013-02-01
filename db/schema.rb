@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130115080800) do
+ActiveRecord::Schema.define(:version => 20130123133213) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider",   :null => false
@@ -74,6 +74,17 @@ ActiveRecord::Schema.define(:version => 20130115080800) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "followings", :force => true do |t|
+    t.integer  "user_id",         :null => false
+    t.integer  "followable_id"
+    t.string   "followable_type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "followings", ["followable_id", "followable_type"], :name => "index_followings_on_followable_id_and_followable_type"
+  add_index "followings", ["user_id"], :name => "index_followings_on_user_id"
 
   create_table "polls", :force => true do |t|
     t.string   "slug"
@@ -151,22 +162,11 @@ ActiveRecord::Schema.define(:version => 20130115080800) do
     t.integer  "vote",         :null => false
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.text     "explain"
   end
 
   add_index "votings", ["country_code"], :name => "index_votings_on_country_code"
   add_index "votings", ["poll_id"], :name => "index_votings_on_poll_id"
   add_index "votings", ["user_id"], :name => "index_votings_on_user_id"
-
-  create_table "watchings", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "country_code"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.string   "knowledge"
-  end
-
-  add_index "watchings", ["country_code"], :name => "index_watchings_on_country_code"
-  add_index "watchings", ["user_id", "country_code"], :name => "index_watchings_on_user_id_and_country_code", :unique => true
-  add_index "watchings", ["user_id"], :name => "index_watchings_on_user_id"
 
 end

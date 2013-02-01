@@ -7,4 +7,6 @@
   = f.text_area :body
   = f.submit "Submit"
   - if reply
-    = link_to 'Cancel', '#', :class => 'rcbtn'
+    = link_to_function 'Cancel', '$(this).parent().parent().hide()'
+  - else
+    = link_to_function 'Close', '$(this).closest(".detail").hide()'

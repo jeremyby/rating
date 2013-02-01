@@ -1,22 +1,29 @@
-@reply_button = (atns) ->
-  atns.closest('.comments_holder').find('.reply').hide()
-  
-  if atns.next('.reply').length
-    atns.next('.reply').show()
-  
-  else
-    id = atns.parent().attr('id').split('_').pop()
+$(document).ready ->
+  @reply_button = (atns) ->
+    atns.closest('.comments_holder').find('.reply').hide() #find the root, close all replys
+
+    if atns.next('.reply').length # reply form is already copied after
+      atns.next('.reply').show()
+
+    else
+      #get the id of the comment replying to
+      id = atns.parent().attr('id').split('_').pop()
+
+      #copy the reply element, setting it to appear
+      reply = atns.closest('.detail').children('.reply').clone().css('display', 'block')
+
+      # attach the copy after atns
+      atns.after(reply)
+
+      #setting parent id
+      reply.find('#comment_parent_id').val(id)
+
+      reply.find('#comment_body').focus()
+      
+  @vote_cell = (element) ->
+    $('#vote .table .cell').removeClass('checked')
+    $('#vote .table input[name="voting[vote]"]:radio').prop('checked', false)
     
-    reply = atns.closest('.detail').children('.reply').clone().css('display', 'block')
-
-    atns.after(reply)
-
-    reply.find('.rcbtn').click (e) ->
-      $(this).parent().parent().hide()
-      e.preventDefault()
-  
-    reply.find('#comment_parent_id').val(id)
+    element.addClass('checked')
+    element.children().first().prop('checked', true)
     
-    reply.find('#comment_body').focus()
-
-

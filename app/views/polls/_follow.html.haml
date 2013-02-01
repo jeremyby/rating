@@ -1,0 +1,7 @@
+- if current_user.blank? || !current_user.following?(@poll)
+  %li.follow
+    = link_to "+ Follow Question", follow_country_poll_path(@country, @poll), :method => :post, :remote => true, :onclick => "$('#follow li').html(' ').attr('class', 'loading')"
+- else
+  %li.unfollow
+    %span following question
+    = link_to "X", unfollow_country_poll_path(@country, @poll), :method => :post, :remote => true, :onclick => "$('#follow li').html(' ').attr('class', 'loading')"

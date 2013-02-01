@@ -1,0 +1,28 @@
+= form_for @voting, :url => url, :remote => true do |f|
+  .answers
+    .q= @poll.question
+    .table
+      .cell.yes(class='#{ @voting.vote > 0 ? 'checked' :  ''}' onclick='vote_cell($(this))')
+        = f.radio_button :vote, '1'
+        = f.label :vote, @poll.yes.capitalize, :value => '1'
+      .cell.or.slab
+        or
+      .cell.no(class='#{ @voting.vote < 0 ? 'checked' : '' }' onclick='vote_cell($(this))')
+        = f.radio_button :vote, '-1'
+        = f.label :vote, @poll.no.capitalize, :value => '-1'
+  .explain
+    %h2 Why you choose the answer?
+    %h4.sub Optional but recommended. Your insights may convince others to vote with you.
+    = f.text_area :explain
+
+  .submit
+    = f.submit 'Submit'
+    = link_to_function 'cancel', '$("#vote").hide(); $("#vote_button").show()'
+    
+  .styler
+    available style: *<em>italic</em>*, **<strong>bold</strong>**, * list item,
+    %br
+    ![alt text](image url) and [text](link url)
+    
+  :javascript
+    $("#voting_explain").autosize({append: "\n"});

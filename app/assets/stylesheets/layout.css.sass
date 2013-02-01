@@ -88,15 +88,18 @@ $theme-color: #f16022
 
 
 h1,
-h2 
+h2
   font: 
     family: "Helvetica Neue", helvetica, arial, sans-serif
+
 
 h3 
   font: 
     family: "museo slab", georgia, sans-serif
     weight: normal
 
+textarea
+  padding: 2px 5px 0 5px
 
 
 a,
@@ -130,7 +133,12 @@ a:hover
     weight: normal
 
 @mixin button
-  +sassy-button-structure(5px, 14px, 0.5em 1em)
+  line-height: 1.2em
+  
+  font-family: "museo slab", georgia, serif
+  font-weight: normal
+
+  +sassy-button-structure(5px, 16px, 0.7em 1.2em 0.4em 1.2em)
   +sassy-button-gradient("simple", #f67f4b, #ca4d17, #fff, "raised")
 
 
@@ -249,7 +257,7 @@ footer#page_footer
 
 
 #notification 
-  position: absolute
+  position: fixed
   top: 60px
   left: 0
   width: 100%
@@ -309,50 +317,42 @@ footer#page_footer
       background: #ffdfdf
 
 
+.lc
+  margin-right: 310px
 
+.rc
+  float: right
+  width: 250px
 
 ul.poll_list 
-  
   margin: 0
   padding-left: 0
   list-style: none
   
-  li 
+  li
     margin-bottom: 15px
     
-    &:last-child 
+    &:last-child
       margin: 0
     
     
-    .legend 
-      float: left
-    
-    
-  
     .question 
       padding: 0
     
-      a,
-      a:link,
-      a:active,
-      a:visited  
+      a
         font-weight: bold
-      
-    
     
     .info 
-      margin-left: 2px
+      margin-left: 1px
       padding: 5px 0
       
-      span 
-        font-size: 0.9em
-        color: #666
-        
-        &.italic 
-          font-family: "museo slab"
-          font-size: 0.9em
-          color: #999
+      +small-text
+      
+      a
+        margin-right: 3px
 
+      span
+        margin-left: 8px
 
       img 
         margin: 0 0 -1px 1px
@@ -365,7 +365,6 @@ ul.poll_list
     #legends 
       span 
         padding-right: 20px
-      
     
     
     .q 
@@ -404,9 +403,6 @@ ul.poll_list
           
           color: #f16022
         
-      
-    
-    
 
 
 /*show poll*/

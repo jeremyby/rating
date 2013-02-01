@@ -1,33 +1,39 @@
 class VotingsController < ApplicationController
-  before_filter {|c| c.require_user true}
-  
+  before_filter :require_user
+
   def create
-    @country = Country.find(params[:country_id])
-    @poll = Poll.find(params[:poll_id])
-    
-    @voting = current_user.votings.build( 
-                                          :poll => @poll,
-                                          :country => @country,
-                                          :vote => get_vote_value(params[:vote])
-                                        )
-    
-    if @voting.save
-      redirect_to country_poll_path(@country, @poll)
+    begin
+      @country = Country.find(params[:country_id])
+      @poll = Poll.find(params[:poll_id])
+
+      @voting = current_user.votings.create!(
+        :poll_id => @poll.id,
+        :country_code => @country.code,
+        :vote => params[:voting][:vote].to_i,
+        :explain => params[:voting][:explain]
+      )
+
+    rescue
+      flash.now[:alert] = 'Your vote is not successful. Please check the info and try again.'
+
+      render 'layouts/notify'
     end
-    
   end
 
   def update
-    voting = Voting.find(params[:id])
-    voting.vote = get_vote_value(params[:vote])
-    
-    poll = voting.poll
-    
-    if voting.save
-      redirect_to country_poll_path(poll.country, poll)
+    begin
+      @voting = Voting.find(params[:id])
+      @voting.update_attributes!(:vote => params[:voting][:vote], :explain => params[:voting][:explain])
+
+      @poll = @voting.poll
+      @country = @voting.country
+    rescue
+      flash.now[:alert] = 'Vote Update is not successful. Please check the info and try again.'
+
+      render 'layouts/notify'
     end
   end
-  
+
   private
   def get_vote_value(positive)
     if positive.blank?

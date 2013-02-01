@@ -1,8 +1,6 @@
 - @poll ||= @commentable
 
 #poll_comments.comments
-  %h2= link_to_function pluralize(@poll.comment_threads.size, 'comment'), '$(this).parent().next().toggle()'
-
   .detail
     .comments_holder
       = render :partial => 'comments/comment', :collection => @poll.root_comments, :as => :comment

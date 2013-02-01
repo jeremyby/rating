@@ -1,17 +1,10 @@
 %ul.poll_list
   - polls.each do |p|
     %li
-      / .legend
-      /   = poll_category_image p
-        
       .question
-        = link_to p.question, country_poll_path(country, p)
+        = link_to p.question, country_poll_path(@country, p)
         
       .info  
-        %span by
-        %a(href="#{user_path(p.owner)}") #{p.owner}#{country_image p.owner.country, :title => "#{p.owner} is from #{p.owner.country}"}
-        &nbsp;
-        %span
-          %span.number=p.votings_count
-          answers
-        %span &nbsp; #{rand(500)} comments
+        by
+        = link_to "#{p.owner}#{country_image p.owner.country}".html_safe, user_path(p.owner), :title => "#{p.owner} is from #{p.owner.country}"
+        %span= pluralize(p.votings_count, 'vote')

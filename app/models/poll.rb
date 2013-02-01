@@ -10,7 +10,10 @@ class Poll < ActiveRecord::Base
   validates_uniqueness_of :question
   validates_exclusion_of :category, :in => %w( nil ), :message => "need to be a valid category"
 
-  has_many    :votings
+  has_many :votings
+  
+  has_many :followings, :as => :followable, :dependent => :destroy
+  has_many :followers, :through => :followings, :source => :user
 
   belongs_to  :country,   :foreign_key => "country_code",     :primary_key => "code",     :counter_cache => true
   belongs_to  :owner,     :foreign_key => "user_id",          :class_name => "User"
@@ -32,12 +35,17 @@ class Poll < ActiveRecord::Base
     end
   end
 
+
   #********************************************
   #
   #   Business Logic
   #
   #********************************************
-
+  
+  def more_polls(limit = 4)
+    Poll.where("country_code = ? AND id is NOT ?", self.country_code, self.id).order("RANDOM()").limit(limit)
+  end
+  
   def simple?
     self.yes == 'Yes' && self.no == 'No'
   end
@@ -46,20 +54,25 @@ class Poll < ActiveRecord::Base
     self.yes == 'Yes' && self.no != 'No'
   end
   
-  def voting_complex(last_voting_at = 0, n = 10)
+  def to_s
+    self.question
+  end
+  
+  def voting_complex(current_user_id, last_voting_at = 0, n = 10)
     complex = []
     index = 0
     
-    all = self.votings.includes(:comment_threads).where('votings.updated_at > ?', last_voting_at).order('updated_at DESC')
+    all = self.votings.where('votings.updated_at > ?', last_voting_at).order('updated_at DESC')
     
     # NOTE not user >=, since when in case no rationale, needs to stay on 'n' to load all of them
     until complex.size > n || index > all.size - 1
-      if all[index].comment_threads.size > 0 # voting has a rationale, insert it into result array
+      # voting has an explanation or is from the current user
+      if all[index].explain.present? || all[index].user_id == current_user_id
         break if complex.size >= n # break the block when complex is full, necessary see the NOTE
         complex << all[index]
       else
-        # if complex is empty or a rationed voting was just inserted, create
-        # a placeholder for all non-rationaled votings
+        # if complex is empty or an explained voting was just inserted,
+        # create a placeholder for all non-rationaled votings
         complex << { all[index].vote => Array.new } if complex.blank? || complex.last.kind_of?(Voting) || complex.last.keys[0] != all[index].vote
         complex.last.values[0] << all[index]
       end

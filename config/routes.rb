@@ -72,6 +72,8 @@ Askacountry::Application.routes.draw do
   resources :polls, :only => [:new, :create]
   
   resources :comments, :only => [:create, :destroy]
+  resources :votings, :only => [:update]
+  
   
   resources :users, :except => [:new, :index] do
     collection do
@@ -84,12 +86,18 @@ Askacountry::Application.routes.draw do
 
   resources :countries, :path => "", :only => [:show] do
     member do
-      post 'follow'
-      post 'unfollow'
+      post 'watch'
+      post 'unwatch'
     end
     
     resources :poll_pack, :only => [:new, :index, :create]
-    resources :polls, :path => "", :except => [:index, :new, :create] 
+    resources :polls, :path => "", :except => [:index, :new, :create] do
+      resources :votings, :only => [:create]
+      member do
+        post 'follow'
+        post 'unfollow'
+      end
+    end
   end
   
   # match "/:country_id/:id"  => "polls#show", :via => :get, :as => :country_poll

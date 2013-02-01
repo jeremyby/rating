@@ -2,23 +2,10 @@ $(document).ready ->
   $poll_counter = 0
   
   $.pace = 25  
-  
-  $follow_link = (e) ->
-    url = $('#follow').attr('href')
     
-    $('#follow_li').html('<li class="loading"></li>')
-    
-    $.get(url, (data) ->
-        $('#follow_li').hide().html(data).fadeIn('fast')
-        $('#follow').click (e) ->
-          $follow_link(e)
-      )
-    
-    e.preventDefault()
-    
-  $('#follow').click (e) ->
-    $follow_link(e)
-    
+  @watch = ->
+    $('#watch li').html(' ').attr('class', 'loading')
+
   
   $poll_pack = $(document.createElement('div'))
                       .attr('id', 'poll_pack')

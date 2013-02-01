@@ -1,0 +1,7 @@
+- if current_user.blank? || !current_user.following?(@country)
+  %li.watch
+    = link_to "Watch", watch_country_path(@country), :method => :post, :remote => true, :onclick => 'watch()', :title => "Watch #{@country} and get updates about the country."
+- else
+  %li.unwatch
+    %span watching
+    = link_to "X", unwatch_country_path(@country), :method => :post, :remote => true, :onclick => 'watch()', :title => "Stop watching #{@country}."

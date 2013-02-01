@@ -1,0 +1,11 @@
+.voting(class = '#{voting.vote > 0 ? "yes" : "no"}' id = 'voting_#{voting.id}')
+
+  .voter
+    = voting_user_info(voting.voter, voting.vote, current_user)
+  
+  - if voting.explain.present?
+    .comment_body= markdown voting.explain
+  
+    = render 'polls/voting_comments', :voting => voting
+
+

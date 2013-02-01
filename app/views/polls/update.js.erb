@@ -1,2 +1,3 @@
-$('#poll_comments').replaceWith("<%= escape_javascript(render 'polls/comments')%>");
+$('#ltpcs').text("<%= pluralize(@commentable.comment_threads.size, 'comment') %>")
+$('#poll_comments').replaceWith("<%= escape_javascript(render 'polls/poll_comments')%>");
 $('#poll_comments .detail').show()
