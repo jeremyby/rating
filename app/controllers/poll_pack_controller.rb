@@ -14,7 +14,7 @@ class PollPackController < ApplicationController
       
     poll_pack = session[:poll_pack]
     
-    @polls = Poll.includes(:votings).where(:id => poll_pack).where("votings.user_id = ?", current_user.id)
+    @polls = Poll.includes(:ballots).where(:id => poll_pack).where("ballots.user_id = ?", current_user.id)
     
     session[:poll_pack] = nil
   end
@@ -28,11 +28,11 @@ class PollPackController < ApplicationController
   end
   
   def create
-    votings = params[:results]
+    ballots = params[:results]
     poll_pack = []
     
-    votings.each do |v|
-      current_user.votings.create!(:country_code => @country.code, :poll_id => v[1]["id"].to_i, :vote => v[1]["vote"].to_i)
+    ballots.each do |v|
+      current_user.ballots.create!(:country_code => @country.code, :poll_id => v[1]["id"].to_i, :vote => v[1]["vote"].to_i)
       poll_pack << v[1]["id"].to_i
     end
     

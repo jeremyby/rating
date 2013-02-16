@@ -7,12 +7,12 @@
 #cshead(style="background-image: url('/assets/flags/#{@country.code}-l.png');")
   .head
     %h1
-      = (@country.full_name.blank? ? @country : @country.full_name) + (@country.alias.present? ? " (#{@country.alias})" : "")
+      = (@country.full_name.blank? ? @country.to_s : @country.full_name) + (@country.alias.blank? ? '' : " (#{@country.alias})")
 
     %h3#facts
       Did you know?
-      = @country.random_fact
-      = link_to image_tag("/assets/refresh.png"), "#"
+      = # @country.random_fact
+      = # link_to image_tag("/assets/refresh.png"), "#"
 
 #csbody
   #csside
@@ -25,11 +25,11 @@
         %input#search(value="another country")
   
     %h2 Who is asking
-    #wias
+    .hlocs
       - countries = @country.top_asking_countries
       - countries.each do |c|
         %a(href="/#{c.slug}")
-          .wia
+          .c
             = image_tag "/assets/flags/#{c.code}-o.png"
             %br 
               %span= c

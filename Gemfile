@@ -11,7 +11,6 @@ gem 'haml'
 gem 'haml-rails'
 gem 'friendly_id'
 
-gem 'redcarpet'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -41,6 +40,8 @@ gem 'omniauth-google-oauth2', :github => 'jeremyby/omniauth-google-oauth2'
 gem 'rmagick'
 gem 'carrierwave'
 gem 'mime-types'
+gem 'redcarpet'
+
 
 gem 'geoip'
 
@@ -67,12 +68,13 @@ gem 'thin'
 group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
-  gem 'cucumber'
   
-  gem 'autotest'
-  gem 'autotest-rails'
+  gem 'capybara'
+  gem 'guard-rspec'
+  gem 'rb-fsevent', '~> 0.9.1'
   
-  gem 'ZenTest', '4.8.3'
+  gem 'spork'
+  gem "factory_girl_rails", "~> 4.0"
   
   gem 'meta_request', '0.2.1' 
 end

@@ -17,7 +17,7 @@ class HomeController < ApplicationController
   end
   
   def search
-    @countries = Country.real.order('polls_count DESC')
+    @countries = Country.order('polls_count DESC')
     
     respond_to do |format|
       format.js

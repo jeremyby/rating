@@ -29,9 +29,15 @@ class PollsController < ApplicationController
       @poll = Poll.find(params[:id])
       
       current_user_id = current_user.present? ? current_user.id : 0
+      last_ballot_at = params[:last_ballot_at]
       
-      @complex = @poll.voting_complex(current_user_id) if @poll.votings.size > 10
-
+      @complex, @no_more = @poll.ballot_complex(current_user_id, last_ballot_at) if @poll.ballots_count > 10
+      
+      respond_to do |format|
+          format.html
+          format.js
+      end
+      
     rescue ActiveRecord::RecordNotFound
       page_404
     end

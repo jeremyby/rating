@@ -2,7 +2,6 @@
 
 Country.create(
   [
-    { :code => "all", :name => "All countries"},
     { :code => "af", :name => "Afghanistan", :full_name => "Islamic Republic of Afghanistan"},
     { :code => "al", :name => "Albania", :full_name => "Republic of Albania"},
     { :code => "dz", :name => "Algeria", :full_name => "People's Democratic Republic of Algeria"},

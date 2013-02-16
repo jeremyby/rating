@@ -9,7 +9,7 @@
 require "#{Rails.root}/db/seeds/countries"
 require "#{Rails.root}/db/seeds/users"
 require "#{Rails.root}/db/seeds/polls"
-require "#{Rails.root}/db/seeds/votes"
+require "#{Rails.root}/db/seeds/ballots"
 
 
 

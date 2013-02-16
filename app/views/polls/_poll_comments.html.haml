@@ -3,7 +3,7 @@
 #poll_comments.comments
   .detail
     .comments_holder
-      = render :partial => 'comments/comment', :collection => @poll.root_comments, :as => :comment
+      = render :partial => 'comments/comment', :collection => @poll.root_comments.includes(:user, :children), :as => :comment
 
     .form
       - comment = @poll.comment_threads.new

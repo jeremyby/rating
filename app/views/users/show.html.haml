@@ -3,12 +3,51 @@
 - content_for :js do
   = javascript_include_tag 'user' if @is_owner
 
-%h1= @user.name
-#avatar= image_tag(@user.avatar_url)
+#suh
+  #avatar= image_tag(@user.avatar_url)
+  %h2= @user.name
 
-%h3 Watching
-%h3 Questions
-%h3 Profile
+#suw.su
+  %h2 Watching
+  .hlocs
+    - countries = @user.watching_countries
+    - countries.each do |c|
+      %a(href="/#{c.slug}")
+        .c
+          = image_tag "/assets/flags/#{c.code}-o.png"
+          %br 
+          %span= c
+
+#sua.su
+  %h4 Asking
+  .polls
+    - askings = @user.polls.includes(:country)
+    - askings.each do |a|
+      .poll= link_to question_answers(a), country_poll_path(a.country, a)
+
+
+#suv.su
+  %h4 Voted
+  .polls
+    - voted = @user.voted_polls.includes(:country)
+    - voted.each do |v|
+      .poll= link_to v, country_poll_path(v.country, v)
+
+#suf.su
+  %h4 Following
+  .polls
+    - followings = @user.following_polls.includes(:country)
+    - followings.each do |f|
+      .poll= link_to question_answers(f), country_poll_path(f.country, f)
+
+
+
+
+
+
+
+
+%h2 Profile
 
 %table#edits
   %tr
@@ -21,23 +60,12 @@
       %span#lnl Last Name: 
     %td= @is_owner ? on_the_spot_edit(@user, :last_name, :type => :text) : @user.last_name
 
-/= render "edit", :user => @user
 
 
 %p
-  home country: #{@user.country.name}
+  home country: #{@user.country}
   
-%p
-  knows the following countries well enough to answer questions about them:
-  %ul
-    %li China
-    %li United Kingdom
-      
-%p
-  watching country:
-  %ul
-    %li China
-    %li United States
+
     
 %h2 
   Recent Activities

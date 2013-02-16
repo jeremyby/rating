@@ -1,11 +1,9 @@
-.voting(class = '#{voting.vote > 0 ? "yes" : "no"}' id = 'voting_#{voting.id}')
+.ballot(class = '#{ballot.vote > 0 ? "yes" : "no"}' id = 'ballot_#{ballot.id}')
 
   .voter
-    = voting_user_info(voting.voter, voting.vote, current_user)
+    = ballot_user_info(ballot.voter, ballot.vote, current_user)
   
-  - if voting.explain.present?
-    .comment_body= markdown voting.explain
+  - if ballot.answer.present?
+    .comment_body= markdown ballot.answer
   
-    = render 'polls/voting_comments', :voting => voting
-
-
+    = render 'polls/ballot_comments', :ballot => ballot

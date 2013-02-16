@@ -1,0 +1,6 @@
+%h2.ballot
+  You have voted
+  %span(class='#{@ballot.vote > 0 ? 'yes' : 'no'}')
+    = truncate(@ballot.vote > 0 ? @poll.yes.capitalize : @poll.no.capitalize, :separator => ' ')
+  %span.edit (#{link_to_function 'edit', '$("#ballot").toggle()'})
+#ballot= render 'polls/ballot_form', :url => ballot_path(@ballot)

@@ -16,7 +16,7 @@
         %span
           You have voted 
           %span.bold
-            - if p.votings.first.vote > 0 
+            - if p.ballots.first.vote > 0 
               %span.green= p.positive
             -else
               %span.red= p.negative

@@ -1,0 +1,13 @@
+- @complex.each do |c|
+  - if c.kind_of?(Hash) # the complex item is a list of voters
+    = render 'complex_list', :item => c
+  - else
+    = render 'complex_item', :ballot => c
+
+- if @complex.last.kind_of?(Hash)
+  - current_ballot_at = @complex.last.values[0].last.updated_at
+- else
+  - current_ballot_at = @complex.last.updated_at
+
+- unless @no_more
+  .lmv= link_to 'more votes...', country_poll_path(@country, @poll, :last_ballot_at => "%10.5f" % current_ballot_at.to_f), :remote => true

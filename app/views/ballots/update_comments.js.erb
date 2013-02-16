@@ -1,0 +1,6 @@
+prefix = "#ballot_<%= @commentable.id %>"
+
+$('prefix .actions .scs').text("<%= pluralize(@commentable.comment_threads.size, 'comment') %>");
+div = $("<%= escape_javascript(render 'polls/ballot_comments') %>");
+div.children('.detail').show();
+$('prefix .comments').replaceWith(div);

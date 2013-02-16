@@ -1,8 +1,4 @@
 module PollHelper
-  def voted_number(n)
-    return "#{n} people have voted"
-  end
-
   def question_answers(poll)
     str = poll.question
     

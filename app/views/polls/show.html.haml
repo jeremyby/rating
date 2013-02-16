@@ -8,7 +8,7 @@
 
 
 - if current_user
-  - @voting = Voting.where(:poll_id => @poll.id, :country_code => @country.code, :user_id => current_user.id).first
+  - @ballot = Ballot.where(:poll_id => @poll.id, :country_code => @country.code, :user_id => current_user.id).first
 
 
 #sph
@@ -48,31 +48,35 @@
       %li.share= link_to 'Facebook', '#'
       %li.share= link_to 'Twitter', '#'
       %li.share= link_to 'Google', '#'
+    
     .polls
-      %h2 More Questions
+      %h4 More Questions
       - polls = @poll.more_polls
       
       %ul
         - polls.each do |p|
           %li= link_to question_answers(p), country_poll_path(@country, p)
-
+    
+    -#.stats
+    -#  %h2 More info
+    
   .lc
-    - @voting ||= Voting.new(:vote => 0)
+    - @ballot ||= Ballot.new(:vote => 0)
   
     .ata
-      - if !@voting.new_record?
-        = render 'edit_vote'
+      - if !@ballot.new_record?
+        = render 'edit_ballot'
         
       - else
-        %h2.vote
+        %h2.ballot
           - if @poll.simple?
             What is your opinion on the question?
           - else
             Which one is your answer?
     
-          = link_to_function 'Vote NOW!', '$(this).hide(); $("#vote").show()', :id => 'vote_button'
+          = link_to_function 'Vote NOW!', '$(this).hide(); $("#ballot").show()', :id => 'ballot_button'
           
-        #vote
+        #ballot
           - if !current_user.present?
             .msg 
               Your account information is required here. Please
@@ -80,7 +84,7 @@
               first.
           
           - elsif current_user.can_answer?(@poll)
-            = render 'vote_form', :url => country_poll_votings_path(@country, @poll)
+            = render 'ballot_form', :url => country_poll_ballots_path(@country, @poll)
           
           - else
             %p
@@ -106,17 +110,13 @@
 
 
                         
-    #votings
+    #ballots
       - if @complex.blank?
         %h2 Waiting for 10 people's votes
       - else
-        %h2= voted_number(@poll.votings_count)
+        %h2 #{ @poll.ballots_count } people have voted
     
-        - @complex.each do |c|
-          - if c.kind_of?(Hash) # the complex item is a list of voters
-            = render 'complex_list', :item => c
-          - else
-            = render 'complex_item', :voting => c
+        = render 'complex'
 
 
               

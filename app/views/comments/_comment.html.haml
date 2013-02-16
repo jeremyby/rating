@@ -11,4 +11,4 @@
       = link_to 'Delete', comment_path(comment), :method => :delete, :remote => true, :confirm => 'Deleting the comment. Are your sure?'
   
   - if comment.has_children?
-    = render :partial => 'comments/comment', :collection => comment.children, :as => :comment
+    = render :partial => 'comments/comment', :collection => comment.children.includes(:user), :as => :comment

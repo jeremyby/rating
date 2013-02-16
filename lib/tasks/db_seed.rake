@@ -8,7 +8,7 @@ namespace :db do
     
     desc "Retrieve DBpedia data for each of all countries, and store data locally"
     task :dbgraph => :environment do      
-      Country.real.each do |c|
+      Country.all.each do |c|
         if c.dbgraph.blank? && c.code != "ci"
           name = (c.name.include? ",") ? c.full_name : c.name
         
@@ -27,7 +27,7 @@ namespace :db do
           
             c.create_dbgraph(:value => string)
           
-            puts "#{graph.count} statements got retrieved for #{c}"
+            puts "#{graph.count} statements have been retrieved and saved for #{c}"
           else
             puts "no statement got retrieved for #{c}"
           end

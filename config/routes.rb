@@ -72,7 +72,7 @@ Askacountry::Application.routes.draw do
   resources :polls, :only => [:new, :create]
   
   resources :comments, :only => [:create, :destroy]
-  resources :votings, :only => [:update]
+  resources :ballots, :only => [:update]
   
   
   resources :users, :except => [:new, :index] do
@@ -92,7 +92,7 @@ Askacountry::Application.routes.draw do
     
     resources :poll_pack, :only => [:new, :index, :create]
     resources :polls, :path => "", :except => [:index, :new, :create] do
-      resources :votings, :only => [:create]
+      resources :ballots, :only => [:create]
       member do
         post 'follow'
         post 'unfollow'

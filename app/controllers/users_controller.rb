@@ -10,17 +10,16 @@ class UsersController < ApplicationController
     if @info.present?
       @user = User.build_from_info(@info, country_code_from_request)
       
-      render 'new_auth'
+      render :new_auth
     else
       @user = User.new
       
-      render 'new'
+      render :new
     end
   end
 
   def create
-    @user = User.new
-    @user.assign_attributes(params[:user], :as => :default)
+    @user = User.new(params[:user])
     @user.country_code = country_code_from_request
     
     if @user.save
@@ -37,14 +36,13 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-    @user.assign_attributes(params[:user], :as => :default)
-
+    @user.update_attributes(params[:user])
     
     if @user.save
       flash[:notice] = "Successfully updated profile."
       redirect_to :action => "show"
     else
-      render :action => "show"
+      render :show
     end
   end
 

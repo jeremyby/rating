@@ -1,6 +1,0 @@
-$("#spb .lc .ata").html("<%= (j render 'polls/edit_vote').html_safe %>");
-
-if ($("#votings h2").next().length) {
-  $("#votings h2").html("<%= (j voted_number(@poll.votings_count + 1)) %>");
-  $("#votings h2").after("<%= (j (render 'polls/complex_item', :voting => @voting)) %>");
-}

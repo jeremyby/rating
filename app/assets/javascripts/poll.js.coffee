@@ -20,9 +20,9 @@ $(document).ready ->
 
       reply.find('#comment_body').focus()
       
-  @vote_cell = (element) ->
-    $('#vote .table .cell').removeClass('checked')
-    $('#vote .table input[name="voting[vote]"]:radio').prop('checked', false)
+  @ballot_cell = (element) ->
+    $('#ballot .table .cell').removeClass('checked')
+    $('#ballot .table input[name="ballot[vote]"]:radio').prop('checked', false)
     
     element.addClass('checked')
     element.children().first().prop('checked', true)

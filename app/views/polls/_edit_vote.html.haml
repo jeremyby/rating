@@ -1,6 +1,0 @@
-%h2.vote
-  You have voted
-  %span(class='#{@voting.vote > 0 ? 'yes' : 'no'}')
-    = truncate(@voting.vote > 0 ? @poll.yes.capitalize : @poll.no.capitalize, :separator => ' ')
-  %span.edit (#{link_to_function 'edit', '$("#vote").toggle()'})
-#vote= render 'polls/vote_form', :url => voting_path(@voting)

@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
       comment.move_to_child_of(parent_id) if parent_id.present?
     end
     
-    render "#{ comment.commentable_type }s/update"
+    render "#{ comment.commentable_type }s/update_comments"
   end
   
   
@@ -25,6 +25,6 @@ class CommentsController < ApplicationController
     
     comment.destroy unless comment.has_children?
     
-    render "#{ comment.commentable_type }s/update"
+    render "#{ comment.commentable_type }s/update_comments"
   end
 end

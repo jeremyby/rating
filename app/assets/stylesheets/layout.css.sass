@@ -142,6 +142,16 @@ a:hover
   +sassy-button-gradient("simple", #f67f4b, #ca4d17, #fff, "raised")
 
 
+@mixin grey-button
+  line-height: 1.2em
+
+  font-family: "museo slab", georgia, serif
+  font-weight: normal
+
+  +sassy-button-structure(5px, 14px, 0.5em 1em 0.4em 1em)
+  +sassy-button-gradient("simple", #ccc, #999, #fff, "raised")
+
+
 @mixin small-text
   font-size: 0.9em
 
@@ -292,6 +302,29 @@ footer#page_footer
       background:  
         color: #d24848 
         image: image-url("cross.png")
+
+
+.hlocs
+  a
+    margin: 0
+    
+    
+    
+  a:hover 
+    span 
+      text-decoration: underline
+
+  .c 
+    float: left
+    text-align: center
+    width: 90px
+    height: 100px
+    
+    margin-right: 5px
+    
+    img
+      margin-bottom: -10px
+
 
 
 .box 

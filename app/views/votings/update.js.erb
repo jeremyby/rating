@@ -1,8 +1,0 @@
-$("#spb .lc .ata").html("<%= j render('polls/edit_vote') %>");
-
-if ($("#votings h2").next().length) {
-  if ($('#voting_<%= @voting.id%>').length)
-    $('#voting_<%= @voting.id%>').remove();
-
-  $("#votings h2").after("<%= (j (render 'polls/complex_item', :voting => @voting)) %>");
-}

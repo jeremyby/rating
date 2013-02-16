@@ -7,4 +7,4 @@
 
 
 %h2 Recent Activities
-= render "polls/poll_list", :polls => @country.polls.approved.order("created_at DESC").limit(10), :country => @country
+= render "polls/poll_list", :polls => @country.polls.order("created_at DESC").limit(10), :country => @country

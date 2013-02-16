@@ -26,7 +26,7 @@ module UserHelper
     link_to image_tag(u.avatar_url(:thumb), :size => '24x24'), user_path(u)
   end
   
-  def voting_user_info(u, vote, voter)
+  def ballot_user_info(u, vote, voter)
     user_link_text = (voter == u) ? 'You' : u.to_s 
     
     if vote > 0 #positive vote

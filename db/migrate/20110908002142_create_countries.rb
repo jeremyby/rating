@@ -12,7 +12,7 @@ class CreateCountries < ActiveRecord::Migration
       t.text   :link
       
       t.integer :polls_count
-      t.integer :watchings_count
+      t.integer :followings_count
 
       t.timestamps
     end

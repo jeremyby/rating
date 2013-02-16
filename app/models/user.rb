@@ -11,11 +11,12 @@ class User < ActiveRecord::Base
   has_many :authorizations,           :dependent => :destroy
 
   has_many :followings, :dependent => :destroy
-  has_many :watching_countries, :through => :followings, :source => :followable, :source_type => 'Country'
+  has_many :watching_countries, :through => :followings, :source => :followable, :source_type => 'Country', :order => 'followings.updated_at DESC'
   has_many :following_polls, :through => :followings, :source => :followable, :source_type => 'Poll'
 
   has_many :polls
-  has_many :votings, :dependent => :destroy
+  has_many :ballots, :dependent => :destroy
+  has_many :voted_polls, :through => :ballots, :source => :poll
 
   acts_as_authentic do |c|
     c.ignore_blank_passwords = true #ignoring passwords
@@ -55,12 +56,6 @@ class User < ActiveRecord::Base
     user
   end
 
-  def assign_attributes(values, options = {})
-    sanitize_for_mass_assignment(values, options[:as]).each do |k, v|
-      send("#{k}=", v)
-    end
-  end
-
   def is_admin?
     self.admin
   end
@@ -68,10 +63,8 @@ class User < ActiveRecord::Base
   def name
     self.last_name.present? ? self.first_name + " #{self.last_name.capitalize}" : self.first_name
   end
-
-  def to_s
-    self.name
-  end
+  
+  alias_method :to_s, :name
 
   #********************************************
   #
@@ -111,11 +104,10 @@ class User < ActiveRecord::Base
   def get_poll_pack_for(country_code)
     coverage_condition = self.lives_in?(country_code) ? [0, 1] : [0, 2]
 
-    votings = self.votings.reload
+    ballots = self.ballots.reload
 
-    Poll.approved.where("(country_code = ? OR country_code = 'all') AND coverage IN (?) AND id not IN (?)", country_code, coverage_condition, votings.empty? ? 0 : votings.map(&:poll_id))
+    Poll.where("(country_code = ? OR country_code = 'all') AND coverage IN (?) AND id not IN (?)", country_code, coverage_condition, ballots.empty? ? 0 : ballots.map(&:poll_id))
   end
-
 
 
   private
