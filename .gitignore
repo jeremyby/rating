@@ -4,3 +4,4 @@ coverage
 log
 tmp
 .sass-cache/
+.elasticbeanstalk/

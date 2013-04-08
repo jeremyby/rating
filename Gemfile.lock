@@ -81,7 +81,7 @@ GEM
       compass (>= 0.12.2, < 0.14)
     daemons (1.1.9)
     diff-lcs (1.2.2)
-    ebnf (0.2.3)
+    ebnf (0.3.0)
       rdf
       sxp
     em-websocket (0.5.0)
@@ -135,7 +135,7 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.7.7)
-    json-ld (0.9.0)
+    json-ld (0.9.1)
       backports
       json (>= 1.7.5)
       rdf (>= 1.0)
@@ -167,6 +167,7 @@ GEM
     mime-types (1.22)
     multi_json (1.7.2)
     multipart-post (1.2.0)
+    mysql2 (0.3.11)
     nokogiri (1.5.9)
     oauth (0.4.7)
     oauth2 (0.8.1)
@@ -362,6 +363,7 @@ DEPENDENCIES
   linkeddata
   meta_request
   mime-types
+  mysql2
   oily_png
   omg-text
   omniauth
