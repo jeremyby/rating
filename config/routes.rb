@@ -59,6 +59,8 @@ Askacountry::Application.routes.draw do
   root :to => 'home#index'
   
   match 'about' => "home#about", :via => :get, :as => :about
+  match 'shuffle' => "home#shuffle", :via => :get, :as => :shuffle
+  
   match 'search' => "home#search", :via => :get, :as => :search
   
   resources :user_sessions, :only => [:create]
@@ -75,12 +77,7 @@ Askacountry::Application.routes.draw do
   resources :ballots, :only => [:update]
   
   
-  resources :users, :except => [:new, :index] do
-    collection do
-      put :update_attribute_on_the_spot
-      get :get_attribute_on_the_spot
-    end
-  end
+  resources :users, :except => [:new, :index]
   
   match 'signup'  => "users#new", :as => :signup
 
@@ -91,7 +88,7 @@ Askacountry::Application.routes.draw do
     end
     
     resources :poll_pack, :only => [:new, :index, :create]
-    resources :polls, :path => "", :except => [:index, :new, :create] do
+    resources :polls, :path => "", :except => [:index] do
       resources :ballots, :only => [:create]
       member do
         post 'follow'

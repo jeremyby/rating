@@ -2,27 +2,24 @@
   .answers
     .q= @poll.question
     .table
-      .cell.yes(class='#{ @ballot.vote > 0 ? 'checked' :  ''}' onclick='ballot_cell($(this))')
+      .cell.yes(class='#{ @ballot.vote > 0 ? 'checked' :  ''}')
         = f.radio_button :vote, '1'
         = f.label :vote, @poll.yes.capitalize, :value => '1'
       .cell.or.slab
         or
-      .cell.no(class='#{ @ballot.vote < 0 ? 'checked' : '' }' onclick='ballot_cell($(this))')
+      .cell.no(class='#{ @ballot.vote < 0 ? 'checked' : '' }')
         = f.radio_button :vote, '-1'
         = f.label :vote, @poll.no.capitalize, :value => '-1'
   .answer
     %h2 Why you choose the answer?
-    %h4.sub Optional but recommended. Your insights may convince others to vote with you.
     = f.text_area :answer
 
   .submit
     = f.submit 'Submit'
-    = link_to_function 'cancel', '$("#ballot").hide(); $("#ballot_button").show()'
+    = link_to_function 'cancel', 'aac.hide_ballot()'
     
   .styler
     available style: *<em>italic</em>*, **<strong>bold</strong>**, * list item,
     %br
     ![alt text](image url) and [text](link url)
     
-  :javascript
-    $("#ballot_answer").autosize();

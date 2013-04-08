@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123133213) do
+ActiveRecord::Schema.define(:version => 20130329121738) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider",   :null => false
@@ -84,6 +84,20 @@ ActiveRecord::Schema.define(:version => 20130123133213) do
 
   add_index "dbgraphs", ["country_id"], :name => "index_dbgraphs_on_country_id", :unique => true
 
+  create_table "entry_logs", :force => true do |t|
+    t.string   "kind",         :null => false
+    t.string   "country_code"
+    t.integer  "poll_id",      :null => false
+    t.integer  "user_id"
+    t.integer  "ballot_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "entry_logs", ["country_code", "poll_id", "user_id"], :name => "index_entry_logs_on_country_code_and_poll_id_and_user_id"
+  add_index "entry_logs", ["country_code"], :name => "index_entry_logs_on_country_code"
+  add_index "entry_logs", ["poll_id"], :name => "index_entry_logs_on_poll_id"
+
   create_table "facts", :force => true do |t|
     t.string   "value"
     t.integer  "country_id"
@@ -104,22 +118,34 @@ ActiveRecord::Schema.define(:version => 20130123133213) do
   add_index "followings", ["followable_id", "followable_type"], :name => "index_followings_on_followable_id_and_followable_type"
   add_index "followings", ["user_id"], :name => "index_followings_on_user_id"
 
+  create_table "polling_numbers", :force => true do |t|
+    t.integer  "poll_id"
+    t.integer  "yes_count"
+    t.integer  "no_count"
+    t.string   "country_code"
+    t.string   "date"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "polling_numbers", ["poll_id"], :name => "index_polling_numbers_on_poll_id"
+
   create_table "polls", :force => true do |t|
     t.string   "slug"
-    t.string   "question",                             :null => false
-    t.integer  "ballots_count"
-    t.integer  "yes_ballots_count"
-    t.integer  "no_ballots_count"
+    t.string   "question",                            :null => false
+    t.integer  "ballots_count",    :default => 0
+    t.integer  "yes_count",        :default => 0
+    t.integer  "no_count",         :default => 0
     t.integer  "followings_count"
-    t.string   "yes",               :default => "Yes", :null => false
-    t.string   "no",                :default => "No",  :null => false
-    t.integer  "user_id",                              :null => false
-    t.string   "country_code",                         :null => false
-    t.integer  "coverage",          :default => 0,     :null => false
+    t.string   "yes",              :default => "Yes", :null => false
+    t.string   "no",               :default => "No",  :null => false
+    t.integer  "user_id",                             :null => false
+    t.string   "country_code",                        :null => false
+    t.integer  "coverage",         :default => 0,     :null => false
     t.text     "description"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
-    t.boolean  "featured",          :default => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.boolean  "featured",         :default => false
   end
 
   add_index "polls", ["country_code"], :name => "index_polls_on_country_code"

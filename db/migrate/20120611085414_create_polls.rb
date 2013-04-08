@@ -3,9 +3,9 @@ class CreatePolls < ActiveRecord::Migration
     create_table :polls do |t|
       t.string    :slug
       t.string    :question,      :null => false
-      t.integer   :ballots_count
-      t.integer   :yes_ballots_count
-      t.integer   :no_ballots_count
+      t.integer   :ballots_count, :default => 0
+      t.integer   :yes_count, :default => 0
+      t.integer   :no_count, :default => 0
       
       t.integer   :followings_count
       

@@ -1,94 +1,284 @@
+.search
+  input
+    padding-left: 5px
+    
+    +hoverable
+    +box-shadow(rgba(black, .2) 2px 2px 5px inset)
+
+
 #cshead
-  padding-top: 15px
-  margin-right: 17px
+  margin:  0
+  padding-left: 38px
   
-  background-repeat: no-repeat
-  background-position-x: 850px
-  background-position-y: 20px
+  line-height: 40px
   
-  .head 
-    width: 855px
+  font:
+    weight: normal
+    size: 1.3em
     
-    h1 
-      margin: 15px 0 0 0
-      color: #f16022
+  color: #fff8f5
+  
+  img
+    margin: 0 0 -10px 3px
+    +opacity(0.8)
+  
+  .search
+    position: absolute
+    top: 0
+    right: 0
 
-
-  h3#facts  
-    color: #666
-    margin: 0.6em 0 1em 0
+    input
+      width: 155px
+      height: 26px
     
-    img 
-      margin: 0 0 -1px 2px
-
+      border: none
+      background: rgba(white, .16) url('/assets/arrow_down_s.png') right center no-repeat
+    
+      color: #eee
 
 
 #csbody
+  #csbox
+    max-width: 560px
+    min-height: 480px
+    
+    #csheader
+      visibility: visible
+      
+      height: 64px
+      
+      position: relative
+      
+      margin: 15px 0 35px 10px
+      
+      display: table
+    
+      .flag
+        padding-right: 15px
+        display: table-cell
+        
+        +opacity(0.96)
+      
+      .headers
+        display: table-cell
+        vertical-align: middle
+      
+        h1
+          margin: 0
+        
+        h3
+          margin: 0
+          padding-top: 3px
+        
+          font:
+            size: 1em
+            family: "museo slab italic", georgia
+        
+          span
+            margin: 0 1px
+    
+    ul
+      margin: 0 0 25px 0
+      padding-left: 0
+      list-style: none
+      
+    #sorter
+      margin-left: 12px
+      
+      li
+        display: inline
+        
+        margin-right: 10px
+        
+        font:
+          family: "Helvetica Neue", helvetica, arial, sans-serif
+          weight: normal
+          size: 1.15em
+        
+        
+        &.active
+          position: relative
+        
+          padding: 8px 12px
+        
+          background: #f2f2f0
+          +border-radius(8px)
+          
+          color: #222
+          
+          &:after
+            content: ''
+            
+            position: absolute
+            top: 100%
+            left: 50%
+            height: 12px
+            width: 21px
+            
+            margin-left: -10px
+            
+            background: url('/assets/edge.png') top left no-repeat
+        
+        &.inactive
+          font-weight: bold
+          
+          a
+            color: #333
+
   #csside
     float: right
+    width: 300px
+    padding-top: 28px
     
-    width: 330px
-    
-    h2 
-      margin: 30px 0 0 0
-    
-    ul 
-      margin: 10px 0 0 -3px
+    .search
+      visibility: visible
       
-      li 
-        margin-bottom: 10px
+      margin-bottom: 25px
+    
+      input
+        width: 200px
+        height: 26px
+      
+    
+    .block
+      width: 150px
+
+      margin: 0 0 20px 0
+      
+      +opacity(0.8)
+      
+      a
+        color: #fff
+        letter-spacing: 0.7px
         
-        a,
+        +opacity(0.8)
+        
+        font-size: 1.3em
+        
+        &:hover
+          text-decoration: none
+        
+        div
+          padding: 25px 20px
+          
+          
+      &:hover
+        +opacity(1)
+        
+        a
+          +opacity(1)
+      
+          
+      &#watch
+        +background-image(linear-gradient(left, #46026a, #6f01a8 7px, #8100d2))
+    
+      .unwatch      
+        a 
+          font-size: 0.8em
+          padding: 0 3px
+    
+    
+      &.wiki
+        +background-image(linear-gradient(left, #05416c, #065a95 7px, #0271bf))
+
+    
+      &.search 
+        list-style-image: url('/assets/globe.png')
+      
         span,
         input 
-          position: relative
-          top: -5px
-        
-        
-        &.loading 
-          height: 28px
-          list-style-image: url('/assets/load.gif')
-        
-        
-        &.watch 
-          list-style-image: url('/assets/follow.png')
-          
-          a 
-            font: 
-              size: 1.2em
-              weight: bold
+          font-size: 0.9em
 
+    .hlocs
+      +clearfix
+      
+      a
+        margin: 0
+
+
+
+      a:hover 
+        span 
+          text-decoration: underline
+
+      .c 
+        float: left
+        text-align: center
+        width: 90px
+        height: 100px
+
+        margin-right: 5px
+
+        img
+          margin-bottom: -10px
+
+.feed_list
+  margin-left: 10px
+
+  .feed
+    margin-bottom: 20px
+
+    position: relative
+
+    .avatar
+      position: absolute
+      top: 9px
+      left: 2px
+
+    .poll,
+    .answer,
+    .majority
+      margin-left: 38px
+
+      font-size: 0.95em
+      
+      .question
+        a
+          font:
+            weight: bold
         
-        &.unwatch
-          padding: 1px 0 0 0
-          list-style-image: url('/assets/tick.png')
-          color: #888
-          
-          a 
-            font-size: 0.8em
-            color: #888
-            padding: 0 3px
+        span
+          a
+            font-weight: normal
+            color: #444
+
+
+    .info
+      padding: 5px 0
+      
+      a
+        color: #444
+      
+      img
+        margin-left: 1px
         
-        
-        &.wiki 
-          list-style-image: url('/assets/wiki.png')
-        
-        &.search 
-          list-style-image: url('/assets/globe.png')
-          
-          span,
-          input 
-            font-size: 0.9em
-  
-  
-  #csbox 
-    min-height: 400px
-    width: 560px
-    
-    #qs 
-      h2 
-        margin-top: 5px
+      em
+        font:
+          style: normal
+          weight: bold
+
+    .ans
+      position: relative
+
+      padding: 12px 0 0 25px
+
+      // font-size: 0.9em
+
+      .markdown:before
+        content: '“'
+        position: absolute
+        top: 6px
+        left: 6px
+
+        color: #888
+
+        font:
+          family: georgia
+          size: 2.4em
+
+      img 
+        margin: 0 0 -1px 1px
 
 
 * html #csbox 
-  height: 400px
+  height: 360px

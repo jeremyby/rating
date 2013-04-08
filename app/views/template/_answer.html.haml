@@ -1,0 +1,22 @@
+- ballot = Ballot.where('id = ?', entry.ballot_id).includes(:voter, :poll, :country).first
+
+.avatar
+  = user_small_avatar_link(ballot.voter)
+
+.answer
+  .info  
+    = user_country_flag_link ballot.voter, current_user, :title => "#{ballot.voter} is from #{ballot.voter.country}"
+    answered
+    - if ballot.vote > 0
+      %em= ballot.poll.yes.capitalize
+    - else
+      %em= ballot.poll.no.capitalize
+    in the question
+    - if show_country
+      for
+      = link_to ballot.country, country_path(ballot.country)
+  .question
+    = link_to ballot.poll.question_answers, country_poll_path(ballot.country, ballot.poll)
+  .ans
+    .markdown= markdown ballot.answer
+  

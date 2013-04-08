@@ -1,29 +1,30 @@
 - content_for :js do
-  = javascript_include_tag 'search', 'country'
+  = javascript_include_tag 'country'
 
 - content_for :title_string do
   = "Ask #{@country}"
 
-#cshead(style="background-image: url('/assets/flags/#{@country.code}-l.png');")
-  .head
-    %h1
-      = (@country.full_name.blank? ? @country.to_s : @country.full_name) + (@country.alias.blank? ? '' : " (#{@country.alias})")
+- content_for :actioner do
+  %h1#cshead
+    = @country.to_s
+    = country_image(@country, 'm')
+    .search.ui-widget
+      %input
+      
+  / %h3#facts
+  /   Did you know?
+  /   = @country.random_fact
+  /   = link_to image_tag("/assets/refresh.png"), "#"
 
-    %h3#facts
-      Did you know?
-      = # @country.random_fact
-      = # link_to image_tag("/assets/refresh.png"), "#"
 
 #csbody
   #csside
-    %ul.links
-      #watch= render 'countries/watch' 
-      %li.wiki= link_to "Know more about the country", @country.link, :target =>"_blank"
-      %li.search.ui-widget
-        %label(for="search")
-          %span go to
-        %input#search(value="another country")
+    .search.ui-widget
+      %input
   
+    = render 'countries/watch'
+    .wiki.block= link_to content_tag(:div, 'Know More'), @country.link, :target =>"_blank"
+    
     %h2 Who is asking
     .hlocs
       - countries = @country.top_asking_countries
@@ -33,13 +34,35 @@
             = image_tag "/assets/flags/#{c.code}-o.png"
             %br 
               %span= c
-  
-  
-  #csbox.box
-    #qs
-      %h2 Top questions
+    
+    - if false
+      .info
+        .p residents: #{ @country.residents.size }
+        .p followers: #{ @country.followings.size }
+        .p questions: #{ @country.polls.size }
+        .p votes: #{ @country.ballots.size }
+        .p answered questions: #{ @country.polls.answered.size }
 
-      = render "polls/poll_list", :polls => @country.top_polls(10)
+  #csbox
+    #csheader
+      .flag= country_image(@country, 'o')
+      .headers
+        %h1
+          = @country.to_s
+        %h3
+          - unless @country.full_name.blank?  
+            = @country.full_name
+          - unless @country.alias.blank?  
+            (#{ content_tag 'span', @country.alias })
+        
+      
+    = render 'sort', :active => @sort
+          
+    - entries = EntryLog.where('country_code = ?', @country.code).order('created_at DESC')
     
-    %p= link_to "Create a new question", :controller => 'polls', :action => 'new', :c => @country.code
-    
+    .feed_list
+      - entries.each do |e|
+        .feed= render "template/#{e.kind}", :entry => e, :show_country => false
+  
+    %p= link_to "Create a new question", new_country_poll_path(@country)
+

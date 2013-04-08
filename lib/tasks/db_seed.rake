@@ -37,7 +37,7 @@ namespace :db do
   
     desc "Generate the interesting fact list for all countries"
     task :facts => :environment do
-      Country.real.each do |c|
+      Country.all.each do |c|
         if c.dbgraph.present?
           @link, @largest_city, @capital, @motto, @area_rank, @calling_code, @drives_on, @population_estimate_rank,
           @population_census_rank, @gdp_nominal_rank, @gdp_ppp_per_capita_rank, @demonym = nil

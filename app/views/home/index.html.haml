@@ -1,40 +1,64 @@
 - content_for :js do
-  = javascript_include_tag 'search'
+  = javascript_include_tag 'home'
 
-#hhead
-  %h1 Find the answer of the people.
-  %h3 
-    Ask a country anything you wanna know in
-    %em closed-ended questions,
-    and help the world understand a country better
-    by 
-    %em ballot for the right answers.
+- @contenter_class = @actioner_class = 'homer'
+- content_for :actioner do
+  #hh1
+    %h1
+      Ask a country anything
+      %span
+        in close-ended questions
 
+  #hcs
+    .side
+      .or or
+      .search.ui-widget
+        %input(value="Go to another country")
+    .flags
+      - count = 0
+      - availables = Country.available
+      - availables.shuffle.each do |c|
+        .flag(id='c_#{ count }')
+          = home_country_flag(c)
+          .content
+            %h2= c.to_s
+            - if c.full_name.present?
+              .info
+                = c.full_name
+            .stats
+              claimed by
+              = link_to 'jeremy Y.', '#'
+              and now have
+              %span= c.polls_count
+              questions and
+              %span= c.ballots.size
+              votes
 
-#hq
-  %h2 
-    Top question for
-    = country_m_flag_link(@country)
-  
-  / - poll = @country.polls.featured.sample
-  - poll = @country.polls.first
-  
-  .poll.box
-    %a(href="#{country_poll_path(@country, poll)}")
-      =poll.question 
+            .enter
+              %a(href='#{ country_path(c) }')
+                Enter &rarr;
+        - count += 1
+      - nas = Country.where(:code => Candidate_Countries)
+      - nas.concat(Country.unavailable.where('code not in (?)', Candidate_Countries).order("RANDOM()").limit(7))
+      - nas.pop and nas << @country if !availables.include?(@country) && !nas.include?(@country)
 
-      %span(class="answer yes") &nbsp;#{poll.yes}&nbsp;
-      or
-      %span(class="answer no") &nbsp;#{poll.no}&nbsp;
+      - nas.shuffle.each do |n|
+        .flag(id='c_#{ count }')
+          = home_country_flag(n, true)
+          .content
+            %h2= n.to_s
+            - if n.full_name.present?
+              .info
+                = n.full_name
+            %div Full access is not active yet. You can &ldquo;claim&rdquo; the country and activate all features by the first new question accepted.
+            .enter
+              %a(href='#{ country_path(n) }')
+                Find Out More &rarr;
+        - count += 1
 
+#h2head
+  %h1 
+    %span ...and help us
+    find the answer of the people
 
-#hactions
-  #hgo.action
-    %h2
-      Find your country
-    #widget.ui-widget
-      %label(for="search") go to
-      %input#search(value="your home country")
-  #hask.action
-    %h2 Wanna ask a country too?
-    %a Create a Question now &rarr;
+  = render 'home/poll', :poll => @poll

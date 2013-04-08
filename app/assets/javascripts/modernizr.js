@@ -22,6 +22,9 @@
  * Contributors   Ryan Seddon, Ben Alman
  */
 
+//TODO: move this to somewhere more appropriate
+window.aac = {};
+
 window.Modernizr = (function( window, document, undefined ) {
 
     var version = '2.5.3',

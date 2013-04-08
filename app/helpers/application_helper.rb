@@ -13,20 +13,16 @@ module ApplicationHelper
     end
   end
 
-  def poll_coverage_info(poll, country)
-    case poll.coverage
-    when 0
-      str = "<img src ='/assets/all.png' class='w' />Open Question"
-      title = "The Question is open for everyone to answer."
-    when 1
-      str = "<img src ='/assets/one.png' />Inside Question"
-      title = "ONLY people from #{country} can answer the question."
-    when 2
-      str = "<img src ='/assets/but.png' class='w' />Outside Question"
-      title = "Only people who are NOT from #{country} can answer the question."
+  def poll_coverage_data(coverage, country)
+    array = []
+
+    (0..2).each do |c|
+      item = [c, poll_coverage_info(c, country)]
+      # item << 'selected' if c == coverage
+      array << item
     end
 
-    return content_tag(:span, str.html_safe, :title => title.html_safe)
+    return array
   end
 
   def words_truncate(str, wordcount)
@@ -35,9 +31,30 @@ module ApplicationHelper
 
   def markdown(text)
     Redcarpet::Markdown.new(SimpleRender,
-                                       :autolink => true,
-                                       :lax_spacing => true,
-                                       :no_intra_emphasis => true
-                                       ).render(text).html_safe
+                            :autolink => true,
+                            :lax_spacing => true,
+                            :no_intra_emphasis => true
+                            ).render(text).html_safe
+  end
+end
+
+
+module ActionView
+  class Base
+    def poll_coverage_info(coverage, country)
+      case coverage
+      when 0
+        str = "<img src ='/assets/all.png' class='w' />Open Question"
+        title = "The Question is open for everyone to answer."
+      when 1
+        str = "<img src ='/assets/one.png' />Inside Question"
+        title = "ONLY people from the country can answer the question."
+      when 2
+        str = "<img src ='/assets/but.png' class='w' />Outside Question"
+        title = "Only people who are NOT from the country can answer the question."
+      end
+
+      return content_tag(:span, str.html_safe, :title => title)
+    end
   end
 end

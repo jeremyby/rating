@@ -1,97 +1,17 @@
-
 $theme-color: #f16022
+$theme-bg-color: #f67037
 
-@font-face
-  font-family: "museo"
-  src: url('museo300-regular-webfont.eot')
-  src: url('museo300-regular-webfont.eot?#iefix') format('embedded-opentype')
-  src: url('museo300-regular-webfont.woff') format('woff')
-  src: url('museo300-regular-webfont.ttf') format('truetype')
-  src: url('museo300-regular-webfont.svg#museo_300regular') format('svg')
-  font-weight: normal
-  font-style: normal
+$light-bg: #fafaf8
 
-@font-face 
-  font-family: "museo bold"
-  src: url('museo500-regular-webfont.eot')
-  src: url('museo500-regular-webfont.eot?#iefix') format('embedded-opentype')
-  src: url('museo500-regular-webfont.woff') format('woff')
-  src: url('museo500-regular-webfont.ttf') format('truetype')
-  src: url('museo500-regular-webfont.svg#museo_500regular') format('svg')
-  font-weight: normal
-  font-style: normal
-
-@font-face 
-  font-family: "museo bolder"
-  src: url('museo700-regular-webfont.eot')
-  src: url('museo700-regular-webfont.eot?#iefix') format('embedded-opentype')
-  src: url('museo700-regular-webfont.woff') format('woff')
-  src: url('museo700-regular-webfont.ttf') format('truetype')
-  src: url('museo700-regular-webfont.svg#museo_700regular') format('svg')
-  font-weight: normal
-  font-style: normal
-
-
-@font-face 
-  font-family: 'museo sans'
-  src: url('23F157_0_0.eot')
-  src: url('23F157_0_0.eot?#iefix') format('embedded-opentype')
-  src: url('23F157_0_0.woff') format('woff')
-  src: url('23F157_0_0.ttf') format('truetype')
-
-@font-face 
-  font-family: 'museo sans italic'
-  src: url('23F157_1_0.eot')
-  src: url('23F157_1_0.eot?#iefix') format('embedded-opentype')
-  src: url('23F157_1_0.woff') format('woff')
-  src: url('23F157_1_0.ttf') format('truetype')
-  font-style: italic
-
-
-@font-face 
-  font-family: 'museo slab'
-  src: url('23F132_0_0.eot')
-  src: url('23F132_0_0.eot?#iefix') format('embedded-opentype')
-  src: url('23F132_0_0.woff') format('woff')
-  src: url('23F132_0_0.ttf') format('truetype')
-
-
-
-@font-face 
-  font-family: 'museo slab italic'
-  src: url('23F132_1_0.eot')
-  src: url('23F132_1_0.eot?#iefix') format('embedded-opentype')
-  src: url('23F132_1_0.woff') format('woff')
-  src: url('23F132_1_0.ttf') format('truetype')
-  font-style: normal
-
-@font-face 
-  font-family: 'museo slab bold'
-  src: url('museo_slab_700-webfont.eot')
-  src: url('museo_slab_700-webfont.eot?#iefix') format('embedded-opentype')
-  src: url('museo_slab_700-webfont.woff') format('woff')
-  src: url('museo_slab_700-webfont.ttf') format('truetype')
-  src: url('museo_slab_700-webfont.svg#museo_slab_700regular') format('svg')
-  font-weight: normal
-  font-style: normal
-
-@font-face 
-  font-family: 'museo slab bolder'
-  src: url('museo_slab_900-webfont.eot')
-  src: url('museo_slab_900-webfont.eot?#iefix') format('embedded-opentype')
-  src: url('museo_slab_900-webfont.woff') format('woff')
-  src: url('museo_slab_900-webfont.ttf') format('truetype')
-  src: url('museo_slab_900-webfont.svg#museo_slab_900regular') format('svg')
-  font-weight: normal
-  font-style: normal
-
-
+$default-text-shadow-color: rgba(40, 40, 40, .2)
+$default-text-shadow-blur: 3px
+$default-text-shadow-v-offset: 1px
+$default-text-shadow-h-offset: 1px
 
 h1,
 h2
   font: 
     family: "Helvetica Neue", helvetica, arial, sans-serif
-
 
 h3 
   font: 
@@ -99,8 +19,17 @@ h3
     weight: normal
 
 textarea
-  padding: 2px 5px 0 5px
-
+  padding: 5px 10px 10px 10px
+  
+  background: #fff
+  
+  border: 1px solid #ddd
+  +box-shadow(#bbb 0 0 3px inset) 
+  
+  color: #555
+  font-family: verdana
+  font-size: 0.9em
+  
 
 a,
 a:link,
@@ -132,6 +61,9 @@ a:hover
     family: "museo slab bold", georgia, serif
     weight: normal
 
+.live
+  background: #f5f5a7
+
 @mixin button
   line-height: 1.2em
   
@@ -139,37 +71,46 @@ a:hover
   font-weight: normal
 
   +sassy-button-structure(5px, 16px, 0.7em 1.2em 0.4em 1.2em)
-  +sassy-button-gradient("simple", #f67f4b, #ca4d17, #fff, "raised")
+  +sassy-button-gradient("simple", #f37e4b, #c95320, #fff, "raised")
+
+@mixin blue-button
+  +button
+
+  +sassy-button-structure(5px, 14px, 0.5em 1em 0.4em 1em)
+  +sassy-button-gradient("simple", #64aee2, #0460a1, #fff, "raised")
 
 
 @mixin grey-button
-  line-height: 1.2em
-
-  font-family: "museo slab", georgia, serif
-  font-weight: normal
+  +button
 
   +sassy-button-structure(5px, 14px, 0.5em 1em 0.4em 1em)
   +sassy-button-gradient("simple", #ccc, #999, #fff, "raised")
 
 
+@mixin small-button
+  +button
+  +sassy-button-structure(5px, 14px, 0.5em 1em 0.4em 1em)
+
 @mixin small-text
-  font-size: 0.9em
+  font-size: 0.85em
 
-
+@mixin hoverable
+  +opacity(0.8)
+  
+  &:hover
+    +opacity(1)
 
 body 
   line-height: 1.625em
-  font: 100% verdana, sans-serif
+  font: 100% verdana, arial, sans-serif
   
-  background: #fefefa url("/assets/bg1.png") top left repeat
+  background: #fafaf8 url("/assets/bg1.png") repeat
+  
   color: #333
 
-
-#page_header .inner,
-#page_footer .inner 
-  width: 960px
+.inner 
+  max-width: 960px
   margin: 0 auto
-  padding: 0
 
 
 #page_header 
@@ -180,25 +121,19 @@ body
   
   z-index: 100
   
-  background: url('/assets/bg.png')
+  background: url("/assets/bg.png")
   
   width: 100%
   
-  +box-shadow(#444 0 2px 5px -2px) 
+  +box-shadow(rgba(0, 0, 0, 0.4) 0 1px 3px)
 
 
   .inner 
-    height: 40px
     position: relative
-    display: table
     
     nav#utility 
-      width: 100%
-      display: table-cell 
-      vertical-align: middle
       text-align: right
-      
-      color: #eee
+      line-height: 40px
 
       a,
       a:link,
@@ -223,46 +158,86 @@ body
       
       &:hover 
         +opaque
-      
 
+.actioner
+  position: fixed
+  top: 40px
+  
+  height: 8px
+  width: 100%
+  
+  z-index: 99
+
+  font-size: 0.875em
+    
+  background: rgba(246, 112, 55, .96)
+  +box-shadow(#666 0 2px 6px -2px)
+  
+  .inner
+    display: none
+  
+  &.homer
+    position: relative
+    top: 0
+    
+    height: auto
+    
+    
+    .inner
+      display: block
+      
+  &.expand
+    height: 40px
+  
+    .inner
+      display: block
+    
+      height: 40px
+      position: relative
+    
 
 .contenter 
   font-size: 0.875em
   
-  padding: 0
-
-  .wrapper     
-    .inner 
-      width: 960px
-    
-      margin: 0 auto
-      padding: 40px 0 0 0
-    
-      .light a 
-        color: #888
-
-
-
-footer#page_footer   
-  font-size: 0.8125em
+  margin-top: 40px
   
-  .inner 
-    padding: 10px 0
+  .inner
+    width: 920px
+    min-height: 440px
+    
+    padding: 20px
+  
+    +box-shadow(#ddd 2px 2px 6px)
+
+    background: #fff
+  
+  &.homer
+    margin: 0
+    
+    .inner
+      +box-shadow(none)
+      background: none
+
+footer#page_footer
+  .inner
     ul 
-      margin: 0 0 7px -10px
-      padding: 6px 0 0 0
-    
-      li 
-        border-right: 1px solid #fef8e7
-        display: inline
-        margin: 0
+      margin: 15px 0 15px 20px
+      padding: 0
       
-        &:last-child 
-          border-right: none
-        
-  
+      +small-text
+      
+      li 
+        display: inline
+        margin-right: 10px
+      
         a 
-          padding: 0 10px
+          color: #999
+        
+        &.site
+          color: #aaa
+          font:
+            family: "museo slab", georgia, sans-serif
+            weight: normal
 
 
 
@@ -278,7 +253,7 @@ footer#page_footer
   
   z-index: 99
 
-  .msg 
+  span
     padding: 5px 10px 7px 30px
   
     line-height: 20px
@@ -304,50 +279,15 @@ footer#page_footer
         image: image-url("cross.png")
 
 
-.hlocs
-  a
-    margin: 0
-    
-    
-    
-  a:hover 
-    span 
-      text-decoration: underline
-
-  .c 
-    float: left
-    text-align: center
-    width: 90px
-    height: 100px
-    
-    margin-right: 5px
-    
-    img
-      margin-bottom: -10px
-
-
-
 .box 
   padding: 20px
 
-  +border-radius(10px)
-  +box-shadow(#ddd 1px 1px 2px 1px) 
+  +box-shadow(#ddd 2px 2px 6px)
+  
 
-  border: 1px solid #ddd
+  // border: 1px solid #ddd
   background: #fff
 
-.poll  
-  span.answer 
-    padding: 0
-    
-    +inline-block
-    +border-radius(15px)
-    
-    &.yes 
-      background: #cef0ce
-
-    &.no 
-      background: #ffdfdf
 
 
 .lc
@@ -357,85 +297,8 @@ footer#page_footer
   float: right
   width: 250px
 
-ul.poll_list 
-  margin: 0
-  padding-left: 0
-  list-style: none
-  
-  li
-    margin-bottom: 15px
-    
-    &:last-child
-      margin: 0
-    
-    
-    .question 
-      padding: 0
-    
-      a
-        font-weight: bold
-    
-    .info 
-      margin-left: 1px
-      padding: 5px 0
-      
-      +small-text
-      
-      a
-        margin-right: 3px
-
-      span
-        margin-left: 8px
-
-      img 
-        margin: 0 0 -1px 1px
 
 
-
-/*show poll, poll_pack*/
-#question   
-  #question_body 
-    #legends 
-      span 
-        padding-right: 20px
-    
-    
-    .q 
-      line-height: 160%
-      
-      font-family: "museo slab bold", georgia, serif
-      font-size: 2.1em
-      letter-spacing: 1px
-    
-      margin: 0.5em 0
-  
-    
-  
-
-  #answer 
-    margin: 0
-    
-    letter-spacing: 0.3px
-    line-height: 160%
-    
-    font-size: 1.5em
-    
-    div 
-      float: left
-      
-      p 
-        margin: 0
-      
-      
-      &.or 
-        padding: 0 12px 3px 10px
-        
-        span 
-          font-style: italic
-          font-size: 0.7em
-          
-          color: #f16022
-        
 
 
 /*show poll*/
@@ -473,8 +336,11 @@ ul.poll_list
         font: 
           size: 16px
           weight: bold
-        
 
+// markdown tags
+.markdown
+  p
+    margin-top: 0
 
 .home 
   margin: 50px 0 0 0
@@ -542,3 +408,61 @@ ul.poll_list
 
       &:focus 
         outline: none
+
+/* search  */
+.ui-autocomplete
+  margin: 0
+  max-height: 280px
+  overflow-y: auto
+  /* prevent horizontal scrollbar */
+  
+  width: 150px
+  overflow-x: hidden
+  
+  background: #fafaf8
+  
+  border-color: #ccc
+  +border-radius(0)
+  
+  padding: 5px 5px 25px 5px
+  
+  li.hint
+    padding: 5px 0 5px 5px
+    color: #888
+    
+    +small-text
+  
+  li.ui-autocomplete-category 
+    color: #444
+    font-family: "museo slab bold", georgia, serif
+    font-size: 1.1em
+    padding: 10px 0 0 0
+  
+
+/* IE 6 doesn't support max-height
+ * we use height instead, but this forces the menu to always be this tall
+ */
+* html .ui-autocomplete 
+  height: 280px
+
+
+.ui-menu .ui-menu-item 
+  a
+    color: #444
+    
+    span 
+      color: #f16022
+      font-style: bold
+
+
+/*other widgets */
+.ui-tooltip 
+  background: #fff
+  border-color: #bbb
+  max-width: 320px
+
+
+.ui-widget-content 
+  color: #888
+  font-family: verdana
+  font-size: 0.875em

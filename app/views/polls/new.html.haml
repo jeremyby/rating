@@ -1,27 +1,26 @@
 - if @country.blank?
   - content_for :js do
-    = javascript_include_tag 'search'
+    = javascript_include_tag 'poll_new'
 
 - content_for :title_string do
-  Ask #{ @country.present? ? @country : 'a country' } a question
+  New Question #{ "for " + @country.to_s if @country.present? }
+
+- flash.now[:alert]  = new_poll_validation_error if  @poll.errors.present?
 
 #np
-  %h1 Create a question
-  %h3
+  %h1 New Question
+  %h2
     - if @country.present?
-      Asking #{@country}#{country_m_image(@country)}
+      Asking #{@country}#{country_image @country, 'm'}
     - else
       .search.ui-widget
         %label(for="search") Asking 
         %input#search(value="a country")
         
-  = form_for @poll, :url => @country.present? ? country_polls_path(@country) : polls_path do |f|
+  = form_for @poll, :url => polls_path do |f|
     %p
-      = f.label_text_field :question, "Question: ", :size => 50
-      
-    %p
-      Describe if necessary: 
-      = f.text_area :description, :size => '50x10'
+      = f.label_text_field :question, "Question: ", :size => 70
+
     %p
       Answers:
       = f.text_field :yes
@@ -29,11 +28,13 @@
       = f.text_field :no
     
     %p
-      This question is in the category of
-      = f.select :category, Poll_Cats.collect{|pc| [pc[1], pc[0]]}, :selected => 0
-      and
-      = f.select :coverage, [["anyone", 0], ["only those who are from the country", 1], ["anyone who lives outside the country", 2]]
-      can answer it
+      Describe if necessary: 
+      = f.text_area :description, :size => '50x10'
+    
+    %p
+      = f.select :coverage, [["Anyone", 0], ["Only those who are from the country", 1], ["Anyone who lives outside the country", 2]]
+      can answer the question.
+    
     %p
       = f.hidden_field :country_code, :value => (@country.present? ? @country.code : nil)
       

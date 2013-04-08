@@ -11,8 +11,8 @@ users = [
   {:first_name => 'Jeremy', :last_name => 'Yang', :email  => 'jeremyby@gmail.com', :country_code => "us", :password => '19781115', :password_confirmation  => '19781115'}
 ]
 
-# 100.times do |i|
-#   users << {:first_name => "user#{i+1}", :email  => "user#{i+1}@abc.com", :country_code => countries[rand(5)], :password => '111111', :password_confirmation  => '111111'}
-# end
+200.times do |i|
+  users << {:first_name => "user#{i+1}", :email  => "user#{i+1}@abc.com", :country_code => countries[rand(5)], :password => '111111', :password_confirmation  => '111111'}
+end
 
 User.create(users)

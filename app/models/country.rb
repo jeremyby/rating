@@ -1,4 +1,7 @@
 class Country < ActiveRecord::Base
+  scope :available, where(:code => Available_Countries)
+  scope :unavailable, where('code not in (?)', Available_Countries)
+  
   has_one :dbgraph
   has_many :facts
 
@@ -9,6 +12,8 @@ class Country < ActiveRecord::Base
 
   has_many :polls,          :primary_key => "code",     :foreign_key => "country_code"
   has_many :ballots,        :primary_key => "code",     :foreign_key => "country_code"
+  
+  has_many :entry_logs,     :primary_key => "code",     :foreign_key => "country_code"
 
   attr_accessible :code, :name, :full_name, :alias, :pretty_name
 

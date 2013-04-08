@@ -1,23 +1,23 @@
 class User < ActiveRecord::Base
-  include ActiveModel::MassAssignmentSecurity
-
   attr_accessor :password_confirmation
 
   attr_accessible :first_name, :last_name, :email, :country_code, :password, :password_confirmation, :avatar
 
   before_save :process_names
 
-  belongs_to  :country,               :foreign_key => 'country_code',     :primary_key => 'code'
-  has_many :authorizations,           :dependent => :destroy
+  belongs_to :country,              :foreign_key => 'country_code',     :primary_key => 'code'
+  has_many :authorizations,         :dependent => :destroy
 
-  has_many :followings, :dependent => :destroy
-  has_many :watching_countries, :through => :followings, :source => :followable, :source_type => 'Country', :order => 'followings.updated_at DESC'
-  has_many :following_polls, :through => :followings, :source => :followable, :source_type => 'Poll'
+  has_many :followings,             :dependent => :destroy
+  has_many :watching_countries,     :through => :followings,            :source => :followable, :source_type => 'Country', :order => 'followings.updated_at DESC'
+  has_many :following_polls,        :through => :followings,            :source => :followable, :source_type => 'Poll'
 
   has_many :polls
-  has_many :ballots, :dependent => :destroy
-  has_many :voted_polls, :through => :ballots, :source => :poll
+  has_many :ballots,                :dependent => :destroy
+  has_many :voted_polls,            :through => :ballots,               :source => :poll
 
+  has_many :entry_logs
+  
   acts_as_authentic do |c|
     c.ignore_blank_passwords = true #ignoring passwords
     c.validate_password_field = false #ignoring validations for password fields
@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
 
   presence_msg = 'is required'
 
-  validates_presence_of :first_name, :message => presence_msg
+  validates_presence_of :first_name, :email, :message => presence_msg
+  validates_uniqueness_of :email
 
   #here we add required validations for a new record and pre-existing record
   validate do |user|
@@ -48,13 +49,13 @@ class User < ActiveRecord::Base
     User.new(:first_name => info.name[0], :last_name => info.name[1], :email => info.email, :country_code => country_code)
   end
 
-  def self.create_with_omniauth(info, country_code)
-    #TODO: first/last names
-    user = User.new(:first_name => info.name[0], :last_name => info.name[1], :email => info.email, :country_code => country_code)
-    user.save(:validate => false) #create the user without performing validations. This is because most of the fields are not set.
-    user.reset_persistence_token! #set persistence_token else sessions will not be created
-    user
-  end
+  # def self.create_with_omniauth(info, country_code)
+  #   #TODO: first/last names
+  #   user = User.new(:first_name => info.name[0], :last_name => info.name[1], :email => info.email, :country_code => country_code)
+  #   user.save(:validate => false) #create the user without performing validations. This is because most of the fields are not set.
+  #   user.reset_persistence_token! #set persistence_token else sessions will not be created
+  #   user
+  # end
 
   def is_admin?
     self.admin
@@ -71,10 +72,6 @@ class User < ActiveRecord::Base
   #   Business Logic
   #
   #********************************************
-
-  def country
-    Country.find_by_code(self.country_code)
-  end
 
   def lives_in?(country)
     self.country_code == (country.class == Country ? country.code : country)
@@ -106,7 +103,7 @@ class User < ActiveRecord::Base
 
     ballots = self.ballots.reload
 
-    Poll.where("(country_code = ? OR country_code = 'all') AND coverage IN (?) AND id not IN (?)", country_code, coverage_condition, ballots.empty? ? 0 : ballots.map(&:poll_id))
+    Poll.where("country_code = ? AND coverage IN (?) AND id not IN (?)", country_code, coverage_condition, ballots.empty? ? 0 : ballots.map(&:poll_id))
   end
 
 

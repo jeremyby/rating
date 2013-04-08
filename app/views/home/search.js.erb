@@ -1,0 +1,12 @@
+var countries = [];
+
+<% @countries.each do |c| %>
+  countries.push(
+    {
+      code: "<%= c.code %>",
+      slug: "<%= c.slug %>",
+      name: "<%= c.name %>",
+      category: "<%= Available_Countries.include?(c.code) ? 'Available' : 'Other countries' %>"
+    }
+  );
+<% end %>

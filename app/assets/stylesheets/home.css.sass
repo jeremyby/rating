@@ -1,125 +1,279 @@
-#hhead 
-  padding-top: 6em
+#hh1
+  padding-top: 120px
   
-  h1 
+  h1
     margin: 0
-    font-size: 3.6em
+
+    font-size: 2.88em
+    color: #fff8f5
+    
+    span
+      font:
+        family: "museo slab bold", sans-serif
+        size: 20px
+
+#hcs
+  padding-bottom: 60px
+  
+  .flags
+    +clearfix
+
+    margin-top: 20px
+    padding: 5px 20px 25px 20px
+    
+    background: rgba(0, 0, 0, 0.16)
+    
+    // &:hover
+    //   border-color: #ccc
+    //   +box-shadow(#ddd 1px 1px 1px)
+      
+    .c
+      float: left
+      padding: 0 13px
+      margin: 15px 5px -5px 5px
+      
+      position: relative
+      
+    
+      img
+        margin-top: 3px
+        +opacity(0.8)
+        
+        &:hover
+          +opacity(1)
+      
+      &.na
+        img
+          +opacity(0.5)
+          
+          &:hover
+            +opacity(0.8)
+        
+      
+      &.active
+        background: rgba(255, 255, 255, 0.86)
+        +border-top-radius(12px)
+        +border-bottom-radius(0)
+        
+        img
+          +opacity(1)
+          
+          &:hover
+            +opacity(1)
+    
+    .content
+      display: none
+      
+      
+    .detail
+      float: left
+      
+      width: 464px
+      
+      margin: 5px 0 0 5px
+      padding: 0 13px      
+      
+      text-align: center
+      
+      &.color
+        background: rgba(255, 255, 255, 0.86)
+        
+      
+      h2
+        margin-bottom: 5px
+        
+      .info
+        font: normal 0.9em "museo slab italic"
+        margin-bottom: 16px
+      
+      .stats
+        
+        
+      .enter
+        padding: 1.4em 0
+        
+        a
+          +small-button
+          
+      
+  .side
+    float: right
+    width: 420px
+    
+    .or
+      float: left
+      line-height: 264px
+      
+      margin: 0 43px 0 45px
+      color: #fff
+      
+      font:
+        family: "museo slab italic"
+        size: 1.4em
+
+
+    .search
+      input
+        margin-top: 107px      
+        padding: 14px 50px 13px 20px
+        color: #777
+        
+        border: none
+        outline: none
+        
+        background: rgba(white, .5) right center url('/assets/arrow_down.png') no-repeat
+        
+        +hoverable
+        +border-radius(25px)
+        +box-shadow(rgba(black, .2) 1px 1px 3px inset)
+        
+        &:focus
+          background-image: none
+          +border-bottom-radius(0)
+        
+
+          
+  
+#h2head
+  padding: 50px 0
+  text-align: center
+  
+  h1
+    margin: 0
+    padding: 0 0 60px 0
     color: #f16022
-  
-  
-  h3 
-    margin: 0
-    padding: 0.3em 0 0 3px
+    
+    font-size: 2.6em
+    
+    span
+      color: #999
+      font-size: 18px
+      font-family: "museo slab bold", sans-serif
 
-    line-height: 1.8em
-    letter-spacing: 0
-    
-    font:
-      family: "museo slab"
-      size: 1.3em
-    
-    color: #666
-    
-    em
-      color: #555
-      
-      font: 
-        family: "museo slab bold"
-        style: normal
-        weight: normal
-        size: 1.13em
-
-
-#hq 
-  margin-top: 3em
-  
-  h2 
-    margin-bottom: 10px
-    
-    img 
-      margin: 0 0 -6px 3px
-  
   .poll
-    padding: 13px 0 13px 23px
+    +inline-block
     
-    a 
-      line-height: 1.625em
-      font: 
-        family: "museo slab bold", georgia, serif
-        weight: normal
-        size: 1.7em
+    min-width: 200px
+    max-width: 560px
+    
+    padding: 20px 22px
+    position: relative
+    
+    text-align: left
+    
+    background: #fafafa
+    border: 1px solid #ddd
+    +border-radius(20px)
+    
+    a:hover
+      text-decoration: none
+    
+    .q
+      color: #666
+      margin: 30px 0 25px 5px
+      font-size: 1.7em
+    
+    .table
+      position: relative
       
-      &:hover span
-        text-decoration: underline
+      +border-bottom-radius(15px)
+      
+      width: 100%
+      
+      .yes,
+      .no
+        padding: 20px 10px
+        
+        color: #fff
+        
+        font-size: 1.15em
+        
+        +hoverable
 
+        em
+          font:
+            family: georgia
+            style: italic
+      
+        
+      .yes
+        background: #0aba8a
+        +box-shadow(#ccc -1px 1px 3px)
+        +border-bottom-left-radius(10px)
+        
+        &:hover
+          +box-shadow(#aaa -1px 1px 5px)
+      
+      .no
+        background: #e50b0b
+        +box-shadow(#ccc 1px 1px 3px)
+        +border-bottom-right-radius(10px)
+        
+        &:hover
+          +box-shadow(#aaa 1px 1px 5px)
+        
+      .or          
+        height: 100%
+        width: 2px
 
-#hactions 
-  margin: 3em 0
-  width: 100%
-  +clearfix
-  
-  .action 
-    float: left
-    width: 35%
-    margin-right: 15px
-
-
-#search 
-  padding-left: 2px
-  color: #888
-  font-size: 0.875em
-
-
-#widget 
-  font-size: 1em
-
-
-
-.ui-autocomplete 
-  max-height: 250px
-  overflow-y: auto
-  /* prevent horizontal scrollbar */
-  overflow-x: hidden
-    
-  li.ui-autocomplete-category 
-    color: #444
-    font-weight: bold
-    padding: 0.2em
-  
-
-/* IE 6 doesn't support max-height
- * we use height instead, but this forces the menu to always be this tall
- */
-* html .ui-autocomplete 
-  height: 250px
-
-
-.ui-menu .ui-menu-item 
-  a 
-    color: #444
-
-    span 
-      color: #f16022
-      font-style: bold
-
-
-.ui-tooltip 
-  background: #fff
-  border-color: #bbb
-  max-width: 320px
-
-
-.ui-widget-content 
-  color: #888
-  font-family: verdana
-  font-size: 0.875em
+    .flag
+      img
+        +opacity(0.8)
+        
+        margin: 3px 0 0 5px
+      
+      position: absolute
+      top: -26px
+      left: 50%
+      width: 60px
+      height: 56px
+      margin-left: -29px /* Half the width */
+      
+      background: #fafafa
+      border-top: 2px solid #ddd
+      +border-radius(100px)
+      
+      .shuffle
+        position: absolute
+        top: 50%
+        left: 90px
+        width: 33px
+        height: 29px
+        margin-top: -18px /* Half the height */
+        
+        background: #fafafa
+        border-top: 2px solid #ddd
+        +border-radius(100px)
+        
+        img
+          margin-left: 4px
+          
+          &:hover
+            +opacity(1)
+      
+    &:hover
+      border-color: #ccc
+      +box-shadow(#ddd 1px 1px 1px)
+      
+      .q
+        color: #333
+      
+      .flag
+        border-color: #ccc
+        
+        .c
+          img
+            +opacity(0.9)
+      
+      .shuffle
+        border-color: #ccc
 
 
 #auth 
   float: right
   
   padding-top: 64px
-  width: 360px
+  max-width: 360px
   
   margin: 0
   
@@ -136,7 +290,7 @@
 
 
 #login 
-  width: 580px
+  max-width: 580px
   
   .form 
     margin-right: 150px
@@ -174,7 +328,7 @@
 #goodie 
   float: right
   
-  width: 280px
+  max-width: 280px
   
   margin: 0
   padding-top: 64px
@@ -187,7 +341,7 @@
 
 
 #signup 
-  width: 640px
+  max-width: 640px
   
   .form 
     position: relative

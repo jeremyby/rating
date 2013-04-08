@@ -1,0 +1,6 @@
+div = $("<%= (j (render 'home/poll', :poll => @poll)).html_safe %>")
+div.hide()
+
+$("#h2head .poll").replaceWith(div)
+
+div.fadeIn()

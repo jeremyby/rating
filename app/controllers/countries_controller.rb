@@ -8,7 +8,8 @@ class CountriesController < ApplicationController
   end
 
   def show
-
+    @sort = params[:sort]
+    %w(recent top).include?(@sort) || @sort = 'recent'
   end
 
   def watch

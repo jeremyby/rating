@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
       if info.country_code > 0
         info.country_code2.downcase
       else
-        flash.now[:alert] = "We can't tell which country you are from, so United States it is."
+        # flash.now[:alert] = "We can't tell which country you are from, so United States it is."
         return 'us'
       end
     end
@@ -51,11 +51,11 @@ class ApplicationController < ActionController::Base
           url = "/login"
           url.concat("?return_to=#{@return_to}") unless @return_to.blank?
           
-          flash.now[:alert] = "Your account info is needed here. Please <a href='#{url}'>log in</a> first.".html_safe
+          flash.now[:alert] = "Your account info is required. Please <a href='#{url}'>log in</a> first.".html_safe
           render 'layouts/notify'
         else
           store_location
-          flash[:alert] = "Your account info is needed here. Please log in first."
+          flash[:alert] = "Your account info is required. Please log in first."
           redirect_to login_path
         end
         
@@ -79,12 +79,13 @@ class ApplicationController < ActionController::Base
       end
     end
     
-    def clear_return_to_location
-      session[:return_to] = nil
-    end
-    
     def store_location(addr=request.url)
       session[:return_to] = addr
+    end
+    
+    def store_poll_shuffle(poll)
+      session[:shuffled_polls] ||= Array.new
+      session[:shuffled_polls] << poll.id
     end
 
     def redirect_back_or_default(default)

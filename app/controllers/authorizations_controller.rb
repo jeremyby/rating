@@ -30,8 +30,8 @@ class AuthorizationsController < ApplicationController
     
     else
       flash[:notice] = "Welcome! #{info.name[0]} from #{provider}."
-      session[:info] = info
-      
+      session[:info] = info.select {|k, v| %(name email provider uid, token, link).include?(k) }
+            
       # redirect to user#new, will render new_auth because session[:info]
       redirect_to signup_path and return true
     end

@@ -10,8 +10,10 @@ module UserHelper
     form_error.map {|f| "#{f.values.first}"}.join('<br/>')
   end
 
-  def user_country_flag_link(u, options = {})
-    link_to "#{u}#{user_country_image(u, options)}".html_safe, user_path(u)
+  def user_country_flag_link(user, cur = nil, options = {})
+    u = (cur == user) ? 'You' : user.to_s 
+    
+    link_to "#{u}#{user_country_image(user, options)}".html_safe, user_path(user)
   end
 
   def user_country_image(u, options = {})

@@ -1,15 +1,10 @@
 module PollHelper
-  def question_answers(poll)
-    str = poll.question
+  def new_poll_validation_error
+    error_msg = ''
+
+    error_msg << 'Please select a valid country to ask the question. ' if @poll.errors[:country_code].present?
+    error_msg << "The question #{@poll.errors[:question][0]}." if @poll.errors[:question].present?
     
-    unless poll.simple?
-      unless poll.or_negative?
-        str << " #{truncate(poll.yes.capitalize, :separator => ' ')}"
-      end
-      
-      str << " or #{truncate(poll.no.capitalize, :separator => ' ')}?"
-    end
-    
-    str
+    return error_msg
   end
 end

@@ -1,1 +1,3 @@
-$('#watch').hide().html("<%= j(render 'countries/watch') %>").fadeIn('fast')
+div = $("<div id='watch'><%= j(render 'countries/watch') %></div>").hide();
+$('#watch').replaceWith(div);
+$('#watch').fadeIn();

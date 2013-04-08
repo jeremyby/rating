@@ -1,0 +1,19 @@
+- poll = Poll.where('id = ?', entry.poll_id).includes(:owner, :country).first
+
+.avatar
+  = user_small_avatar_link(poll.owner)
+  
+.poll
+  .info  
+    = user_country_flag_link poll.owner, current_user, :title => "#{poll.owner} is from #{poll.owner.country}"
+    
+    - if show_country
+      asked #{ link_to poll.country, country_path(poll.country) }
+    - else
+      asked
+    
+    a new question
+      
+  .question
+    = link_to poll.question_answers(false), country_poll_path(poll.country, poll)
+  

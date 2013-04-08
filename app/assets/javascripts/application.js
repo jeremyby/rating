@@ -8,7 +8,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
-//= require on_the_spot
+//= require best_in_place
+//= require best_in_place.purr
 //= require default
 
 

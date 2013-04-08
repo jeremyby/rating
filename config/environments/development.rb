@@ -1,6 +1,7 @@
 Askacountry::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
-
+  config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
+  
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -34,4 +35,13 @@ Askacountry::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  config.middleware.insert_before(
+    Rack::Lock, Rack::LiveReload,
+    :min_delay => 500,
+    :max_delay => 10000,
+    :port => 8888,
+    :host => 'localhost',
+    :ignore => [ %r{dont/modify\.html$} ]
+  )
 end

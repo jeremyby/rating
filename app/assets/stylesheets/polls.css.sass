@@ -50,7 +50,7 @@
 
 
 #sph 
-  margin: 25px 0 20px 65px
+  margin: 20px 0 20px 65px
   padding-bottom: 15px
   
   border-bottom: 1px solid #ccc
@@ -70,11 +70,14 @@
     .flag
       position: absolute
       left: -65px
-      top: -3px
+      top: -9px
     
     .question
       margin: 3px 0
       line-height: 1.4em
+      
+      font-size: 1.7em
+      color: #444
       
       .yes
         padding-left: 5px
@@ -101,6 +104,11 @@
       border: 2px dashed #cecece
 
       color: #666
+    
+    .add_desc
+      margin: 5px 0 13px 2px
+      
+      color: #666
 
     .comments_head
       margin: 7px 0 0 0
@@ -112,7 +120,11 @@
         
         &.w
           margin-left: 2px
-        
+      
+      span
+        +inline-block
+        vertical-align: bottom
+      
       span.sep
         color: #ccc
 
@@ -125,6 +137,7 @@
 
 #spb
   margin: 25px 0 0 65px
+  +clearfix
   
   .lc
     .ata
@@ -138,29 +151,20 @@
         
         line-height: 40px
         
-        span        
-          &.yes
-            padding: 5px 0 5px 5px
-            border-left: 8px solid #cef0ce
-
-            
-          &.no
-            padding: 5px 0
-            border-right: 8px solid #ffdfdf
-
+        span
+          margin-left: 5px
+          font-size: 0.65em
+          font-weight: normal
+          
+          
+        #ballot_action
         
-          &.edit
-            margin-left: 5px
-            font-size: 0.65em
-            font-weight: normal
+          &.button
+            position: relative
+            top: -2px
+            left: 10px
           
-          
-        #ballot_button
-          position: relative
-          top: -2px
-          left: 10px
-          
-          +button
+            +button
         
         
       #ballot
@@ -169,10 +173,12 @@
         +clearfix
         
         .answers
-          margin-bottom: 25px
+          margin: 0 3px 25px 0
 
           background: #fff
-          border: 1px solid #e3e3e3
+          border: 1px solid #ddd
+          
+          +box-shadow(#bbb 0 0 3px inset)  
         
           color: #444
           
@@ -191,8 +197,7 @@
           width: 100%
           
           .cell
-            padding: 10px
-            
+            padding: 15px 10px
             
             &.or
               width: 10%
@@ -201,35 +206,41 @@
               font-style: italic
               color: #f16022
             
-            &.yes
-              cursor: pointer
-              
-              width: 45%
-              border-left: 8px solid #fff
-              
-              &.checked
-                background: #cef0ce
-                border-top: 1px solid #e3e3e3
-                border-right: 1px solid #e3e3e3
-              
-              &:hover,
-              &.checked
-                border-left: 8px solid #cef0ce
+            &.checked
+              font-weight: bold
+              border-top: 1px solid #e3e3e3
             
+            &.yes,
             &.no
               cursor: pointer
-            
               width: 45%
-              border-right: 8px solid #fff
               
-              &.checked
-                background: #ffdfdf
-                border-top: 1px solid #e3e3e3
-                border-left: 1px solid #e3e3e3
+            &.yes
+              border-left: 8px solid transparent
+            
+              &:hover
+                border-left: 8px solid #cef0ce
+            
+              &.checked                
+                background: #cef0ce
+                border-left: none
+                
+                border-right: 1px solid #e3e3e3
+                +box-shadow(#ddd 0 0 2px)
+            
+            &.no
+              border-right: 8px solid transparent
               
-              &:hover,
-              &.checked
+              &:hover
                 border-right: 8px solid #ffdfdf
+
+              &.checked              
+                background: #ffdfdf
+                border-right: none
+                
+                border-left: 1px solid #e3e3e3
+                +box-shadow(#ddd 0 0 2px)
+        
         
         .answer
           margin-bottom: 15px
@@ -237,24 +248,15 @@
           h2
             margin-bottom: 3px
             
-          .sub
-            +small-text
-            margin: 0 0 5px 0
-            font-weight: normal
-        
           textarea
             height: 80px
             width: 100%
-            max-width: 573px
-            border: 1px solid #e3e3e3
-            
-            font-family: verdana
-            
-            +small-text
-            
-            color: #444
+            max-width: 560px
             
             vertical-align: top
+            
+            &.sub
+              color: #aaa
         
         .submit
           padding-right: 15px
@@ -296,13 +298,11 @@
             margin-bottom: -5px
         
         .comment_body
-          +border-radius(8px)
-          margin-top: 5px
+          margin-top: 8px
           padding: 8px 10px
           
-          // markdown tags
-          p
-            margin: 0
+          +border-radius(6px)
+          
         
         &.yes
           padding-right: 80px
@@ -351,7 +351,6 @@
         a
           +grey-button
   .rc
-    
     ul
       margin: 0
       padding: 0
@@ -366,6 +365,8 @@
         a
           font-weight: bold
           font-size: 1.05em
+      li.unfollow
+        margin-bottom: 10px
       
       li.share
         padding-left: 15px

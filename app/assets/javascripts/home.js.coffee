@@ -1,4 +1,46 @@
 $(document).ready ->
+  $.current_category = ""
+  
+  $.getScript("/search", ->
+    aac.load_search(
+      (event, ui) ->
+        this.value = ui.item.name
+        window.location.href = ui.item.slug
+        return false
+    )
+  ) 
+  
+  $('.search input').focus ->
+    if this.value == 'Go to another country'
+      this.value = ''
+    
+    $(this).autocomplete("search", this.value)
+    
+  $('.search input').focusout ->
+    unless this.value.length
+      this.value = 'Go to another country'
+      
+  
+  $('#hcs .flags a').click (e) ->
+    unless $(this).children('.c').hasClass('active')    
+      $('#hcs .flags a').children('.c').removeClass('active')    
+      $('#hcs .flags .detail').remove()
+    
+      id = $(this).parent().attr('id')
+      content = $("##{ id } .content").html()
+    
+      div = $("<div class='detail'>#{ content }</div>")
+      
+      pos = Math.ceil((parseInt(id.split('_').pop()) + 1) / 5) * 5 - 1 # get the count of country blocks, and find which row it's on
+      
+      target = $('#hcs .flags').children()[pos]
+      $(target).after(div)
+    
+      $(this).children('.c').addClass('active')
+      div.addClass('color')
+
+    e.preventDefault()
+  
   $('.stroke input').focus ->
     reset_field($(this))
 
@@ -87,3 +129,5 @@ check_password_again = (f) ->
   else
     reset_field(f) 
     return true
+  
+  

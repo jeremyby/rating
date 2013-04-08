@@ -17,11 +17,15 @@
   %body
     = render 'layouts/header'
     
-    .contenter
-      .wrapper
-        #content.inner
-          = render 'layouts/notification'
+    .actioner(class='#{ @actioner_class }')
+      .inner
+        = yield :actioner
+    
+    .contenter(class='#{ @contenter_class }')
+      #content.inner
+        = render 'layouts/notification'
 
-          = yield
+        = yield
+    
     
     = render 'layouts/footer'

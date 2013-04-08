@@ -2,9 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails'
 
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
-
 gem 'sqlite3'
 gem 'json'
 gem 'haml'
@@ -27,7 +24,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'on_the_spot', :github => 'jeremyby/on_the_spot'
+gem 'best_in_place'
 
 gem 'authlogic'
 gem 'rails3-generators'
@@ -41,7 +38,6 @@ gem 'rmagick'
 gem 'carrierwave'
 gem 'mime-types'
 gem 'redcarpet'
-
 
 gem 'geoip'
 
@@ -71,10 +67,18 @@ group :development, :test do
   
   gem 'capybara'
   gem 'guard-rspec'
-  gem 'rb-fsevent', '~> 0.9.1'
+  gem 'rb-inotify', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-fchange', :require => false
+  gem 'guard-livereload'
+  gem 'yajl-ruby'
+  gem 'rack-livereload'
+  gem 'terminal-notifier-guard'
   
   gem 'spork'
-  gem "factory_girl_rails", "~> 4.0"
+  gem "factory_girl_rails"
   
-  gem 'meta_request', '0.2.1' 
+  gem 'simplecov'
+  
+  gem 'meta_request'
 end

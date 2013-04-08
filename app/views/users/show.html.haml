@@ -23,7 +23,7 @@
   .polls
     - askings = @user.polls.includes(:country)
     - askings.each do |a|
-      .poll= link_to question_answers(a), country_poll_path(a.country, a)
+      .poll= link_to a.question_answers, country_poll_path(a.country, a)
 
 
 #suv.su
@@ -38,12 +38,7 @@
   .polls
     - followings = @user.following_polls.includes(:country)
     - followings.each do |f|
-      .poll= link_to question_answers(f), country_poll_path(f.country, f)
-
-
-
-
-
+      .poll= link_to f.question_answers, country_poll_path(f.country, f)
 
 
 
@@ -53,19 +48,20 @@
   %tr
     %td 
       %span#fnl First Name: 
-    %td= @is_owner ? on_the_spot_edit(@user, :first_name) : @user.first_name
+    %td= @user.first_name
 
   %tr
     %td
       %span#lnl Last Name: 
-    %td= @is_owner ? on_the_spot_edit(@user, :last_name, :type => :text) : @user.last_name
+    %td= @user.last_name
 
 
 
 %p
   home country: #{@user.country}
-  
 
+- if @is_owner  
+  = render 'edit'
     
 %h2 
   Recent Activities

@@ -134,7 +134,7 @@ Country.create(
     { :code => "ni", :name => "Nicaragua", :full_name => "Republic of Nicaragua"},
     { :code => "ne", :name => "Niger", :full_name => "Republic of Niger"},
     { :code => "ng", :name => "Nigeria", :full_name => "Federal Republic of Nigeria"},
-    { :code => "nc", :name => "Cyprus, Northern", :full_name => "Turkish Republic of Northern Cyprus"},
+    { :code => "nc", :name => "Cyprus, Northern", :full_name => "Turkish Republic of Northern Cyprus", :pretty_name => 'Northern Cyprus'},
     { :code => "no", :name => "Norway", :full_name => "Kingdom of Norway"},
     { :code => "om", :name => "Oman", :full_name => "Sultanate of Oman"},
     { :code => "ps", :name => "Palestine", :full_name => "State of Palestine"},
