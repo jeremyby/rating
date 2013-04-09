@@ -2,13 +2,11 @@ source 'http://rubygems.org'
 
 gem 'rails'
 
-gem 'sqlite3'
 gem 'mysql2'
 gem 'json'
 gem 'haml'
 gem 'haml-rails'
 gem 'friendly_id'
-
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -22,13 +20,14 @@ group :assets do
   
   gem 'sassy-buttons'
   gem 'omg-text'
+  
+  gem 'therubyracer'
 end
 
 gem 'jquery-rails'
 gem 'best_in_place'
 
 gem 'authlogic'
-gem 'rails3-generators'
 
 gem 'omniauth'
 gem 'omniauth-facebook'
@@ -46,7 +45,6 @@ gem 'equivalent-xml'
 gem 'linkeddata'
 gem 'rdf-json'
 
-# gem 'treyconnell-ruby-aaws'
 
 gem 'acts_as_commentable_with_threading'
 gem 'thumbs_up'
@@ -54,15 +52,15 @@ gem 'thumbs_up'
 # Use unicorn as the web server
 # gem 'unicorn'
 
-gem 'thin'
-
-#Deploy with Capistrano
-#gem 'capistrano'
-
 # To use debugger
 # gem 'ruby-debug'
 
 group :development, :test do
+  gem 'rails3-generators'
+  
+  gem 'sqlite3'
+  gem 'thin'
+  
   gem 'rspec'
   gem 'rspec-rails'
   
@@ -82,4 +80,6 @@ group :development, :test do
   gem 'simplecov'
   
   gem 'meta_request'
+  
+  gem 'capistrano'
 end
