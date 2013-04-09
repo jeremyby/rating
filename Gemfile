@@ -53,6 +53,11 @@ gem 'thumbs_up'
 # To use debugger
 # gem 'ruby-debug'
 
+group :production do
+  gem 'execjs'
+  gem 'therubyracer'
+end
+
 group :development, :test do
   gem 'rails3-generators'
   
