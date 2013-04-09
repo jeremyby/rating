@@ -81,7 +81,7 @@ class Poll < ActiveRecord::Base
     complex = []
     index = 0
 
-    cond = last_ballot_id.blank? ? '1 == 1' : ['ballots.updated_at < ?', Ballot.find(last_ballot_id).updated_at]
+    cond = last_ballot_id.blank? ? '1 = 1' : ['ballots.updated_at < ?', Ballot.find(last_ballot_id).updated_at]
 
     all = self.ballots.where(cond).order('updated_at DESC')
 

@@ -45,7 +45,7 @@ class HomeController < ApplicationController
   
   private
   def shuffle_a_poll
-    cond = '1 == 1'
+    cond = '1 = 1'
     cond.concat(' and id NOT in (?)') unless session[:shuffled_polls].blank?
     
     pool = Poll.featured.where(cond, session[:shuffled_polls])

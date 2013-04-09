@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  require 'UserInfo'
+  # require 'UserInfo'
 
   def new
     @info = session[:info]

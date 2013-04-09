@@ -1,5 +1,5 @@
 class AuthorizationsController < ApplicationController
-  require 'UserInfo'
+  # require 'UserInfo'
   
   before_filter :require_user, :only => [:destroy]
   

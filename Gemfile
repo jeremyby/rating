@@ -20,6 +20,8 @@ group :assets do
   
   gem 'sassy-buttons'
   gem 'omg-text'
+  
+  gem 'therubyracer'
 end
 
 gem 'jquery-rails'
