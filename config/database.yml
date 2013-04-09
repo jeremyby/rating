@@ -23,6 +23,6 @@ production:
   encoding: utf8
   database: askac
   username: awsroot
-  password: 19781115
-  host: askac.cauzokw3t95z.us-west-2.rds.amazonaws.com
+  password: "19781115"
+  host: askac.crhdyrrq3ajk.us-west-1.rds.amazonaws.com
   port: 3306
