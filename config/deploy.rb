@@ -23,7 +23,6 @@ server "ec2-54-241-221-218.us-west-1.compute.amazonaws.com", :app, :web, :db, :p
 # role :db,  "your slave db-server here"
 
 
-before "deploy", "deploy:setup"
 
 # if you want to clean up old releases on each deploy uncomment this:
 after "deploy:restart", "deploy:cleanup"
