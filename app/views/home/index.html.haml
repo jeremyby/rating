@@ -39,7 +39,7 @@
                 Enter &rarr;
         - count += 1
       - nas = Country.where(:code => Candidate_Countries)
-      - nas.concat(Country.unavailable.where('code not in (?)', Candidate_Countries).order("RANDOM()").limit(7))
+      - nas.concat(Country.unavailable.where('code not in (?)', Candidate_Countries).order("RAND()").limit(7))
       - nas.pop and nas << @country if !availables.include?(@country) && !nas.include?(@country)
 
       - nas.shuffle.each do |n|

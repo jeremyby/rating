@@ -20,6 +20,9 @@ group :assets do
   
   gem 'sassy-buttons'
   gem 'omg-text'
+  
+  gem 'asset_sync'
+  gem 'turbo-sprockets-rails3'
 end
 
 gem 'jquery-rails'
@@ -43,7 +46,6 @@ gem 'equivalent-xml'
 gem 'linkeddata'
 gem 'rdf-json'
 
-
 gem 'acts_as_commentable_with_threading'
 gem 'thumbs_up'
 
@@ -60,9 +62,6 @@ end
 
 group :development, :test do
   gem 'rails3-generators'
-  
-  gem 'sqlite3'
-  gem 'thin'
   
   gem 'rspec'
   gem 'rspec-rails'

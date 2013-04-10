@@ -4,12 +4,6 @@
 - content_for :title_string do
   = title
 
-/ - content_for :js do
-/   = javascript_include_tag 'home'
-/ 
-/ - flash.now[:alert] = signup_validation_error if @user.errors.present?
-  
-
 #signup.home
   %h1= title
   

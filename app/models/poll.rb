@@ -61,7 +61,7 @@ class Poll < ActiveRecord::Base
   #********************************************
 
   def more_polls(limit = 4)
-    Poll.where("country_code = ? AND id is NOT ?", self.country_code, self.id).order("RANDOM()").limit(limit)
+    Poll.where("country_code = ? AND id != ?", self.country_code, self.id).order("RAND()").limit(limit)
   end
 
   def simple?
