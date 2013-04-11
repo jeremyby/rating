@@ -6,13 +6,12 @@
       - title = yield :title_string
       = title.present?  ? title : "Ask a Country"
 
-    = stylesheet_link_tag "application"
-    = javascript_include_tag "application" 
     = csrf_meta_tags
-    = yield :js
-    = yield :css
     
-    = favicon_link_tag "/assets/favicon.png"
+    = stylesheet_link_tag "application"
+    = yield :css
+    = javascript_include_tag "application"
+    = yield :js
   
   %body
     = render 'layouts/header'
@@ -24,8 +23,9 @@
     .contenter(class='#{ @contenter_class }')
       #content.inner
         = render 'layouts/notification'
-
         = yield
     
     
     = render 'layouts/footer'
+    
+    

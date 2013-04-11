@@ -1,6 +1,4 @@
 $(document).ready ->  
-  $.current_category = ""
-  
   $.getScript("/search", ->
     aac.load_search(
       (event, ui) ->

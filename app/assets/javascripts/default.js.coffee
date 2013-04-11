@@ -1,3 +1,7 @@
+window.aac = {}
+
+$.current_category = ""
+
 $(document).ready ->
   $('.validation-error input').each ->
     $(this).focus ->

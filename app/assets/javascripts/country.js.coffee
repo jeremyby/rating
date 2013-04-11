@@ -1,6 +1,4 @@
-$(document).ready ->  
-  $.current_category = ""
-  
+$(document).ready ->
   $.getScript("/search", ->
     aac.load_search(
       (event, ui) ->
@@ -18,10 +16,10 @@ $(document).ready ->
       if !$('.actioner').hasClass('expand')
         $('#csheader').css('visibility', 'hidden')
         $('#csside .search').css('visibility', 'hidden')
-        $('.actioner').addClass('expand')
+        $('.actioner').addClass('expand').animate({'top':'40px'}, 'fast')
     else
       if $('.actioner').hasClass('expand')
-        $('.actioner').removeClass('expand')
+        $('.actioner').css('top', '').removeClass('expand')
         $('#csheader').css('visibility', 'visible')
         $('#csside .search').css('visibility', 'visible')
       

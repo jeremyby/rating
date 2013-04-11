@@ -42,10 +42,6 @@ gem 'redcarpet'
 
 gem 'geoip'
 
-gem 'equivalent-xml'
-gem 'linkeddata'
-gem 'rdf-json'
-
 gem 'acts_as_commentable_with_threading'
 gem 'thumbs_up'
 
@@ -77,9 +73,12 @@ group :development, :test do
   gem 'terminal-notifier-guard'
   
   gem 'spork'
-  gem "factory_girl_rails"
   
   gem 'simplecov'
+  
+  gem 'equivalent-xml'
+  gem 'linkeddata'
+  gem 'rdf-json'
   
   gem 'meta_request'
   
