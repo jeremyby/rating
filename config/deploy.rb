@@ -1,4 +1,5 @@
 require 'bundler/capistrano'
+require 'puma/capistrano'
 
 set :application, "askacountry"
 set :repository,  "git@github.com:jeremyby/rating.git"
@@ -26,13 +27,3 @@ server "ec2-54-241-221-218.us-west-1.compute.amazonaws.com", :app, :web, :db, :p
 
 # if you want to clean up old releases on each deploy uncomment this:
 after "deploy:restart", "deploy:cleanup"
-
-
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end

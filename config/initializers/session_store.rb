@@ -1,6 +1,6 @@
 # Be sure to restart your server when you modify this file.
 
-Askacountry::Application.config.session_store :cookie_store, key: '_askacountry_session'
+Askacountry::Application.config.session_store :cookie_store, key: '_askac_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information

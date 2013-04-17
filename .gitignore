@@ -1,7 +1,8 @@
 .bundle
+.rbx
 db/*.sqlite3
 coverage
 log
 tmp
+public/uploads
 .sass-cache/
-.elasticbeanstalk/.bundle\n

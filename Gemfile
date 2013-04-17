@@ -8,6 +8,28 @@ gem 'haml'
 gem 'haml-rails'
 gem 'friendly_id'
 
+gem 'jquery-rails'
+gem 'best_in_place'
+
+gem 'authlogic'
+
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2', :github => 'jeremyby/omniauth-google-oauth2'
+
+gem 'mini_magick'
+gem 'carrierwave'
+gem 'mime-types'
+gem 'redcarpet'
+
+gem 'geoip'
+
+gem 'acts_as_commentable_with_threading'
+gem 'thumbs_up'
+
+gem 'puma'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -25,36 +47,12 @@ group :assets do
   gem 'turbo-sprockets-rails3'
 end
 
-gem 'jquery-rails'
-gem 'best_in_place'
-
-gem 'authlogic'
-
-gem 'omniauth'
-gem 'omniauth-facebook'
-gem 'omniauth-twitter'
-gem 'omniauth-google-oauth2', :github => 'jeremyby/omniauth-google-oauth2'
-
-gem 'rmagick'
-gem 'carrierwave'
-gem 'mime-types'
-gem 'redcarpet'
-
-gem 'geoip'
-
-gem 'acts_as_commentable_with_threading'
-gem 'thumbs_up'
-
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# To use debugger
-# gem 'ruby-debug'
 
 group :production do
   gem 'execjs'
   gem 'therubyracer'
 end
+
 
 group :development, :test do
   gem 'rails3-generators'
@@ -63,16 +61,17 @@ group :development, :test do
   gem 'rspec-rails'
   
   gem 'capybara'
+  
   gem 'guard-rspec'
   gem 'rb-inotify', :require => false
   gem 'rb-fsevent', :require => false
   gem 'rb-fchange', :require => false
   gem 'guard-livereload'
-  gem 'yajl-ruby'
   gem 'rack-livereload'
   gem 'terminal-notifier-guard'
   
   gem 'spork'
+  gem 'spork-rails'
   
   gem 'simplecov'
   
