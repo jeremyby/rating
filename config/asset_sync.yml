@@ -1,7 +1,7 @@
 defaults: &defaults
   fog_provider: 'AWS'
-  aws_access_key_id: "<%= ENV['AWS_ACCESS_KEY_ID'] %>"
-  aws_secret_access_key: "<%= ENV['AWS_SECRET_ACCESS_KEY'] %>"
+  aws_access_key_id: "AKIAILGUFTVY67KLZDGQ"
+  aws_secret_access_key: "iUfTFj3U1/AfLRh0gGLmK4UW1/grCvOWEbhvMSti"
   fog_directory: "askac"
   # You may need to specify what region your storage bucket is in
   fog_region: "us-west-1"
