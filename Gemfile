@@ -1,11 +1,15 @@
 source 'http://rubygems.org'
 
+
 gem 'rails'
 
 gem 'mysql2'
+
 gem 'json'
+
 gem 'haml'
 gem 'haml-rails'
+
 gem 'friendly_id'
 
 gem 'jquery-rails'
@@ -28,7 +32,8 @@ gem 'geoip'
 gem 'acts_as_commentable_with_threading'
 gem 'thumbs_up'
 
-gem 'puma', :github => 'puma/puma'
+gem 'puma', :github => 'jeremyby/puma'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -62,13 +67,14 @@ group :development, :test do
   
   gem 'capybara'
   
-  gem 'guard-rspec'
+  gem 'guard-rspec',      :require => false
+  gem 'guard-livereload', :require => false
+  gem 'rack-livereload'
+  gem 'terminal-notifier-guard'
+  
   gem 'rb-inotify', :require => false
   gem 'rb-fsevent', :require => false
   gem 'rb-fchange', :require => false
-  gem 'guard-livereload'
-  gem 'rack-livereload'
-  gem 'terminal-notifier-guard'
   
   gem 'spork'
   gem 'spork-rails'

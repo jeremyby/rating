@@ -1,0 +1,52 @@
+@import compass
+@import compass/css3
+@import compass/css3/shared
+
+@import sassy-buttons
+@import omg-text
+
+$theme-color: #f16022
+$theme-bg-color: #f67037
+
+$light-bg: #fafaf8
+
+$default-text-shadow-color: rgba(40, 40, 40, .2)
+$default-text-shadow-blur: 3px
+$default-text-shadow-v-offset: 1px
+$default-text-shadow-h-offset: 1px
+
+@mixin button
+  line-height: 1.2em
+  
+  font-family: "museo slab", georgia, serif
+  font-weight: normal
+
+  +sassy-button-structure(5px, 16px, 0.7em 1.2em 0.4em 1.2em)
+  +sassy-button-gradient("simple", #f37e4b, #c95320, #fff, "raised")
+
+@mixin blue-button
+  +button
+
+  +sassy-button-structure(5px, 14px, 0.5em 1em 0.4em 1em)
+  +sassy-button-gradient("simple", #64aee2, #0460a1, #fff, "raised")
+
+
+@mixin grey-button
+  +button
+
+  +sassy-button-structure(5px, 14px, 0.5em 1em 0.4em 1em)
+  +sassy-button-gradient("simple", #ccc, #999, #fff, "raised")
+
+
+@mixin small-button
+  +button
+  +sassy-button-structure(5px, 14px, 0.5em 1em 0.4em 1em)
+
+@mixin small-text
+  font-size: 0.85em
+
+@mixin hoverable
+  +opacity(0.8)
+  
+  &:hover
+    +opacity(1)

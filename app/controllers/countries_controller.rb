@@ -3,10 +3,6 @@ class CountriesController < ApplicationController
   before_filter :set_return_to, :only => [:watch, :unwatch]
   before_filter :require_user, :only => [:watch, :unwatch]
 
-
-  def index
-  end
-
   def show
     @sort = params[:sort]
     %w(recent top).include?(@sort) || @sort = 'recent'
@@ -14,7 +10,7 @@ class CountriesController < ApplicationController
 
   def watch
     current_user.follow(@country)
-
+    
   end
 
   def unwatch

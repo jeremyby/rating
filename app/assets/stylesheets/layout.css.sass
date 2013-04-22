@@ -1,12 +1,4 @@
-$theme-color: #f16022
-$theme-bg-color: #f67037
-
-$light-bg: #fafaf8
-
-$default-text-shadow-color: rgba(40, 40, 40, .2)
-$default-text-shadow-blur: 3px
-$default-text-shadow-v-offset: 1px
-$default-text-shadow-h-offset: 1px
+@import global
 
 h1,
 h2
@@ -64,41 +56,6 @@ a:hover
 .live
   background: #f5f5a7
 
-@mixin button
-  line-height: 1.2em
-  
-  font-family: "museo slab", georgia, serif
-  font-weight: normal
-
-  +sassy-button-structure(5px, 16px, 0.7em 1.2em 0.4em 1.2em)
-  +sassy-button-gradient("simple", #f37e4b, #c95320, #fff, "raised")
-
-@mixin blue-button
-  +button
-
-  +sassy-button-structure(5px, 14px, 0.5em 1em 0.4em 1em)
-  +sassy-button-gradient("simple", #64aee2, #0460a1, #fff, "raised")
-
-
-@mixin grey-button
-  +button
-
-  +sassy-button-structure(5px, 14px, 0.5em 1em 0.4em 1em)
-  +sassy-button-gradient("simple", #ccc, #999, #fff, "raised")
-
-
-@mixin small-button
-  +button
-  +sassy-button-structure(5px, 14px, 0.5em 1em 0.4em 1em)
-
-@mixin small-text
-  font-size: 0.85em
-
-@mixin hoverable
-  +opacity(0.8)
-  
-  &:hover
-    +opacity(1)
 
 body 
   line-height: 1.625em
@@ -111,7 +68,6 @@ body
 .inner 
   max-width: 960px
   margin: 0 auto
-
 
 #page_header 
   font-size: 0.8125em
@@ -130,6 +86,7 @@ body
 
   .inner 
     position: relative
+    max-width: 940px
     
     nav#utility 
       text-align: right
@@ -161,9 +118,9 @@ body
 
 .actioner
   position: fixed
-  top: 40px
+  top: 8px
   
-  height: 8px
+  height: 40px
   width: 100%
   
   z-index: 99
@@ -185,11 +142,8 @@ body
     
     .inner
       display: block
-      
-  &.expand
-    top: 8px
-    height: 40px
-  
+
+  &.expand  
     .inner
       display: block
     
