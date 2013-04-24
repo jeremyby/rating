@@ -1,0 +1,109 @@
+@import 'global';
+@import 'compass/css3/pie';
+
+// Set this to wherever you end up putting your behavior file.
+//
+// **Note:** this file must be served as a root-relative resource or
+// else IE will interpret it as relative to the current webpage
+// instead of the stylesheet.
+//
+// **Also Note:** this file must be delivered with a mime-type of:
+//
+//    text/x-component
+$pie-behavior: url("/assets/PIE.htc");
+
+// It is suggested that you use Sass's @extend directive to apply the PIE
+// behavior to your elements. Setting this variable will tell the `pie` mixin
+// to extend it. Or you can just extend the base class yourself.
+$pie-base-class: pie-element;
+
+
+// There are two approaches to creating PIE elements
+// The default approach is to make the element position: relative.
+.pie-element {
+  // relative is the default, so passing relative
+  // is redundant, but we do it here for clarity.
+  @include pie-element(relative);
+}
+
+
+// But sometimes this messes up your positioning
+// So you can also use z-indexing. In this case
+// an ancestor element before or having the first
+// opaque background should be marked as a pie-container
+// which gives it a z-index of 0 (actually any z-index
+// can be provided to the pie-container mixin).
+// And then the pie element itself should be given
+// a z-index of -1.
+.pie-container {
+  @include pie-container;
+}
+
+.z-pie-element {
+  // this will get a z-index of 0, you can pass a z-index value if you want
+  @include pie-element(z-index);
+}
+
+body {
+  @extend .pie-container;
+  
+  #page_header {
+    @include pie(z-pie-element);
+    z-index: 100;
+  }
+
+  .actioner {
+    @include pie(z-pie-element);
+    z-index: 99;
+    -pie-background: #f5743d;
+  }
+
+  #hcs {
+    .flags {
+      @include pie(z-pie-element);
+      -pie-background: #ce6133;
+
+      .active {
+        @include pie(z-pie-element);
+        -pie-background: #f9eae3;
+      }
+      
+      .detail {
+        @include pie(z-pie-element);
+        -pie-background: #f9eae3;
+      }
+    }
+
+    .search {
+      input {
+        @include pie(z-pie-element);
+        -pie-background: white right center url('/assets/arrow_down.png') no-repeat;
+      }
+    }
+  }
+  
+  #h2head {
+    .poll {
+      @include pie(z-pie-element);
+      
+      .yes,
+      .no {
+        @include pie(z-pie-element);
+      }
+    }
+    
+    .flag,
+    .shuffle {
+      @include pie(z-pie-element);
+      
+      img {
+        @include pie(z-pie-element);
+        -pie-png-fix: true;
+      }
+    }
+    
+  }
+}
+
+
+

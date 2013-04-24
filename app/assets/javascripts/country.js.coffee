@@ -11,7 +11,7 @@ $(document).ready ->
   $('.search input').focus ->    
     $(this).autocomplete("search", this.value)
 
-  $(document).scroll ->
+  $(window).scroll ->
     if ($(this).scrollTop() > 50)
       if !$('.actioner').hasClass('expand')
         $('#csheader').css('visibility', 'hidden')
