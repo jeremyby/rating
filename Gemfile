@@ -29,6 +29,9 @@ gem 'redcarpet'
 
 gem 'geoip'
 
+gem 'globalize3'
+# gem 'rails-translate-routes'
+
 gem 'acts_as_commentable_with_threading'
 gem 'thumbs_up'
 

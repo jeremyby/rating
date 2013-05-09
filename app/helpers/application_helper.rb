@@ -25,10 +25,6 @@ module ApplicationHelper
     return array
   end
 
-  def words_truncate(str, wordcount)
-    str.split[0..(wordcount-1)].join(" ") + (str.split.size > wordcount ? "..." : "")
-  end
-
   def markdown(text)
     Redcarpet::Markdown.new(SimpleRender,
                             :autolink => true,

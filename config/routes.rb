@@ -99,3 +99,5 @@ Askacountry::Application.routes.draw do
   
   # match "/:country_id/:id"  => "polls#show", :via => :get, :as => :country_poll
 end
+
+# ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml', { :no_prefixes => true })

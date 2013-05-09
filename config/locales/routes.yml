@@ -1,0 +1,9 @@
+en:
+  routes:
+    # you can leave empty locales, for example the default one
+zh:
+  routes:
+    watch: 关注
+    unwatch: 取消关注
+    login: 登录
+    signup: 注册

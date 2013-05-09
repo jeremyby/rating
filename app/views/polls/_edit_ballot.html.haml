@@ -8,6 +8,6 @@
 %h2.ballot
   Your vote is
   %em= truncate(answer, :separator => ' ')
-  %span#ballot_action (#{ link_to_function 'edit', 'aac.show_ballot()' })
+  %span#ballot_action ( #{ link_to_function 'edit', 'aac.show_ballot()' } )
       
 #ballot= render 'polls/ballot_form', :url => ballot_path(@ballot)

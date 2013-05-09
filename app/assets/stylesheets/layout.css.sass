@@ -5,7 +5,7 @@ h2
   font: 
     family: "Helvetica Neue", helvetica, arial, sans-serif
 
-h3 
+h4 
   font: 
     family: "museo slab", georgia, sans-serif
     weight: normal
@@ -77,7 +77,7 @@ body
   
   z-index: 100
   
-  background: url("/assets/bg.png")
+  background: #f5743d url("/assets/bg.png")
   
   width: 100%
   
@@ -86,7 +86,7 @@ body
 
   .inner 
     position: relative
-    max-width: 940px
+    max-width: 930px
     
     nav#utility 
       text-align: right
@@ -113,8 +113,9 @@ body
       left: 3px
       +opacity(0.9)
       
-      &:hover 
+      &:hover
         +opaque
+        text-decoration: none
 
 .actioner
   position: fixed
@@ -247,11 +248,11 @@ footer#page_footer
 
 
 .lc
-  margin-right: 310px
+  max-width: 560px
 
 .rc
   float: right
-  width: 250px
+  width: 300px
 
 
 

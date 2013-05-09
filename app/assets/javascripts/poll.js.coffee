@@ -69,11 +69,11 @@ $(document).ready ->
   
   aac.show_ballot = ->
     $('#ballot_action').hide()
-    $('#ballot').show("blind")
+    $('#ballot').slideDown()
     $('#ballot_answer').autosize()
     
   aac.hide_ballot = ->
-    $("#ballot").hide("blind", "swing", "200", ->
+    $("#ballot").slideUp( ->
       $("#ballot_action").fadeIn()
     )
 

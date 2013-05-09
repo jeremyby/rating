@@ -14,7 +14,7 @@ class Poll < ActiveRecord::Base
     :uniqueness => { :scope => :country_code, :message => 'is duplicated' },
   :length => {
     :minimum => 10,
-    :maximum => 100,
+    :maximum => 300,
     :too_short => 'is too short to be meaningful',
     :too_long => 'is too long to read, try to be concise and leave the detail to the description'
   }

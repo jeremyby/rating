@@ -1,23 +1,20 @@
 - title = "Ask #{@country.name}"
 
 - content_for :title_string do
-  = title + ": " + @poll.question
+  = title + ": " + @poll.question.truncate(80, :separator => ' ')
 
 - content_for :js do
   = javascript_include_tag 'poll'
 
-- content_for :actioner do
-  no show
-
 
 - if current_user
-  - @ballot = Ballot.where(:poll_id => @poll.id, :country_code => @country.code, :user_id => current_user.id).first
+  - @ballot = @poll.ballots.where(country_code: @country.code, user_id: current_user.id).first
   - @is_owner = (current_user == @poll.owner)
 
 #spbody
   #sph
-    .info
-      .user.slab
+    %h4.info
+      .user
         = user_country_flag_link @poll.owner, :title => "#{@poll.owner} is from #{@poll.owner.country}"
         is asking #{link_to @country, country_path(@country)}:
     .poll
@@ -46,7 +43,7 @@
 
         %span.sep
           |
-        = link_to_function pluralize(@poll.comment_threads.size, 'comment'), '$("#poll_comments .detail").toggle()', :id => 'ltpcs'
+        = link_to_function pluralize(@poll.comment_threads.size, 'comment'), '$("#poll_comments .detail").show("blind")', :id => 'ltpcs'
 
       = render 'poll_comments'
 
@@ -61,7 +58,7 @@
         %li.share= link_to 'Google', '#'
     
       .polls
-        %h4 More Questions
+        %h3 More Questions
         - polls = @poll.more_polls
       
       

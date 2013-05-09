@@ -50,18 +50,20 @@
       height: 18px
 
 
+#spbody
+  margin: 20px 0 0 65px
 
-#sph 
-  margin: 20px 0 20px 65px
+#sph
   padding-bottom: 15px
   
   border-bottom: 1px solid #ccc
   
   .info
+    margin: 0
+  
     .user
-      a 
-        font-family: "museo slab"
-      
+      font-weight: normal
+    
       img 
         margin-left: 2px
   
@@ -79,7 +81,6 @@
       line-height: 1.4em
       
       font-size: 1.7em
-      color: #444
       
       .yes
         padding-left: 5px
@@ -138,10 +139,12 @@
           
 
 #spb
-  margin: 25px 0 0 65px
+  margin-top: 25px
   +clearfix
   
   .lc
+    max-width: 515px
+  
     .ata
       margin: 0 0 25px 0
       padding-bottom: 22px
@@ -155,7 +158,7 @@
         
         span
           margin-left: 5px
-          font-size: 0.65em
+          font-size: 0.7em
           font-weight: normal
           
           
@@ -288,7 +291,7 @@
           
     #ballots
       h2
-        margin: 0
+        margin: 0 0 8px 0
       
       .ballot
         +small-text
@@ -374,7 +377,7 @@
         padding-left: 15px
       
     .polls
-      h4
+      h3
         margin: 25px 0 10px 0
       
       li

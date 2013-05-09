@@ -1,9 +1,21 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  before_filter :set_locale
+  
   helper_method :current_user_session, :current_user
   
   private
+    def set_locale
+      I18n.locale = extract_locale_from_subdomain
+      # I18n.locale = params[:locale] || ((lang = request.env['HTTP_ACCEPT_LANGUAGE']) && lang[/^[a-z]{2}/])
+    end
+    
+    def extract_locale_from_subdomain
+      parsed_locale = request.subdomains.first || 'en'
+      I18n.available_locales.include?(parsed_locale.to_sym) ? parsed_locale : nil
+    end
+  
     def country_code_from_request
       info = $geoip.country(request.env["REMOTE_ADDR"])
     

@@ -9,4 +9,4 @@
   - if reply
     = link_to_function 'Cancel', '$(this).parent().parent().hide()'
   - else
-    = link_to_function 'Close', '$(this).closest(".detail").hide()'
+    = link_to_function 'Close', '$(this).closest(".detail").hide("blind", "fast")'

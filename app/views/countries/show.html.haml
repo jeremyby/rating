@@ -6,8 +6,8 @@
 
 - content_for :actioner do
   %h1#cshead
-    = @country.to_s
     = country_image(@country, 'm')
+    = @country.to_s
     .search.ui-widget
       %input
       
@@ -18,7 +18,7 @@
 
 
 #csbody
-  #csside
+  #csside.rc
     .search.ui-widget
       %input
   
@@ -43,13 +43,13 @@
         .p votes: #{ @country.ballots.size }
         .p answered questions: #{ @country.polls.answered.size }
 
-  #csbox
+  #csbox.lc
     #csheader
       .flag= country_image(@country, 'o')
       .headers
         %h1
           = @country.to_s
-        %h3
+        %h4
           - unless @country.full_name.blank?  
             = @country.full_name
           - unless @country.alias.blank?  

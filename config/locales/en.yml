@@ -3,3 +3,8 @@
 
 en:
   hello: "Hello world"
+  
+  home:
+    index:
+      headline1: "Ask a country anything" 
+    
