@@ -21,8 +21,8 @@ Spork.prefork do
   
   require %(#{Rails.root}/db/seeds/countries)
   require %(#{Rails.root}/db/seeds/users)
-  require %(#{Rails.root}/db/seeds/polls)
-  require %(#{Rails.root}/db/seeds/ballots)
+  require %(#{Rails.root}/db/seeds/askables)
+  require %(#{Rails.root}/db/seeds/answerables)
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.

@@ -1,4 +1,4 @@
-- poll = Poll.where('id = ?', entry.poll_id).includes(:owner, :country).first
+- poll = Poll.find(entry.askable_id)
 
 .avatar
   = user_small_avatar_link(poll.owner)
@@ -6,14 +6,10 @@
 .poll
   .info  
     = user_country_flag_link poll.owner, current_user, :title => "#{poll.owner} is from #{poll.owner.country}"
-    
+    created a new poll
     - if show_country
-      asked #{ link_to poll.country, country_path(poll.country) }
-    - else
-      asked
+      for #{ link_to poll.country, country_path(poll.country) }
     
-    a new question
-      
   .question
-    = link_to poll.question_answers(false), country_poll_path(poll.country, poll)
+    = link_to poll.to_s(false), country_askable_path(poll.country, poll)
   

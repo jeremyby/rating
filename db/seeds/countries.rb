@@ -41,7 +41,7 @@ Country.create(
     { :code => "cn", :name => 'China', :full_name => "People's Republic of China"},
     { :code => "co", :name => "Colombia", :full_name => "Republic of Colombia"},
     { :code => "km", :name => "Comoros", :full_name => "Union of the Comoros"},
-    { :code => "cd", :name => "Congo, Democratic Republic of the", :full_name => "Democratic Republic of the Congo", :pretty_name => "Congo-Kinshasa", :alias => "Congo-Kinshasa"},
+    { :code => "cd", :name => "Congo, Democratic Republic of the", :full_name => "Democratic Republic of the Congo", :pretty_name => "Congo-Kinshasa"},
     { :code => "cg", :name => "Congo, Republic of the", :full_name => "Republic of the Congo", :pretty_name => "Congo-Brazzaville"},
     { :code => "cr", :name => "Costa Rica", :full_name => "Republic of Costa Rica"},
     { :code => "ci", :name => "Côte d'Ivoire", :full_name => "Republic of Côte d'Ivoire", :alias => "Ivory Coast"},

@@ -1,11 +1,11 @@
-- yes_pc = ((poll.yes_count.to_f/poll.ballots_count.to_f)*100).to_i
+- yes_pc = ((poll.ballots.yes.size.to_f/poll.ballots.size.to_f)*100).to_i
       
 .poll
   .flag
     .c= country_image poll.country, 'l', :size => '50x50', :title => poll.country.to_s
     .shuffle= link_to image_tag('/assets/shuffle.png'), shuffle_path, :title => 'Shuffle for a random question', :remote => true
-  %a(href="#{country_poll_path(poll.country, poll)}")
-    %h2.q= poll.question
+  %a(href="#{country_askable_path(poll.country, poll)}")
+    %h2.q= poll.body
     .table
       .yes.cell(style='width: #{ yes_pc }%')
         %span &ldquo;#{ poll.yes }&rdquo;

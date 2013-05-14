@@ -1,0 +1,12 @@
+- if item.keys[0] > 0
+  .ballot.yes
+    .voter
+      - item.values[0].each do |v|
+        = user_small_avatar_link(v.user)
+      voted affirmatively
+- else
+  .ballot.no
+    .voter
+      nay vote#{ 's' if item.values[0].size > 1 } by
+      - item.values[0].each do |v|
+        = user_small_avatar_link(v.user)

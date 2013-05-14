@@ -1,0 +1,7 @@
+- if current_user.blank? || !current_user.following?(@askable)
+  %li.follow
+    = link_to "+ Follow Question", follow_country_askable_path(@country, @askable), :method => :post, :remote => true
+- else
+  %li.unfollow
+    %span &#10003; following
+    = link_to "x", unfollow_country_askable_path(@country, @askable), :method => :post, :remote => true, :confirm => 'Stop following the question. Are you sure?'

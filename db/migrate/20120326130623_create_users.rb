@@ -6,6 +6,11 @@ class CreateUsers < ActiveRecord::Migration
       t.string    :password_salt
       
       t.string    :country_code,        :null => false
+      t.string    :avatar
+      t.string    :first_name
+      t.string    :last_name      
+      
+      t.boolean   :admin,               :default => false
       
       t.string    :persistence_token
       #t.string    :single_access_token, :null => false                # optional, see Authlogic::Session::Params

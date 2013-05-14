@@ -1,0 +1,28 @@
+= form_for answerable, :as => 'answerable', :url => url, :remote => true do |f|
+  .answers
+    .q= @askable.body
+    .table
+      .cell.yes(class='#{ answerable.vote > 0 ? 'checked' :  ''}')
+        = f.radio_button :vote, '1'
+        = f.label :vote, @askable.yes, :value => '1'
+      .cell.or.slab
+        or
+      .cell.no(class='#{ answerable.vote < 0 ? 'checked' : '' }')
+        = f.radio_button :vote, '-1'
+        = f.label :vote, @askable.no, :value => '-1'
+  .answer
+    %h2 Why you choose the answer?
+    = f.text_area :body
+
+  .submit
+    = f.hidden_field :country_code, :value => @country.code
+    = f.hidden_field :askable_id, :value => @askable.id
+    
+    = f.submit 'Submit'
+    = link_to_function 'cancel', 'aac.hide_ballot()'
+    
+  .styler
+    available style: *<em>italic</em>*, **<strong>bold</strong>**, * list item,
+    %br
+    ![alt text](image url) and [text](link url)
+    

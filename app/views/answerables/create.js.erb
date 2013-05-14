@@ -1,0 +1,8 @@
+$("#spb .lc .ata").html("<%= (j render 'askables/edit_ballot', :answerable => @answerable).html_safe %>");
+
+if ($("#ballots h2").next().length) {
+  $("#ballots h2").html("<%= @askable.answerables.size %> people have voted");
+  div = $("<%= (j (render 'askables/complex_item', :ballot => @answerable)) %>").hide(); 
+  $("#ballots h2").after(div);
+  div.show('highlight');
+}

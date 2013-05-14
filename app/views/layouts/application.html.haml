@@ -14,8 +14,9 @@
     = javascript_include_tag "application"
     = yield :js
     
-    / [if lt IE 9]
-      = stylesheet_link_tag "ie8"
+    = if false
+      / [if lt IE 9]
+        = stylesheet_link_tag "ie8"
   
   %body
     = render 'layouts/header'

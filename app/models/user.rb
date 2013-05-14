@@ -10,11 +10,11 @@ class User < ActiveRecord::Base
 
   has_many :followings,             :dependent => :destroy
   has_many :watching_countries,     :through => :followings,            :source => :followable, :source_type => 'Country', :order => 'followings.updated_at DESC'
-  has_many :following_polls,        :through => :followings,            :source => :followable, :source_type => 'Poll'
+  has_many :following_askables,     :through => :followings,            :source => :followable, :source_type => 'Askable'
 
-  has_many :polls
-  has_many :ballots,                :dependent => :destroy
-  has_many :voted_polls,            :through => :ballots,               :source => :poll
+  has_many :askables
+  has_many :answerables,            :dependent => :destroy
+  has_many :answered_askables,      :through => :answerables,           :source => :askable
 
   has_many :entry_logs
   
@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
   end
 
   def following?(followable)
-    !self.followings.where(:followable_id => followable.id, :followable_type => followable.class).blank?
+    self.followings.where(:followable_id => followable.id, :followable_type => get_follow_type(followable)).present?
   end
 
   def follow(followable)
@@ -86,29 +86,24 @@ class User < ActiveRecord::Base
   end
 
   def unfollow(followable)
-    f = self.followings.where(:followable_id => followable.id, :followable_type => followable.class)
+    f = self.followings.where(:followable_id => followable.id, :followable_type => get_follow_type(followable))
     f.first.destroy
   end
 
-  def can_answer?(poll)
-    case poll.coverage
+  def can_answer?(askable)
+    case askable.coverage
     when 0 then return true
-    when 1 then return self.lives_in?(poll.country_code)
-    when 2 then return !self.lives_in?(poll.country_code)
+    when 1 then return self.lives_in?(askable.country_code)
+    when 2 then return !self.lives_in?(askable.country_code)
     end
   end
-
-  def get_poll_pack_for(country_code)
-    coverage_condition = self.lives_in?(country_code) ? [0, 1] : [0, 2]
-
-    ballots = self.ballots.reload
-
-    Poll.where("country_code = ? AND coverage IN (?) AND id not IN (?)", country_code, coverage_condition, ballots.empty? ? 0 : ballots.map(&:poll_id))
-  end
-
 
   private
   def process_names
     #TODO: setting up unique id for permalinks here
+  end
+  
+  def get_follow_type(followable)
+    followable.kind_of?(Askable) ? 'Askable' : followable.class.name
   end
 end

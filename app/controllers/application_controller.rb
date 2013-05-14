@@ -37,11 +37,11 @@ class ApplicationController < ActionController::Base
     end
   
     def page_404
-      redirect_to "/404.html"
+      render :text => 'Not Found', :status => '404'
     end
   
     def page_500
-      redirect_to "/500.html"
+      render :text => 'Something went wrong', :status => '500'
     end
   
     def current_user_session
@@ -93,11 +93,6 @@ class ApplicationController < ActionController::Base
     
     def store_location(addr=request.url)
       session[:return_to] = addr
-    end
-    
-    def store_poll_shuffle(poll)
-      session[:shuffled_polls] ||= Array.new
-      session[:shuffled_polls] << poll.id
     end
 
     def redirect_back_or_default(default)

@@ -39,9 +39,9 @@
       .info
         .p residents: #{ @country.residents.size }
         .p followers: #{ @country.followings.size }
-        .p questions: #{ @country.polls.size }
-        .p votes: #{ @country.ballots.size }
-        .p answered questions: #{ @country.polls.answered.size }
+        .p questions: #{ @country.askables.size }
+        .p votes: #{ @country.answerables.size }
+        .p answered questions: #{ @country.askables.polls.has_result.size }
 
   #csbox.lc
     #csheader
@@ -62,7 +62,7 @@
     
     .feed_list
       - entries.each do |e|
-        .feed= render "template/#{e.kind}", :entry => e, :show_country => false
+        .feed= render "template/#{e.kind.downcase}", :entry => e, :show_country => false
   
-    %p= link_to "Create a new question", new_country_poll_path(@country)
+    %p= link_to "Create a new question", new_askable_path(:country => @country.code)
 

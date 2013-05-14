@@ -1,22 +1,25 @@
-- ballot = Ballot.where('id = ?', entry.ballot_id).includes(:voter, :poll, :country).first
+- answerable = Answerable.find(entry.answerable_id)
 
 .avatar
-  = user_small_avatar_link(ballot.voter)
+  = user_small_avatar_link(answerable.user)
 
 .answer
   .info  
-    = user_country_flag_link ballot.voter, current_user, :title => "#{ballot.voter} is from #{ballot.voter.country}"
-    answered
-    - if ballot.vote > 0
-      %em= ballot.poll.yes.capitalize
+    = user_country_flag_link answerable.user, current_user, :title => "#{answerable.user} is from #{answerable.user.country}"
+    - if answerable.kind_of?(Ballot)
+      answered
+      - if answerable.vote > 0
+        %em= answerable.poll.yes
+      - else
+        %em= answerable.poll.no
+      in the question
     - else
-      %em= ballot.poll.no.capitalize
-    in the question
+      added a new answer in the question
     - if show_country
       for
-      = link_to ballot.country, country_path(ballot.country)
+      = link_to answerable.country, country_path(answerable.country)
   .question
-    = link_to ballot.poll.question_answers, country_poll_path(ballot.country, ballot.poll)
+    = link_to answerable.askable, country_askable_path(answerable.country, answerable.askable)
   .ans
-    .markdown= markdown ballot.answer
+    .markdown= markdown answerable.body
   

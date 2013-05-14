@@ -8,8 +8,8 @@
 
 require "#{Rails.root}/db/seeds/countries"
 require "#{Rails.root}/db/seeds/users"
-require "#{Rails.root}/db/seeds/polls"
-require "#{Rails.root}/db/seeds/ballots"
+require "#{Rails.root}/db/seeds/askables"
+require "#{Rails.root}/db/seeds/answerables"
 
 
 

@@ -11,7 +11,7 @@ class CreateCountries < ActiveRecord::Migration
       
       t.text   :link
       
-      t.integer :polls_count
+      t.integer :askables_count
       t.integer :followings_count
 
       t.timestamps

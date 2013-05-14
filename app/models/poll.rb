@@ -1,67 +1,25 @@
-class Poll < ActiveRecord::Base
-  scope :featured, where(:featured => true)
-  scope :answered, where(' yes_count > no_count ')
-
-  attr_accessor :question_reformat
-
-  attr_accessible :question, :coverage, :yes, :no, :country_code, :user_id, :description
-
-  after_create :log_entry
-
-  validates_presence_of :user_id, :country_code, :coverage
-
-  validates :question,
-    :uniqueness => { :scope => :country_code, :message => 'is duplicated' },
-  :length => {
-    :minimum => 10,
-    :maximum => 300,
-    :too_short => 'is too short to be meaningful',
-    :too_long => 'is too long to read, try to be concise and leave the detail to the description'
-  }
-
-  has_many :ballots
-
-  has_many :followings, :as => :followable, :dependent => :destroy
-  has_many :followers, :through => :followings, :source => :user
-
-  has_many :entry_logs
+class Poll < Askable
+  scope :has_result, where(' yes_count > no_count ')
+  
+  has_many :ballots, :foreign_key => 'askable_id'
   has_many :polling_numbers
+  
+  def to_s(truncate = true)
+    str = String.new(self.body)
 
-  belongs_to  :country,   :foreign_key => "country_code",     :primary_key => "code",     :counter_cache => true
-  belongs_to  :owner,     :foreign_key => "user_id",          :class_name => "User"
-
-  extend FriendlyId
-  friendly_id :question_reformat, :use => :slugged
-
-  acts_as_commentable
-
-  def question_reformat
-    q = String.new(self.question)
-
-    return q.split[0..9].join(" ").downcase.tr("^a-z|^0-9|^\s", "")
-  end
-
-  def question_answers(truncate = true)
-    str = String.new(self.question)
-    
     unless self.simple?
       unless self.or_negative?
-        str << " #{ truncate ? self.yes.capitalize.truncate(30, :separator => ' ') : self.yes.capitalize }"
+        str << " #{ truncater(self.yes, truncate) }"
       end
-      
-      str << " or #{ truncate ? self.no.capitalize.truncate(30, :separator => ' ') : self.no.capitalize  }?"
+
+      str << " or #{ truncater(self.no, truncate) }?"
     end
-    
+
     return str
   end
-  #********************************************
-  #
-  #   Business Logic
-  #
-  #********************************************
-
-  def more_polls(limit = 4)
-    Poll.where("country_code = ? AND id != ?", self.country_code, self.id).order("RAND()").limit(limit)
+  
+  def truncater(ans, flag)
+    flag ? ans.truncate(30, :separator => ' ') : ans
   end
 
   def simple?
@@ -72,23 +30,19 @@ class Poll < ActiveRecord::Base
     self.yes == 'Yes' && self.no != 'No'
   end
 
-  def to_s
-    self.question
-  end
-
-  def ballot_complex(current_user_id, last_ballot_id, n = 15)
-    no_more = false
+  def answer_complex(current_user_id, last_ballot_id, n = Complex_Number)
+    is_end = false
     complex = []
     index = 0
 
-    cond = last_ballot_id.blank? ? '1 = 1' : ['ballots.updated_at < ?', Ballot.find(last_ballot_id).updated_at]
+    cond = last_ballot_id.blank? ? '1 = 1' : ['answerables.updated_at < ?', Ballot.find(last_ballot_id).updated_at]
 
-    all = self.ballots.where(cond).order('updated_at DESC')
+    all = self.ballots.where(cond).order('answerables.updated_at DESC')
 
-    # NOTE not user >=, since when in case no rationale, needs to stay on 'n' to load all of them
-    until complex.size > n || index > all.size - 1
-      # ballot has an explanation or is from the current user
-      if all[index].answer.present? || all[index].user_id == current_user_id
+    # NOTE not user >=, since when in case when no answer, needs to stay on 'n' to load all of them
+    until complex.size > n || index > (all.size - 1)
+      # ballot has an answer or is from the current user
+      if all[index].body.present? || all[index].user_id == current_user_id
         break if complex.size >= n # break the block when complex is full, necessary see the NOTE
         complex << all[index]
       else
@@ -101,17 +55,17 @@ class Poll < ActiveRecord::Base
       index += 1
     end
 
-    no_more = true if index >= all.size - 1 #all ballots have been checked, so there is no more to load
-
-    return complex.first(n), no_more
+    is_end = true if index >= (all.size - 1) #all ballots have been checked, so there is no more to load
+    
+    return complex.first(n), is_end
   end
-
-  private
-  def log_entry
-    self.entry_logs.create(
-      :kind => 'poll',
-      :country_code => self.country_code,
-      :user_id => self.user_id
+  
+  def build_answerable(user, answerable)
+    user.answerables.ballots.build(
+      :askable_id => answerable[:askable_id],
+      :country_code => answerable[:country_code],
+      :vote => answerable[:vote].to_i,
+      :body => answerable[:body]
     )
   end
 end

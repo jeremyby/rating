@@ -5,7 +5,10 @@
 
 - content_for :actioner do
   #hh1
-    = render 'hh1'
+    %h1
+      Ask a country anything
+      %span
+        in close-ended questions
 
   #hcs
     .side
@@ -27,10 +30,10 @@
               claimed by
               = link_to 'jeremy Y.', '#'
               and now have
-              %span= c.polls_count
+              %span= c.askables.size
               questions and
-              %span= c.ballots.size
-              votes
+              %span= c.answerables.size
+              answers
 
             .enter
               %a(href='#{ country_path(c) }')

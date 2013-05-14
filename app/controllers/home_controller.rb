@@ -4,17 +4,17 @@ class HomeController < ApplicationController
       @country = current_user.country
 
       countries = [@country.code]
-      countries.concat(current_user.watching_countries.collect {|c| c.code})
+      countries.concat(current_user.watching_countries.map(&:code))
 
-      polls = current_user.following_polls.collect {|p| p.code}
+      askables = current_user.following_askables.map(&:id)
       
-      @entries = EntryLog.where('country_code in (?) or poll_id in (?)', countries, polls).order('created_at DESC')
+      @entries = EntryLog.where('country_code in (?) or askable_id in (?)', countries, askables).order('created_at DESC')
       
       render 'users/home'
     else
       @country = Country.find_by_code(country_code_from_request)
       
-      shuffle_a_poll
+      shuffle_poll
             
       unless Available_Countries.include?(@country.code)
         flash.now[:notice] = "Are you from #{@country}? Our service for your country is limited for now. <a href='/help#limited_service'>why?</a>"
@@ -27,7 +27,7 @@ class HomeController < ApplicationController
   end
   
   def shuffle
-    shuffle_a_poll
+    shuffle_poll
     
     respond_to do |format|
       format.js
@@ -44,7 +44,7 @@ class HomeController < ApplicationController
   end
   
   private
-  def shuffle_a_poll
+  def shuffle_poll
     cond = '1 = 1'
     cond.concat(' and id NOT in (?)') unless session[:shuffled_polls].blank?
     
@@ -58,6 +58,7 @@ class HomeController < ApplicationController
       @poll = pool.sample
     end
     
-    store_poll_shuffle(@poll)
+    session[:shuffled_polls] ||= Array.new
+    session[:shuffled_polls] << @poll.id
   end  
 end

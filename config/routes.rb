@@ -61,7 +61,7 @@ Askacountry::Application.routes.draw do
   match 'about' => "home#about", :via => :get, :as => :about
   match 'shuffle' => "home#shuffle", :via => :get, :as => :shuffle
   
-  match 'search' => "home#search", :via => :get, :as => :search
+  match 'search' => "home#search", :via => :get
   
   resources :user_sessions, :only => [:create]
   match 'login' => "user_sessions#new",      :as => :login
@@ -71,28 +71,24 @@ Askacountry::Application.routes.draw do
   match '/auth/failure'  => "authorizations#failure"
   match '/auth/:provider'  => "authorizations#blank"
   
-  resources :polls, :only => [:new, :create]
+  resources :askables, :only => [:create]
+  match 'new' => "askables#new", :as => :new_askable
   
-  resources :comments, :only => [:create, :destroy]
-  resources :ballots, :only => [:update]
-  
+  resources :answerables, :only => [:create, :update]
+  resources :comments, :only => [:create, :destroy]  
   
   resources :users, :except => [:new, :index]
   
   match 'signup'  => "users#new", :as => :signup
 
-  resources :countries, :path => "", :only => [:show] do
+  resources :countries, :path => '', :only => [:show] do
     member do
-      post 'watch'
-      post 'unwatch'
+      post 'watch', 'unwatch'
     end
-    
-    resources :poll_pack, :only => [:new, :index, :create]
-    resources :polls, :path => "", :except => [:index] do
-      resources :ballots, :only => [:create]
+
+    resources :askables, :path => '', :except => [:index, :new, :create] do
       member do
-        post 'follow'
-        post 'unfollow'
+        post 'follow', 'unfollow'
       end
     end
   end

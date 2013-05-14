@@ -1,0 +1,18 @@
+- question = Question.where('id = ?', entry.askable_id).includes(:owner, :country).first
+
+.avatar
+  = user_small_avatar_link(question.owner)
+  
+.poll
+  .info  
+    = user_country_flag_link question.owner, current_user, :title => "#{question.owner} is from #{question.owner.country}"
+    
+    - if show_country
+      asked #{ link_to question.country, country_path(question.country) }
+    - else
+      asked
+    
+    a new question
+      
+  .question
+    = link_to question.body, country_askable_path(question.country, question)

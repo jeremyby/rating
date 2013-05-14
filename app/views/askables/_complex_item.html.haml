@@ -1,0 +1,9 @@
+.ballot(class = '#{ballot.vote > 0 ? "yes" : "no"}' id = 'ballot_#{ballot.id}')
+
+  .voter
+    = ballot_user_info(ballot.user, ballot.vote, current_user)
+  
+  - if ballot.body.present?
+    .comment_body= markdown ballot.body
+  
+    = render 'askables/ballot_comments', :ballot => ballot

@@ -21,24 +21,24 @@
 #sua.su
   %h4 Asking
   .polls
-    - askings = @user.polls.includes(:country)
+    - askings = @user.askables
     - askings.each do |a|
-      .poll= link_to a.question_answers, country_poll_path(a.country, a)
+      .poll= link_to a, country_askable_path(a.country, a)
 
 
 #suv.su
   %h4 Voted
   .polls
-    - voted = @user.voted_polls.includes(:country)
+    - voted = @user.answered_askables
     - voted.each do |v|
-      .poll= link_to v, country_poll_path(v.country, v)
+      .poll= link_to v, country_askable_path(v.country, v)
 
 #suf.su
   %h4 Following
   .polls
-    - followings = @user.following_polls.includes(:country)
+    - followings = @user.following_askables
     - followings.each do |f|
-      .poll= link_to f.question_answers, country_poll_path(f.country, f)
+      .poll= link_to f, country_askable_path(f.country, f)
 
 
 

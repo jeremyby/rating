@@ -1,9 +1,0 @@
-%ul.poll_list
-  - polls.each do |p|
-    %li
-      .question
-        = link_to p.question_answers, country_poll_path(@country, p)
-        
-      .info  
-        = link_to "#{p.owner}#{country_image p.owner.country}".html_safe, user_path(p.owner), :title => "#{p.owner} is from #{p.owner.country}"
-        %span= pluralize(p.ballots_count, 'vote')

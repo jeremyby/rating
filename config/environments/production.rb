@@ -49,7 +49,7 @@ Askacountry::Application.configure do
   config.assets.prefix = "/assets"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( home.js country.js poll_new.js poll.js user.js country.js)
+  config.assets.precompile += %w( home.js country.js poll_new.js askable.js user.js country.js)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

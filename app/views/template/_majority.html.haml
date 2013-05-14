@@ -1,4 +1,4 @@
-- poll = Poll.where('id = ?', entry.poll_id).includes(:owner, :country).first
+- poll = Poll.find(entry.poll_id)
 
 .majority
   .question
@@ -8,7 +8,7 @@
       %span= link_to poll.country, country_path(poll.country)
     has result!
     
-    = link_to poll.question_answers, country_poll_path(poll.country, poll)
+    = link_to poll, country_poll_path(poll.country, poll)
   .info
     The answer of the people is
     %em= poll.yes_count > poll.no_count ? poll.yes : poll.no

@@ -9,8 +9,7 @@ class CountriesController < ApplicationController
   end
 
   def watch
-    current_user.follow(@country)
-    
+    current_user.follow(@country)    
   end
 
   def unwatch
@@ -24,8 +23,7 @@ class CountriesController < ApplicationController
     begin
       @country = Country.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      #TODO: need to replace default 404 page
-      redirect_to '/404.html'
+      page_404
     end
   end
 

@@ -46,8 +46,6 @@ describe "User" do
     it 'should belong to a country' do
       @user.country.should be_an_instance_of(Country)
       @user.country.code.should == 'us'
-    end
-    
+    end    
   end
-  
 end

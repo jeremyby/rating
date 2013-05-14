@@ -5,12 +5,12 @@ describe "Country" do
     Country.all.size.should == 201
   end
   
-  context 'a single country, US' do
+  context 'of US' do
     before do
       @us = Country.find_by_code("us")
     end
     
-    it 'should have United States' do
+    it 'should be there' do
       @us.should_not be_nil
     end
     
@@ -29,13 +29,17 @@ describe "Country" do
     end
   
     it 'should have polls' do
-      @us.polls.should_not be_nil
-      @us.polls.build().should be_an_instance_of(Poll)
+      @us.askables.polls.should_not be_nil
+      poll = @us.askables.polls.build
+      poll.should be_an_instance_of(Askable)
+      poll.type.should == 'Poll'      
     end
   
     it 'should have ballots' do
-      @us.ballots.should_not be_nil
-      @us.ballots.build().should be_an_instance_of(Ballot)
+      @us.answerables.ballots.should_not be_nil
+      ballot = @us.answerables.ballots.build
+      ballot.should be_an_instance_of(Answerable)
+      ballot.type.should == 'Ballot'
     end
     
     it 'should have a slug' do
