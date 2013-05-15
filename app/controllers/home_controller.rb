@@ -6,7 +6,7 @@ class HomeController < ApplicationController
       countries = [@country.code]
       countries.concat(current_user.watching_countries.collect {|c| c.code})
 
-      polls = current_user.following_polls.collect {|p| p.code}
+      polls = current_user.following_polls.collect {|p| p.id}
       
       @entries = EntryLog.where('country_code in (?) or poll_id in (?)', countries, polls).order('created_at DESC')
       
