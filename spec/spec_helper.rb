@@ -19,6 +19,8 @@ Spork.prefork do
   require 'rspec/rails'
   require 'capybara/rspec'
   
+  Capybara.javascript_driver = :webkit
+  
   require %(#{Rails.root}/db/seeds/countries)
   require %(#{Rails.root}/db/seeds/users)
   require %(#{Rails.root}/db/seeds/askables)
