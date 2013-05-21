@@ -86,9 +86,10 @@ body
 
   .inner 
     position: relative
-    max-width: 930px
     
-    nav#utility 
+    nav#utility
+      margin-right: 10px
+            
       text-align: right
       line-height: 40px
 
@@ -110,7 +111,7 @@ body
     #logo 
       position: absolute
       top: 9px
-      left: 3px
+      left: 5px
       +opacity(0.9)
       
       &:hover
@@ -156,14 +157,14 @@ body
 .contenter 
   font-size: 0.875em
   
-  margin-top: 40px
+  margin-top: 61px
   
   .inner
     width: 920px
     min-height: 440px
     
     padding: 20px
-  
+    
     +box-shadow(#ddd 2px 2px 6px)
 
     background: #fff
@@ -174,6 +175,17 @@ body
     .inner
       +box-shadow(none)
       background: none
+  
+  &.wider
+    .inner
+      width: 960px
+      min-height: 480px
+      
+      padding: 0
+      
+      +box-shadow(none)
+      background: none
+
 
 footer#page_footer
   .inner
@@ -198,7 +210,7 @@ footer#page_footer
 
 
 
-#notification 
+#notice 
   position: fixed
   top: 60px
   left: 0
@@ -221,14 +233,14 @@ footer#page_footer
       position: 8px 6px 
       repeat: no-repeat
      
-    &#notice 
+    &.notice 
       color: #666
     
       background:  
         color: #f2f27c
         image: image-url("check.png") 
       
-    &#alert 
+    &.alert 
       color: #fff
     
       background:  
@@ -384,9 +396,9 @@ footer#page_footer
   padding: 5px 5px 25px 5px
   
   li.hint
-    padding: 5px 0 5px 5px
+    padding: 5px 0
     color: #888
-    
+    font-family: "museo slab italic", georgia
     +small-text
   
   li.ui-autocomplete-category 

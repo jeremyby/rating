@@ -1,7 +1,4 @@
 class Country < ActiveRecord::Base
-  scope :available, where(:code => Available_Countries)
-  scope :unavailable, where('code not in (?)', Available_Countries)
-
   has_one :dbgraph
   has_many :facts
 
@@ -16,13 +13,14 @@ class Country < ActiveRecord::Base
   has_many :entry_logs,     :primary_key => "code",     :foreign_key => "country_code"
 
   attr_accessible :code, :name, :full_name, :alias, :pretty_name
-
+  
   extend FriendlyId
   friendly_id :name, :use => :slugged
 
   validates_presence_of :code, :name
   validates_uniqueness_of :code, :name
 
+    
   def to_s
     self.pretty_name.present? ? self.pretty_name : self.name
   end

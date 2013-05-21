@@ -1,0 +1,56 @@
+- @answerable ||= Ballot.new(:vote => 0)
+
+.ata
+  - if !@answerable.new_record?
+    = render 'edit_ballot', :answerable => @answerable
+  
+  - else
+    %h2.ballot
+      - if @askable.simple?
+        What is your opinion on the question?
+      - else
+        Which one is your answer?
+
+      = link_to_function 'Vote NOW!', "aac.show_ballot()", :id => 'ballot_action', :class => 'button'
+    
+    #ballot
+      - if !current_user.present?
+        .msg 
+          Your account information is required here. Please
+          %a(href='/login?return_to=#{request.path}') log in
+          first.
+    
+      - elsif current_user.can_answer?(@askable)
+        = render 'ballot_form', :answerable => @answerable, :url => answerables_path
+    
+      - else
+        %p
+          You cannot answer the question because its creator is asking for answers
+          from <strong>people</strong> who are
+          - if @askable.coverage == 1
+            <strong>from #{@country}</strong>.
+          - else
+            <strong>not from #{@country}</strong>.
+        %div
+          You may want to
+          %ul
+            %li
+              = link_to 'follow the question', '#'
+              to keep updated
+            %li
+              create
+              = link_to 'a new question', '#'
+              from this one
+            %li
+              check
+              = link_to 'your profile', user_path(current_user)
+
+
+                  
+#answers
+  - if @complex.blank?
+    %h2 Waiting for 10 people's votes
+  - else
+    %h2 #{ @askable.ballots.size } people have voted
+
+    = render 'complex'

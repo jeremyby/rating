@@ -1,0 +1,6 @@
+#notice
+  - unless flash.blank?
+    - flash_type, messages = parse_flash(flash)
+
+    - messages.each do |m|
+      %span(class='#{ flash_type }')= m.html_safe

@@ -1,23 +1,12 @@
 $(document).ready ->
   $.getScript("/search", ->
-    aac.load_search(
+    aac.load_search('.search input', 'Go to another country',
       (event, ui) ->
         this.value = ui.item.name
         window.location.href = ui.item.slug
         return false
     )
-  ) 
-  
-  $('.search input').focus ->
-    if this.value == 'Go to another country'
-      this.value = ''
-    
-    $(this).autocomplete("search", this.value)
-    
-  $('.search input').focusout ->
-    unless this.value.length
-      this.value = 'Go to another country'
-      
+  )
   
   $('#hcs .flags a').click (e) ->
     unless $(this).children('.c').hasClass('active')    
@@ -38,34 +27,16 @@ $(document).ready ->
       div.addClass('color')
 
     e.preventDefault()
-  
+
+
   $('.stroke input').focus ->
     reset_field($(this))
 
-  # login validation checkes
-  # $('#user_session_email').focusout ->
-  #   check_email($(this))
-  #   
-  # $('#user_session_password').focusout ->
-  #   check_password($(this))
 
   $('#login .submit input').click (e) ->
     a = check_email($('#user_session_email'))
     b = check_password($('#user_session_password'))
     e.preventDefault() unless a && b
-  
-  # sign up validations
-  # $('#user_email').focusout ->
-  #   check_email($(this))
-  # 
-  # $('#user_first_name').focusout ->
-  #   check_name($(this))
-  #   
-  # $('#user_password').focusout ->
-  #   check_password($(this))
-  #   
-  # $('#user_password_confirmation').focusout ->
-  #   check_password_again($(this))
   
   $('#signup .submit input').click (e) ->
     a = check_email($('#user_email'))

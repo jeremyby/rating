@@ -1,2 +1,1 @@
-$("#notification").replaceWith("<%= escape_javascript(render 'layouts/notification')%>");
-setTimeout(function() { $('#notification').fadeOut(1000) }, 10000);
+$("#notice").replaceWith("<%= j(render 'layouts/notice')%>").poof();

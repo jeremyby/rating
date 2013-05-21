@@ -44,8 +44,8 @@ class AskablesController < ApplicationController
     @complex, @is_end = @askable.answer_complex(current_uid, last_answerable)
     
     respond_to do |format|
-      format.html { render @askable.type.downcase }
-      format.js { render @askable.type.downcase }
+      format.html
+      format.js
     end
   end
 

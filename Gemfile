@@ -3,7 +3,8 @@ source 'http://rubygems.org'
 
 gem 'rails'
 
-gem 'mysql2'
+gem 'mysql2', :platform => :ruby
+gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
 
 gem 'json'
 
@@ -25,6 +26,7 @@ gem 'omniauth-google-oauth2', :github => 'jeremyby/omniauth-google-oauth2'
 gem 'mini_magick'
 gem 'carrierwave'
 gem 'mime-types'
+
 gem 'redcarpet'
 
 gem 'geoip'

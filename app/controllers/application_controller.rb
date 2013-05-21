@@ -29,8 +29,9 @@ class ApplicationController < ActionController::Base
   
     def get_country
       begin
-        # if no country_id param, empty @country will be evaluated, instead of 404
-        @country = Country.find(params[:country_id]) if params[:country_id].present?
+        id = params[:country_id] || params[:id]
+        
+        @country = Country.find(id)
       rescue ActiveRecord::RecordNotFound
         page_404
       end

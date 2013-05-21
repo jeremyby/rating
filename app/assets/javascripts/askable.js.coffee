@@ -45,11 +45,7 @@ $(document).ready ->
   
   aac.submit_check = ->
     unless $('#ballot .table input[name="answerable[vote]"]:radio').is(':checked') # a vote is selected
-      $('#notification').html('<span id="alert">Please take a vote before submitting.</span>').show()
-      
-      setTimeout(->
-         $('#notification').fadeOut(1000)
-        , 5000)
+      $('#notice').html('<span class="alert">Please take a vote before submitting.</span>').purr()
         
       return false
     

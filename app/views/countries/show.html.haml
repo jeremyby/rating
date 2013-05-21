@@ -1,8 +1,15 @@
+
+- @contenter_class = 'wider'
+
 - content_for :js do
-  = javascript_include_tag 'country'
+  = javascript_include_tag 'country', 'world_mill_en'
 
 - content_for :title_string do
   = "Ask #{@country}"
+
+:javascript
+  aac.country_code = '#{ @country.code }';
+  
 
 - content_for :actioner do
   %h1#cshead
@@ -16,12 +23,27 @@
   /   = @country.random_fact
   /   = link_to image_tag("/assets/refresh.png"), "#"
 
+#csmap
+  #world-map      
+  .head
+    .flag= country_image(@country, 'o')
+    .headers
+      %h1
+        = @country.to_s
+      %h4
+        - unless @country.full_name.blank?  
+          = @country.full_name
+        - unless @country.alias.blank?  
+          (#{ content_tag 'span', @country.alias })
+  .search.ui-widget
+    %input(value='Search for a country')
+
+
 
 #csbody
+
+
   #csside.rc
-    .search.ui-widget
-      %input
-  
     = render 'countries/watch'
     .wiki.block= link_to content_tag(:div, 'Know More'), @country.link, :target =>"_blank"
     
@@ -44,18 +66,6 @@
         .p answered questions: #{ @country.askables.polls.has_result.size }
 
   #csbox.lc
-    #csheader
-      .flag= country_image(@country, 'o')
-      .headers
-        %h1
-          = @country.to_s
-        %h4
-          - unless @country.full_name.blank?  
-            = @country.full_name
-          - unless @country.alias.blank?  
-            (#{ content_tag 'span', @country.alias })
-        
-      
     = render 'sort', :active => @sort
           
     - entries = EntryLog.where('country_code = ?', @country.code).order('created_at DESC')

@@ -4,6 +4,8 @@
     = ballot_user_info(ballot.user, ballot.vote, current_user)
   
   - if ballot.body.present?
-    .comment_body= markdown ballot.body
+    .comment_body
+      :markdown
+        #{ ballot.body }
   
     = render 'askables/ballot_comments', :ballot => ballot

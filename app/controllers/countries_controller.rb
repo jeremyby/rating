@@ -1,5 +1,5 @@
 class CountriesController < ApplicationController
-  before_filter :get_country_from_id
+  before_filter :get_country
   before_filter :set_return_to, :only => [:watch, :unwatch]
   before_filter :require_user, :only => [:watch, :unwatch]
 
@@ -19,14 +19,6 @@ class CountriesController < ApplicationController
   end
 
   private
-  def get_country_from_id
-    begin
-      @country = Country.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      page_404
-    end
-  end
-
   def set_return_to
     @return_to = country_path(@country)
   end

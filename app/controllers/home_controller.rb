@@ -15,10 +15,6 @@ class HomeController < ApplicationController
       @country = Country.find_by_code(country_code_from_request)
       
       shuffle_poll
-            
-      unless Available_Countries.include?(@country.code)
-        flash.now[:notice] = "Are you from #{@country}? Our service for your country is limited for now. <a href='/help#limited_service'>why?</a>"
-      end
     end
   end
   
@@ -35,8 +31,7 @@ class HomeController < ApplicationController
   end
   
   def search
-    @countries = Country.available
-    @countries.concat(Country.unavailable)
+    @countries = Country.all
     
     respond_to do |format|
       format.js

@@ -1,6 +1,6 @@
 $(document).ready ->  
   $.getScript("/search", ->
-    aac.load_search(
+    aac.load_search('#search', 'a country',
       (event, ui) ->
         this.value = ui.item.name
         $('#poll_country_code').attr("value", ui.item.code)
