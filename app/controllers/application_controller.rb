@@ -8,12 +8,13 @@ class ApplicationController < ActionController::Base
   private
     def set_locale
       I18n.locale = extract_locale_from_subdomain
+
       # I18n.locale = params[:locale] || ((lang = request.env['HTTP_ACCEPT_LANGUAGE']) && lang[/^[a-z]{2}/])
     end
     
     def extract_locale_from_subdomain
       parsed_locale = request.subdomains.first || 'en'
-      I18n.available_locales.include?(parsed_locale.to_sym) ? parsed_locale : nil
+      I18n.available_locales.include?(parsed_locale.to_sym) ? parsed_locale : 'en'
     end
   
     def country_code_from_request
@@ -30,7 +31,7 @@ class ApplicationController < ActionController::Base
     def get_country
       begin
         id = params[:country_id] || params[:id]
-        
+
         @country = Country.find(id)
       rescue ActiveRecord::RecordNotFound
         page_404

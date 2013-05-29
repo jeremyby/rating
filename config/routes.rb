@@ -61,7 +61,7 @@ Askacountry::Application.routes.draw do
   match 'about' => "home#about", :via => :get, :as => :about
   match 'shuffle' => "home#shuffle", :via => :get, :as => :shuffle
   
-  match 'search' => "home#search", :via => :get
+  match 'countries' => "home#countries", :via => :get
   
   resources :user_sessions, :only => [:create]
   match 'login' => "user_sessions#new",      :as => :login

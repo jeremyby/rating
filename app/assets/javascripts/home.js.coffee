@@ -1,12 +1,11 @@
 $(document).ready ->
-  $.getScript("/search", ->
-    aac.load_search('.search input', 'Go to another country',
-      (event, ui) ->
-        this.value = ui.item.name
-        window.location.href = ui.item.slug
-        return false
-    )
+  aac.load_search('.search input', 'Go to another country',
+    (event, ui) ->
+      this.value = ui.item.name
+      window.location.href = ui.item.slug
+      return false
   )
+
   
   $('#hcs .flags a').click (e) ->
     unless $(this).children('.c').hasClass('active')    

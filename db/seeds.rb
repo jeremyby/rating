@@ -11,6 +11,8 @@ require "#{Rails.root}/db/seeds/users"
 require "#{Rails.root}/db/seeds/askables"
 require "#{Rails.root}/db/seeds/answerables"
 
+require "#{Rails.root}/db/seeds/countries_zh"
+
 
 
 

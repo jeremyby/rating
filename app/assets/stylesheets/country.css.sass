@@ -4,28 +4,25 @@
   input
     padding-left: 5px
     border: none
-    +small-text
+    font-size: 0.8125em
     +hoverable
 
 
 #cshead
-  margin:  0
+  h1
+    margin:  0
+    line-height: 40px
   
-  line-height: 40px
+    font-size: 1.4em
+    color: #f2ebe9
   
-  font:
-    // weight: normal
-    size: 1.3em
-    
-  color: #f2ebe9
-  
-  img
-    margin: 0 0 -10px 3px
-    +opacity(0.8)
+    img
+      margin: 0 0 -10px 3px
+      +opacity(0.8)
   
   .search
     position: absolute
-    top: 0
+    top: 6px
     right: 0
 
     input
@@ -37,8 +34,6 @@
       
       background: rgba(white, .16) url('/assets/arrow_down_s.png') right center no-repeat
       +box-shadow(rgba(black, .2) 2px 2px 5px inset)
-    
-      
 
 
 #csmap
@@ -85,21 +80,18 @@
   
   .search
     position: absolute
-    bottom: 5px
-    right: 5px
+    bottom: 6px
+    right: 6px
     
     input
       width: 170px
       height: 24px
       
-      +opacity(0.5)
-      
-      color: white
-      background: #333 url('/assets/arrow_down_s.png') right center no-repeat
-      border: 1px solid #222
-      
-      &:hover
-        +opacity(0.8)
+      color: #444
+      background: rgba(#ddd, .5) url('/assets/arrow_down_s_d.png') right center no-repeat
+      // border: 1px solid #666
+      +box-shadow(rgba(black, .2) 1px 1px 5px inset)
+
 
 #csbody
   margin-top: 15px
@@ -112,231 +104,98 @@
   #csbox
     min-height: 480px
     
-    #csheader
-      visibility: visible
-      
-      height: 64px
-      
-      position: relative
-      
-      margin: 15px 0 35px 0
-      
-      display: table
-    
-      .flag
-        padding-right: 15px
-        display: table-cell
-        
-        +opacity(0.96)
-      
-      .headers
-        display: table-cell
-        vertical-align: middle
-      
-        h1
-          margin: 0
-        
-        h4
-          margin: 0
-          padding-top: 3px
-        
-          span
-            margin: 0 1px
-    
     ul
       margin: 0 0 25px 0
       padding-left: 0
       list-style: none
       
     #sorter
-      margin-left: 0
+      margin: 5px 0 0 0
+        
+      ul
+        margin-left: 0
       
-      li
-        display: inline
+        li
+          display: inline
         
-        margin-right: 10px
+          margin-right: 10px
         
-        font:
-          family: "Helvetica Neue", helvetica, arial, sans-serif
-          weight: normal
+          font:
+            family: "Helvetica Neue", helvetica, arial, sans-serif
+            weight: normal
         
         
-        &.active
-          position: relative
+          &.active
+            position: relative
         
-          padding: 8px 12px
+            padding: 8px 12px
         
-          background: #f2f2f0
-          +border-radius(8px)
+            background: #f2f2f0
+            +border-radius(8px)
           
-          color: #222
+            color: #222
           
-          &:after
-            content: ''
+            &:after
+              content: ''
             
-            position: absolute
-            top: 100%
-            left: 50%
-            height: 12px
-            width: 21px
+              position: absolute
+              top: 100%
+              left: 50%
+              height: 12px
+              width: 21px
             
-            margin-left: -10px
+              margin-left: -10px
             
-            background: url('/assets/edge.png') top left no-repeat
+              background: url('/assets/edge.png') top left no-repeat
         
-        &.inactive
-          font-weight: bold
+          &.inactive
+            font-weight: bold
           
-          a
-            color: #333
+            a
+              color: #222
 
   #csside
-    .search
-      visibility: visible
+    .actions
+      margin: 10px 0 25px 0
+    
+      +large
       
+      .watch
+        font-weight: bold
+        
+      .wiki
+        margin-top: 5px
+
+    .facts
       margin-bottom: 25px
-    
-      input
-        width: 200px
-        height: 26px
-      
-    
-    .block
-      width: 150px
 
-      margin: 0 0 20px 0
-      
-      +opacity(0.8)
-      
-      a
-        color: #fff
-        letter-spacing: 0.7px
+      h2
+        margin-bottom: 6px
         
-        +opacity(0.8)
-        
-        font-size: 1.3em
-        
-        &:hover
-          text-decoration: none
-        
-        div
-          padding: 25px 20px
-          
-          
-      &:hover
-        +opacity(1)
-        
-        a
-          +opacity(1)
-      
-          
-      &#watch
-        +background-image(linear-gradient(left, #46026a, #6f01a8 7px, #8100d2))
-    
-      .unwatch      
-        a 
-          font-size: 0.8em
-          padding: 0 3px
-    
-    
-      &.wiki
-        +background-image(linear-gradient(left, #05416c, #065a95 7px, #0271bf))
-
-    
-      &.search 
-        list-style-image: url('/assets/globe.png')
-      
-        span,
-        input 
-          font-size: 0.9em
-
-    .hlocs
-      +clearfix
-      
-      a
+    .asking
+      h2
         margin: 0
-
-
-
-      a:hover 
-        span 
-          text-decoration: underline
-
-      .c 
-        float: left
-        text-align: center
-        width: 90px
-        height: 100px
-
-        margin-right: 5px
-
-        img
-          margin-bottom: -10px
-
-.feed_list
-  .feed
-    margin-bottom: 20px
-
-    position: relative
-
-    .avatar
-      position: absolute
-      top: 9px
-      left: 2px
-
-    .poll,
-    .answer,
-    .majority
-      margin-left: 36px
       
-      font-size: 0.95em
+      .hlocs
+        +clearfix
       
-      .question
         a
-          font-weight: bold
-        
-        span
-          a
-            font-weight: normal
-            color: #444
+          margin: 0
 
+        a:hover 
+          span 
+            text-decoration: underline
 
-    .info
-      padding: 5px 0
-      
-      a
-        color: #444
-      
-      img
-        margin-left: 1px
-        
-      em
-        font:
-          style: normal
-          weight: bold
+        .c 
+          float: left
+          text-align: center
+          width: 90px
+          height: 100px
 
-    .ans
-      position: relative
+          margin-right: 5px
 
-      padding: 12px 0 0 25px
-
-      // font-size: 0.9em
-
-      .markdown:before
-        content: '“'
-        position: absolute
-        top: 6px
-        left: 6px
-
-        color: #888
-
-        font:
-          family: georgia
-          size: 2.4em
-
-      img 
-        margin: 0 0 -1px 1px
-
+          img
+            margin-bottom: -10px
 
 * html #csbox 
   height: 360px

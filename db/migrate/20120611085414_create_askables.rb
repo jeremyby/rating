@@ -19,6 +19,7 @@ class CreateAskables < ActiveRecord::Migration
       t.integer   :coverage,          :default => 0,                  :null => false
       
       t.boolean   :featured,          :default => false
+      t.boolean   :locked,            :default => false
       
       t.text      :description
       

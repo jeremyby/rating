@@ -1,4 +1,7 @@
-%h2 Recent Activities
-.feed_list
-  - @entries.each do |e|
-    .feed= render "template/#{e.kind.downcase}", :entry => e, :show_country => true
+
+#uh
+  .lc
+    %h2 Recent Activities
+    .feed_list
+      - @events.each do |e|
+        .feed= render "events/#{e.kind}", :event => e, :show_country => true

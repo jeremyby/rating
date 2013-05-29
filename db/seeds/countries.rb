@@ -35,7 +35,7 @@ Country.create(
     { :code => "cm", :name => "Cameroon", :full_name => "Republic of Cameroon"},
     { :code => "ca", :name => "Canada"},
     { :code => "cv", :name => "Cape Verde", :full_name => "Republic of Cape Verde"},
-    { :code => "cf", :name => "Central African Republic", :full_name => "Central African Republic"},
+    { :code => "cf", :name => "Central African Republic"},
     { :code => "td", :name => "Chad", :full_name => "Republic of Chad"},
     { :code => "cl", :name => "Chile", :full_name => "Republic of Chile"},
     { :code => "cn", :name => 'China', :full_name => "People's Republic of China"},
@@ -52,7 +52,7 @@ Country.create(
     { :code => "dk", :name => "Denmark", :full_name => "Kingdom of Denmark"},
     { :code => "dj", :name => "Djibouti", :full_name => "Republic of Djibouti"},
     { :code => "dm", :name => "Dominica", :full_name => "Commonwealth of Dominica"},
-    { :code => "do", :name => "Dominican Republic", :full_name => "Dominican Republic"},
+    { :code => "do", :name => "Dominican Republic"},
     { :code => "tl", :name => "East Timor", :full_name => "Democratic Republic of Timor-Leste"},
     { :code => "ec", :name => "Ecuador", :full_name => "Republic of Ecuador"},
     { :code => "eg", :name => "Egypt", :full_name => "Arab Republic of Egypt"},
@@ -121,7 +121,7 @@ Country.create(
     { :code => "mr", :name => "Mauritania", :full_name => "Islamic Republic of Mauritania"},
     { :code => "mu", :name => "Mauritius", :full_name => "Republic of Mauritius"},
     { :code => "mx", :name => "Mexico", :full_name => "United Mexican States"},
-    { :code => "fm", :name => "Federated States of Micronesia", :full_name => "Federated States of Micronesia"},
+    { :code => "fm", :name => "Federated States of Micronesia"},
     { :code => "md", :name => "Moldova", :full_name => "Republic of Moldova"},
     { :code => "mc", :name => "Monaco", :full_name => "Principality of Monaco"},
     { :code => "mn", :name => "Mongolia"},
@@ -157,7 +157,7 @@ Country.create(
     { :code => "rw", :name => "Rwanda", :full_name => "Republic of Rwanda"},
     { :code => "kn", :name => "Saint Kitts and Nevis", :full_name => "Federation of Saint Christopher and Nevis"},
     { :code => "lc", :name => "Saint Lucia"},
-    { :code => "vc", :name => "Saint Vincent and the Grenadines", :full_name => "Saint Vincent and the Grenadines"},
+    { :code => "vc", :name => "Saint Vincent and the Grenadines"},
     { :code => "ws", :name => "Samoa", :full_name => "Independent State of Samoa"},
     { :code => "sm", :name => "San Marino", :full_name => "Republic of San Marino"},
     { :code => "st", :name => "São Tomé and Príncipe", :full_name => "Democratic Republic of São Tomé and Príncipe"},
@@ -206,6 +206,8 @@ Country.create(
     { :code => "vn", :name => "Vietnam", :full_name => "Socialist Republic of Vietnam"},
     { :code => "ye", :name => "Yemen", :full_name => "Republic of Yemen"},
     { :code => "zm", :name => "Zambia", :full_name => "Republic of Zambia"},
-    { :code => "zw", :name => "Zimbabwe", :full_name => "Republic of Zimbabwe"}
+    { :code => "zw", :name => "Zimbabwe", :full_name => "Republic of Zimbabwe"},
+    #TODO: move this to its correct position, it needs to be there only for the dumped dbgraphs to work
+    { :code => "fk", :name => "Falkland Islands"}
   ]
 )

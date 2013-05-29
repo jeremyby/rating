@@ -1,0 +1,13 @@
+
+<% last = @countries.pop %>
+
+var countries = {
+  <% @countries.each do |c| %>
+    <% if c.blank? # separater between popolar and all countries %>
+      'empty': {},
+    <% else %>
+      <%= search_list_item(c) %>,
+    <% end %>
+  <% end %>
+    <%= search_list_item(last) %>
+}

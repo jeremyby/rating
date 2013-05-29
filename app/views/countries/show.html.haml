@@ -2,26 +2,23 @@
 - @contenter_class = 'wider'
 
 - content_for :js do
-  = javascript_include_tag 'country', 'world_mill_en'
+  = javascript_include_tag '/countries', 'country', 'world'
 
 - content_for :title_string do
-  = "Ask #{@country}"
-
-:javascript
-  aac.country_code = '#{ @country.code }';
-  
+  = t 'country_title', :country_name => @country.to_s
 
 - content_for :actioner do
-  %h1#cshead
-    = country_image(@country, 'm')
-    = @country.to_s
+  #cshead
+    %h1
+      = country_image(@country, 'm')
+      = @country.to_s
     .search.ui-widget
-      %input
-      
-  / %h3#facts
-  /   Did you know?
-  /   = @country.random_fact
-  /   = link_to image_tag("/assets/refresh.png"), "#"
+      / leave an invisible placeholder to load search
+      %input(value=' ')
+
+:javascript
+  aac.country_code = '#{ @country.code }'
+
 
 #csmap
   #world-map      
@@ -36,43 +33,42 @@
         - unless @country.alias.blank?  
           (#{ content_tag 'span', @country.alias })
   .search.ui-widget
-    %input(value='Search for a country')
+    %input(value='#{ t "search_string" }')
 
 
 
 #csbody
-
-
   #csside.rc
-    = render 'countries/watch'
-    .wiki.block= link_to content_tag(:div, 'Know More'), @country.link, :target =>"_blank"
+    .actions
+      = render 'countries/watch'
+      .wiki= link_to 'Know More', @country.link, :target =>"_blank"
     
-    %h2 Who is asking
-    .hlocs
-      - countries = @country.top_asking_countries
-      - countries.each do |c|
-        %a(href="/#{c.slug}")
-          .c
-            = image_tag "/assets/flags/#{c.code}-o.png"
-            %br 
-              %span= c
+    .facts
+      - random_fact = @country.random_fact
+      - unless random_fact.blank?
+        %h2 Did you know?
+
+        = random_fact.html_safe
     
-    - if false
-      .info
-        .p residents: #{ @country.residents.size }
-        .p followers: #{ @country.followings.size }
-        .p questions: #{ @country.askables.size }
-        .p votes: #{ @country.answerables.size }
-        .p answered questions: #{ @country.askables.polls.has_result.size }
+    .asking
+      %h2 Who is asking
+      .hlocs
+        - countries = @country.top_asking_countries
+        - countries.each do |c|
+          %a(href="/#{c.slug}")
+            .c
+              = image_tag "/assets/flags/#{c.code}-o.png"
+              %br 
+                %span= c
 
   #csbox.lc
     = render 'sort', :active => @sort
           
-    - entries = EntryLog.where('country_code = ?', @country.code).order('created_at DESC')
+    - events = @country.events.order('created_at DESC')
     
     .feed_list
-      - entries.each do |e|
-        .feed= render "template/#{e.kind.downcase}", :entry => e, :show_country => false
+      - events.each do |e|
+        .feed= render "events/#{e.kind}", :event => e, :show_country => false
   
     %p= link_to "Create a new question", new_askable_path(:country => @country.code)
 

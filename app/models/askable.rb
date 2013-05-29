@@ -7,7 +7,7 @@ class Askable < ActiveRecord::Base
   attr_accessor :truncate_slug
   attr_accessible :body, :coverage, :country_code, :user_id, :description, :yes, :no
   
-  after_create :log_entry
+  after_create :log_event
 
   validates_presence_of :user_id, :country_code, :coverage
 
@@ -21,14 +21,15 @@ class Askable < ActiveRecord::Base
     }
 
 
-  has_many :followings, :as => :followable, :dependent => :destroy
-  has_many :followers, :through => :followings, :source => :user
+  has_many    :followings, :as => :followable, :dependent => :destroy
+  has_many    :followers,  :through => :followings, :source => :user
   
-  has_many :answerables
-  has_many :entry_logs, :dependent => :destroy
+  has_many    :answerables
 
   belongs_to  :country,   :foreign_key => "country_code",     :primary_key => "code",     :counter_cache => true
   belongs_to  :owner,     :foreign_key => "user_id",          :class_name => "User"
+  
+  has_many    :events, :dependent => :destroy
 
   extend FriendlyId
   friendly_id :truncate_slug, :use => :slugged
@@ -50,14 +51,5 @@ class Askable < ActiveRecord::Base
   
   def more_askables(limit = 4)
     Askable.where("country_code = ? AND id != ?", self.country_code, self.id).order("RAND()").limit(limit)
-  end
-
-  private
-  def log_entry
-    self.entry_logs.create(
-      :kind => self.type,
-      :country_code => self.country_code,
-      :user_id => self.user_id
-    )
   end
 end

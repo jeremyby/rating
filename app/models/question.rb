@@ -1,6 +1,6 @@
 class Question < Askable
-  has_many :answers, :foreign_key => 'askable_id'
-  
+  has_many :answers, :foreign_key => 'askable_id', :dependent => :destroy
+
   def answer_complex(current_user_id, last_ballot_id, n = Complex_Number)
     is_end = true
 
@@ -12,12 +12,22 @@ class Question < Askable
 
     return all.first(n), is_end
   end
-  
+
   def build_answerable(user, answerable)
     user.answerables.answers.build(
       :poll_id => answerable[:askable_id],
       :country_code => answerable[:country_code],
       :answer => answerable[:body]
+    )
+  end
+
+  private
+  def log_event
+    # when a user creates an askable
+    self.events.create(
+      :kind => 'question',
+      :user_id => self.user_id,
+      :country_code => self.country_code
     )
   end
 end

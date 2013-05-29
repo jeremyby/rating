@@ -3,8 +3,7 @@ source 'http://rubygems.org'
 
 gem 'rails'
 
-gem 'mysql2', :platform => :ruby
-gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
+gem 'mysql2'
 
 gem 'json'
 
@@ -27,17 +26,14 @@ gem 'mini_magick'
 gem 'carrierwave'
 gem 'mime-types'
 
-gem 'redcarpet'
-
 gem 'geoip'
 
 gem 'globalize3'
-# gem 'rails-translate-routes'
 
 gem 'acts_as_commentable_with_threading'
 gem 'thumbs_up'
 
-gem 'puma', :github => 'jeremyby/puma'
+gem 'puma'
 
 
 # Gems used only for assets and not required

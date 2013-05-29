@@ -8,6 +8,7 @@
 - if current_user
   - @answerable = @askable.answerables.where(country_code: @country.code, user_id: current_user.id).first
   - @is_owner = (current_user == @askable.owner)
+
   
 #spbody
   #sph
@@ -55,7 +56,7 @@
         %li.share= link_to 'Google', '#'
     
       .polls
-        %h3 More Questions
+        %h2 More Questions
         - askables = @askable.more_askables
       
         %ul

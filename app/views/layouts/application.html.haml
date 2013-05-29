@@ -4,12 +4,20 @@
     %meta{:charset => "utf-8"}
     %title
       - title = yield :title_string
-      = title.present?  ? title : "Ask a Country"
+      = title.present?  ? title : t('default_title')
 
     = csrf_meta_tags
     
     = stylesheet_link_tag "application"
     = yield :css
+    
+    :javascript
+      window.aac = {}
+      
+      aac.search_string = '#{ t "search_string" }'
+      aac.search_all = '#{ t "search_all" }'
+      aac.search_hint_string = '#{ t "search_hint" }'
+    
     
     = javascript_include_tag "application"
     = yield :js

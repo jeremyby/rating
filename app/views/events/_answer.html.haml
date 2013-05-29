@@ -1,4 +1,4 @@
-- answerable = Answerable.find(entry.answerable_id)
+- answerable = Answerable.find(event.answerable_id)
 
 .avatar
   = user_small_avatar_link(answerable.user)
@@ -24,5 +24,4 @@
     .markdown
       :markdown
         #{ answerable.body }
-    / .markdown= markdown answerable.body
   

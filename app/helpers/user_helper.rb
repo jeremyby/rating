@@ -10,9 +10,9 @@ module UserHelper
   end
 
   def user_country_flag_link(user, cur = nil, options = {})
-    u = (cur == user) ? 'You' : user.to_s 
+    u, i = (cur == user) ? ['You', ''] : [user.to_s, user_country_image(user, options)]
     
-    link_to "#{u}#{user_country_image(user, options)}".html_safe, user_path(user)
+    link_to "#{u}#{i}".html_safe, user_path(user)
   end
 
   def user_country_image(u, options = {})

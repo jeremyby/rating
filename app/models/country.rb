@@ -9,20 +9,25 @@ class Country < ActiveRecord::Base
 
   has_many :askables,       :primary_key => "code",     :foreign_key => "country_code"
   has_many :answerables,    :primary_key => "code",     :foreign_key => "country_code"
+  has_many :events,         :primary_key => "code",     :foreign_key => "country_code"
 
-  has_many :entry_logs,     :primary_key => "code",     :foreign_key => "country_code"
-
-  attr_accessible :code, :name, :full_name, :alias, :pretty_name
+  attr_accessible :slug, :code, :name, :full_name, :alias, :pretty_name, :searchable
   
+  translates :slug, :name, :full_name, :alias, :pretty_name, :searchable
   extend FriendlyId
-  friendly_id :name, :use => :slugged
+  friendly_id :name, :use => :globalize
 
   validates_presence_of :code, :name
   validates_uniqueness_of :code, :name
-
+  
+  
     
   def to_s
-    self.pretty_name.present? ? self.pretty_name : self.name
+    self.pretty_name.blank? ? self.name : self.pretty_name
+  end
+  
+  def lookup_string
+    self.searchable.blank? ? "#{self.name} #{self.code}" : "#{self.name} #{self.searchable} #{self.code}"
   end
 
   def self.most_asked(limit, offset=0)
@@ -43,8 +48,12 @@ class Country < ActiveRecord::Base
   end
 
   def random_fact
-    facts = self.facts
+    facts = self.facts.order("RAND()").limit(1)
 
-    facts[rand(facts.size) - 1].value
+    return facts.blank? ? nil : facts.first.value
+  end
+  
+  def translate_to(locale, hash={})
+    self.translations.where(:locale => locale).first_or_initialize.update_attributes!(hash)
   end
 end

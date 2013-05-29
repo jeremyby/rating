@@ -17,17 +17,19 @@ textarea
   
   border: 1px solid #ddd
   +box-shadow(#bbb 0 0 3px inset) 
+  +small
   
   color: #555
   font-family: verdana
-  font-size: 0.9em
+  
   
 
 a,
 a:link,
 a:active,
 a:visited 
-  color: #0271bf
+  // color: #0271bf
+  color: #245dc1
   text-decoration: none
 
 a:hover 
@@ -63,15 +65,15 @@ body
   
   background: #fafaf8 url("/assets/bg1.png") repeat
   
-  color: #333
+  color: #222
 
 .inner 
   max-width: 960px
   margin: 0 auto
 
-#page_header 
   font-size: 0.8125em
-  
+
+#page_header
   position: fixed
   top: 0
   
@@ -126,8 +128,6 @@ body
   width: 100%
   
   z-index: 99
-
-  font-size: 0.875em
   
   background: rgba(246, 112, 55, .96)
   
@@ -154,9 +154,7 @@ body
       position: relative
     
 
-.contenter 
-  font-size: 0.875em
-  
+.contenter
   margin-top: 61px
   
   .inner
@@ -190,10 +188,8 @@ body
 footer#page_footer
   .inner
     ul 
-      margin: 15px 0 15px 20px
+      margin: 15px 0 15px 10px
       padding: 0
-      
-      +small-text
       
       li 
         display: inline
@@ -209,40 +205,37 @@ footer#page_footer
             weight: normal
 
 
-
-#notice 
+#notice
   position: fixed
-  top: 60px
-  left: 0
+  top: 75px
   width: 100%
-  
-  +opacity(0.9)
+
+  z-index: 1000
+  margin-left: -50px
   
   text-align: center
-  
-  z-index: 99
+
+  +opacity(0.8)
 
   span
-    padding: 5px 10px 7px 30px
-  
-    line-height: 20px
-  
-    +border-radius(10px)
-  
+    padding: 4px 10px 6px 28px
+
+    +border-radius(8px)
+
     background: 
-      position: 8px 6px 
+      position: 6px 5px 
       repeat: no-repeat
-     
+   
     &.notice 
-      color: #666
-    
+      color: #444
+  
       background:  
         color: #f2f27c
         image: image-url("check.png") 
-      
+    
     &.alert 
       color: #fff
-    
+  
       background:  
         color: #d24848 
         image: image-url("cross.png")
@@ -260,57 +253,81 @@ footer#page_footer
 
 
 .lc
-  max-width: 560px
+  max-width: 540px
 
 .rc
   float: right
-  width: 300px
+  width: 320px
 
 
+.feed_list
+  .feed
+    margin-bottom: 20px
 
+    position: relative
 
+    .avatar
+      position: absolute
+      top: 9px
+      left: 2px
 
-/*show poll*/
-.panel 
-  margin: 0 auto
-  padding: 40px 0
-  width: 958px
-  background: #fff
-  
-  border: 1px solid #ddd
-  
-  position: relative
-  
-  .banner 
-    position: absolute
-    height: 53px
-    top: 20px
-    left: -20px
-    
-    background: url("/assets/banner.png") bottom left no-repeat
-    
-    div 
-      height: 40px
-      padding: 0 25px
+    .poll,
+    .answer,
+    .majority
+      margin-left: 36px
+
+      .question
+        a
+          font-weight: bold
+
+        span
+          a
+            font-weight: normal
+            color: #444
+
+    .info
+      padding: 5px 0
       
-      background: #333
-      
-      p 
-        margin: 0
-        padding-top: 11px
+      a
+        +small
+        font-weight: bold
+        color: #484848
         
-        color: #fff
-        letter-spacing: 1.5px
-        
-        font: 
-          size: 16px
+      img
+        margin-left: 1px
+
+      em
+        font:
+          style: normal
           weight: bold
+
+    .ans
+      position: relative
+
+      padding: 12px 0 0 25px
+
+      .markdown:before
+        content: '“'
+        position: absolute
+        top: 6px
+        left: 6px
+
+        color: #888
+
+        font:
+          family: georgia
+          size: 2.4em
+
+      img 
+        margin: 0 0 -1px 1px
+
 
 // markdown tags
 .markdown
   p
     margin-top: 0
 
+// login/signup
 .home 
   margin: 50px 0 0 0
   
@@ -395,16 +412,20 @@ footer#page_footer
   
   padding: 5px 5px 25px 5px
   
+  li
+    font-size: 0.9em
+  
   li.hint
     padding: 5px 0
     color: #888
     font-family: "museo slab italic", georgia
-    +small-text
+    
+    font-size: 0.85em
   
   li.ui-autocomplete-category 
     color: #444
     font-family: "museo slab bold", georgia, serif
-    font-size: 1.1em
+    font-size: 1.08em
     padding: 10px 0 0 0
   
 

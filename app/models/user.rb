@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :answerables,            :dependent => :destroy
   has_many :answered_askables,      :through => :answerables,           :source => :askable
 
-  has_many :entry_logs
+  has_many :events
   
   acts_as_authentic do |c|
     c.ignore_blank_passwords = true #ignoring passwords

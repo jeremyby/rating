@@ -1,9 +1,7 @@
 class Poll < Askable
-  scope :has_result, where(' yes_count > no_count ')
-  
-  has_many :ballots, :foreign_key => 'askable_id'
-  has_many :polling_numbers
-  
+  has_many :ballots,          :foreign_key => 'askable_id', :dependent => :destroy
+  has_many :results
+
   def to_s(truncate = true)
     str = String.new(self.body)
 
@@ -17,7 +15,7 @@ class Poll < Askable
 
     return str
   end
-  
+
   def truncater(ans, flag)
     flag ? ans.truncate(30, :separator => ' ') : ans
   end
@@ -56,16 +54,26 @@ class Poll < Askable
     end
 
     is_end = true if index >= (all.size - 1) #all ballots have been checked, so there is no more to load
-    
+
     return complex.first(n), is_end
   end
-  
+
   def build_answerable(user, answerable)
     user.answerables.ballots.build(
       :askable_id => answerable[:askable_id],
       :country_code => answerable[:country_code],
       :vote => answerable[:vote].to_i,
       :body => answerable[:body]
+    )
+  end
+
+  private
+  def log_event
+    # when a user creates an askable
+    self.events.create(
+      :kind => 'poll',
+      :user_id => self.user_id,
+      :country_code => self.country_code
     )
   end
 end

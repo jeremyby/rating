@@ -1,26 +1,32 @@
 jvm.WorldMap.prototype.init = (code) ->
   try
-    c = aac.code_from_db(code)
-
-    this.setFocus(c)
-    this.setSelectedRegions(c)
+    this.setFocus(code)
+    this.setSelectedRegions(code)
   catch error
-    this.setFocus(['BO', 'CN', 'MX'])
+    this.setFocus(['bo', 'cn', 'mx'])
+    aac.notify('notice', 'Oops, our map is not accurate enough to show this country/region.')
 
 
 $(document).ready ->
-  $.getScript("/search", ->
-    aac.load_search('#csmap .search input', 'Search for a country',
-      (event, ui) ->
-        this.value = ui.item.name
-        window.location.href = ui.item.slug
-        return false
-    )
+  aac.load_search('#csmap .search input', aac.search_string,
+    (event, ui) ->
+      this.value = ui.item.name
+      window.location.href = ui.item.slug
+      return false
   )
+  
+  
+  aac.load_search('#cshead .search input', ' ', # invisible placeholder to load search
+    (event, ui) ->
+      this.value = ui.item.name
+      window.location.href = ui.item.slug
+      return false
+  )
+
   
   aac.map = new jvm.WorldMap({
           container: $('#world-map'),
-          map: 'world_mill_en',
+          map: 'world',
           # zoomOnScroll: false,
           zoomMin: 1.5,
           zoomMax: 10,
@@ -37,14 +43,9 @@ $(document).ready ->
             }
           },
           onRegionClick: (e, code) ->
-            code = aac.code_from_map(code)
-            
             unless code == aac.country_code
-              slug = countries.find_slug(code)
-            
-              if (slug)
-                window.location.href = slug
-                return false
+              window.location.href = countries[code].slug
+              return false
           ,
           onRegionOver: ->
             $(this).css('cursor', 'pointer')

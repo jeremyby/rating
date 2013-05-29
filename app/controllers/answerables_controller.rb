@@ -28,10 +28,7 @@ class AnswerablesController < ApplicationController
       
       if params[:answerable][:body].present?
         # log entry of the answer
-        @ballot.entry_logs.create(
-          :kind => 'Answer',
-          :country_code => @ballot.country_code,
-          :askable_id => @ballot.askable_id,
+        @ballot.events.create(
           :user_id => @ballot.user_id
         )
       end

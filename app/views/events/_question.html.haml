@@ -1,4 +1,4 @@
-- question = Question.where('id = ?', entry.askable_id).includes(:owner, :country).first
+- question = Question.where('id = ?', event.askable_id).first
 
 .avatar
   = user_small_avatar_link(question.owner)

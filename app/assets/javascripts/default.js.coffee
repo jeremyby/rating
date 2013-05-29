@@ -1,4 +1,3 @@
-window.aac = {}
 
 $.fn.select_range = (start, end) ->
    return this.each(->
@@ -13,40 +12,35 @@ $.fn.select_range = (start, end) ->
         range.select()
     )
 
-$.fn.poof = ->
+$.fn.poof = (speed) ->
   poofer = $(this)
+  i = switch speed
+    when 'slow' then 10000
+    when 'fast' then 4000
+    else 7000
+  
   setTimeout(->
     poofer.fadeOut('slow')
-   , 10000)
+   , i)
 
 Array.prototype.find_slug = (code) ->
   return c.slug for c in countries when c.code is code
 
-aac.code_from_db = (code) ->
-  switch code
-    when 'nc1' then return '_0'
-    when 'xk' then return '_1'
-    when 'eh' then return '_2'
-    when 'so1' then return '_3'
-    else return code.toUpperCase()
-
-aac.code_from_map = (code) ->
-  switch code
-    when '_0' then return 'nc1'
-    when '_1' then return 'xk'
-    when '_2' then return 'eh'
-    when '_3' then return 'so1'
-    else return code.toLowerCase()
+aac.notify = (type, message) ->
+  $('#notice').html("<span class='#{type}'>#{message}</span>").poof('fast')
 
 # cts = call to search
 aac.load_search = (searcher, cts_string, select_function) ->
   $construct_regex_string = (s) ->
     "^" + s + "| " + s + "|^" + s.charAt(0) + "([a-z]*( | and |, )[" + s.charAt(1) + "])+"
-
+  
+  country_array = []
+  country_array.push(countries[key]) for key in Object.keys(countries)
+  
   $(searcher).each( ->
     $(this).autocomplete({
       open: ->
-        $('.ui-autocomplete').prepend($("<li class='hint'>try name/initials/code</li>"))
+        $('.ui-autocomplete').prepend($("<li class='hint'>#{aac.search_hint_string}</li>"))
       ,
       autoFocus: true,
       delay: 0,
@@ -59,30 +53,36 @@ aac.load_search = (searcher, cts_string, select_function) ->
         else
           matcher = new RegExp($construct_regex_string(re), "i")
 
-        response($.grep(countries, (item) ->
-          return matcher.test(item.name + ' ' + item.code)
+        response($.grep(country_array, (item) ->
+          return matcher.test(item.lookup)
           )
         )
       ,
       select: select_function
     })
     .data("autocomplete")._renderItem = (ul, item) ->
-      re = this.term
-
-      if re.length == 0
-        t = item.name
+      unless item.code
+        $(document.createElement('li'))
+          .addClass("ui-autocomplete-category")
+          .append(aac.search_all)
+          .appendTo(ul)
       else
-        if re.length == 1
-          matcher = new RegExp("^" + re, "i")
+        re = this.term
+
+        if re.length == 0
+          t = item.name
         else
-          matcher = new RegExp($construct_regex_string(re), "i")
+          if re.length == 1
+            matcher = new RegExp("^" + re, "i")
+          else
+            matcher = new RegExp($construct_regex_string(re), "i")
 
-        t = item.name.replace(matcher, "<span>" + "$&" + "</span>")
-
-      return $(document.createElement('li'))
-              .data("item.autocomplete", item)
-              .append("<a>" + t + "</a>")
-              .appendTo(ul)
+          t = item.name.replace(matcher, "<span>" + "$&" + "</span>")
+          
+        return $(document.createElement('li'))
+                .data("item.autocomplete", item)
+                .append("<a>" + t + "</a>")
+                .appendTo(ul)
   )
   
   $(searcher).focus ->
@@ -102,4 +102,4 @@ $(document).ready ->
       $(this).parent().removeClass('validation-error')
   
   if $('#notice').children().length > 0
-    $('#notice').poof()
+    $('#notice').poof('slow')

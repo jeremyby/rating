@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20130329121738) do
     t.text     "body",                                :null => false
     t.integer  "coverage",         :default => 0,     :null => false
     t.boolean  "featured",         :default => false
+    t.boolean  "locked",           :default => false
     t.text     "description"
     t.string   "yes",              :default => "Yes", :null => false
     t.string   "no",               :default => "No",  :null => false
@@ -85,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20130329121738) do
     t.string   "pretty_name"
     t.string   "alias"
     t.string   "full_name"
+    t.string   "searchable"
     t.text     "link"
     t.integer  "askables_count"
     t.integer  "followings_count"
@@ -96,18 +98,34 @@ ActiveRecord::Schema.define(:version => 20130329121738) do
   add_index "countries", ["name"], :name => "index_countries_on_name", :unique => true
   add_index "countries", ["slug"], :name => "index_countries_on_slug", :unique => true
 
-  create_table "dbgraphs", :force => true do |t|
-    t.text     "value"
+  create_table "country_translations", :force => true do |t|
     t.integer  "country_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "locale"
+    t.string   "slug"
+    t.string   "name"
+    t.string   "full_name"
+    t.string   "alias"
+    t.string   "pretty_name"
+    t.string   "searchable"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "country_translations", ["country_id"], :name => "index_country_translations_on_country_id"
+  add_index "country_translations", ["locale"], :name => "index_country_translations_on_locale"
+
+  create_table "dbgraphs", :force => true do |t|
+    t.text     "value",      :limit => 2147483647
+    t.integer  "country_id"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   add_index "dbgraphs", ["country_id"], :name => "index_dbgraphs_on_country_id", :unique => true
 
-  create_table "entry_logs", :force => true do |t|
+  create_table "events", :force => true do |t|
     t.string   "kind",          :null => false
-    t.string   "country_code"
+    t.string   "country_code",  :null => false
     t.integer  "askable_id",    :null => false
     t.integer  "user_id"
     t.integer  "answerable_id"
@@ -115,9 +133,9 @@ ActiveRecord::Schema.define(:version => 20130329121738) do
     t.datetime "updated_at",    :null => false
   end
 
-  add_index "entry_logs", ["askable_id"], :name => "index_entry_logs_on_askable_id"
-  add_index "entry_logs", ["country_code", "askable_id", "user_id"], :name => "index_entry_logs_on_country_code_and_askable_id_and_user_id"
-  add_index "entry_logs", ["country_code"], :name => "index_entry_logs_on_country_code"
+  add_index "events", ["askable_id"], :name => "index_events_on_askable_id"
+  add_index "events", ["country_code", "askable_id", "user_id"], :name => "index_events_on_country_code_and_askable_id_and_user_id"
+  add_index "events", ["country_code"], :name => "index_events_on_country_code"
 
   create_table "facts", :force => true do |t|
     t.string   "value"
@@ -139,7 +157,7 @@ ActiveRecord::Schema.define(:version => 20130329121738) do
   add_index "followings", ["followable_id", "followable_type"], :name => "index_followings_on_followable_id_and_followable_type"
   add_index "followings", ["user_id"], :name => "index_followings_on_user_id"
 
-  create_table "polling_numbers", :force => true do |t|
+  create_table "results", :force => true do |t|
     t.integer  "poll_id"
     t.integer  "yes_count"
     t.integer  "no_count"
@@ -149,7 +167,7 @@ ActiveRecord::Schema.define(:version => 20130329121738) do
     t.datetime "updated_at",   :null => false
   end
 
-  add_index "polling_numbers", ["poll_id"], :name => "index_polling_numbers_on_poll_id"
+  add_index "results", ["poll_id"], :name => "index_results_on_poll_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :null => false

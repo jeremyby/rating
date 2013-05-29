@@ -1,6 +1,6 @@
-class CreatePollingNumbers < ActiveRecord::Migration
+class CreateResults < ActiveRecord::Migration
   def change
-    create_table :polling_numbers do |t|
+    create_table :results do |t|
       t.integer :poll_id
       t.integer :yes_count
       t.integer :no_count
@@ -10,6 +10,6 @@ class CreatePollingNumbers < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :polling_numbers, :poll_id
+    add_index :results, :poll_id
   end
 end

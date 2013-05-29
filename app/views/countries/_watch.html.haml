@@ -1,7 +1,8 @@
-#watch
-  - if current_user.blank? || !current_user.following?(@country)
-    = link_to (content_tag :div, 'Watch', :class => 'watch'), watch_country_path(@country), :method => :post, :remote => true, :title => "Watch the country and keep updated about #{@country}."
-  - else
-    .unwatch
-      %span watching
-      = link_to "X", unwatch_country_path(@country), :method => :post, :remote => true, :title => "Stop watching #{@country}.", :confirm => 'Stop watching the country. Are you sure?'
+
+- if current_user.blank? || !current_user.following?(@country)
+  #watch.watch
+    = link_to 'Watch', watch_country_path(@country), :method => :post, :remote => true, :title => "Watch the country and keep updated about #{@country}."
+- else
+  #watch.unwatch
+    watching
+    = link_to "X", unwatch_country_path(@country), :method => :post, :remote => true, :title => "Stop watching #{@country}.", :confirm => 'Stop watching the country. Are you sure?'

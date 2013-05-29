@@ -8,7 +8,7 @@ class HomeController < ApplicationController
 
       askables = current_user.following_askables.map(&:id)
       
-      @entries = EntryLog.where('country_code in (?) or askable_id in (?)', countries, askables).order('created_at DESC')
+      @events = Event.where('country_code in (?) or askable_id in (?)', countries, askables).order('created_at DESC')
       
       render 'users/home'
     else
@@ -30,8 +30,10 @@ class HomeController < ApplicationController
     end
   end
   
-  def search
-    @countries = Country.all
+  def countries
+    @countries = Country.where(:code => %w(us cn))
+    @countries << nil # separater between popolar and all countries
+    @countries.concat(Country.where('country_translations.locale = ?', I18n.locale).includes(:translations))
     
     respond_to do |format|
       format.js
