@@ -16,7 +16,6 @@ class Answerable < ActiveRecord::Base
 
   acts_as_commentable
 
-  private
   def log_event
     # when a user answers a question or in a poll
     self.events.create(

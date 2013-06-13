@@ -66,14 +66,4 @@ class Poll < Askable
       :body => answerable[:body]
     )
   end
-
-  private
-  def log_event
-    # when a user creates an askable
-    self.events.create(
-      :kind => 'poll',
-      :user_id => self.user_id,
-      :country_code => self.country_code
-    )
-  end
 end

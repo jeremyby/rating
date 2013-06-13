@@ -8,14 +8,16 @@ en:
   logo: "/assets/logo.png"
   country_title: "Ask %{country_name}"
   
-  search_string: "Search for a country"
-  search_all: "All Countries"
-  search_hint: "try name, initials or code"
-  
   home_link: "Home"
   logout: "Log out"
   login: "Log in"
   signup: "Sign up"
+  
+  js:
+    search_string: "Search for a country"
+    search_all: "All Countries"
+    search_hint: "try name, initials or code"
+    new_askable_desc_default: "more detail for your question."
   
   home:
     index:

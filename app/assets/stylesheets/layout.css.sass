@@ -2,6 +2,8 @@
 
 h1,
 h2
+  color: #222
+  
   font: 
     family: "Helvetica Neue", helvetica, arial, sans-serif
 
@@ -11,31 +13,62 @@ h4
     weight: normal
 
 textarea
-  padding: 5px 10px 10px 10px
-  
-  background: #fff
+  padding: 5px 5px 3px 7px 
   
   border: 1px solid #ddd
-  +box-shadow(#bbb 0 0 3px inset) 
+  +box-shadow(#ddd 1px 1px 3px inset) 
   +small
   
-  color: #555
+  color: #333
   font-family: verdana
+
+.field
+  padding: 3px 3px 1px 5px
+  color: #333
   
-  
+  border: 1px solid #ddd
+  +box-shadow(#ddd 1px 1px 2px inset)
 
 a,
 a:link,
 a:active,
 a:visited 
-  // color: #0271bf
   color: #245dc1
   text-decoration: none
 
 a:hover 
   text-decoration: underline
   
-  
+
+.search
+  input
+    width: 170px
+    height: 24px
+
+    padding-left: 5px
+    border: none
+    font-size: 0.8125em
+    +hoverable
+
+    +box-shadow(rgba(black, .2) 1px 1px 5px inset)
+
+.yesno
+  span.yes:before,
+  span.no:before
+    content: ''
+    
+    position: relative
+    top: 13px
+    
+    padding-left: 8px
+    margin-right: 3px
+    
+  span.yes:before
+    border-top: 8px solid #90d390
+      
+  span.no:before
+    border-top: 8px solid #ee5050
+
 .table 
   position: relative
   display: table
@@ -65,7 +98,7 @@ body
   
   background: #fafaf8 url("/assets/bg1.png") repeat
   
-  color: #222
+  color: #111
 
 .inner 
   max-width: 960px
@@ -152,37 +185,62 @@ body
     
       height: 40px
       position: relative
+      
+  &.expanded
+    top: 40px
     
+  .slider
+    h1
+      margin:  0
+      line-height: 40px
+
+      font-size: 1.3em
+      color: #f2ebe9
+
+      img
+        margin: 0 0 -10px 3px
+        +opacity(0.8)
+
+    .search
+      position: absolute
+      top: 7px
+      right: 0
+
+      input
+        color: #eee
+
+        background: rgba(white, .16) url('/assets/arrow_down_s.png') right center no-repeat
+
 
 .contenter
-  margin-top: 61px
+  margin-top: 48px
   
   .inner
-    width: 920px
-    min-height: 440px
-    
-    padding: 20px
-    
-    +box-shadow(#ddd 2px 2px 6px)
-
-    background: #fff
-  
-  &.homer
-    margin: 0
-    
-    .inner
-      +box-shadow(none)
-      background: none
-  
-  &.wider
-    .inner
-      width: 960px
-      min-height: 480px
-      
-      padding: 0
-      
-      +box-shadow(none)
-      background: none
+  //   width: 920px
+  //   min-height: 440px
+  //   
+  //   padding: 20px
+  //   
+  //   +box-shadow(#ddd 2px 2px 6px)
+  // 
+  //   background: #fff
+  // 
+  // &.homer
+  //   margin: 0
+  //   
+  //   .inner
+  //     +box-shadow(none)
+  //     background: none
+  // 
+  // &.wider
+  //   .inner
+  //     width: 960px
+  //     min-height: 480px
+  //     
+  //     padding: 0
+  //     
+  //     +box-shadow(none)
+  //     background: none
 
 
 footer#page_footer
@@ -211,7 +269,7 @@ footer#page_footer
   width: 100%
 
   z-index: 1000
-  margin-left: -50px
+  margin-left: -75px
   
   text-align: center
 
@@ -246,9 +304,7 @@ footer#page_footer
 
   +box-shadow(#ddd 2px 2px 6px)
   
-
-  // border: 1px solid #ddd
-  background: #fff
+  background: rgba(white, 0.8)
 
 
 
@@ -378,22 +434,20 @@ footer#page_footer
         &:focus 
           background: #fff
           outline: none
-            
-      
+    
       .validation-error input,
       input.error
         background: #ffdfdf
-        
-        -moz-box-shadow: none
-        -webkit-box-shadow: none
-        box-shadow: none
-    
+
+        +box-shadow(none)
     
     .submit 
       margin: 10px 5px 0 0
 
       &:focus 
         outline: none
+
+
 
 /* search  */
 .ui-autocomplete
@@ -402,7 +456,7 @@ footer#page_footer
   overflow-y: auto
   /* prevent horizontal scrollbar */
   
-  width: 150px
+  width: 170px
   overflow-x: hidden
   
   background: #fafaf8
@@ -448,8 +502,8 @@ footer#page_footer
 /*other widgets */
 .ui-tooltip 
   background: #fff
-  border-color: #bbb
-  max-width: 320px
+  border: 1px solid #ccc
+  max-width: 500px
 
 
 .ui-widget-content 

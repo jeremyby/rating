@@ -22,16 +22,10 @@ class AnswerablesController < ApplicationController
 
       @ballot.update_attributes!(:vote => params[:answerable][:vote], :body => params[:answerable][:body])
       
+      event = Event.find_by_answerable_id(@ballot.id)
+      event.delete if event.present?
       
-      el = EntryLog.find_by_answerable_id(@ballot.id)
-      el.delete if el.present?
-      
-      if params[:answerable][:body].present?
-        # log entry of the answer
-        @ballot.events.create(
-          :user_id => @ballot.user_id
-        )
-      end
+      @ballot.reload.log_event
 
       @askable = @ballot.askable
       @country = @ballot.country

@@ -1,3 +1,11 @@
+class QuestionMarkValidator < ActiveModel::Validator
+  def validate(record)
+    unless record.body.include?('?')
+      record.errors[:body] << "should have at least one question mark"
+    end
+  end
+end
+
 class Askable < ActiveRecord::Base
   scope :polls, where(:type => 'Poll')
   scope :questions, where(:type => 'Question')
@@ -5,7 +13,8 @@ class Askable < ActiveRecord::Base
   scope :featured, where(:featured => true)
 
   attr_accessor :truncate_slug
-  attr_accessible :body, :coverage, :country_code, :user_id, :description, :yes, :no
+  
+  attr_accessible :user_id, :body, :coverage, :country_code, :description, :yes, :no
   
   after_create :log_event
 
@@ -16,13 +25,20 @@ class Askable < ActiveRecord::Base
     :length => {
       :minimum => 10,
       :maximum => 300,
-      :too_short => 'is too short',
       :too_long => 'is too long - leave the detail to the description'
     }
+    
+  validates_length_of :yes, :no, 
+    :minimum => 1,
+    :maximum => 80,
+    :if => Proc.new{|a| a.type == "Poll" }
+  
+  validates :coverage, :inclusion => { :in => 0..2 }
+  validates_with QuestionMarkValidator
 
-
-  has_many    :followings, :as => :followable, :dependent => :destroy
+  has_many    :followings, :as      => :followable, :dependent => :destroy
   has_many    :followers,  :through => :followings, :source => :user
+
   
   has_many    :answerables
 
@@ -51,5 +67,15 @@ class Askable < ActiveRecord::Base
   
   def more_askables(limit = 4)
     Askable.where("country_code = ? AND id != ?", self.country_code, self.id).order("RAND()").limit(limit)
+  end
+  
+  private
+  def log_event
+    # when a user creates an askable
+    self.events.create(
+      :kind => self.type.downcase,
+      :user_id => self.user_id,
+      :country_code => self.country_code
+    )
   end
 end

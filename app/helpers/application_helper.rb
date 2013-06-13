@@ -8,6 +8,11 @@ module ApplicationHelper
     return key, messages
   end
   
+  def current_translations
+    @translations ||= I18n.backend.send(:translations)
+    @translations[I18n.locale].with_indifferent_access[:js]
+  end
+  
   def markdown(text)
     Redcarpet::Markdown.new(SimpleRender,
                             :autolink => true,

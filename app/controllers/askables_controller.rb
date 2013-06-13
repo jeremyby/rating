@@ -10,10 +10,22 @@ class AskablesController < ApplicationController
   end
 
   def create
+    type = params[:askable].delete(:type)
     @askable = current_user.askables.build(params[:askable])
-    @country = Country.find_by_code(@askable.country_code)
-
-    if @askable.save
+    
+    if %w(Poll Question).include?(type)
+      @askable.type = type
+      
+      @askable.body.capitalize!
+      @askable.yes.capitalize! unless @askable.yes.blank?
+      @askable.no.capitalize! unless @askable.no.blank?
+      
+      @country = Country.find_by_code(@askable.country_code)
+    else
+      flash[:alert] = "Illegal question type!"
+    end
+    
+    if flash[:alert].blank? && @askable.save
       flash[:notice] = "New question is added for #{ @country }."
 
       redirect_to country_askable_path(@country, @askable)

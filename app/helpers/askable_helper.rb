@@ -1,9 +1,20 @@
 module AskableHelper
-  def new_poll_validation_error
-    error_messages = ''
-
-    error_messages << 'Please select a country to ask the question. ' if @askable.errors[:country_code].present?
-    error_messages << "The question #{@askable.errors[:body][0]}." if @askable.errors[:body].present?
+  def new_askable_validation_error
+    error_messages = []
+    
+    if @askable.errors[:country_code].present?
+      error_messages << 'Please select a country to ask the question. ' 
+    else
+      @askable.errors.messages.each do |e|
+        if e[1].present?
+          if (e[0] == 'yes' || 'no')
+            error_messages << "#{e[0].to_s.capitalize} #{e[1][0]}." 
+          else
+            error_messages << "Question #{e[0].to_s} #{e[1][0]}."
+          end
+        end
+      end
+    end
 
     return error_messages
   end

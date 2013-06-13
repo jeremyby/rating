@@ -71,9 +71,6 @@ Askacountry::Application.routes.draw do
   match '/auth/failure'  => "authorizations#failure"
   match '/auth/:provider'  => "authorizations#blank"
   
-  resources :askables, :only => [:create]
-  match 'new' => "askables#new", :as => :new_askable
-  
   resources :answerables, :only => [:create, :update]
   resources :comments, :only => [:create, :destroy]  
   
@@ -86,14 +83,10 @@ Askacountry::Application.routes.draw do
       post 'watch', 'unwatch'
     end
 
-    resources :askables, :path => '', :except => [:index, :new, :create] do
+    resources :askables, :path => '', :except => [:index] do
       member do
         post 'follow', 'unfollow'
       end
     end
   end
-  
-  # match "/:country_id/:id"  => "polls#show", :via => :get, :as => :country_poll
 end
-
-# ActionDispatch::Routing::Translator.translate_from_file('config/locales/routes.yml', { :no_prefixes => true })

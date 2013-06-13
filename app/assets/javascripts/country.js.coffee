@@ -8,21 +8,12 @@ jvm.WorldMap.prototype.init = (code) ->
 
 
 $(document).ready ->
-  aac.load_search('#csmap .search input', aac.search_string,
+  aac.load_search('#csmap .search input', I18n.search_string,
     (event, ui) ->
       this.value = ui.item.name
       window.location.href = ui.item.slug
       return false
   )
-  
-  
-  aac.load_search('#cshead .search input', ' ', # invisible placeholder to load search
-    (event, ui) ->
-      this.value = ui.item.name
-      window.location.href = ui.item.slug
-      return false
-  )
-
   
   aac.map = new jvm.WorldMap({
           container: $('#world-map'),
@@ -59,13 +50,6 @@ $(document).ready ->
     
   $( "#csmap .head" ).draggable({ containment: "parent" })
 
-
-  $(window).scroll ->
-    if ($(this).scrollTop() > 220)
-      if !$('.actioner').hasClass('expand')
-        $('.actioner').addClass('expand').animate({'top':'40px'}, 'fast')
-    else
-      if $('.actioner').hasClass('expand')
-        $('.actioner').css('top', '').removeClass('expand')
+  aac.action_slider(220)
 
       

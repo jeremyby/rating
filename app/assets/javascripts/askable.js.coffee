@@ -45,7 +45,7 @@ $(document).ready ->
   
   aac.submit_check = ->
     unless $('#ballot .table input[name="answerable[vote]"]:radio').is(':checked') # a vote is selected
-      $('#notice').html('<span class="alert">Please take a vote before submitting.</span>').poof()
+      aac.notify('alert', 'Please cast a vote before submitting.')
         
       return false
     
@@ -87,7 +87,11 @@ $(document).ready ->
   $(document).on('click', '#ballot .submit input:submit', ->
     aac.submit_check()
   )
-
+  
+      
+  #*********************
+  # comments
+  #**********************
   
   aac.reply_button = (atns) ->
     atns.closest('.comments_holder').find('.reply').hide() #find the root, close all replys

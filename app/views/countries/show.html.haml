@@ -1,25 +1,17 @@
 
-- @contenter_class = 'wider'
+:javascript
+  aac.country_code = '#{ @country.code }'
 
 - content_for :js do
-  = javascript_include_tag '/countries', 'country', 'world'
+  = javascript_include_tag 'country', 'world'
 
 - content_for :title_string do
   = t 'country_title', :country_name => @country.to_s
 
 - content_for :actioner do
-  #cshead
-    %h1
-      = country_image(@country, 'm')
-      = @country.to_s
-    .search.ui-widget
-      / leave an invisible placeholder to load search
-      %input(value=' ')
-
-:javascript
-  aac.country_code = '#{ @country.code }'
-
-
+  = render 'layouts/slider', :text => @country.to_s
+      
+      
 #csmap
   #world-map      
   .head
@@ -33,11 +25,11 @@
         - unless @country.alias.blank?  
           (#{ content_tag 'span', @country.alias })
   .search.ui-widget
-    %input(value='#{ t "search_string" }')
+    %input
 
 
 
-#csbody
+#csbody.box
   #csside.rc
     .actions
       = render 'countries/watch'
@@ -70,5 +62,5 @@
       - events.each do |e|
         .feed= render "events/#{e.kind}", :event => e, :show_country => false
   
-    %p= link_to "Create a new question", new_askable_path(:country => @country.code)
+    %p= link_to "Create a new question", new_country_askable_path(@country)
 

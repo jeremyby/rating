@@ -64,6 +64,7 @@ Country.create(
     { :code => "et", :name => "Ethiopia", :full_name => "Federal Democratic Republic of Ethiopia"},
     { :code => "fj", :name => "Fiji", :full_name => "Republic of Fiji"},
     { :code => "fi", :name => "Finland", :full_name => "Republic of Finland"},
+    { :code => "fk", :name => "Falkland Islands"},
     { :code => "fr", :name => "France", :full_name => "French Republic"},
     { :code => "ga", :name => "Gabon", :full_name => "Gabonese Republic"},
     { :code => "gm", :name => "The Gambia", :full_name => "Republic of The Gambia"},
@@ -206,8 +207,6 @@ Country.create(
     { :code => "vn", :name => "Vietnam", :full_name => "Socialist Republic of Vietnam"},
     { :code => "ye", :name => "Yemen", :full_name => "Republic of Yemen"},
     { :code => "zm", :name => "Zambia", :full_name => "Republic of Zambia"},
-    { :code => "zw", :name => "Zimbabwe", :full_name => "Republic of Zimbabwe"},
-    #TODO: move this to its correct position, it needs to be there only for the dumped dbgraphs to work
-    { :code => "fk", :name => "Falkland Islands"}
+    { :code => "zw", :name => "Zimbabwe", :full_name => "Republic of Zimbabwe"}
   ]
 )

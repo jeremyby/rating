@@ -38,9 +38,11 @@ aac.load_search = (searcher, cts_string, select_function) ->
   country_array.push(countries[key]) for key in Object.keys(countries)
   
   $(searcher).each( ->
+    $(this).val(cts_string)
+    
     $(this).autocomplete({
       open: ->
-        $('.ui-autocomplete').prepend($("<li class='hint'>#{aac.search_hint_string}</li>"))
+        $('.ui-autocomplete').prepend($("<li class='hint'>#{ I18n.search_hint }</li>"))
       ,
       autoFocus: true,
       delay: 0,
@@ -64,7 +66,7 @@ aac.load_search = (searcher, cts_string, select_function) ->
       unless item.code
         $(document.createElement('li'))
           .addClass("ui-autocomplete-category")
-          .append(aac.search_all)
+          .append(I18n.search_all)
           .appendTo(ul)
       else
         re = this.term
@@ -96,6 +98,32 @@ aac.load_search = (searcher, cts_string, select_function) ->
       this.value = cts_string
 
 
+aac.reset_field = (f) ->
+  if f.hasClass('error') # when user focus the field to correct the error
+    f.removeClass('error').attr('title', '').tooltip('destroy')
+  else
+    f.attr('title', '') # user corrected the error and focus out
+
+aac.mark_error = (f, msg, type, klass='') ->
+  pos = switch
+    when type is 'below' then { my: "left top", at: "left bottom+4px" }
+    when type is 'right' then { my: "left center", at: "right+15px center" }
+  
+  f.tooltip({
+    position: pos,
+    tooltipClass: klass
+  })
+
+  f.addClass('error').attr('title', msg).tooltip('open')
+  
+aac.action_slider = (pos) ->
+  $(window).scroll ->
+    if ($(this).scrollTop() > pos)
+      $('.actioner').addClass('expand').animate({'top':'40px'}, 'fast') if !$('.actioner').hasClass('expand')
+    else
+      $('.actioner').css('top', '').removeClass('expand') if $('.actioner').hasClass('expand')
+
+
 $(document).ready ->
   $('.validation-error input').each ->
     $(this).focus ->
@@ -103,3 +131,10 @@ $(document).ready ->
   
   if $('#notice').children().length > 0
     $('#notice').poof('slow')
+    
+  aac.load_search('.actioner .slider .search input', ' ', # invisible placeholder to load search
+    (event, ui) ->
+      this.value = ui.item.name
+      window.location.href = '/' + ui.item.slug
+      return false
+  )

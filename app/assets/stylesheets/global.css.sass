@@ -10,7 +10,7 @@ $theme-bg-color: #f67037
 
 $light-bg: #fafaf8
 
-$default-text-shadow-color: rgba(40, 40, 40, .2)
+$default-text-shadow-color: #999
 $default-text-shadow-blur: 3px
 $default-text-shadow-v-offset: 1px
 $default-text-shadow-h-offset: 1px
@@ -45,11 +45,17 @@ $default-text-shadow-h-offset: 1px
 @mixin small
   font-size: 0.95em
 
+@mixin smaller
+  font-size: 0.85em
+
 @mixin large
   font-size: 1.05em
   
 @mixin larger
   font-size: 1.125em
+
+@mixin helv
+  font-family: "Helvetica Neue", helvetica, arial, sans-serif
 
 @mixin hoverable
   +opacity(0.8)

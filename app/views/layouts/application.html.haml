@@ -13,13 +13,9 @@
     
     :javascript
       window.aac = {}
-      
-      aac.search_string = '#{ t "search_string" }'
-      aac.search_all = '#{ t "search_all" }'
-      aac.search_hint_string = '#{ t "search_hint" }'
+      window.I18n = #{ current_translations.to_json.html_safe }
     
-    
-    = javascript_include_tag "application"
+    = javascript_include_tag "/countries", "application"
     = yield :js
     
     / [if lt IE 9]
@@ -32,7 +28,7 @@
       .inner
         = yield :actioner
     
-    .contenter(class='#{ @contenter_class }')
+    .contenter
       #content.inner
         = render 'layouts/notice'
         = yield

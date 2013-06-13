@@ -3,7 +3,7 @@ module UserHelper
     error_messages = []
 
     @user.errors.messages.each do |e|
-      error_messages << "#{e[0].capitalize.to_s.sub('_', ' ')} #{e[1][0]}." if e[1].present?
+      error_messages << "#{e[0].to_s.capitalize.sub('_', ' ')} #{e[1][0]}." if e[1].present?
     end
 
     return error_messages

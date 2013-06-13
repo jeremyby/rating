@@ -9,6 +9,7 @@ gem 'json'
 
 gem 'haml'
 gem 'haml-rails'
+gem 'rdiscount'
 
 gem 'friendly_id'
 

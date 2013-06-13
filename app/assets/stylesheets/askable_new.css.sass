@@ -1,0 +1,344 @@
+@import global
+
+
+#nask
+  h1
+    margin: 120px 0 10px 5px
+    font-size: 1.85em
+    
+    img
+      margin: 0 0 -7px 5px
+      
+    .search
+      input
+        padding-left: 9px
+        
+        height: 26px
+        width: 120px
+
+        border: none
+        +box-shadow(rgba(black, .2) 1px 1px 5px inset)
+        background: #fff url('/assets/arrow_down_s_d.png') right center no-repeat
+        
+        +hoverable
+        +helv
+        
+        color: #333
+        font-size: 0.85em
+        
+  
+  h2.sub
+    margin: 0 0 40px 5px
+    
+    color: #777
+    
+    font:
+      family: "museo slab bold"
+      style: normal
+      weight: normal
+      size: 1.2em
+  
+  
+  .types
+    +clearfix
+    position: relative
+    width: 100%
+    
+    .or
+      position: absolute
+      top: 115px
+      left: 50%
+      margin-left: -20px
+      height: 40px
+      width: 40px
+      line-height: 42px
+      
+      background: #fafaf8 url("/assets/bg1.png") repeat
+      +border-radius(20px)
+      
+      text-align: center
+      color: #888
+      
+      font:
+        family: "museo slab bold", georgia
+        size: 20px
+      
+    .type
+      float: left
+      width: 50%
+            
+      .block
+        h2
+          margin: 0
+          padding: 1em 0 0.6em 0
+          text-align: center
+          
+          color: #000
+          
+          font-family: "museo slab bold", georgia
+          font-size: 1.5em
+        
+        .intro
+          padding: 20px
+          
+          color: #222
+          
+          .q,
+          .a
+            position: relative
+            font-weight: bold
+            
+          .left
+            position: absolute
+            top: 0
+          
+          
+          .q
+            .dashes
+              margin-left: 25px
+              height: 0.6em
+              border-bottom: 3px dashed #444
+            
+            .qmark
+              position: absolute
+              top: 0
+              right: 0
+              
+              +large
+
+            
+              
+      &.active
+        +border-top-radius(15px)
+        background: rgba(black, 0.07)
+        
+        .block
+          margin: 0
+          
+          h2
+            +single-text-shadow
+        
+          +larger
+          
+          .intro
+            margin: 0 35px 25px 35px
+            padding: 20px 20px 10px 20px
+            
+            background: rgba(white, 0.88)
+            +box-shadow(#999 1px 1px 5px)
+            
+            .dashes
+              margin-left: 30px
+              width: 85%
+
+      &.inactive
+        .block
+          +border-radius(12px)
+          
+          padding-bottom: 15px
+          margin: 30px 80px 0 80px
+                    
+          background: rgba(black, 0.08)
+          +box-shadow(#aaa 1px 1px 6px)
+          +hoverable
+
+          cursor: pointer
+          
+          .intro
+            margin: 0 15px
+            padding: 15px 20px 10px 20px
+            
+            background: rgba(white, 0.6)
+            +box-shadow(#aaa 0 1px 3px inset)
+
+            .dashes
+              width: 82%
+          
+          &:hover
+            +box-shadow(#888 2px 2px 8px)
+            
+            .intro
+              background: rgba(white, 0.8)
+        
+    #Poll
+      .intro
+        .q
+          margin-bottom: 20px
+
+        .a
+          text-align: center
+          
+          .yesno
+            em
+              margin: 0 8%
+              font-size: 0.9em
+        
+        .pie
+          padding: 15px 0 5px 30px
+          
+          position: relative
+          color: $theme-color
+          
+          .left
+            top: 37px
+            left: 0
+      
+      &.inactive
+        .block
+          margin: 30px 100px 0 60px
+      
+        .q
+          margin-bottom: 8px
+      
+        .pie
+          padding: 9px 0 0 25px
+          
+          .left
+            top: 22px
+            left: 0
+            
+          img
+            width: 40px
+            height: 40px
+          
+                
+    #Question
+      .block
+        margin: 30px 60px 0 100px
+      
+      .intro
+        .q
+          margin-bottom: 15px
+          
+        .a
+          padding-top: 0.6em
+          color: $theme-color
+            
+          .dots
+            width: 64%
+            margin: 0 0 15px 25px
+            border-bottom: 2px dashed $theme-color
+            
+      &.active
+        .block
+          margin: 0
+      
+        .intro
+          .q
+            margin: 5px 0 25px 0
+            
+          .a
+            .dots
+              width: 68%
+              margin: 0 0 25px 30px
+        
+          
+  .askable
+    padding: 35px 35px 0 35px
+    background: rgba(black, 0.07)
+    +border-bottom-radius(15px)
+    
+    .form
+      padding: 40px 30px 10px 40px
+    
+      background: rgba(white, 0.8)
+      +box-shadow(#bbb 0 2px 5px inset)
+      
+      input.error,
+      textarea.error
+        background: #ffdfdf
+
+        +box-shadow(none)
+      
+      table
+        width: 100%
+        
+        td.label
+          padding-right: 10px
+        
+          width: 14%
+        
+          vertical-align: top
+          text-align: right
+        
+        .q
+          td
+            padding-bottom: 15px
+          
+          .label
+            +large
+            font-weight: bold
+            padding-top: 9px
+        
+        .yesno
+          width: 90%
+          
+          td
+            padding-top: 15px
+            padding-bottom: 30px
+            
+            &.label
+              +large
+              font-weight: bold
+              padding-top: 20px
+          
+          .field
+            padding: 5px 2px 3px 5px
+            width: 31%
+            +larger
+            
+        .desc
+          .label
+            padding-top: 6px
+        
+          &.vague
+            .label
+              color: #999
+          
+          textarea.vague
+            color: #aaa
+        
+        .coverage
+          td
+            padding-top: 40px
+            padding-bottom: 30px
+            
+            select
+              font:
+                family: verdana
+                size: 1.15em
+        
+        textarea
+          &#askable_body
+            height: 25px
+            line-height: 25px
+            width: 90%
+            max-width: 90%
+            
+            padding: 5px 5px 3px 7px
+            
+            color: #444
+            
+            +helv
+            
+            font:
+              size: 1.4em
+              weight: bold
+            
+          &#askable_description
+            height: 50px
+            width: 66%
+            max-width: 66%
+      
+    .submit
+      position: relative
+      text-align: center
+      padding: 15px 0 25px 0
+      
+      a
+        position: absolute
+        top: 20px
+        left: 0
+      
+      input
+        +button

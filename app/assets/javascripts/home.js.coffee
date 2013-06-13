@@ -1,10 +1,11 @@
 $(document).ready ->
-  aac.load_search('.search input', 'Go to another country',
-    (event, ui) ->
-      this.value = ui.item.name
-      window.location.href = ui.item.slug
-      return false
-  )
+  if $('.search input').length
+    aac.load_search('.search input', 'Go to another country',
+      (event, ui) ->
+        this.value = ui.item.name
+        window.location.href = ui.item.slug
+        return false
+    )
 
   
   $('#hcs .flags a').click (e) ->
@@ -29,8 +30,7 @@ $(document).ready ->
 
 
   $('.stroke input').focus ->
-    reset_field($(this))
-
+    aac.reset_field($(this))
 
   $('#login .submit input').click (e) ->
     a = check_email($('#user_session_email'))
@@ -51,51 +51,36 @@ validate_email = (email) ->
   
   return re.test(email)
 
-reset_field = (f) ->
-  if f.hasClass('error') # when user focus the field to correct the error
-    f.removeClass('error').attr('title', '').tooltip('destroy')
-  else
-    f.attr('title', '') # user corrected the error and focus out
-
-check_error = (f, msg) ->
-  f.tooltip({
-    position: { my: "left center", at: "right+15px center" }
-  })
-  
-  f.addClass('error')
-          .attr('title', msg)
-          .tooltip('open')
-
 check_email = (f) ->
   if !validate_email(f.val())
-    check_error(f, 'Your email address looks kind of funny.')
+    aac.mark_error(f, 'Your email address is looking funny.', 'right')
     return false
   else
-    reset_field(f) 
+    aac.reset_field(f) 
     return true
 
 check_name = (f) ->
   if f.val().length < 1
-    check_error(f, 'A name is required for people to know you.')
+    aac.mark_error(f, 'A name is required for people to know you.', 'right')
     return false
   else
-    reset_field(f) 
+    aac.reset_field(f) 
     return true
 
 check_password = (f) ->
   if f.val().length < 6
-    check_error(f, 'We need 6 charaters here minimal.')
+    aac.mark_error(f, 'We need 6 charaters here minimal.', 'right')
     return false
   else
-    reset_field(f)
+    aac.reset_field(f)
     return true
     
 check_password_again = (f) ->
   if f.val() != $('#user_password').val()
-    check_error(f, 'This is not the same as above.')
+    aac.mark_error(f, 'This is not the same as above.', 'right')
     return false
   else
-    reset_field(f) 
+    aac.reset_field(f) 
     return true
   
   

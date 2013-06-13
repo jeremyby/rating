@@ -7,10 +7,6 @@
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
 
 require "#{Rails.root}/db/seeds/countries"
-require "#{Rails.root}/db/seeds/users"
-require "#{Rails.root}/db/seeds/askables"
-require "#{Rails.root}/db/seeds/answerables"
-
 require "#{Rails.root}/db/seeds/countries_zh"
 
 

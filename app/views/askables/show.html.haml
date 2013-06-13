@@ -1,5 +1,6 @@
 
 - content_for :title_string do
+  Ask #{ @country.to_s }:
   = @askable.body.truncate(80, :separator => ' ')
 
 - content_for :js do
@@ -11,15 +12,22 @@
 
   
 #spbody
+  %h4.info
+    .user
+      = user_country_flag_link @askable.owner, :title => "#{@askable.owner} is from #{@askable.owner.country}"
+      is asking #{link_to @country, country_path(@country)}:
+
   #sph
-    %h4.info
-      .user
-        = user_country_flag_link @askable.owner, :title => "#{@askable.owner} is from #{@askable.owner.country}"
-        is asking #{link_to @country, country_path(@country)}:
+    .flag= country_image @country, 'l', :size => '60x60'
     .poll
-      .flag= link_to (country_image @country, 'o', :size => '50x50'), country_path(@country)
+      .origin
+        originally in
+        %span.link
+          %span.lang.orig ZH
+          %span.text Chinese
     
-      %h1.question
+      %h1.question.yesno
+        %span.lang en
         %span(class = '#{ @askable.is_a?(Poll) && @askable.or_negative? ? "yes" : "none" }')
           = bip_body
         - if @askable.is_a?(Poll) && !@askable.simple?
@@ -27,6 +35,19 @@
             %span(class="yes")= best_in_place_if @is_owner, @askable, :yes, :path => country_askable_path(@country, @askable)
           %em or
           %span(class="no") #{best_in_place_if @is_owner, @askable, :no, :path => country_askable_path(@country, @askable)}?
+      .langs
+        available in
+        %a(href='#')
+          %span.lang.orig ZH
+        %a(href='#')
+          %span.lang en
+
+        improve this translation of the question?
+
+        translate into
+        = succeed '?' do
+          %a(href='#')
+            %span.lang ar
           
     .lc    
       - if @is_owner && @askable.description.present?

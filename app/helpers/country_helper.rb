@@ -1,18 +1,18 @@
 module CountryHelper
-  def country_m_flag_link(c, options = {})
+  def country_m_flag_link(c, options={})
     link_to "#{c}#{country_image(c, 'm', options)}".html_safe, country_path(c)
   end
 
-  def country_flag_link(c, options = {})
+  def country_flag_link(c, options={})
     link_to "#{c}#{country_image(c, options)}".html_safe, country_path(c)
   end
 
-  def country_image(c, size = '', options = {})
+  def country_image(c, size = '', options={})
     size = "-#{ size }" unless size.blank?
     image_tag "/assets/flags/#{c.code}#{size}.png", options
   end
   
-  def home_country_flag(c, not_available = false)
+  def home_country_flag(c, not_available=false)
     title = not_available ? "Activate #{ c.to_s }" : "Ask #{ c.to_s }"
     
     "<a href='#{ country_path(c) }'>

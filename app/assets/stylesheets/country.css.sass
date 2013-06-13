@@ -1,43 +1,8 @@
 @import global
 
-.search
-  input
-    padding-left: 5px
-    border: none
-    font-size: 0.8125em
-    +hoverable
-
-
-#cshead
-  h1
-    margin:  0
-    line-height: 40px
-  
-    font-size: 1.4em
-    color: #f2ebe9
-  
-    img
-      margin: 0 0 -10px 3px
-      +opacity(0.8)
-  
-  .search
-    position: absolute
-    top: 6px
-    right: 0
-
-    input
-      width: 170px
-      height: 26px
-      
-      color: #eee
-      
-      
-      background: rgba(white, .16) url('/assets/arrow_down_s.png') right center no-repeat
-      +box-shadow(rgba(black, .2) 2px 2px 5px inset)
-
-
 #csmap
   position: relative
+  padding-top: 12px
 
   #world-map
     width: 960px
@@ -48,7 +13,7 @@
   .head
     position: absolute
     top: 80px
-    left: 20px
+    left: 10px
     
     display: table
     
@@ -84,22 +49,13 @@
     right: 6px
     
     input
-      width: 170px
-      height: 24px
-      
       color: #444
       background: rgba(#ddd, .5) url('/assets/arrow_down_s_d.png') right center no-repeat
-      // border: 1px solid #666
-      +box-shadow(rgba(black, .2) 1px 1px 5px inset)
+
 
 
 #csbody
   margin-top: 15px
-  padding: 20px 
-  
-  +box-shadow(#ddd 2px 2px 6px)
-
-  background: #fff
   
   #csbox
     min-height: 480px
