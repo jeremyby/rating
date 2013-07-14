@@ -1,27 +1,28 @@
 - answerable = Answerable.find(event.answerable_id)
 
-.avatar
-  = user_small_avatar_link(answerable.user)
+.feed
+  .avatar
+    = user_small_avatar_link(answerable.user)
 
-.answer
-  .info  
-    = user_country_flag_link answerable.user, current_user, :title => "#{answerable.user} is from #{answerable.user.country}"
-    - if answerable.kind_of?(Ballot)
-      answered
-      - if answerable.vote > 0
-        %em= answerable.poll.yes
+  .answer
+    .info  
+      = user_country_flag_link answerable.user, current_user, :title => "#{answerable.user} is from #{answerable.user.country}"
+      - if answerable.kind_of?(Ballot)
+        answered
+        - if answerable.vote > 0
+          %em= answerable.poll.yes
+        - else
+          %em= answerable.poll.no
+        in the question
       - else
-        %em= answerable.poll.no
-      in the question
-    - else
-      added a new answer in the question
-    - if show_country
-      for
-      = link_to answerable.country, country_path(answerable.country)
-  .question
-    = link_to answerable.askable, country_askable_path(answerable.country, answerable.askable)
-  .ans
-    .markdown
-      :markdown
-        #{ answerable.body }
+        added a new answer in the question
+      - if show_country
+        for
+        = link_to answerable.country, country_path(answerable.country)
+    .question
+      = link_to answerable.askable, country_askable_path(answerable.country, answerable.askable)
+    .ans
+      .markdown
+        :markdown
+          #{ answerable.body }
   

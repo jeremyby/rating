@@ -1,5 +1,5 @@
 class CreateAskables < ActiveRecord::Migration
-  def change
+  def up
     create_table :askables do |t|
       t.string    :type
       
@@ -16,23 +16,42 @@ class CreateAskables < ActiveRecord::Migration
       # 0 for universal - users from all countries can vote for this poll, 
       # 1 for only the polling country
       # 2 for all but the polling country
-      t.integer   :coverage,          :default => 0,                  :null => false
+      t.integer   :coverage,          :null => false,                 :default => 0
       
       t.boolean   :featured,          :default => false
       t.boolean   :locked,            :default => false
       
+      t.string    :auto_translated,   :default => 'true'
+      
       t.text      :description
       
       # Poll specific
-      t.string    :yes,               :default => "Yes",              :null => false
-      t.string    :no,                :default => "No",               :null => false
-      
+      t.string    :yes,               :default => I18n.t('yes')
+      t.string    :no,                :default => I18n.t('no')
       
       t.timestamps
     end
     
+    Askable.create_translation_table!({
+      :slug => :string,
+      :body => :text,
+      :description => :text,
+      :yes => :string,
+      :no => :string,
+      :auto_translated => :string
+    })
+    
     add_index :askables, :slug, :unique => true
     add_index :askables, :user_id
     add_index :askables, :country_code
+  end
+  
+  def down
+    remove_index :askables, :slug
+    remove_index :askables, :user_id
+    remove_index :askables, :country_code
+    
+    drop_table :askables
+    Askable.drop_translation_table!
   end
 end

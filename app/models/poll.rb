@@ -2,30 +2,26 @@ class Poll < Askable
   has_many :ballots,          :foreign_key => 'askable_id', :dependent => :destroy
   has_many :results
 
-  def to_s(truncate = true)
-    str = String.new(self.body)
-
+  def to_s
+    str = self.body
+    
     unless self.simple?
       unless self.or_negative?
-        str << " #{ truncater(self.yes, truncate) }"
+        str << " #{ self.yes }"
       end
 
-      str << " or #{ truncater(self.no, truncate) }?"
+      str << " or #{ self.no }?"
     end
 
     return str
   end
-
-  def truncater(ans, flag)
-    flag ? ans.truncate(30, :separator => ' ') : ans
-  end
-
+  
   def simple?
-    self.yes == 'Yes' && self.no == 'No'
+    self.yes == I18n.t('m_yes') && self.no == I18n.t('m_no')
   end
 
   def or_negative?
-    self.yes == 'Yes' && self.no != 'No'
+    self.yes == I18n.t('m_yes') && self.no != I18n.t('m_no')
   end
 
   def answer_complex(current_user_id, last_ballot_id, n = Complex_Number)
@@ -56,6 +52,37 @@ class Poll < Askable
     is_end = true if index >= (all.size - 1) #all ballots have been checked, so there is no more to load
 
     return complex.first(n), is_end
+  end
+  
+  def translate(from, to)
+    array = [ self.body ]
+    array << (self.yes == I18n.t('m_yes') ? '' : self.yes)
+    array << (self.no == I18n.t('m_no') ? '' : self.no)
+    array << (self.description.blank? ? '' : self.description)
+    
+    # Using google translate
+    result = EasyTranslate.translate(array, from: from, to: to)
+    
+    self.save_translation(result, to)
+  end
+  
+  def save_translation(array, locale)
+    self.transaction do
+      I18n.with_locale(locale) do
+        self.update_attributes!(
+          body: array[0],
+          yes: array[1].blank? ? I18n.t('m_yes') : array[1],
+          no: array[2].blank? ? I18n.t('m_no') : array[2],
+          description: array[3].blank? ? nil : array[3],
+          auto_translated: 'true'
+        )
+      end
+    
+      # when translating a poll, add the new locale to its event log
+      # so that we will know it can be listed for the locale
+      e = self.events.new_poll.first
+      e.update_attributes!({:locales => "#{ e.locales } #{ locale }"})
+    end
   end
 
   def build_answerable(user, answerable)

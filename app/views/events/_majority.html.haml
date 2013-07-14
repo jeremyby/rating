@@ -1,15 +1,16 @@
 - poll = Poll.find(event.poll_id)
 
-.majority
-  .question
-    Question
-    - if show_country
-      of
-      %span= link_to poll.country, country_path(poll.country)
-    has result!
+.feed
+  .majority
+    .question
+      Question
+      - if show_country
+        of
+        %span= link_to poll.country, country_path(poll.country)
+      has result!
     
-    = link_to poll, country_poll_path(poll.country, poll)
-  .info
-    The answer of the people is
-    %em= poll.yes_count > poll.no_count ? poll.yes : poll.no
+      = link_to poll, country_poll_path(poll.country, poll)
+    .info
+      The answer of the people is
+      %em= poll.yes_count > poll.no_count ? poll.yes : poll.no
   

@@ -1,10 +1,16 @@
-$("#spb .lc .ata").html("<%= j(render 'askables/edit_ballot', :answerable => @ballot) %>");
 
-if ($("#answers h2").next().length) {
-  if ($('#ballot_<%= @ballot.id %>').length)
-    $('#ballot_<%= @ballot.id %>').remove();
+aac.enable_submit();
+aac.toggle_ballot();
 
-  div = $("<div><%= j (render 'askables/complex_item', :ballot => @ballot) %></div>").hide()
-  $("#answers h2").after(div)
-  div.show('highlight', 800)
-}
+$("#sph .blocks").children().last().replaceWith("<%= (j render 'askables/answer_block').html_safe %>");
+
+$("#sph .blocks .update").effect('highlight', function(){
+  if ($("#answers h2").next().length) {
+    if ($('#ballot_<%= @answerable.id %>').length)
+      $('#ballot_<%= @answerable.id %>').remove();
+
+    div = $("<div><%= j (render 'askables/complex_item', :ballot => @answerable) %></div>").hide()
+    $("#answers h2").after(div)
+    div.show('highlight', 800)
+  }
+});

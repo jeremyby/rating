@@ -28,7 +28,6 @@
     %input
 
 
-
 #csbody.box
   #csside.rc
     .actions
@@ -51,16 +50,16 @@
             .c
               = image_tag "/assets/flags/#{c.code}-o.png"
               %br 
-                %span= c
+                %span= c.to_s
 
   #csbox.lc
     = render 'sort', :active => @sort
           
-    - events = @country.events.order('created_at DESC')
+    - events = @country.events.where('locales LIKE ?', "%#{ I18n.locale.to_s }%").order('created_at DESC')
     
     .feed_list
       - events.each do |e|
-        .feed= render "events/#{e.kind}", :event => e, :show_country => false
+        = render "events/#{e.kind}", :event => e, :show_country => false
   
     %p= link_to "Create a new question", new_country_askable_path(@country)
 

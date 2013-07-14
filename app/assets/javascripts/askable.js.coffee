@@ -1,6 +1,7 @@
 $(document).ready ->
+
   $(".best_in_place").best_in_place()
-  
+   
   $('.update_desc_success').bind("ajax:success", ->
     if $(this).text() == 'add description...'
       $(this).parent().removeClass('desc').addClass('add_desc')
@@ -39,9 +40,7 @@ $(document).ready ->
     
     e.focusout ->
       aac.clear_ballot_answer(e)
-  
-  aac.set_ballot_answer()
-  
+      
   
   aac.submit_check = ->
     unless $('#ballot .table input[name="answerable[vote]"]:radio').is(':checked') # a vote is selected
@@ -51,35 +50,59 @@ $(document).ready ->
     
     $('#answerable_body').val('') if $('#answerable_body').val() == aac.empty_ballot_answer_msg
     
+    aac.disable_submit()
     
+  aac.disable_submit = ->
+    $('#ballot .submit a').css('visibility', 'hidden')
+    $('#ballot .submit input:submit').prop('disabled', true)
+    $('#ballot .submit').addClass('loading_l').parents('form').submit()
+  
+  aac.enable_submit =->
+    $('#ballot .submit').removeClass('loading_l')
+    $('#ballot .submit input:submit').prop('disabled', false)
+    $('#ballot .submit a').css('visibility', 'visible')
+  
   aac.ballot_cell = (vote) ->
-    $('#ballot .table .cell').removeClass('checked')
-    $('#ballot .table input[name="answerable[vote]"]:radio').prop('checked', false)
-    
     if vote.length
-      element = $('#ballot .answers .' + vote)
-    
-      element.addClass('checked')
-      element.children().first().prop('checked', true)
-    
+      element = $('#ballot .votes .' + vote)
+      
+      checked = element.hasClass('checked')
+      
+      $('#ballot .table .cell').removeClass('checked')
+      $('#ballot .table input[name="answerable[vote]"]:radio').prop('checked', false)
+      
+      unless checked
+        element.addClass('checked')
+        element.children().first().prop('checked', true)
   
-  aac.show_ballot = ->
-    $('#ballot_action').hide()
-    $('#ballot').slideDown()
-    $('#answerable_body').autosize()
-    
-  aac.hide_ballot = ->
-    $("#ballot").slideUp( ->
-      $("#ballot_action").fadeIn()
-    )
-
+  aac.toggle_ballot = ->
+    if $('#ballot').is(':visible')
+      $('#spb').animate({ marginTop: '15px' })
+      $("#ballot").hide('blind')
+    else
+      aac.set_ballot_answer()
+      $('#spb').animate({ marginTop: '-45px' })
+      $('#ballot').show('blind')
+      $('#answerable_body').autosize()
+      
+      
+  $(document).on('click', '#sph .blocks #unfollower', ->
+    $(this).html('').addClass('loading').click ->
+      return false
+  )
   
-  $(document).on('click', '#ballot .answers .yes', ->
+  $(document).on('click', '#sph .blocks #follower', ->
+    $(this).find('span').addClass('loading_ws')
+    $(this).click ->
+      return false
+  )
+  
+  $(document).on('click', '#ballot .votes .yes', ->
     aac.ballot_cell('yes')
     return false
   )
 
-  $(document).on('click', '#ballot .answers .no', ->
+  $(document).on('click', '#ballot .votes .no', ->
     aac.ballot_cell('no')
     return false
   )

@@ -11,7 +11,7 @@ class Country < ActiveRecord::Base
   has_many :answerables,    :primary_key => "code",     :foreign_key => "country_code"
   has_many :events,         :primary_key => "code",     :foreign_key => "country_code"
 
-  attr_accessible :slug, :code, :name, :full_name, :alias, :pretty_name, :searchable
+  attr_accessible :code, :name, :full_name, :alias, :pretty_name, :searchable, :language
   
   translates :slug, :name, :full_name, :alias, :pretty_name, :searchable
   extend FriendlyId
@@ -20,8 +20,10 @@ class Country < ActiveRecord::Base
   validates_presence_of :code, :name
   validates_uniqueness_of :code, :name
   
+  def normalize_friendly_id(string)
+    string.slugged
+  end
   
-    
   def to_s
     self.pretty_name.blank? ? self.name : self.pretty_name
   end
@@ -51,9 +53,5 @@ class Country < ActiveRecord::Base
     facts = self.facts.order("RAND()").limit(1)
 
     return facts.blank? ? nil : facts.first.value
-  end
-  
-  def translate_to(locale, hash={})
-    self.translations.where(:locale => locale).first_or_initialize.update_attributes!(hash)
   end
 end

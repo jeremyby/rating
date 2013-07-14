@@ -15,6 +15,6 @@ class Result < ActiveRecord::Base
       :country_code => self.country_code
     ) if self.yes_count > self.no_count
     #TODO: testing only now, need to change to
-    #TODO: either one is less than half of the other, or absolute majority. 33 vs 66
+    # either one is less than half of the other, or absolute majority. 33 vs 66
   end  
 end

@@ -22,7 +22,8 @@ class Answerable < ActiveRecord::Base
       :kind => 'answer',
       :user_id => self.user_id,
       :country_code => self.country_code,
-      :askable_id => self.askable_id
+      :askable_id => self.askable_id,
+      :locales => I18n.locale.to_s
     ) unless self.body.blank?
   end
 end

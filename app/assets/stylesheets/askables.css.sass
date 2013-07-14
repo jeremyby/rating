@@ -50,92 +50,181 @@
       height: 18px
 
 span.lang
-  padding: 3px 4px
-
+  padding: 2px 3px
+  color: #666
+  border: 1px solid #888
+  +border-radius(5px)
   +smaller
 
-  color: #666
-
-  border: 1px solid #d6d6d6
-  +border-radius(5px)
-  +box-shadow(#ddd -1px -1px 1px inset)
-
-  &.orig
-    font-weight: bold
+  font-weight: bold   
 
 
 #spbody
-  margin: 70px 0 0 0
+  margin: 65px 0 0 0
   
-  .info
-    margin: 0
-    padding: 0 0 5px 5px
-      
-    .user
-      font-weight: normal
+  .statuses
+    .status
+      float: left
     
-      img 
-        margin-left: 1px
+      margin: 0 10px 8px 0
+      padding: 4px 8px
+
+      +border-radius(100px)
+      background: rgba(white, 0.8)
+      +box-shadow(#bbb 0 1px 3px inset)
+      +text-shadow(#ddd 0 1px 1px)
+      
+      color: #666
+      +smaller
+    
+      &.user
+        img
+          +opacity(0.8)
+          margin: 0 0 -1px 1px
+        
+        a:hover
+          color: #222
+          img
+            +opacity(1)
+    
+      a
+        color: #555
+        font-weight: bold
+        
+        .lang
+          margin: 0 -1px 0 0
+          padding: 1px 2px
+          
+          color: #555
+          border-color: #666
+
+        &.link:hover
+          text-decoration: none
+          
+          .text
+            color: #222
+            text-decoration: underline
+          
+          .lang
+            color: #111
+            border-color: #222
 
 #sph
+  clear: left
+  
   position: relative
+
+  padding: 28px 20px 25px 20px
+  background: white
   
-  padding: 20px
-  background: rgba(black, 0.05)
+  +box-shadow(#ccc 2px 2px 6px)
   
-  +border-radius(10px)
-  // +border-bottom-left-radius(0)
+  &:hover
+    .actions
+      .others
+        visibility: visible
   
   .flag
     position: absolute
-    top: -34px
-    right: 50px
+    top: -41px
+    left: 50%
     width: 74px
     height: 74px
-    // margin-left: -35px /* Half the width */
+    margin-left: -37px /* Half the width */
 
-    background: #e3e3e3
-    border-top: 2px solid #ddd
+    background: white
+    border-top: 2px solid #d0d0d0
     +border-radius(100px)
-    
+
     img
-      position: absolute
-      z-index: 10
-    
-      +opacity(0.8)
-      margin: 7px 0 0 7px
+      +opacity(0.78)
+      margin: 6px 0 0 7px
+      
+      &:hover
+        +opacity(0.9)
   
+  .blocks
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 780px
+
+    #follow
+      height: 25%
+      
+      .table
+        height: 100%
+    
+    .table
+      width: 100%
+      
+      +hoverable
+      
+      .cell,
+      .cell a
+        color: rgba(white, .9)
+      
+      &.follow,      
+      &.share
+        height: 25%
+
+        border-bottom: 1px solid white
+        background: #aaa
+        +background-image(linear-gradient(left, #808080, #999 6px, #aaa))
+        
+        .cell
+          padding-left: 18px
+          
+      &.follow
+        .cell
+          span.tick
+            +larger
+            font-weight: bold
+            
+            color: green
+      
+      &.share
+      
+        .cell
+          a
+            img
+              +opacity(0.9)
+              margin-bottom: -3px
+  
+      &.vote,
+      &.answer
+        height: 50.5%
+        
+        text-align: center
+    
+        +background-image(linear-gradient(left, #A24520, #D85E2D 6px, #ED6A34))
+        
+        .cell
+          padding: 0 12px
+        
+        &.new
+          +larger
+          +text-shadow(#ccc 0 0 1px)
+          
+        &.update
+          em
+            +large
+        
+        &.yes
+          +background-image(linear-gradient(left, #429859, #4FB86B 6px, #5ED57B))
+        
+        &.no
+          +background-image(linear-gradient(left, #B92B31, #D9353D 6px, #F93F47))
+    
+
   .poll
     position: relative
     
-    padding: 0 20px 20px 20px
-    
-    background: rgba(white, 0.7)
-    +box-shadow(#ccc 1px 1px 3px)
-    
-    .origin
-      padding: 15px 0 10px 5px
-
-      .link
-        cursor: pointer
-
-        .text
-          color: #333
-          +small
-          font-weight: bold
-
-        .orig
-          margin: 0 -2px 0 4px
-          background: #ccc
-          color: white
-          +box-shadow(none)
-
-        &:hover
-          .text
-            text-decoration: underline
+    max-width: 700px
     
     .question
-      margin: 0 0 15px 0
+      margin: 0
       
       line-height: 1.4em
       
@@ -144,84 +233,203 @@ span.lang
         top: 17px
         margin: 0 5px 0 3px
         
-      span.lang
-        position: relative
-        top: -2px
-        margin-right: 4px
-        
-        font:
-          size: 0.65em
-          
-        border-color: #888
-        +box-shadow(none)
-        color: #444
-        padding: 4px 5px
-    
-    .langs
-      a
-        &:hover
-          span
-            color: #111
-            border: 1px solid #999
-          text-decoration: none
 
-  .lc
     .desc
-      +small
-      
-      margin: 7px 0 15px 0
       padding: 10px 1em
-
-      line-height: 1.5em
 
       background: #fff
       border: 2px dashed #cecece
 
       color: #666
-    
+
     .add_desc
-      margin: 5px 0 13px 2px
+      margin: 15px 0 0 0
       
-      color: #666
-
-    .comments_head
-      margin: 7px 0 0 0
+  .actions
+    margin-top: 20px
+    
+    max-width: 695px
+    
+    color: #666
+    
+    .others
+      visibility: hidden
       
-      color: #666
-
+    .coverage
       img
-        margin: 0 5px -2px 0
+        margin: 0 3px -1px 0
+    
+    span.comments
+      img
+        margin: 0 -1px -3px 0
         
-        &.w
-          margin-left: 2px
+    .translation
+      .lang
+        cursor: default
+    
+    .availables
+      img
+        margin: 0 -1px -2px 0
       
-      span
-        +inline-block
-        vertical-align: bottom
-      
-      span.sep
-        color: #ccc
-
-    #askable_comments
-      .comment
-        .user,
-        .atns
-          +small
+      a
+        .lang
+          padding: 1px 2px
+          font-weight: normal
           
+        &:hover
+          text-decoration: none
+        
+          .lang
+            border-color: #222
+            color: #000
+            
+            +box-shadow(#ccc 1px 1px 1px)
+        
+    .translation:after,
+    .availables:after,
+    .coverage:after
+      content: ''
+      padding: 0 6px
+    
+
+    .translate
+      float: right
+      
+      
+#ballot
+  display: none
+  
+  position: relative
+  top: -60px
+  left: -10px
+  
+  margin-right: 180px
+  
+  padding-top: 10px
+  
+  background: transparent url('/assets/tri_bw.png') top left no-repeat
+  
+  .wrapper
+    max-width: 750px
+    padding: 5px 150px 30px 30px
+    
+    border: 1px solid #d6d6d6
+    background: #dfdfdf
+    +box-shadow(#e0e0e0 3px 3px 6px)
+  
+    +clearfix
+    
+    .msg
+      padding: 20px 0 5px 0
+    
+    h2
+      margin-bottom: 5px
+  
+    .table
+      margin: 0
+      width: 100%
+      
+      font-weight: normal
+      color: #444
+      
+
+      .cell
+        padding: 15px 10px
+        
+        +large
+        
+        &.or
+          width: 10%
+          position: relative
+          top: 1px
+          text-align: center
+          font-style: italic
+          color: #f16022
+      
+        &.yes,
+        &.no
+          cursor: pointer
+          width: 45%
+          
+          background: white
+          
+          label
+            cursor: pointer
+          
+          &:hover
+            color: white
+          
+          &.checked
+            color: white
+        
+        &.yes
+          &:hover,
+          &.checked
+            background: #5ED57B
+            
+      
+        &.no
+          &:hover,
+          &.checked
+            background: #F93F47
+  
+    .answer
+      margin-bottom: 15px
+      
+      textarea
+        height: 80px
+        max-height: 280px
+        
+        max-width: 585px
+        width: 585px
+        
+        border-color: #d0d0d0
+        
+        vertical-align: top
+      
+        &.sub
+          color: #aaa
+  
+    .submit
+      padding-right: 15px
+    
+      float: right
+    
+      a
+        +small
+      
+        color: #888
+        margin-left: 5px
+    
+      input
+        +button
+        
+        &.disable
+          +opacity(0.5)
+
+    .styler
+      +small
+    
+      padding-left: 1em
+      color: #888
+      line-height: 21px
+    
+      em,
+      strong
+        padding: 0 1px
+
 
 #spb
+  clear: left
   +clearfix
   
+  margin-top: 15px
+  
   .lc
-    max-width: 600px
-    
+    min-height: 350px
   
     .ata
-      margin: 0 0 25px 0
-      padding: 25px 0 25px 35px
-      
-      // background: rgba(black, 0.07)
-      // +border-bottom-radius(10px)
+      padding-bottom: 20px
       
       h2.ballot
         margin: 0
@@ -241,123 +449,7 @@ span.lang
             left: 10px
           
             +button
-        
-        
-      #ballot
-        display: none
-        
-        +clearfix
-        
-        .answers
-          margin: 0 3px 25px 0
 
-          background: #fff
-          border: 1px solid #ddd
-          
-          +box-shadow(#bbb 0 0 3px inset)  
-        
-          color: #444
-          
-        .q,
-        .table
-          +larger
-          font-weight: normal
-          
-        
-        .q
-          margin: 12px 1em
-        
-        .table
-          margin: 0
-          width: 100%
-          
-          .cell
-            padding: 15px 10px
-            
-            &.or
-              width: 10%
-              position: relative
-              top: 1px
-              font-style: italic
-              color: #f16022
-            
-            &.checked
-              font-weight: bold
-              border-top: 1px solid #e3e3e3
-            
-            &.yes,
-            &.no
-              cursor: pointer
-              width: 45%
-              
-            &.yes
-              border-left: 8px solid transparent
-            
-              &:hover
-                border-left: 8px solid #cef0ce
-            
-              &.checked                
-                background: #cef0ce
-                border-left: none
-                
-                border-right: 1px solid #e3e3e3
-                +box-shadow(#ddd 0 0 2px)
-            
-            &.no
-              border-right: 8px solid transparent
-              
-              &:hover
-                border-right: 8px solid #ffdfdf
-
-              &.checked              
-                background: #ffdfdf
-                border-right: none
-                
-                border-left: 1px solid #e3e3e3
-                +box-shadow(#ddd 0 0 2px)
-        
-        
-        .answer
-          margin-bottom: 15px
-          
-          h2
-            margin-bottom: 3px
-            
-          textarea
-            height: 80px
-            width: 490px
-                        
-            vertical-align: top
-            
-            &.sub
-              color: #aaa
-        
-        .submit
-          padding-right: 15px
-          
-          float: right
-          
-          a
-            +small
-            
-            color: #888
-            margin-left: 5px
-          
-          input
-            +button
-    
-        .styler
-          +small
-          
-          padding-left: 1em
-          color: #888
-          line-height: 21px
-          
-          em,
-          strong
-            padding: 0 1px
-          
-          
     #answers
       h2
         margin: 0 0 8px 0

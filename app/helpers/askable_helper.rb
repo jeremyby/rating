@@ -7,7 +7,7 @@ module AskableHelper
     else
       @askable.errors.messages.each do |e|
         if e[1].present?
-          if (e[0] == 'yes' || 'no')
+          if (e[0] == 'yes' || e[0] == 'no')
             error_messages << "#{e[0].to_s.capitalize} #{e[1][0]}." 
           else
             error_messages << "Question #{e[0].to_s} #{e[1][0]}."

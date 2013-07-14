@@ -1,6 +1,7 @@
+
 class QuestionMarkValidator < ActiveModel::Validator
   def validate(record)
-    unless record.body.include?('?')
+     unless record.body.present? && ( record.body.include?('?') || record.body.include?('？') )
       record.errors[:body] << "should have at least one question mark"
     end
   end
@@ -11,10 +12,8 @@ class Askable < ActiveRecord::Base
   scope :questions, where(:type => 'Question')
   
   scope :featured, where(:featured => true)
-
-  attr_accessor :truncate_slug
   
-  attr_accessible :user_id, :body, :coverage, :country_code, :description, :yes, :no
+  attr_accessible :user_id, :body, :coverage, :country_code, :description, :yes, :no, :auto_translated
   
   after_create :log_event
 
@@ -23,7 +22,7 @@ class Askable < ActiveRecord::Base
   validates :body,
     :uniqueness => { :scope => :country_code, :message => 'is duplicated' },
     :length => {
-      :minimum => 10,
+      :minimum => 5,
       :maximum => 300,
       :too_long => 'is too long - leave the detail to the description'
     }
@@ -47,22 +46,17 @@ class Askable < ActiveRecord::Base
   
   has_many    :events, :dependent => :destroy
 
+  # note: it seems updating translations can only be done by 'update_attribute(s)'
+  translates :slug, :body, :yes, :no, :description, :auto_translated, :versioning => true 
   extend FriendlyId
-  friendly_id :truncate_slug, :use => :slugged
+  friendly_id :body, :use => [:globalize, :history]
 
   acts_as_commentable
   
   Complex_Number = 15
-
-  def truncate_slug
-    # b = String.new(self.body)
-    # return b.split[0..9].join(" ").downcase.tr("^a-z|^0-9|^\s", "")
-
-    return self.body.truncate(50, :separator => ' ', :omission => '')
-  end
-
-  def to_s
-    self.body
+  
+  def normalize_friendly_id(string)
+    string[0..79].slugged
   end
   
   def more_askables(limit = 4)
@@ -75,7 +69,8 @@ class Askable < ActiveRecord::Base
     self.events.create(
       :kind => self.type.downcase,
       :user_id => self.user_id,
-      :country_code => self.country_code
+      :country_code => self.country_code,
+      :locales => I18n.locale.to_s
     )
   end
 end

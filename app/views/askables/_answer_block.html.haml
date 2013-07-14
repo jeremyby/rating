@@ -1,0 +1,19 @@
+- case @askable.type
+- when 'Poll'
+  %a(href='javascript:void(0)' onclick='aac.toggle_ballot()')                
+    - if @answerable.new_record?
+      .table.vote.new    
+        .cell
+          Vote NOW!
+    - else
+      - vote_class, vote =  @answerable.vote > 0 ? ['yes', @askable.yes] : ['no', @askable.no]
+      .table.vote.update(class='#{ vote_class }')
+        .cell
+          You voted for:
+          %em= truncate(vote, :separator => ' ')
+          
+- when 'Question'
+  %a(href='#')
+    .table.answer
+      .cell
+        Answer NOW!

@@ -8,6 +8,7 @@ class CreateCountries < ActiveRecord::Migration
       t.string :pretty_name
       t.string :alias
       t.string :full_name
+      t.string :language,           :default => 'en'
       
       t.string :searchable
       
@@ -24,7 +25,8 @@ class CreateCountries < ActiveRecord::Migration
       :name => :string,
       :full_name => :string,
       :alias => :string,
-      :pretty_name  => :string
+      :pretty_name  => :string,
+      :searchable => :string
     })
     
     add_index :countries, :code, :unique => true

@@ -1,6 +1,10 @@
 module CountryHelper
+  def country_m_flag(c, options={})
+    "#{c}#{country_image(c, 'm', options)}".html_safe
+  end
+  
   def country_m_flag_link(c, options={})
-    link_to "#{c}#{country_image(c, 'm', options)}".html_safe, country_path(c)
+    link_to country_m_flag(c, options), country_path(c)
   end
 
   def country_flag_link(c, options={})

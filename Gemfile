@@ -1,6 +1,5 @@
 source 'http://rubygems.org'
 
-
 gem 'rails'
 
 gem 'mysql2'
@@ -29,7 +28,13 @@ gem 'mime-types'
 
 gem 'geoip'
 
+gem 'paper_trail'
 gem 'globalize3'
+gem 'easy_translate'
+
+gem 'daemons'
+gem 'delayed_job'
+gem 'delayed_job_active_record'
 
 gem 'acts_as_commentable_with_threading'
 gem 'thumbs_up'

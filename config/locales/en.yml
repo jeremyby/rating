@@ -2,7 +2,9 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  hello: Hello world
+  m_yes: 'Yes'
+  m_no: 'No'
   
   default_title: "Ask a Country"
   logo: "/assets/logo.png"
@@ -13,6 +15,14 @@ en:
   login: "Log in"
   signup: "Sign up"
   
+  language:
+    en: English
+    zh: Chinese
+    
+    code:
+      en: en
+      zh: zh
+  
   js:
     search_string: "Search for a country"
     search_all: "All Countries"
@@ -22,4 +32,37 @@ en:
   home:
     index:
       headline1: "Ask a country anything" 
-    
+  
+  askable:
+    coverage:
+      0:
+        img: all.png
+        name: Open Question
+        title: The Question is open for everyone to answer
+      1:
+        img: one.png
+        name: Inside Question
+        title: ONLY people from the country can answer the question
+      2:
+        img: but.png
+        name: Outside Question
+        title: Only people who are NOT from the country can answer the question
+      
+    new:
+      country_flag: Ask %{country_flag}
+      choose: "There are 2 types of questions. Choose one below:"
+    create:
+      notice: New question is added for %{country_name}.
+    show:
+      asking: Asking %{link}
+      created: Created by %{link}
+      follow: + Follow Question
+      following: Following
+      share: Share to
+      is_orig_title: This is the original language in which the question was created
+      is_orig: Original Language
+      original: Originally in
+      t_from_to: The question was translated into %{to} from %{from}
+      auto: Auto Translation
+      available: Available in
+      improve: improve this translation

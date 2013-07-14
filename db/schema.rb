@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130329121738) do
+ActiveRecord::Schema.define(:version => 20130620052301) do
 
   create_table "answerables", :force => true do |t|
     t.string   "type"
@@ -29,21 +29,38 @@ ActiveRecord::Schema.define(:version => 20130329121738) do
   add_index "answerables", ["user_id", "askable_id", "country_code"], :name => "index_answerables_on_user_id_and_askable_id_and_country_code", :unique => true
   add_index "answerables", ["user_id"], :name => "index_answerables_on_user_id"
 
+  create_table "askable_translations", :force => true do |t|
+    t.integer  "askable_id"
+    t.string   "locale"
+    t.string   "slug"
+    t.text     "body"
+    t.text     "description"
+    t.string   "yes"
+    t.string   "no"
+    t.string   "auto_translated"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "askable_translations", ["askable_id"], :name => "index_askable_translations_on_askable_id"
+  add_index "askable_translations", ["locale"], :name => "index_askable_translations_on_locale"
+
   create_table "askables", :force => true do |t|
     t.string   "type"
-    t.string   "country_code",                        :null => false
+    t.string   "country_code",                                                :null => false
     t.integer  "followings_count", :default => 0
-    t.integer  "user_id",                             :null => false
+    t.integer  "user_id",                                                     :null => false
     t.string   "slug"
-    t.text     "body",                                :null => false
-    t.integer  "coverage",         :default => 0,     :null => false
+    t.text     "body",                                                        :null => false
+    t.integer  "coverage",         :default => 0,                             :null => false
     t.boolean  "featured",         :default => false
     t.boolean  "locked",           :default => false
+    t.string   "auto_translated",  :default => "true"
     t.text     "description"
-    t.string   "yes",              :default => "Yes", :null => false
-    t.string   "no",               :default => "No",  :null => false
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.string   "yes",              :default => "translation missing: en.yes"
+    t.string   "no",               :default => "translation missing: en.no"
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
   end
 
   add_index "askables", ["country_code"], :name => "index_askables_on_country_code"
@@ -81,17 +98,18 @@ ActiveRecord::Schema.define(:version => 20130329121738) do
 
   create_table "countries", :force => true do |t|
     t.string   "slug"
-    t.string   "code",             :null => false
-    t.string   "name",             :null => false
+    t.string   "code",                               :null => false
+    t.string   "name",                               :null => false
     t.string   "pretty_name"
     t.string   "alias"
     t.string   "full_name"
+    t.string   "language",         :default => "en"
     t.string   "searchable"
     t.text     "link"
     t.integer  "askables_count"
     t.integer  "followings_count"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   add_index "countries", ["code"], :name => "index_countries_on_code", :unique => true
@@ -123,12 +141,29 @@ ActiveRecord::Schema.define(:version => 20130329121738) do
 
   add_index "dbgraphs", ["country_id"], :name => "index_dbgraphs_on_country_id", :unique => true
 
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
   create_table "events", :force => true do |t|
     t.string   "kind",          :null => false
     t.string   "country_code",  :null => false
     t.integer  "askable_id",    :null => false
     t.integer  "user_id"
     t.integer  "answerable_id"
+    t.string   "locales"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
@@ -156,6 +191,17 @@ ActiveRecord::Schema.define(:version => 20130329121738) do
 
   add_index "followings", ["followable_id", "followable_type"], :name => "index_followings_on_followable_id_and_followable_type"
   add_index "followings", ["user_id"], :name => "index_followings_on_user_id"
+
+  create_table "friendly_id_slugs", :force => true do |t|
+    t.string   "slug",                         :null => false
+    t.integer  "sluggable_id",                 :null => false
+    t.string   "sluggable_type", :limit => 40
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
+  add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "results", :force => true do |t|
     t.integer  "poll_id"
@@ -193,6 +239,18 @@ ActiveRecord::Schema.define(:version => 20130329121738) do
   add_index "users", ["country_code"], :name => "index_users_on_country_code"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token", :unique => true
+
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.string   "locale"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
   create_table "votes", :force => true do |t|
     t.boolean  "vote",          :default => false, :null => false

@@ -62,6 +62,7 @@ Askacountry::Application.routes.draw do
   match 'shuffle' => "home#shuffle", :via => :get, :as => :shuffle
   
   match 'countries' => "home#countries", :via => :get
+  match 'translate' => "home#translate", :via => :post
   
   resources :user_sessions, :only => [:create]
   match 'login' => "user_sessions#new",      :as => :login
@@ -85,6 +86,7 @@ Askacountry::Application.routes.draw do
 
     resources :askables, :path => '', :except => [:index] do
       member do
+        get 'original'
         post 'follow', 'unfollow'
       end
     end

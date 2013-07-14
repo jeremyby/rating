@@ -1,15 +1,17 @@
-- poll = Poll.find(event.askable_id)
 
-.avatar
-  = user_small_avatar_link(poll.owner)
+- p = Poll.find(event.askable_id)
+
+.feed
+  .avatar
+    = user_small_avatar_link(p.owner)
+
+  .poll
+    .info  
+      = user_country_flag_link p.owner, current_user, :title => "#{p.owner} is from #{p.owner.country}"
+      created a new poll
+      - if show_country
+        for #{ link_to p.country, country_path(p.country) }
   
-.poll
-  .info  
-    = user_country_flag_link poll.owner, current_user, :title => "#{poll.owner} is from #{poll.owner.country}"
-    created a new poll
-    - if show_country
-      for #{ link_to poll.country, country_path(poll.country) }
-    
-  .question
-    = link_to poll.to_s(false), country_askable_path(poll.country, poll)
+    .question
+      = link_to p.to_s, country_askable_path(p.country, p)
   

@@ -27,7 +27,7 @@ Array.prototype.find_slug = (code) ->
   return c.slug for c in countries when c.code is code
 
 aac.notify = (type, message) ->
-  $('#notice').html("<span class='#{type}'>#{message}</span>").poof('fast')
+  $('#notice').html("<span class='#{type}'>#{message}</span>").show().poof('fast')
 
 # cts = call to search
 aac.load_search = (searcher, cts_string, select_function) ->

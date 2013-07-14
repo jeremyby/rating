@@ -1,7 +1,10 @@
+
 - if current_user.blank? || !current_user.following?(@askable)
-  %li.follow
-    = link_to "+ Follow Question", follow_country_askable_path(@country, @askable), :method => :post, :remote => true
+  = link_to content_tag('div', content_tag('div', content_tag('span', t('askable.show.follow')), class: 'cell'), class: 'table follow'), follow_country_askable_path(@country, @askable), method: :post, remote: true, id: 'follower'
+
 - else
-  %li.unfollow
-    %span &#10003; following
-    = link_to "x", unfollow_country_askable_path(@country, @askable), :method => :post, :remote => true, :confirm => 'Stop following the question. Are you sure?'
+  .table.follow
+    .cell
+      %span.tick &#10003;
+      = t 'askable.show.following'
+      = link_to "x", unfollow_country_askable_path(@country, @askable), method: :post, remote: true, id: 'unfollower'

@@ -2,35 +2,34 @@ class AnswerablesController < ApplicationController
   before_filter :require_user
 
   def create
-    begin
+    # begin
       @country = Country.find_by_code(params[:answerable][:country_code])
       @askable = Askable.find(params[:answerable][:askable_id])
       
       @answerable = @askable.build_answerable(current_user, params[:answerable])
+      
       @answerable.save!
-    rescue
-      flash.now[:alert] = 'Your vote is not successful. Please check the info and try again.'
-    
-      render 'layouts/notify'
-    end
+    # rescue
+    #   flash.now[:alert] = 'Your vote was not successful. Please check and try again.'
+    # 
+    #   render 'layouts/notify'
+    # end
   end
 
   def update
     begin
-      @ballot = Ballot.find(params[:id])
-      orig_answer = @ballot.body
-
-      @ballot.update_attributes!(:vote => params[:answerable][:vote], :body => params[:answerable][:body])
+      @answerable = Ballot.find(params[:id])
+      @answerable.update_attributes!(:vote => params[:answerable][:vote], :body => params[:answerable][:body])
       
-      event = Event.find_by_answerable_id(@ballot.id)
+      event = Event.find_by_answerable_id(@answerable.id)
       event.delete if event.present?
       
-      @ballot.reload.log_event
+      @answerable.reload.log_event
 
-      @askable = @ballot.askable
-      @country = @ballot.country
+      @askable = @answerable.askable
+      @country = @answerable.country
     rescue
-      flash.now[:alert] = 'Your submit is not successful. Please check the info and try again.'
+      flash.now[:alert] = 'Your submit is not successful. Please check and try again.'
     
       render 'layouts/notify'
     end

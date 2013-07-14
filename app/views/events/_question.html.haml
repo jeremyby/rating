@@ -1,18 +1,20 @@
 - question = Question.where('id = ?', event.askable_id).first
 
-.avatar
-  = user_small_avatar_link(question.owner)
+- unless question.body.blank?
+  .feed
+    .avatar
+      = user_small_avatar_link(question.owner)
   
-.poll
-  .info  
-    = user_country_flag_link question.owner, current_user, :title => "#{question.owner} is from #{question.owner.country}"
+    .poll
+      .info  
+        = user_country_flag_link question.owner, current_user, :title => "#{question.owner} is from #{question.owner.country}"
     
-    - if show_country
-      asked #{ link_to question.country, country_path(question.country) }
-    - else
-      asked
+        - if show_country
+          asked #{ link_to question.country, country_path(question.country) }
+        - else
+          asked
     
-    a new question
+        a new question
       
-  .question
-    = link_to question.body, country_askable_path(question.country, question)
+      .question
+        = link_to question.body, country_askable_path(question.country, question)

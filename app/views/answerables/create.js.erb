@@ -1,8 +1,15 @@
-$("#spb .lc .ata").html("<%= (j render 'askables/edit_ballot', :answerable => @answerable).html_safe %>");
+aac.enable_submit();
+aac.toggle_ballot();
 
-if ($("#answers h2").next().length) {
-  $("#answers h2").html("<%= @askable.answerables.size %> people have voted");
-  div = $("<%= (j (render 'askables/complex_item', :ballot => @answerable)) %>").hide(); 
-  $("#answers h2").after(div);
-  div.show('highlight');
-}
+$("#sph .blocks").children().last().replaceWith("<%= (j render 'askables/answer_block').html_safe %>");
+
+$("#sph .blocks .update").effect('highlight', function(){
+  $("#ballot").replaceWith("<%= (j render 'askables/ballot').html_safe %>") // Need to update the ballot form, so future edit will update instead of create again
+  
+  if ($("#answers h2").next().length) { // if showing complexes, add the ballot of the top of them
+    $("#answers h2").html("<%= @askable.answerables.size %> people have voted");
+    div = $("<%= (j (render 'askables/complex_item', :ballot => @answerable)) %>").hide(); 
+    $("#answers h2").after(div);
+    div.show('highlight');
+  }
+});

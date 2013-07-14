@@ -15,7 +15,7 @@ check_body = ->
   if f.val().length < 10 || f.val().length > 300
     aac.mark_error(f, 'Question should be between 10-300 charactors long.', 'below')
     return false
-  else if f.val().indexOf('?') < 0
+  else if f.val().indexOf("\u003f") < 0 && f.val().indexOf("\uff1f") < 0
     aac.mark_error(f, 'Question should have at least one question mark.', 'below')
     return false
   else

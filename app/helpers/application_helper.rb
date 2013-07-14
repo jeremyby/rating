@@ -12,30 +12,17 @@ module ApplicationHelper
     @translations ||= I18n.backend.send(:translations)
     @translations[I18n.locale].with_indifferent_access[:js]
   end
-  
-  def markdown(text)
-    Redcarpet::Markdown.new(SimpleRender,
-                            :autolink => true,
-                            :lax_spacing => true,
-                            :no_intra_emphasis => true
-                            ).render(text).html_safe
-  end
 end
 
 module ActionView
   class Base
     def askable_coverage_info(coverage, country)
-      case coverage
-      when 0
-        str = "<img src ='/assets/all.png' class='w' />Open Question"
-        title = "The Question is open for everyone to answer."
-      when 1
-        str = "<img src ='/assets/one.png' />Inside Question"
-        title = "ONLY people from the country can answer the question."
-      when 2
-        str = "<img src ='/assets/but.png' class='w' />Outside Question"
-        title = "Only people who are NOT from the country can answer the question."
-      end
+      img =  (t "askable.coverage")[coverage][:img]
+      name = (t "askable.coverage")[coverage][:name]
+      
+      str = "<img src ='/assets/#{ img }' />#{ name }"
+      
+      title = (t "askable.coverage")[coverage][:title]
 
       return content_tag(:span, str.html_safe, :title => title)
     end

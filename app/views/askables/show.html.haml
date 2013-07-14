@@ -1,90 +1,117 @@
 
+- if current_user
+  - @answerable = @askable.answerables.where(country_code: @country.code, user_id: current_user.id).first 
+  - @is_owner = (current_user == @askable.owner)
+
+- @answerable ||= Ballot.new(:vote => 0)
+
 - content_for :title_string do
-  Ask #{ @country.to_s }:
+  #{ t 'country_title', :country_name => @country.to_s }:
   = @askable.body.truncate(80, :separator => ' ')
 
 - content_for :js do
   = javascript_include_tag 'askable'
 
-- if current_user
-  - @answerable = @askable.answerables.where(country_code: @country.code, user_id: current_user.id).first
-  - @is_owner = (current_user == @askable.owner)
-
-  
 #spbody
-  %h4.info
-    .user
-      = user_country_flag_link @askable.owner, :title => "#{@askable.owner} is from #{@askable.owner.country}"
-      is asking #{link_to @country, country_path(@country)}:
-
-  #sph
-    .flag= country_image @country, 'l', :size => '60x60'
-    .poll
-      .origin
-        originally in
-        %span.link
-          %span.lang.orig ZH
-          %span.text Chinese
+  .statuses
+    .user.status.active
+      = t('askable.show.created', link: user_country_flag_link(@askable.owner)).html_safe
     
+    - unless @is_orig
+      .status
+        = t('askable.show.original')
+        %a.link(href='#{ original_country_askable_path(@country, @askable) }' data-remote=true)
+          %span.lang= t("language.code.#{ @orig_lang }").upcase
+          %span.text= t("language.#{ @orig_lang }")
+  
+  #sph
+    .flag
+      %a(href='#{ country_path(@country) }' title='#{ @country.to_s }')
+        = country_image @country, 'l', :size => '60x60'
+    .blocks
+      = render 'follow'
+      .table.share
+        .cell
+          &#8618;
+          = t 'askable.show.share'
+          %a(href='#')<
+            = image_tag '/assets/twitter.png'
+          %a(href='#')
+            = image_tag '/assets/facebook.png'
+    
+      = render 'answer_block'
+    
+    .poll
       %h1.question.yesno
-        %span.lang en
         %span(class = '#{ @askable.is_a?(Poll) && @askable.or_negative? ? "yes" : "none" }')
           = bip_body
+          
         - if @askable.is_a?(Poll) && !@askable.simple?
           - unless @askable.or_negative?
             %span(class="yes")= best_in_place_if @is_owner, @askable, :yes, :path => country_askable_path(@country, @askable)
           %em or
           %span(class="no") #{best_in_place_if @is_owner, @askable, :no, :path => country_askable_path(@country, @askable)}?
-      .langs
-        available in
-        %a(href='#')
-          %span.lang.orig ZH
-        %a(href='#')
-          %span.lang en
-
-        improve this translation of the question?
-
-        translate into
-        = succeed '?' do
-          %a(href='#')
-            %span.lang ar
-          
-    .lc    
-      - if @is_owner && @askable.description.present?
-        .desc= bip_desc
+      
+      - if @askable.description.present?
+        .desc= @is_owner ? bip_desc : @askable.description
       - elsif @is_owner
         .add_desc= bip_desc
-      - elsif @askable.description.present?
-        .desc= @askable.description
-
-      .comments_head
+        
+    .actions
+      %span.coverage
         = bip_coverage
+    
+      - if @is_orig
+        - unless @langs.blank?  
+          %span.translation(title='#{t("askable.show.is_orig_title")}')
+            %span.lang= t("language.code.#{ @orig_lang }").upcase
+            = t('askable.show.is_orig')
+        
+          %span.availables
+            = image_tag '/assets/translation.png'
+            = t('askable.show.available')
+            - @langs.each do |l|
+              %a(href='#')
+                %span.lang= t("language.code.#{ l }")
+        
+      - else
+        %span.translation(title='#{ t("askable.show.t_from_to", to: t("language.#{ @askable.translation.locale }"), from: t("language.#{ @orig_lang }"))}')
+          %span.lang<
+            = t("language.code.#{ @askable.translation.locale }").upcase
+          - if @askable.auto_translated
+            = t('askable.show.auto')
+          - else
+            Translation by a user
 
-        %span.sep
-          |
-        = link_to_function pluralize(@askable.comment_threads.size, 'comment'), '$("#askable_comments .detail").show("blind")', :id => 'ltpcs'
+
+      %span.others
+        %span.comments
+          = image_tag '/assets/comment.png'
+          = link_to_function pluralize(@askable.comment_threads.size, 'comment'), '$("#askable_comments .detail").show("blind")', :id => 'ltpcs'
+      
+        - unless @is_orig
+          - if @askable.translation.new_record?
+            %a.translate(href='#')
+              translate the question into
+              = t("language.#{ @askable.translation.locale }")
+          - else
+            %a.translate(href='#')= t('askable.show.improve')
 
       = render 'askable_comments'
-
-  #spb
-    .rc  
-      %ul
-        #follow= render 'follow'
-      
-        Share to
-        %li.share= link_to 'Facebook', '#'
-        %li.share= link_to 'Twitter', '#'
-        %li.share= link_to 'Google', '#'
+  
+  = render 'ballot'
+  
+  #spb.box
+    .rc
     
-      .polls
-        %h2 More Questions
-        - askables = @askable.more_askables
-      
-        %ul
-          - askables.each do |a|
-            %li= link_to a, country_askable_path(@country, a)
+      / .polls
+      /   %h2 More Questions
+      /   - askables = @askable.more_askables
+      / 
+      /   %ul
+      /     - askables.each do |a|
+      /       %li= link_to a, country_askable_path(@country, a)
 
-    
     .lc
       = render "#{ @askable.type.downcase }_answers"
             

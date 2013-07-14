@@ -1,0 +1,36 @@
+#ballot
+  .wrapper
+    - unless @answerable.new_record?
+      = render 'askables/ballot_form', :answerable => @answerable, :url => answerable_path(@answerable)
+
+    - else
+      - if current_user.blank?
+        %h2.msg 
+          Your account info is required here. Please
+          %a(href='/login?return_to=#{request.path}') log in
+          first.
+  
+      - elsif current_user.can_answer?(@askable)
+        = render 'ballot_form', :answerable => @answerable, :url => answerables_path
+  
+      - else
+        .msg
+          You cannot answer the question because the creator of the question only asks for answers
+          from the people
+          %strong
+            who are
+            = @askable.coverage == 1 ? " from #{@country}." : " not from #{@country}."
+            
+          %p
+            You may want to
+            %ul
+              %li
+                = link_to 'follow the question', '#'
+                to keep updated
+              %li
+                create
+                = link_to 'a new question', '#'
+                from this one
+              %li
+                check
+                = link_to 'your profile', user_path(current_user)

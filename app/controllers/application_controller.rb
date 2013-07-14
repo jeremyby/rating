@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     end
   
     def country_code_from_request
-      info = $geoip.country(request.env["REMOTE_ADDR"])
+      info = Geoip.country(request.env["REMOTE_ADDR"])
     
       if info.country_code > 0
         info.country_code2.downcase

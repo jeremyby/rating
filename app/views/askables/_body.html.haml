@@ -1,0 +1,11 @@
+%h1.question.yesno
+  %span.lang= t("language.code.#{ @lang }").upcase
+  
+  %span(class = '#{ @askable.is_a?(Poll) && @askable.or_negative? ? "yes" : "none" }')
+    = @translation.body
+    
+  - if @askable.is_a?(Poll) && !@askable.simple?
+    - unless @askable.or_negative?
+      %span(class="yes")= @translation.yes
+    %em or
+    %span(class="no") #{ @translation.no }?

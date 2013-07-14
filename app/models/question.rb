@@ -1,6 +1,10 @@
 class Question < Askable
   has_many :answers, :foreign_key => 'askable_id', :dependent => :destroy
 
+  def to_s
+    self.body
+  end
+
   def answer_complex(current_user_id, last_ballot_id, n = Complex_Number)
     is_end = true
 

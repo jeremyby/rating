@@ -55,35 +55,35 @@ describe "Country" do
   
   context "GeoIP" do
     it "should recognize an IP addresses and country info" do
-      info = $geoip.country "184.106.169.25"
+      info = @geoip.country "184.106.169.25"
       info.country_code.should be > 0
       info.country_code2.should == "US"
       
-      info = $geoip.country "58.35.93.205"
+      info = @geoip.country "58.35.93.205"
       info.country_code.should be > 0
       info.country_code2.should == "CN"
       
-      info = $geoip.country "www.ed.ac.uk"
+      info = @geoip.country "www.ed.ac.uk"
       info.country_code.should be > 0
       info.country_code2.should == "GB"
       
-      info = $geoip.country "www.paris-universitas.fr"
+      info = @geoip.country "www.paris-universitas.fr"
       info.country_code.should be > 0
       info.country_code2.should == "FR"
       
-      info = $geoip.country "www.kcna.kp"
+      info = @geoip.country "www.kcna.kp"
       info.country_code.should be > 0
       info.country_code2.should == "KP"
     end
     
     it "should recognize invalid IP addresses" do
-      info = $geoip.country "127.0.0.1"
+      info = @geoip.country "127.0.0.1"
       info.country_code.should == 0
       
-      info = $geoip.country "192.168.1.1"
+      info = @geoip.country "192.168.1.1"
       info.country_code.should == 0
       
-      info = $geoip.country "10.0.0.1"
+      info = @geoip.country "10.0.0.1"
       info.country_code.should == 0
     end
   end

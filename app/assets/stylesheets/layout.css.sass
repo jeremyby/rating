@@ -5,7 +5,7 @@ h2
   color: #222
   
   font: 
-    family: "Helvetica Neue", helvetica, arial, sans-serif
+    family: "Helvetica Neue", helvetica, "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif
 
 h4 
   font: 
@@ -39,7 +39,6 @@ a:visited
 a:hover 
   text-decoration: underline
   
-
 .search
   input
     width: 170px
@@ -64,19 +63,20 @@ a:hover
     margin-right: 3px
     
   span.yes:before
-    border-top: 8px solid #90d390
+    border-top: 8px solid #5ED57B
       
   span.no:before
-    border-top: 8px solid #ee5050
+    border-top: 8px solid #F93F47
 
-.table 
-  position: relative
+.table
   display: table
+  position: static
 
   .cell 
     display: table-cell 
     vertical-align: middle 
-    text-align: center
+    position: static
+
 
 .slab 
   font: 
@@ -91,10 +91,27 @@ a:hover
 .live
   background: #f5f5a7
 
+.loading:after,
+.loading_ws:after
+  content: ''
+  padding: 0 8px 0 8px
+  line-height: 16px
+  background: 0 3px url("/assets/load.gif") no-repeat
+
+.loading_ws:after
+  padding-left: 13px
+  background: 5px 3px url("/assets/load.gif") no-repeat
+
+.loading_l:before
+  content: ''
+  margin-right: -7.8em
+  padding: 0 8px 0 8px
+  line-height: 16px
+  background: 0 3px url("/assets/load.gif") no-repeat
 
 body 
   line-height: 1.625em
-  font: 100% verdana, arial, sans-serif
+  font: 100% verdana, "Hiragino Sans GB", 宋体, sans-serif
   
   background: #fafaf8 url("/assets/bg1.png") repeat
   
@@ -110,7 +127,7 @@ body
   position: fixed
   top: 0
   
-  z-index: 100
+  z-index: 99
   
   background: #f5743d url("/assets/bg.png")
   
@@ -160,7 +177,7 @@ body
   height: 40px
   width: 100%
   
-  z-index: 99
+  z-index: 50
   
   background: rgba(246, 112, 55, .96)
   
@@ -174,7 +191,6 @@ body
     top: 0
     
     height: auto
-    
     
     .inner
       display: block
@@ -214,33 +230,7 @@ body
 
 .contenter
   margin-top: 48px
-  
-  .inner
-  //   width: 920px
-  //   min-height: 440px
-  //   
-  //   padding: 20px
-  //   
-  //   +box-shadow(#ddd 2px 2px 6px)
-  // 
-  //   background: #fff
-  // 
-  // &.homer
-  //   margin: 0
-  //   
-  //   .inner
-  //     +box-shadow(none)
-  //     background: none
-  // 
-  // &.wider
-  //   .inner
-  //     width: 960px
-  //     min-height: 480px
-  //     
-  //     padding: 0
-  //     
-  //     +box-shadow(none)
-  //     background: none
+
 
 
 footer#page_footer
@@ -302,18 +292,15 @@ footer#page_footer
 .box 
   padding: 20px
 
-  +box-shadow(#ddd 2px 2px 6px)
-  
-  background: rgba(white, 0.8)
-
-
+  border: 1px solid #e5e5e5
+  background: white
 
 .lc
-  max-width: 540px
+  max-width: 600px
 
 .rc
   float: right
-  width: 320px
+  width: 300px
 
 
 .feed_list

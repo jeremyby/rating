@@ -1,3 +1,11 @@
-div = $("<div id='follow'><%= j(render 'askables/follow') %></div>").hide()
-$('#follow').replaceWith(div)
-$('#follow').show('highlight')
+
+div = $("<%= j(render 'askables/follow') %>").hide()
+
+$('#sph .blocks').children().first().replaceWith(div)
+
+if (div.hasClass('table'))
+  div.show('highlight')
+else
+  div.show()
+  div.children('.table').effect('highlight')
+
