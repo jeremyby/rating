@@ -13,9 +13,10 @@ gem 'rdiscount'
 gem 'friendly_id'
 
 gem 'jquery-rails'
-gem 'best_in_place'
 
 gem 'authlogic'
+
+gem 'kaminari', github: 'jeremyby/kaminari'
 
 gem 'omniauth'
 gem 'omniauth-facebook'
@@ -31,6 +32,9 @@ gem 'geoip'
 gem 'paper_trail'
 gem 'globalize3'
 gem 'easy_translate'
+
+gem "htmlentities"
+gem 'truncate_html'
 
 gem 'daemons'
 gem 'delayed_job'

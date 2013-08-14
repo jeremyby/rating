@@ -1,12 +1,16 @@
 - reply ||= false
 
-= form_for comment, :url => comments_path, :remote => true do |f|
+- url = '/comments'
+- url << "?page=#{ params[:page] }" if reply
+
+= form_for comment, :url => url, :method => :post, :remote => true do |f|
   = f.hidden_field :commentable_id
   = f.hidden_field :commentable_type
   = f.hidden_field :parent_id
   = f.text_area :body
-  = f.submit "Submit"
+  = f.submit reply ? t('reply') : t('plural.comment', count: 0)
+  
   - if reply
-    = link_to_function 'Cancel', '$(this).parent().parent().hide()'
+    = link_to_function t('cancel'), '$(this).closest(".reply").slideUp()'
   - else
-    = link_to_function 'Close', '$(this).closest(".detail").hide("blind", "fast")'
+    = link_to_function t('cancel'), 'aac.cancel_comment($(this))'

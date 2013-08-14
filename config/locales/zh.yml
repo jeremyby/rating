@@ -1,16 +1,27 @@
 zh:
-  hello: "你好，世界"
-  m_yes: 是
-  m_no: 否
+  hello: 你好，世界
+  or: 或
+  done: 完成
+  ans_yes: 是
+  ans_no: 否
+  q_mark: '？'
   
-  default_title: "爱问国"
-  logo: "/assets/logo-zh.png"
-  country_title: "爱问%{country_name}"
+  default_title: 爱问国
+  logo: /assets/logo-zh.png
+  country_title: 爱问%{country_name}
   
-  home_link: "主页"
-  logout: "登出"
-  login: "登陆"
-  signup: "注册"
+  home_link: 主页
+  logout: 登出
+  login: 登陆
+  signup: 注册
+  
+  reply: 回复
+  delete: 删除
+  edit: 编辑
+  cancel: 取消
+  close: 关闭
+  vote: 投票
+  submit: 发布
   
   language:
     en: 英文
@@ -24,6 +35,16 @@ zh:
     search_string: "搜索一个国家"
     search_all: "全部国家"
     search_hint: "搜索名称， 拼音或代码"
+    
+    
+    empty_desc_msg: 添加详细说明…
+    
+    notice:
+      askable_body_size: 问题应该有5-300字
+      askable_body_format: 一个问题应该至少含有一个问号
+      askable_answer_size: 一个有效的选项应该有1-80个字
+      missing_vote: 请先选中一个答案。
+    
   
   home:
     index:
@@ -45,15 +66,16 @@ zh:
         title: 只有不是来自这个国家的人可以回答这个问题
     
     new:
-      country_flag: 问%{country_flag}一个新问题
+      country_h1: 问%{country}一个新问题
       choose: 请选择新问题的类型：
-    create:
-      notice: "成功创建一个%{country_name}的新问题。"
     show:
+      css:
+        expand: 点击展开\02026
+      collapse: 收起…
       asking: 问%{link}的一个问题
       created: 提问人为%{link}
       original: 原文为
-      follow: + 关注该问题
+      follow: '+ 关注这个问题 '
       following: 关注中
       share: 分享到
       is_orig_title: 这是问题被创建时使用的语言
@@ -61,7 +83,19 @@ zh:
       t_from_to: 这个问题是由%{from}翻译为%{to}
       auto: 自动翻译
       available: 可用的翻译有
-      improve: 改进当前的翻译
+      improve: 改进翻译
+  
+  views:
+    pagination:
+      next: 下一页 >
+      previous: < 上一页
+      truncate: …
+  
+  plural:
+    comment:
+      zero: 评论
+      one: 1条评论
+      other: "%{count}条评论"
   
   date:
     abbr_day_names:
@@ -119,39 +153,39 @@ zh:
   datetime:
     distance_in_words:
       about_x_hours:
-        one: 大约一小时
-        other: 大约 %{count} 小时
+        one: 大约一小时前
+        other: 大约%{count}小时
       about_x_months:
-        one: 大约一个月
-        other: 大约 %{count} 个月
+        one: 大约一个月前
+        other: 大约%{count}个月
       about_x_years:
-        one: 大约一年
-        other: 大约 %{count} 年
+        one: 大约一年前
+        other: 大约%{count}年
       almost_x_years:
-        one: 接近一年
-        other: 接近 %{count} 年
-      half_a_minute: 半分钟
+        one: 接近一年前
+        other: 接近%{count}年前
+      half_a_minute: 半分钟前
       less_than_x_minutes:
-        one: 不到一分钟
-        other: 不到 %{count} 分钟
+        one: 不到一分钟前
+        other: 不到%{count}分钟前
       less_than_x_seconds:
-        one: 不到一秒
-        other: 不到 %{count} 秒
+        one: 不到一秒前
+        other: 不到%{count}秒前
       over_x_years:
         one: 一年多
-        other: ! '%{count} 年多'
+        other: ! '%{count}年多前'
       x_days:
-        one: 一天
-        other: ! '%{count} 天'
+        one: 一天前
+        other: ! '%{count}天前'
       x_minutes:
-        one: 一分钟
-        other: ! '%{count} 分钟'
+        one: 一分钟前
+        other: ! '%{count}分钟前'
       x_months:
-        one: 一个月
-        other: ! '%{count} 个月'
+        one: 一个月前
+        other: ! '%{count}前个月前'
       x_seconds:
-        one: 一秒
-        other: ! '%{count} 秒'
+        one: 一秒前
+        other: ! '%{count}秒前'
     prompts:
       day: 日
       hour: 时
@@ -159,6 +193,17 @@ zh:
       month: 月
       second: 秒
       year: 年
+  
+  notice:
+    submit_error: 提交没有成功，请重试。
+    askable_type_missing: 请给新问题选择一个合适的格式。
+    askable_created: 成功创建一个%{country_name}的新问题。
+
+  activerecord:
+    errors: &errors
+      messages:
+        record_invalid: ! "验证失败: %{errors}"
+          
   errors: &errors
     format: ! '%{attribute} %{message}'
     messages:
@@ -182,6 +227,8 @@ zh:
       taken: 已经被使用
       too_long: 过长（最长为 %{count} 个字符）
       too_short: 过短（最短为 %{count} 个字符）
+      too_long_words: 最长为%{count}个词
+      too_short_words: 最短为%{count}个词
       wrong_length: 长度非法（必须为 %{count} 个字符）
     template:
       body: 如下字段出现错误：
@@ -191,10 +238,6 @@ zh:
   helpers:
     select:
       prompt: 请选择
-    submit:
-      create: 新增%{model}
-      submit: 储存%{model}
-      update: 更新%{model}
   number:
     currency:
       format:

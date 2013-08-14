@@ -13,15 +13,28 @@
 
 ActiveRecord::Schema.define(:version => 20130620052301) do
 
+  create_table "answerable_translations", :force => true do |t|
+    t.integer  "answerable_id"
+    t.string   "locale"
+    t.text     "body"
+    t.string   "auto_translated"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "answerable_translations", ["answerable_id"], :name => "index_answerable_translations_on_answerable_id"
+  add_index "answerable_translations", ["locale"], :name => "index_answerable_translations_on_locale"
+
   create_table "answerables", :force => true do |t|
     t.string   "type"
-    t.integer  "askable_id",   :null => false
-    t.integer  "user_id",      :null => false
-    t.string   "country_code", :null => false
+    t.integer  "askable_id",      :null => false
+    t.integer  "user_id",         :null => false
+    t.string   "country_code",    :null => false
     t.text     "body"
-    t.integer  "vote",         :null => false
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.string   "auto_translated"
+    t.integer  "vote"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   add_index "answerables", ["askable_id"], :name => "index_answerables_on_askable_id"
@@ -47,20 +60,20 @@ ActiveRecord::Schema.define(:version => 20130620052301) do
 
   create_table "askables", :force => true do |t|
     t.string   "type"
-    t.string   "country_code",                                                :null => false
+    t.string   "country_code",                        :null => false
     t.integer  "followings_count", :default => 0
-    t.integer  "user_id",                                                     :null => false
+    t.integer  "user_id",                             :null => false
     t.string   "slug"
-    t.text     "body",                                                        :null => false
-    t.integer  "coverage",         :default => 0,                             :null => false
+    t.text     "body",                                :null => false
+    t.integer  "coverage",         :default => 0,     :null => false
     t.boolean  "featured",         :default => false
     t.boolean  "locked",           :default => false
-    t.string   "auto_translated",  :default => "true"
+    t.string   "auto_translated"
     t.text     "description"
-    t.string   "yes",              :default => "translation missing: en.yes"
-    t.string   "no",               :default => "translation missing: en.no"
-    t.datetime "created_at",                                                  :null => false
-    t.datetime "updated_at",                                                  :null => false
+    t.string   "yes",              :default => "Yes"
+    t.string   "no",               :default => "No"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
   end
 
   add_index "askables", ["country_code"], :name => "index_askables_on_country_code"

@@ -1,0 +1,3 @@
+.comments_holder
+  = render :partial => 'comments/comment', :collection => @comments, :as => :comment, :locals => { :commentable => @askable }
+  = paginate @comments, :remote => true, :params => { controller: 'askables', action: 'comments', country_id: @country.slug, id: @askable.id}

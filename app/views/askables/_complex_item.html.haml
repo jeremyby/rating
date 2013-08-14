@@ -1,11 +1,12 @@
-.ballot(class = '#{ballot.vote > 0 ? "yes" : "no"}' id = 'ballot_#{ballot.id}')
+.answerable(class='#{ answerable.vote > 0 ? "yes" : "no" unless answerable.vote.blank? }' id='answerable_#{ answerable.id }')
+  .answerer= answerable_user_info(answerable.user, answerable.vote, current_user)
+  
+  - unless answerable.body.blank?
+    .answerable_body
+      .ellipsis.ellips
+        .html= answerable.body.html_safe
+      .ans_clps
+        = link_to_function t('askable.show.collapse'), 'javascript: aac.eclipsis_collapse($(this))'
 
-  .voter
-    = ballot_user_info(ballot.user, ballot.vote, current_user)
-  
-  - if ballot.body.present?
-    .comment_body
-      :markdown
-        #{ ballot.body }
-  
-    = render 'askables/ballot_comments', :ballot => ballot
+- unless answerable.body.blank?
+  = render 'askables/answer_comments', :answerable => answerable

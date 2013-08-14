@@ -9,7 +9,8 @@
 
 #nask
   %h1
-    = t('askable.new.country_flag', country_flag: country_m_flag(@country)).html_safe
+    = t('askable.new.country_h1', country: @country.to_s)
+    = country_image(@country, 'm')
     
   %h2.sub
     %em= t('askable.new.choose')
@@ -71,7 +72,7 @@
           %tr.desc.vague
             %td.label 
               Description: 
-            %td.text= f.text_area :description, :class => 'vague'
+            %td.text= f.text_area :description
     
           %tr.coverage
             %td.label Participation:
@@ -80,4 +81,4 @@
       .submit
         %a(href='#{ country_path(@country) }')
           &larr; back to #{ @country.to_s }
-        = f.submit "Submit"
+        = f.submit t('submit')

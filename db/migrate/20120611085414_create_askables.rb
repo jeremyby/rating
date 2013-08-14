@@ -21,13 +21,13 @@ class CreateAskables < ActiveRecord::Migration
       t.boolean   :featured,          :default => false
       t.boolean   :locked,            :default => false
       
-      t.string    :auto_translated,   :default => 'true'
+      t.string    :auto_translated
       
       t.text      :description
       
       # Poll specific
-      t.string    :yes,               :default => I18n.t('yes')
-      t.string    :no,                :default => I18n.t('no')
+      t.string    :yes,               :default => I18n.t('ans_yes')
+      t.string    :no,                :default => I18n.t('ans_no')
       
       t.timestamps
     end
@@ -51,7 +51,8 @@ class CreateAskables < ActiveRecord::Migration
     remove_index :askables, :user_id
     remove_index :askables, :country_code
     
-    drop_table :askables
     Askable.drop_translation_table!
+    
+    drop_table :askables
   end
 end

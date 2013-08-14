@@ -1,0 +1,20 @@
+- answerable ||= @commentable
+
+.comments(class='#{ (answerable.vote > 0 ? "yes" : "no") unless answerable.vote.blank? }' id='comment_#{answerable.id}')
+  .actions
+    = link_to 'Like', '#'
+    
+    = link_to_function t('plural.comment', count: answerable.comment_threads.size), "aac.ans_comments($(this))", :class => 'scs'
+    
+    - if answerable.auto_translated.nil?
+      = link_to_if(current_user == answerable.user, t('edit'), 'javascript: aac.toggle_answerable()') {|name| ''}
+    - else
+      = link_to 'Improve translation', '#'
+    
+  .detail
+    .form
+      - comment = answerable.comment_threads.new
+      = render 'comments/form', :comment => comment
+      
+    - @comments = answerable.root_comments.order('created_at DESC').page(1)
+    = render 'answerables/comments'

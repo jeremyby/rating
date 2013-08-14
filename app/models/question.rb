@@ -1,6 +1,6 @@
 class Question < Askable
   has_many :answers, :foreign_key => 'askable_id', :dependent => :destroy
-
+    
   def to_s
     self.body
   end
@@ -16,12 +16,36 @@ class Question < Askable
 
     return all.first(n), is_end
   end
-
+  
   def build_answerable(user, answerable)
     user.answerables.answers.build(
-      :poll_id => answerable[:askable_id],
+      :askable_id => answerable[:askable_id],
       :country_code => answerable[:country_code],
-      :answer => answerable[:body]
+      :body => answerable[:body]
     )
+  end
+  
+  def translate(from, to, is_update = false)
+    array = [ self.body ]
+    array << (self.description.blank? ? '' : self.description)
+  
+  # Using google translate
+    result = EasyTranslate.translate(array, from: from, to: to)
+  
+    self.save_translation(result, to, is_update)
+  end
+  
+  def save_translation(array, locale, is_update = false)
+    self.transaction do
+      I18n.with_locale(locale) do
+        self.body = HTMLCoder.decode(array[0])
+        self.description = array[1].blank? ? nil : HTMLCoder.decode(array[1])
+        self.auto_translated = true
+        
+        self.save!
+      end
+    
+      self.add_locale_to_event(locale) unless is_update
+    end
   end
 end

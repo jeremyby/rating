@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
   acts_as_nested_set :scope => [:commentable_id, :commentable_type]
   
-  attr_accessible :user_id, :title, :body
+  attr_accessible :user_id, :title, :body, :parent_id
   
   validates_presence_of :body
   validates_presence_of :user
@@ -14,6 +14,8 @@ class Comment < ActiveRecord::Base
 
   # NOTE: Comments belong to a user
   belongs_to :user
+  
+  paginates_per 5
 
   # Helper class method that allows you to build a comment
   # by passing a commentable object, a user_id, and comment text

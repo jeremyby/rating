@@ -1,53 +1,85 @@
 @import global
 
++multiline-ellipsis(190px, 1.4em, 9em)
+
+#cke_answerable_body
+  +box-shadow(none)
+  
+  .cke_contents
+    +box-shadow(#c0c0c0 1px 1px 3px inset)
+    
+    .cke_wysiwyg_frame,
+    .cke_wysiwyg_div
+      background: none
+    
 .comments
   .detail
-    margin-top: 5px
     display: none
-
+    
+    textarea
+      height: 18px
+    
+    .form
+      input
+        +small-button
+      
   .comments_holder
-    max-height: 300px
-
-    overflow-y: auto
-
+    +clearfix
+  
     .comment
       +clearfix
+      
+      border-top: 1px solid #aaa
 
       margin-bottom: 5px
-
+      padding: 5px 0 0 5px
+      
       .avatar
         float: left
 
       .user
-        margin: 3px 0 2px 29px
+        margin: 3px 0 5px 29px
+        
+        span
+          +small
 
       .body
-        margin: 0 0 2px 29px
+        margin: 0 0 5px 29px
 
       .atns
-        margin-left: 29px
+        margin: 0 0 5px 29px
+        +small
 
         a
           margin-right: 5px
 
       .reply
         margin: 5px 0 0 29px
+        
+        input
+          margin-top: 5px
 
       .comment
         margin: 5px 0 5px 29px
-
-
-  .form
-    textarea
-      height: 50px
-      width: 360px
-      max-width: 450px
-
+        
+  nav
+    margin-right: 160px
+    padding: 0 0 10px 0
+    text-align: center
+  
+  h3
+    margin: 5px 0
+  
   .reply
     display: none
-
+    
+    a
+      +small
+      color: #888
+    
     textarea
-      height: 18px
+      width: 320px
+      max-width: 320px
 
 span.lang
   padding: 2px 3px
@@ -63,10 +95,12 @@ span.lang
   margin: 65px 0 0 0
   
   .statuses
+    +clearfix
+  
     .status
       float: left
     
-      margin: 0 10px 8px 0
+      margin: 0 10px 10px 0
       padding: 4px 8px
 
       +border-radius(100px)
@@ -114,10 +148,11 @@ span.lang
   
   position: relative
 
-  padding: 28px 20px 25px 20px
+  padding: 35px 30px 25px 30px
   background: white
   
-  +box-shadow(#ccc 2px 2px 6px)
+  +box-shadow(#ccc 0 0 3px)
+  +border-left-radius(10px)
   
   &:hover
     .actions
@@ -148,7 +183,7 @@ span.lang
     top: 0
     right: 0
     bottom: 0
-    left: 780px
+    left: 760px
 
     #follow
       height: 25%
@@ -173,8 +208,7 @@ span.lang
         background: #aaa
         +background-image(linear-gradient(left, #808080, #999 6px, #aaa))
         
-        .cell
-          padding-left: 18px
+        text-align: center
           
       &.follow
         .cell
@@ -185,7 +219,6 @@ span.lang
             color: green
       
       &.share
-      
         .cell
           a
             img
@@ -218,12 +251,12 @@ span.lang
           +background-image(linear-gradient(left, #B92B31, #D9353D 6px, #F93F47))
     
 
-  .poll
+  .question
     position: relative
     
-    max-width: 700px
+    max-width: 690px
     
-    .question
+    h1
       margin: 0
       
       line-height: 1.4em
@@ -232,21 +265,93 @@ span.lang
       span.no:before
         top: 17px
         margin: 0 5px 0 3px
-        
+      
+      em
+        margin: 0 3px
 
     .desc
-      padding: 10px 1em
+      margin-top: 11px
+      padding: 15px 20px
+      
+      line-height: 1.4em
 
       background: #fff
       border: 2px dashed #cecece
 
       color: #666
 
-    .add_desc
-      margin: 15px 0 0 0
+    .edit
+      display: none
+      
+      .body
+        textarea
+          +helv
+          
+          font:
+            size: 1.7em
+            weight: bold
+        
+          width: 100%
+          height: 1.4em
+          
+      .table
+        margin: 8px 0 15px -11px
+        
+        span
+          position: relative
+          top: 5px
+          padding: 0 10px
+          
+          font:
+            size: 1.2em
+            weight: bold
+            style: italic
+                    
+        .cell
+          &.yes:before,
+          &.no:before
+            top: 11px
+            
+          input
+            +helv
+            width: 317px
+            
+            font:
+              size: 1.4em
+              weight: bold
+              
+      .text
+        margin-top: 8px
+      
+        textarea
+          width: 100%
+          height: 60px
+          
+          font-size: 1em
+          
+          &.vague
+            +opacity(0.8)
+            +box-shadow(#eee 1px 1px 3px inset)
+            border: 1px solid #eee
+            
+            color: #666
+      
+      .submit
+        padding: 12px 0 10px 0
+        
+        width: 100%
+        
+        text-align: center
+
+        input
+          +small-button
+          
+        a
+          margin-left: 3px
+          +small
       
   .actions
-    margin-top: 20px
+    margin-top: 21px
     
     max-width: 695px
     
@@ -287,227 +392,287 @@ span.lang
         
     .translation:after,
     .availables:after,
-    .coverage:after
+    .coverage:after,
+    .comments:after
       content: ''
       padding: 0 6px
     
 
     .translate
+      margin-top: -3px
       float: right
       
+      a
+        +small-grey-button
       
-#ballot
+
+.blinder
   display: none
   
   position: relative
-  top: -60px
+  top: -55px
   left: -10px
   
-  margin-right: 180px
+  margin-right: 200px
   
   padding-top: 10px
   
   background: transparent url('/assets/tri_bw.png') top left no-repeat
   
   .wrapper
-    max-width: 750px
-    padding: 5px 150px 30px 30px
+    max-width: 730px
+    padding: 0 162px 0 28px
     
     border: 1px solid #d6d6d6
     background: #dfdfdf
+    
     +box-shadow(#e0e0e0 3px 3px 6px)
-  
-    +clearfix
-    
-    .msg
-      padding: 20px 0 5px 0
-    
-    h2
-      margin-bottom: 5px
-  
-    .table
-      margin: 0
-      width: 100%
-      
-      font-weight: normal
-      color: #444
-      
 
-      .cell
-        padding: 15px 10px
-        
-        +large
-        
-        &.or
-          width: 10%
-          position: relative
-          top: 1px
-          text-align: center
-          font-style: italic
-          color: #f16022
-      
-        &.yes,
-        &.no
-          cursor: pointer
-          width: 45%
-          
-          background: white
-          
-          label
-            cursor: pointer
-          
-          &:hover
-            color: white
-          
-          &.checked
-            color: white
-        
-        &.yes
-          &:hover,
-          &.checked
-            background: #5ED57B
-            
-      
-        &.no
-          &:hover,
-          &.checked
-            background: #F93F47
-  
-    .answer
-      margin-bottom: 15px
-      
-      textarea
-        height: 80px
-        max-height: 280px
-        
-        max-width: 585px
-        width: 585px
-        
-        border-color: #d0d0d0
-        
-        vertical-align: top
-      
-        &.sub
-          color: #aaa
-  
-    .submit
-      padding-right: 15px
+
+#askable_comments
+  .detail
+    .form
+      margin: 25px 0
     
-      float: right
-    
+      line-height: 18px
+
       a
         +small
-      
         color: #888
-        margin-left: 5px
-    
-      input
-        +button
-        
-        &.disable
-          +opacity(0.5)
+        margin-left: 3px
 
-    .styler
+      textarea
+        width: 420px
+        max-width: 420px
+        
+        background: #f9f9f9
+        border-color: #d0d0d0
+    
+#answerable
+  .msg
+    padding: 20px 0 5px 0
+  
+  h2
+    margin: 20px 0 8px 0
+    
+    &.option
+      color: #939393
+      font-size: 1.15em
+
+  .table
+    margin: 0
+    width: 100%
+    
+    font-weight: normal
+    color: #444
+    
+    .cell
+      padding: 15px 10px
+      
+      +large
+      
+      &.or
+        width: 10%
+        position: relative
+        top: 1px
+        text-align: center
+        font-style: italic
+        color: #f16022
+    
+      &.yes,
+      &.no
+        cursor: pointer
+        width: 45%
+        
+        background: white
+        
+        label
+          cursor: pointer
+        
+        &:hover
+          color: white
+        
+        &.checked
+          color: white
+      
+      &.yes
+        &:hover,
+        &.checked:hover
+          background: #5ED57B
+        
+        &.checked
+          background: #7ddb94
+
+      &.no
+        &:hover,
+        &.checked:hover
+          background: #F93F47
+        
+        &.checked
+          background: #f9646b
+
+  .answer
+    margin-bottom: 15px
+    
+    textarea
+      visibility: hidden
+    
+      height: 235px
+      
+      max-width: 590px
+      width: 590px
+      
+      border-color: #d0d0d0
+      
+      vertical-align: top
+    
+      &.sub
+        color: #aaa
+
+  .submit
+    padding: 0 15px 15px 0
+  
+    text-align: right
+  
+    a
       +small
     
-      padding-left: 1em
       color: #888
-      line-height: 21px
-    
-      em,
-      strong
-        padding: 0 1px
+      margin-left: 5px
+  
+    input
+      +button
 
 
 #spb
   clear: left
   +clearfix
   
-  margin-top: 15px
+  margin: 10px 0 0 0
   
-  .lc
-    min-height: 350px
+  &.lower
+    margin-top: -50px
   
-    .ata
-      padding-bottom: 20px
+  h2.page
+    margin: 1em 0 8px 0
+    +clearfix
+    
+    .text
+      float: left
+    
+    #gauge
+      float: left
+      width: 160px
+      margin: 3px 0 0 8px
+
+      +border-radius(20px)
       
-      h2.ballot
-        margin: 0
+      +inline-block
+      
+      font:
+        size: 11px
+        weight: normal
         
-        line-height: 40px
+      line-height: 17px
+      
+      .table
+        width: 100%
         
-        span
-          margin-left: 5px
-          font-size: 0.8em
-          font-weight: normal
-          
-          
-        #ballot_action
-          &.button
-            position: relative
-            top: -2px
-            left: 10px
-          
-            +button
+        .yes,
+        .no
+          color: white
+          text-align: center
+        
+        .yes
+          background: #5ED57B
+          +border-left-radius(7px)
+
+        .no
+          background: #F93F47
+          +border-right-radius(7px)
+
+      
+      em
+        font:
+          family: georgia
+          style: italic
+    
+  .lc
+    margin-left: 15px
+  
+    max-width: 570px
+    min-height: 430px
 
     #answers
-      h2
-        margin: 0 0 8px 0
-      
-      .ballot
-        padding: 10px
+      .answerable
+        position: relative
         
-        .voter
+        margin-bottom: 10px
+        border: 1px solid #ddd
+        
+        .answerer
+          position: relative
+          padding: 6px 6px 9px 6px
+          
+          +small
+          
+          background: #f0f0f0
+            
           img
-            margin-bottom: -5px
+            margin-bottom: -6px
         
-        .comment_body
-          margin-top: 8px
-          padding: 8px 10px
+        .answerable_body
+          position: relative
           
-          +border-radius(6px)
+          padding: 1px 15px
           
+          background: white
         
-        &.yes
-          padding-right: 80px
+          .ans_clps
+            display: none
           
-          border-left: 8px solid #cef0ce
-          
-          .comment_body
-            background: #cef0ce
-        
-        &.no
-          padding-left: 80px
-          
-          border-right: 8px solid #ffdfdf
-          
-          .voter
+            padding: 0 5px 3px 0
             text-align: right
-          
-          .comment_body
-            background: #ffdfdf
-      
-        .comments
-          .actions
-            padding: 2px 0 0 10px
             
             a
-              margin-right: 5px
-        
-          .comments_holder
-            max-height: 200px
+              color: #999
+              font:
+                style: italic
+                size: 11px
+              
+        &.yes
+          border-left: 2px solid #5ED57B
+          
+        &.no
+          border-right: 2px solid #F93F47
+          
+          .answerer
+            text-align: right
             
+      .comments
+        margin: -8px 0 13px 0
+        padding: 2px 10px
+
+        +small
+
+        .actions
+          a
+            margin-right: 5px
+        
+        .detail
+          padding: 0 5px
+        
           .form
+            padding: 10px 0
+        
             textarea
               width: 320px
               max-width: 320px
-              
-          .comment
-            .reply
-              textarea
-                width: 240px
-                max-width: 240px
-                
+
+        &.no
+          .actions
+            text-align: right
+      
       .lmv
         margin-top: 15px
         text-align: center
@@ -516,7 +681,12 @@ span.lang
           +grey-button
   
   .rc
-    margin-top: 25px
+    width: 320px
+    
+    margin-right: 15px
+    
+    h3
+      margin: 20px 0 8px 0
     
     ul
       margin: 0
@@ -524,24 +694,7 @@ span.lang
       list-style:  none
       
       li
-        margin-bottom: 5px
-      
-      li.follow
         margin-bottom: 10px
-        
-        a
-          +large
-          font-weight: bold
-          
-      li.unfollow
-        margin-bottom: 10px
-      
-      li.share
-        padding-left: 15px
-      
-    .polls
-      h3
-        margin: 25px 0 10px 0
-      
-      li
-        margin-bottom: 10px
+
+
+

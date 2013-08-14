@@ -27,13 +27,13 @@ module UserHelper
     link_to image_tag(u.avatar_url(:thumb), :size => '24x24'), user_path(u)
   end
   
-  def ballot_user_info(u, vote, voter)
-    user_link_text = (voter == u) ? 'You' : u.to_s 
+  def answerable_user_info(answerer, vote, u)
+    user_link_text = (answerer == u) ? 'You' : answerer.to_s 
     
-    if vote > 0 #positive vote
-      "#{user_small_avatar_link(u)} #{link_to user_link_text, user_path(u)}".html_safe
+    if vote.blank? || vote > 0 #no vote(it's a Q&A) or positive vote
+      "#{user_small_avatar_link(answerer)} #{link_to user_link_text, user_path(answerer)}".html_safe
     else
-      "#{link_to user_link_text, user_path(u)} #{user_small_avatar_link(u)}".html_safe
+      "#{link_to user_link_text, user_path(answerer)} #{user_small_avatar_link(answerer)}".html_safe
     end
   end
 end

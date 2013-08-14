@@ -1,9 +1,9 @@
 
-:javascript
-  aac.country_code = '#{ @country.code }'
-
 - content_for :js do
   = javascript_include_tag 'country', 'world'
+
+:javascript
+  aac.country_code = '#{ @country.code }'
 
 - content_for :title_string do
   = t 'country_title', :country_name => @country.to_s
@@ -55,7 +55,7 @@
   #csbox.lc
     = render 'sort', :active => @sort
           
-    - events = @country.events.where('locales LIKE ?', "%#{ I18n.locale.to_s }%").order('created_at DESC')
+    - events = @country.events.where('locales LIKE ?', "%#{ I18n.locale.to_s }%").order('updated_at DESC')
     
     .feed_list
       - events.each do |e|

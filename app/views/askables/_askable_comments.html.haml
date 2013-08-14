@@ -1,13 +1,12 @@
 - @askable ||= @commentable
 
-#askable_comments.comments
-  .detail
-    .comments_holder
-      = render :partial => 'comments/comment', :collection => @askable.root_comments.includes(:user, :children), :as => :comment
-
+#askable_comments.comments.blinder
+  .detail.wrapper
     .form
       - comment = @askable.comment_threads.new
       = render 'comments/form', :comment => comment
+  
+    - @comments = @askable.root_comments.order('created_at DESC').page(1)
+    = render 'askables/comments'
 
-    .reply
-      = render 'comments/form', :comment => comment, :reply => true
+

@@ -1,3 +1,0 @@
-$('#ltpcs').text("<%= pluralize(@commentable.comment_threads.size, 'comment') %>")
-$('#askable_comments').replaceWith("<%= escape_javascript(render 'askables/askable_comments')%>");
-$('#askable_comments .detail').show()

@@ -1,0 +1,18 @@
+
+<%
+  @askable ||= @commentable
+  @country ||= @askable.country
+  
+  @comments = comments_on_page(@askable, @comments, @page)
+%>
+
+$('#ltac').text("<%= t('plural.comment', count: @askable.comment_threads.size) %>");
+
+div = $("<%= (j render 'askables/comments').html_safe %>").hide();
+$('#askable_comments .comments_holder').replaceWith(div);
+
+<% if @comment.present? # clear comment textarea if just created %>
+  $('#askable_comments #comment_body').val('');
+<% end %>
+
+div.fadeIn();

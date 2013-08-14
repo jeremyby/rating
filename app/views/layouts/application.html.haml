@@ -13,7 +13,10 @@
     
     :javascript
       window.aac = {}
+      window.locale = '#{ I18n.locale.to_s }'
       window.I18n = #{ current_translations.to_json.html_safe }
+      
+      var CKEDITOR_BASEPATH = '/assets/ckeditor/';
     
     = javascript_include_tag "/countries", "application"
     = yield :js

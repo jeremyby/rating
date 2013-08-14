@@ -1,5 +1,5 @@
 = form_for answerable, :as => 'answerable', :url => url, :remote => true do |f|
-  %h2 What is your vote?
+  %h2 What do you say?
   .votes.table
     .cell.yes(class='#{ answerable.vote > 0 ? 'checked' :  ''}')
       = f.radio_button :vote, '1'
@@ -10,7 +10,7 @@
       = f.radio_button :vote, '-1'
       = f.label :vote, @askable.no, :value => '-1'
   
-  %h2 Why you choose the answer?
+  %h2.option Care to elaborate?
   .answer
     = f.text_area :body
 
@@ -18,11 +18,6 @@
     = f.hidden_field :country_code, :value => @country.code
     = f.hidden_field :askable_id, :value => @askable.id
     
-    = f.submit 'Submit'
-    = link_to_function 'cancel', 'aac.toggle_ballot()'
-    
-  .styler
-    available style: *<em>italic</em>*, **<strong>bold</strong>**, * list item,
-    %br
-    ![alt text](image url) and [text](link url)
+    = f.submit t('submit')
+    = link_to_function t('cancel'), 'aac.toggle_answerable()'
     

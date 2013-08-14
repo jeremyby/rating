@@ -12,19 +12,14 @@ module ApplicationHelper
     @translations ||= I18n.backend.send(:translations)
     @translations[I18n.locale].with_indifferent_access[:js]
   end
+  
+  def in_original_lang(obj)
+    obj.auto_translated.nil?
+  end
 end
 
 module ActionView
   class Base
-    def askable_coverage_info(coverage, country)
-      img =  (t "askable.coverage")[coverage][:img]
-      name = (t "askable.coverage")[coverage][:name]
-      
-      str = "<img src ='/assets/#{ img }' />#{ name }"
-      
-      title = (t "askable.coverage")[coverage][:title]
-
-      return content_tag(:span, str.html_safe, :title => title)
-    end
+    # Define universal helpers here
   end
 end

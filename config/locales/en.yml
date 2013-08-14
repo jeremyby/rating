@@ -3,17 +3,28 @@
 
 en:
   hello: Hello world
-  m_yes: 'Yes'
-  m_no: 'No'
+  or: or
+  done: Done
+  ans_yes: "Yes"
+  ans_no: "No"
+  q_mark: '?'
   
-  default_title: "Ask a Country"
-  logo: "/assets/logo.png"
-  country_title: "Ask %{country_name}"
+  default_title: Ask a Country
+  logo: /assets/logo.png
+  country_title: Ask %{country_name}
   
-  home_link: "Home"
-  logout: "Log out"
-  login: "Log in"
-  signup: "Sign up"
+  home_link: Home
+  logout: Log out
+  login: Log in
+  signup: Sign up
+  
+  reply: Reply
+  delete: Delete
+  edit: Edit
+  cancel: cancel
+  close: close
+  vote: Vote
+  submit: Submit
   
   language:
     en: English
@@ -27,7 +38,14 @@ en:
     search_string: "Search for a country"
     search_all: "All Countries"
     search_hint: "try name, initials or code"
-    new_askable_desc_default: "more detail for your question."
+    
+    empty_desc_msg: add description...
+    
+    notice:
+      askable_body_size: Question should be between 5-300 charactors long
+      askable_body_format: Question should have at least one question mark
+      askable_answer_size: A vaild answer should have 1-80 charactors
+      missing_vote: Please cast a vote before submitting.
   
   home:
     index:
@@ -49,11 +67,12 @@ en:
         title: Only people who are NOT from the country can answer the question
       
     new:
-      country_flag: Ask %{country_flag}
+      country_h1: Ask %{country}
       choose: "There are 2 types of questions. Choose one below:"
-    create:
-      notice: New question is added for %{country_name}.
     show:
+      css:
+        expand: click to expand\02026
+      collapse: collapse…
       asking: Asking %{link}
       created: Created by %{link}
       follow: + Follow Question
@@ -65,4 +84,57 @@ en:
       t_from_to: The question was translated into %{to} from %{from}
       auto: Auto Translation
       available: Available in
-      improve: improve this translation
+      improve: Improve Translation
+
+  plural:
+    comment:
+      zero: Comment
+      one: 1 comment
+      other: "%{count} comments"
+          
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: ~1h ago
+        other: ~%{count}h ago
+      about_x_months:
+        one: ~1mon ago
+        other: ~%{count}mon ago
+      about_x_years:
+        one: ~1yr ago
+        other: ~%{count}yrs ago
+      almost_x_years:
+        one: ~=1yr ago
+        other: ~=%{count}yrs ago
+      half_a_minute: 30s ago
+      less_than_x_minutes:
+        one: <1min ago
+        other: < %{count}min ago
+      less_than_x_seconds:
+        one: <1s ago
+        other: <%{count}s ago
+      over_x_years:
+        one: 1yr ago
+        other: ! '%{count}yrs ago'
+      x_days:
+        one: 1d ago
+        other: ! '%{count}d ago'
+      x_minutes:
+        one: 1min ago
+        other: ! '%{count}min ago'
+      x_months:
+        one: 1mon ago
+        other: ! '%{count}mon ago'
+      x_seconds:
+        one: 1s ago
+        other: ! '%{count}s ago'
+  
+  notice:
+    submit_error: Submission was not successful. Please check and try again.
+    askbale_type_missing: Please choose the right type for the question.
+    askable_created: New question is added for %{country_name}.
+  
+  errors: &errors
+    messages:
+      too_short_words: must have at least %{count} words
+      too_long_words: must have at most %{count} words

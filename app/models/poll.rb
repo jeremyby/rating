@@ -17,11 +17,11 @@ class Poll < Askable
   end
   
   def simple?
-    self.yes == I18n.t('m_yes') && self.no == I18n.t('m_no')
+    self.yes == I18n.t('ans_yes') && self.no == I18n.t('ans_no')
   end
 
   def or_negative?
-    self.yes == I18n.t('m_yes') && self.no != I18n.t('m_no')
+    self.yes == I18n.t('ans_yes') && self.no != I18n.t('ans_no')
   end
 
   def answer_complex(current_user_id, last_ballot_id, n = Complex_Number)
@@ -54,43 +54,40 @@ class Poll < Askable
     return complex.first(n), is_end
   end
   
-  def translate(from, to)
-    array = [ self.body ]
-    array << (self.yes == I18n.t('m_yes') ? '' : self.yes)
-    array << (self.no == I18n.t('m_no') ? '' : self.no)
-    array << (self.description.blank? ? '' : self.description)
-    
-    # Using google translate
-    result = EasyTranslate.translate(array, from: from, to: to)
-    
-    self.save_translation(result, to)
-  end
-  
-  def save_translation(array, locale)
-    self.transaction do
-      I18n.with_locale(locale) do
-        self.update_attributes!(
-          body: array[0],
-          yes: array[1].blank? ? I18n.t('m_yes') : array[1],
-          no: array[2].blank? ? I18n.t('m_no') : array[2],
-          description: array[3].blank? ? nil : array[3],
-          auto_translated: 'true'
-        )
-      end
-    
-      # when translating a poll, add the new locale to its event log
-      # so that we will know it can be listed for the locale
-      e = self.events.new_poll.first
-      e.update_attributes!({:locales => "#{ e.locales } #{ locale }"})
-    end
-  end
-
   def build_answerable(user, answerable)
     user.answerables.ballots.build(
       :askable_id => answerable[:askable_id],
       :country_code => answerable[:country_code],
       :vote => answerable[:vote].to_i,
-      :body => answerable[:body]
+      :body => answerable[:body].blank? ? nil : answerable[:body]
     )
+  end
+  
+  def translate(from, to, is_update = false)
+    array = [ self.body ]
+    array << (self.yes == I18n.t('ans_yes') ? '' : self.yes)
+    array << (self.no == I18n.t('ans_no') ? '' : self.no)
+    array << (self.description.blank? ? '' : self.description)
+    
+    # Using google translate
+    result = EasyTranslate.translate(array, from: from, to: to)
+    
+    self.save_translation(result, to, is_update)
+  end
+  
+  def save_translation(array, locale, is_update = false)
+    self.transaction do
+      I18n.with_locale(locale) do
+        self.body = HTMLCoder.decode(array[0])
+        self.yes = array[1].blank? ? I18n.t('ans_yes') : HTMLCoder.decode(array[1])
+        self.no = array[2].blank? ? I18n.t('ans_no') : HTMLCoder.decode(array[2])
+        self.description = array[3].blank? ? nil : HTMLCoder.decode(array[3])
+        self.auto_translated = true
+        
+        self.save!
+      end
+      
+      self.add_locale_to_event(locale) unless is_update
+    end
   end
 end

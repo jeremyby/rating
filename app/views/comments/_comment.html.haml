@@ -2,13 +2,19 @@
 
 .comment(id = '#{id}')
   .avatar= user_small_avatar_link(comment.user)
-  .user= link_to comment.user, user_path(comment.user)
+  .user
+    = link_to comment.user, user_path(comment.user)
+    %span= time_ago_in_words(comment.created_at)
+
   .body= comment.body
   .atns
-    = link_to 'Upvote', '#'
-    = link_to_function 'Reply', 'aac.reply_button($(this).parent())', :class => 'rbtn'
+    = link_to 'Like', '#'
+    = link_to_function t('reply'), 'aac.reply_button($(this).parent())', :class => 'rbtn'
     - if comment.user == current_user && !comment.has_children?
-      = link_to 'Delete', comment_path(comment), :method => :delete, :remote => true, :confirm => 'Deleting the comment. Are your sure?'
+      = link_to t('delete'), "/comments/#{ comment.id }?page=#{ params[:page] }", :method => :delete, :remote => true, :confirm => 'Deleting the comment. Are your sure?'
+  .reply
+    - reply = commentable.comment_threads.new(:parent_id => comment.id)
+    = render 'comments/form', :comment => reply, :reply => true, :page => params[:page]
   
   - if comment.has_children?
-    = render :partial => 'comments/comment', :collection => comment.children.includes(:user), :as => :comment
+    = render :partial => 'comments/comment', :collection => comment.children, :as => :comment, :locals => { :commentable => commentable }

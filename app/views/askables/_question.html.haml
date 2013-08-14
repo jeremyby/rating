@@ -1,0 +1,54 @@
+- @is_owner ||= (current_user.present? && current_user == @askable.owner)
+- @orig_lang ||= @askable.translations.collect {|t| t.locale}.first
+
+
+.question
+  .header
+    %h1.yesno
+      %span(class = '#{ @askable.is_a?(Poll) && @askable.or_negative? ? "yes" : "" }')
+        = @askable.body
+        
+      - if @askable.is_a?(Poll) && !@askable.simple?
+        - unless @askable.or_negative?
+          %span.yes= @askable.yes
+        %em= t('or')
+        %span.no<= @askable.no
+        ?
+
+    - unless @askable.description.blank?
+      .desc= @askable.description
+    
+  - if can_edit || can_improve
+    .edit
+      = form_for @askable, as: 'askable', remote: true, url: country_askable_path(@country, @askable) do |f|
+        = f.hidden_field :country_code, :value => @country.code
+        
+        - unless @orig_lang == I18n.locale
+          .orig
+            %h1= I18n.with_locale(@orig_lang) { @askable.body }
+          
+        .body= f.text_area :body
+        
+        - if @askable.is_a?(Poll)
+          - unless @orig_lang == I18n.locale
+            .orig
+              .table.yesno
+                - I18n.with_locale(@orig_lang) do
+                  .cell.yes= @askable.yes
+                  %span= t('or')
+                  .cell.no= @askable.no
+                
+          .table.yesno
+            .cell.yes= f.text_field :yes, class: 'field'
+            %span= t('or')
+            .cell.no= f.text_field :no, class: 'field'
+            
+        - unless @orig_lang == I18n.locale
+          .orig
+            .desc= I18n.with_locale(@orig_lang) { @askable.description }
+
+        .text= f.text_area :description
+
+        .submit
+          = f.submit t('done')
+          = link_to_function t('cancel'), 'aac.toggle_edit()'

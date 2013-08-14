@@ -52,8 +52,8 @@ a:hover
     +box-shadow(rgba(black, .2) 1px 1px 5px inset)
 
 .yesno
-  span.yes:before,
-  span.no:before
+  .yes:before,
+  .no:before
     content: ''
     
     position: relative
@@ -62,11 +62,17 @@ a:hover
     padding-left: 8px
     margin-right: 3px
     
-  span.yes:before
+  .yes:before
     border-top: 8px solid #5ED57B
       
-  span.no:before
+  .no:before
     border-top: 8px solid #F93F47
+
+.validation-error input,
+input.error,
+textarea.error
+  background: #ffdfdf
+  +box-shadow(none)
 
 .table
   display: table
@@ -77,6 +83,8 @@ a:hover
     vertical-align: middle 
     position: static
 
+.hidden
+  visibility: hidden
 
 .slab 
   font: 
@@ -232,11 +240,10 @@ body
   margin-top: 48px
 
 
-
 footer#page_footer
   .inner
     ul 
-      margin: 15px 0 15px 10px
+      margin: 15px 0 15px 15px
       padding: 0
       
       li 
@@ -349,7 +356,7 @@ footer#page_footer
 
       padding: 12px 0 0 25px
 
-      .markdown:before
+      .html:before
         content: '“'
         position: absolute
         top: 6px
@@ -365,10 +372,14 @@ footer#page_footer
         margin: 0 0 -1px 1px
 
 
-// markdown tags
-.markdown
+// html tags, rendering content from ckeditor
+.html
   p
-    margin-top: 0
+    line-height: 1.4em
+    
+  img
+    max-width: 520px
+    height: auto
 
 // login/signup
 .home 
@@ -421,10 +432,6 @@ footer#page_footer
         &:focus 
           background: #fff
           outline: none
-    
-      .validation-error input,
-      input.error
-        background: #ffdfdf
 
         +box-shadow(none)
     

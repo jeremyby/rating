@@ -42,15 +42,6 @@ class HomeController < ApplicationController
     end
   end
 
-  def translate
-    type = params[:type] if %w(Askable Answerable).include?(params[:type])
-    object = type.constantize.find(params[:id])
-
-    object.translate_to(params[:from], params[:to])
-
-    render object
-  end
-
   private
   def shuffle_poll
     cond = '1 = 1'

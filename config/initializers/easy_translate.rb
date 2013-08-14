@@ -1,0 +1,1 @@
+EasyTranslate.api_key = 'AIzaSyBGO-ziDiEQz5d9KSAs0xFKFMbtyTSd78o'

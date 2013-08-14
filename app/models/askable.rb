@@ -37,7 +37,6 @@ class Askable < ActiveRecord::Base
 
   has_many    :followings, :as      => :followable, :dependent => :destroy
   has_many    :followers,  :through => :followings, :source => :user
-
   
   has_many    :answerables
 
@@ -45,12 +44,12 @@ class Askable < ActiveRecord::Base
   belongs_to  :owner,     :foreign_key => "user_id",          :class_name => "User"
   
   has_many    :events, :dependent => :destroy
-
-  # note: it seems updating translations can only be done by 'update_attribute(s)'
+  
   translates :slug, :body, :yes, :no, :description, :auto_translated, :versioning => true 
   extend FriendlyId
   friendly_id :body, :use => [:globalize, :history]
-
+  
+  acts_as_translateable
   acts_as_commentable
   
   Complex_Number = 15
@@ -60,7 +59,10 @@ class Askable < ActiveRecord::Base
   end
   
   def more_askables(limit = 4)
-    Askable.where("country_code = ? AND id != ?", self.country_code, self.id).order("RAND()").limit(limit)
+    Askable.includes(:translations)
+      .where('askable_translations.locale = ? AND country_code = ? AND askables.id != ?', I18n.locale, self.country_code, self.id)
+      .order("RAND()")
+      .limit(limit)
   end
   
   private

@@ -1,0 +1,19 @@
+#answers
+  %h2.page
+    .text
+      - if @complex.blank?
+        - #TODO promoting answer/ballots here
+      - else
+        #{ @askable.answerables.size } people have voted
+    
+    - if false && @askable.is_a?(Poll) && @askable.answerables.size > 10
+      - yes_pc = (@askable.ballots.yes.size.to_f/@askable.ballots.size.to_f)*100
+
+      #gauge
+        .table
+          .yes.cell(style='width: #{ '%.1f' % yes_pc }%')
+            %em #{ '%.1f' % yes_pc }%
+
+          .no.cell
+            %em #{ '%.1f' % (100 - yes_pc) }%
+  = render 'complex'

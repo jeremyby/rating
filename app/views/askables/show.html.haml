@@ -3,7 +3,7 @@
   - @answerable = @askable.answerables.where(country_code: @country.code, user_id: current_user.id).first 
   - @is_owner = (current_user == @askable.owner)
 
-- @answerable ||= Ballot.new(:vote => 0)
+- @answerable ||= @askable.is_a?(Poll) ? Ballot.new(vote: 0) : Answer.new
 
 - content_for :title_string do
   #{ t 'country_title', :country_name => @country.to_s }:
@@ -11,13 +11,18 @@
 
 - content_for :js do
   = javascript_include_tag 'askable'
+  
+:css
+  .ellips:after {
+    content: "#{ t('askable.show.css.expand')}";
+  }
 
 #spbody
   .statuses
     .user.status.active
       = t('askable.show.created', link: user_country_flag_link(@askable.owner)).html_safe
     
-    - unless @is_orig
+    - unless in_original_lang(@askable)
       .status
         = t('askable.show.original')
         %a.link(href='#{ original_country_askable_path(@country, @askable) }' data-remote=true)
@@ -41,27 +46,13 @@
     
       = render 'answer_block'
     
-    .poll
-      %h1.question.yesno
-        %span(class = '#{ @askable.is_a?(Poll) && @askable.or_negative? ? "yes" : "none" }')
-          = bip_body
-          
-        - if @askable.is_a?(Poll) && !@askable.simple?
-          - unless @askable.or_negative?
-            %span(class="yes")= best_in_place_if @is_owner, @askable, :yes, :path => country_askable_path(@country, @askable)
-          %em or
-          %span(class="no") #{best_in_place_if @is_owner, @askable, :no, :path => country_askable_path(@country, @askable)}?
-      
-      - if @askable.description.present?
-        .desc= @is_owner ? bip_desc : @askable.description
-      - elsif @is_owner
-        .add_desc= bip_desc
+    = render 'question'
         
     .actions
       %span.coverage
-        = bip_coverage
+        = askable_coverage_info(@askable.coverage, @country)
     
-      - if @is_orig
+      - if in_original_lang(@askable)
         - unless @langs.blank?  
           %span.translation(title='#{t("askable.show.is_orig_title")}')
             %span.lang= t("language.code.#{ @orig_lang }").upcase
@@ -71,8 +62,7 @@
             = image_tag '/assets/translation.png'
             = t('askable.show.available')
             - @langs.each do |l|
-              %a(href='#')
-                %span.lang= t("language.code.#{ l }")
+              %a(href='#')= t("language.code.#{ l }")
         
       - else
         %span.translation(title='#{ t("askable.show.t_from_to", to: t("language.#{ @askable.translation.locale }"), from: t("language.#{ @orig_lang }"))}')
@@ -87,31 +77,36 @@
       %span.others
         %span.comments
           = image_tag '/assets/comment.png'
-          = link_to_function pluralize(@askable.comment_threads.size, 'comment'), '$("#askable_comments .detail").show("blind")', :id => 'ltpcs'
+          = link_to_function t('plural.comment', count: @askable.comment_threads.size), "aac.toggle_comments()", :id => 'ltac'
+        
+        - if can_edit
+          %span.edit
+            = link_to_function t('edit'), 'aac.toggle_edit()'
       
-        - unless @is_orig
-          - if @askable.translation.new_record?
-            %a.translate(href='#')
-              translate the question into
-              = t("language.#{ @askable.translation.locale }")
-          - else
-            %a.translate(href='#')= t('askable.show.improve')
+        - if can_improve
+          %span.translate
+            = link_to_function t('askable.show.improve'), 'aac.toggle_edit(true)'
 
-      = render 'askable_comments'
+  = render 'askable_comments'
+  = render 'answerable'
   
-  = render 'ballot'
-  
-  #spb.box
+  #spb
     .rc
+      - askables = @askable.more_askables
+      
+      - unless askables.blank?
+        %h3 More questions
     
-      / .polls
-      /   %h2 More Questions
-      /   - askables = @askable.more_askables
-      / 
-      /   %ul
-      /     - askables.each do |a|
-      /       %li= link_to a, country_askable_path(@country, a)
+        %ul
+          - askables.each do |a|
+            %li= link_to a, country_askable_path(@country, a)
+          
+      -# %h2.page Contributors
+      
+      %h3
+        Return to
+        = link_to @country.to_s, country_path(@country)
 
     .lc
-      = render "#{ @askable.type.downcase }_answers"
+      = render "askable_answers"
             

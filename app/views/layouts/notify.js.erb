@@ -1,2 +1,2 @@
 $("#notice").replaceWith("<%= j(render 'layouts/notice')%>");
-$("#notice").poof();
+$("#notice").trigger('afterShow').poof();

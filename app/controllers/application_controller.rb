@@ -37,7 +37,13 @@ class ApplicationController < ActionController::Base
         page_404
       end
     end
-  
+    
+    def submit_error
+      flash.now[:alert] = t('notice.submit_error')
+
+      render 'layouts/notify'
+    end
+    
     def page_404
       render :text => 'Not Found', :status => '404'
     end

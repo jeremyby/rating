@@ -1,16 +1,25 @@
 
-aac.enable_submit();
-aac.toggle_ballot();
+<% create ||= false %>
+
+aac.enable_submit('#answerable .submit');
+aac.toggle_answerable();
 
 $("#sph .blocks").children().last().replaceWith("<%= (j render 'askables/answer_block').html_safe %>");
+$("#sph .blocks .update .cell").effect('highlight')
 
-$("#sph .blocks .update").effect('highlight', function(){
-  if ($("#answers h2").next().length) {
-    if ($('#ballot_<%= @answerable.id %>').length)
-      $('#ballot_<%= @answerable.id %>').remove();
+<% if create %>
+  $("#answerable").replaceWith("<%= (j render 'askables/answerable').html_safe %>") // Need to update the ballot form, so future edit will update instead of create again
+  $("#answers h2").html("<%= @askable.answerables.size %> people have voted");
+<% else %>
+  if ($('#answerable_<%= @answerable.id %>').length)
+    $('#answerable_<%= @answerable.id %>, #comment_<%= @answerable.id %>').remove();
+<% end %>
 
-    div = $("<div><%= j (render 'askables/complex_item', :ballot => @answerable) %></div>").hide()
-    $("#answers h2").after(div)
-    div.show('highlight', 800)
-  }
-});
+div = $("<%= j (render 'askables/complex_item', :answerable => @answerable) %>").hide()
+$("#answers h2").after(div)
+
+div.find('.answerable_body').css('background', 'yellow')
+div.show()
+div.find('.answerable_body').animate({ backgroundColor: 'white' })
+
+aac.eclipsis_init(div.find('.ellipsis'))

@@ -8,7 +8,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
-//= require best_in_place
+//= require ckeditor/ckeditor
 //= require jquery.autosize
 //= require jquery.jvectormap
 //= require default

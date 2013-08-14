@@ -1,0 +1,17 @@
+<%
+  @answerable ||= @commentable
+  
+  @comments = comments_on_page(@answerable, @comments, @page)
+%>
+
+prefix = "#comment_<%= @answerable.id %>"
+$(prefix + ' .actions .scs').text("<%= t('plural.comment', count: @answerable.comment_threads.size) %>");
+
+div = $("<%= (j render 'answerables/comments').html_safe %>").hide();
+$(prefix + ' .comments_holder').replaceWith(div);
+
+<% if @comment.present? # clear comment textarea if just created %>
+  $(prefix + ' #comment_body').val('');
+<% end %>
+
+div.fadeIn()

@@ -1,7 +1,7 @@
-class TranslationJob < Struct.new(:askable, :from, :to)
+class TranslationJob < Struct.new(:translatable, :from, :to, :is_update)
   def perform
     I18n.with_locale(from) do
-      askable.translate(from, to)
+      translatable.translate(from, to, is_update)
     end
   end
 end

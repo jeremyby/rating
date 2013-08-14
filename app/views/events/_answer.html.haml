@@ -22,7 +22,6 @@
     .question
       = link_to answerable.askable, country_askable_path(answerable.country, answerable.askable)
     .ans
-      .markdown
-        :markdown
-          #{ answerable.body }
+      .html
+        #{ answerable.body.html_safe }
   

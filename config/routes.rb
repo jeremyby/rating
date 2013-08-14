@@ -62,7 +62,6 @@ Askacountry::Application.routes.draw do
   match 'shuffle' => "home#shuffle", :via => :get, :as => :shuffle
   
   match 'countries' => "home#countries", :via => :get
-  match 'translate' => "home#translate", :via => :post
   
   resources :user_sessions, :only => [:create]
   match 'login' => "user_sessions#new",      :as => :login
@@ -72,8 +71,13 @@ Askacountry::Application.routes.draw do
   match '/auth/failure'  => "authorizations#failure"
   match '/auth/:provider'  => "authorizations#blank"
   
-  resources :answerables, :only => [:create, :update]
-  resources :comments, :only => [:create, :destroy]  
+  resources :answerables, :only => [:create, :update] do
+    member do
+      get 'comments'
+    end
+  end
+  
+  resources :comments, :only => [:create, :destroy]
   
   resources :users, :except => [:new, :index]
   
@@ -86,7 +90,7 @@ Askacountry::Application.routes.draw do
 
     resources :askables, :path => '', :except => [:index] do
       member do
-        get 'original'
+        get 'original', 'comments'
         post 'follow', 'unfollow'
       end
     end

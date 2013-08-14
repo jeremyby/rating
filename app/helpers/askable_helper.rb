@@ -18,43 +18,23 @@ module AskableHelper
 
     return error_messages
   end
+  
+  def askable_coverage_info(coverage, country)
+    img =  (t "askable.coverage")[coverage][:img]
+    name = (t "askable.coverage")[coverage][:name]
+    
+    str = "<img src ='/assets/#{ img }' />#{ name }"
+    
+    title = (t "askable.coverage")[coverage][:title]
 
-  def askable_coverage_data(coverage, country)
-    array = []
-
-    (0..2).each do |c|
-      item = [c, askable_coverage_info(c, country)]
-      # item << 'selected' if c == coverage
-      array << item
-    end
-
-    return array
+    return content_tag(:span, str.html_safe, :title => title)
   end
-
-  def bip_body
-    best_in_place_if @is_owner, @askable, :body,
-      :type => :textarea,
-      :ok_button => 'OK',
-      :path => country_askable_path(@country, @askable),
-      :classes => 'update_question_success',
-      :data => { :country => @country.slug }
+  
+  def can_edit
+    @is_owner && @askable.auto_translated.nil?
   end
-
-  def bip_desc
-    best_in_place @askable, :description,
-      :type => :textarea,
-      :ok_button => 'OK',
-      :path => country_askable_path(@country, @askable),
-      :nil => 'add description...',
-      :classes => 'update_desc_success'
-  end
-
-  def bip_coverage
-    best_in_place_if @is_owner, @askable, :coverage,
-      :display_with => :askable_coverage_info,
-      :helper_options => { :country => @country },
-      :type => :select,
-      :collection => askable_coverage_data(@askable.coverage, @country),
-      :path => country_askable_path(@country, @askable)
+  
+  def can_improve
+    current_user && @askable.auto_translated.present?
   end
 end
