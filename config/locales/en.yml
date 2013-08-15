@@ -7,7 +7,6 @@ en:
   done: Done
   ans_yes: "Yes"
   ans_no: "No"
-  q_mark: '?'
   
   default_title: Ask a Country
   logo: /assets/logo.png

@@ -25,13 +25,13 @@ $(document).ready ->
   
   aac.toggle_edit = ->
     if $('.question .header h1').is(':visible')
-      $('.question .header h1, .question .header .desc').hide()
-      $('.question .edit').show()
-      $('#askable_body').autosize()
+      $('.question .header h1, .question .header .desc, #sph .actions').hide()
+      $('.question .edit').fadeIn('fast')
+      $('#askable_body').autosize().focus()
       aac.set_desc('#askable_description')
     else
       $('.question .edit').hide()
-      $('.question .header h1, .question .header .desc').show()
+      $('.question .header h1, .question .header .desc, #sph .actions').fadeIn('fast')
       
   aac.askable_submit_check = ->
     a = aac.check_askable_body('.question #askable_body')

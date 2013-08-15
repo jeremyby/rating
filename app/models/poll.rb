@@ -63,6 +63,10 @@ class Poll < Askable
     )
   end
   
+  def should_update?(params)
+    params[:body] != self.body || params[:description] != self.description || params[:yes] != self.yes || params[:no] != self.no
+  end
+  
   def translate(from, to, is_update = false)
     array = [ self.body ]
     array << (self.yes == I18n.t('ans_yes') ? '' : self.yes)

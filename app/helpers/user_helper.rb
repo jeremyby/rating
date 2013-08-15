@@ -20,7 +20,7 @@ module UserHelper
   end
   
   def user_avatar_link(u, options = {})
-    link_to image_tag(u.avatar_url(:thumb)), user_path(u)
+    link_to image_tag(u.avatar_url(:thumb), options), user_path(u)
   end
   
   def user_small_avatar_link(u, options = {})

@@ -38,17 +38,21 @@ class AskablesController < ApplicationController
   end
 
   def update
-    text_updated = (
-      (params[:askable][:body] != @askable.body) ||
-        (params[:askable][:description].present? &&
-          params[:askable][:description] != @askable.description
-        )
-    )
-
-    if @askable.update_attributes(params[:askable])
-      @askable.translate_on_update if @askable.auto_translated.nil? && text_updated
-    else
-      submit_error
+    if @askable.should_update?(params[:askable])
+      @askable.attributes = params[:askable]
+      
+      if @askable.valid?
+        flag = @askable.auto_translated
+        
+        # Auto-translated askable gets improved by user, set flag
+        @askable.auto_translated = false if flag.present? && flag.to_i > 0
+        
+        @askable.save!
+        
+        @askable.translate_on_update if flag.nil? # Askable is original, check if it needs auto translation
+      else
+        submit_error
+      end
     end
   end
 

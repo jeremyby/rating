@@ -25,30 +25,35 @@
         
         - unless @orig_lang == I18n.locale
           .orig
-            %h1= I18n.with_locale(@orig_lang) { @askable.body }
+            - I18n.with_locale(@orig_lang) do
+              %h1
+                = @askable.body
+                
+              - if @askable.is_a?(Poll)
+                .yesno
+                  - if @askable.is_a?(Poll)
+                    %span.yes= @askable.yes
+                    %em= t('or')
+                    %span.no= @askable.no
+                  
           
         .body= f.text_area :body
         
         - if @askable.is_a?(Poll)
-          - unless @orig_lang == I18n.locale
-            .orig
-              .table.yesno
-                - I18n.with_locale(@orig_lang) do
-                  .cell.yes= @askable.yes
-                  %span= t('or')
-                  .cell.no= @askable.no
-                
           .table.yesno
             .cell.yes= f.text_field :yes, class: 'field'
-            %span= t('or')
+            %span.or= t('or')
             .cell.no= f.text_field :no, class: 'field'
             
         - unless @orig_lang == I18n.locale
-          .orig
-            .desc= I18n.with_locale(@orig_lang) { @askable.description }
+          .orig.desc= I18n.with_locale(@orig_lang) { @askable.description.blank? ? '...' : @askable.description }
 
         .text= f.text_area :description
 
-        .submit
+        .submit(class='#{ @orig_lang == I18n.locale ? "" : "low" }')
+          - unless @orig_lang == I18n.locale
+            .orig.legend
+              #{ t('askable.show.is_orig') }:
+              = t("language.#{ @orig_lang }")
           = f.submit t('done')
           = link_to_function t('cancel'), 'aac.toggle_edit()'

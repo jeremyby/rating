@@ -24,7 +24,6 @@ module AutoTranslation
       if country.language.include?(I18n.locale.to_s)
         # when anwsering a translated question, if the language is not same as the one 
         # the original question's language, the answer will be translated
-        
         if self.is_a?(Answerable)
           target = self.askable.translations.first.locale.to_s
           
@@ -52,10 +51,10 @@ module AutoTranslation
 
       unless targets.blank?
         targets.each do |t|
-          translated = self.translation_for(t).auto_translated
+          flag = self.translation_for(t).auto_translated
           
-          # transalte the updated askable if the translation is auto-translated ( original askable has it nil)
-          Delayed::Job.enqueue TranslationJob.new(self, source, t, true) if translated.present? && translated.to_i > 0
+          # transalte the updated askable if the translation is auto-translated (original one has it nil and user-translated has it ==0)
+          Delayed::Job.enqueue TranslationJob.new(self, source, t, true) if flag.present? && flag.to_i > 0
         end
       end
     end

@@ -25,6 +25,10 @@ class Question < Askable
     )
   end
   
+  def should_update?(params)
+    params[:body] != self.body || params[:description] != self.description
+  end
+  
   def translate(from, to, is_update = false)
     array = [ self.body ]
     array << (self.description.blank? ? '' : self.description)

@@ -68,20 +68,24 @@
         %span.translation(title='#{ t("askable.show.t_from_to", to: t("language.#{ @askable.translation.locale }"), from: t("language.#{ @orig_lang }"))}')
           %span.lang<
             = t("language.code.#{ @askable.translation.locale }").upcase
-          - if @askable.auto_translated
+          - if @askable.auto_translated.to_i > 0
             = t('askable.show.auto')
           - else
-            Translation by a user
+            Translation by
+            = user_avatar_link(User.find(@askable.translation.versions.last.whodunnit), size: '20x20')
 
 
       %span.others
         %span.comments
-          = image_tag '/assets/comment.png'
-          = link_to_function t('plural.comment', count: @askable.comment_threads.size), "aac.toggle_comments()", :id => 'ltac'
+          %a#ltac(href='#' onclick='aac.toggle_comments(); return false;')<
+            = image_tag '/assets/comment.png'
+            = t 'plural.comment', count: @askable.comment_threads.size
         
         - if can_edit
           %span.edit
-            = link_to_function t('edit'), 'aac.toggle_edit()'
+            %a(href='#' onclick='aac.toggle_edit(); return false;')<
+              = image_tag '/assets/edit.png'
+              = t('edit')
       
         - if can_improve
           %span.translate
