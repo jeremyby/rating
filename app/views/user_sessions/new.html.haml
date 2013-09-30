@@ -7,36 +7,16 @@
 
 - flash.now[:alert]  = login_validation_error if @user_session.errors.present?
 
-#auth
-  %h2 or, through these sites
-  .links
-    = link_to image_tag('/assets/facebook_login.png'), '/auth/facebook'
-    = link_to image_tag('/assets/twitter_login.png'), '/auth/twitter'
-    = link_to image_tag('/assets/google_login.png'), '/auth/google'
 
-#login.home
+
+#login
   %h1 Log In to your account
+  
 
-  .form
-    = form_for @user_session do |f|
-      .wrapper
-        = f.label :email, 'Email:'
-        .stroke= f.text_field :email, :tabindex => 1
-    
-      .wrapper
-        .forgot= link_to 'Forgot password?', '#'
-        = f.label :password, 'Password:'
-      
-        .stroke= f.password_field :password, :tabindex => 2
-    
-      .wrapper
-        .remember
-          = f.check_box :remember_me, :tabindex => 3, :value => '1'
-          = f.label :remember_me, 'Remember me'
-        .submit=f.submit "Submit", :type => :image, :src => "/assets/login.png", :tabindex => 4
-
-#asu
-  %h2 Need a new account?
-  %p
-    = link_to "Sign up ", signup_path
-    in no time.
+  
+  #auth
+    %h2 or, through these sites
+    .links
+      = link_to image_tag('/assets/facebook_login.png'), '/auth/facebook'
+      = link_to image_tag('/assets/twitter_login.png'), '/auth/twitter'
+      = link_to image_tag('/assets/google_login.png'), '/auth/google'
