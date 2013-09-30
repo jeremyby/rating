@@ -15,47 +15,47 @@
       .or or
       .search.ui-widget
         %input(value="Go to another country")
-    .flags
-      - count = 0
-      - availables = Country.available
-      - availables.shuffle.each do |c|
-        .flag(id='c_#{ count }')
-          = home_country_flag(c)
-          .content
-            %h2= c.to_s
-            - if c.full_name.present?
-              .info
-                = c.full_name
-            .stats
-              claimed by
-              = link_to 'jeremy Y.', '#'
-              and now have
-              %span= c.askables.size
-              questions and
-              %span= c.answerables.size
-              answers
-
-            .enter
-              %a(href='#{ country_path(c) }')
-                Enter &rarr;
-        - count += 1
-      - nas = Country.where(:code => Candidate_Countries)
-      - nas.concat(Country.unavailable.where('code not in (?)', Candidate_Countries).order("RAND()").limit(7))
-      - nas.pop and nas << @country if !availables.include?(@country) && !nas.include?(@country)
-
-      - nas.shuffle.each do |n|
-        .flag(id='c_#{ count }')
-          = home_country_flag(n, true)
-          .content
-            %h2= n.to_s
-            - if n.full_name.present?
-              .info
-                = n.full_name
-            %div Full access is not active yet. You can &ldquo;claim&rdquo; the country and activate all features by the first new question accepted.
-            .enter
-              %a(href='#{ country_path(n) }')
-                Find Out More &rarr;
-        - count += 1
+    / .flags
+    /   - count = 0
+    /   - availables = Country.available
+    /   - availables.shuffle.each do |c|
+    /     .flag(id='c_#{ count }')
+    /       = home_country_flag(c)
+    /       .content
+    /         %h2= c.to_s
+    /         - if c.full_name.present?
+    /           .info
+    /             = c.full_name
+    /         .stats
+    /           claimed by
+    /           = link_to 'jeremy Y.', '#'
+    /           and now have
+    /           %span= c.askables.size
+    /           questions and
+    /           %span= c.answerables.size
+    /           answers
+    / 
+    /         .enter
+    /           %a(href='#{ country_path(c) }')
+    /             Enter &rarr;
+    /     - count += 1
+    /   - nas = Country.where(:code => Candidate_Countries)
+    /   - nas.concat(Country.unavailable.where('code not in (?)', Candidate_Countries).order("RAND()").limit(7))
+    /   - nas.pop and nas << @country if !availables.include?(@country) && !nas.include?(@country)
+    / 
+    /   - nas.shuffle.each do |n|
+    /     .flag(id='c_#{ count }')
+    /       = home_country_flag(n, true)
+    /       .content
+    /         %h2= n.to_s
+    /         - if n.full_name.present?
+    /           .info
+    /             = n.full_name
+    /         %div Full access is not active yet. You can &ldquo;claim&rdquo; the country and activate all features by the first new question accepted.
+    /         .enter
+    /           %a(href='#{ country_path(n) }')
+    /             Find Out More &rarr;
+    /     - count += 1
 
 #h2head
   %h1 

@@ -54,19 +54,20 @@ a:hover
 .yesno
   .yes:before,
   .no:before
+    +inline-block
+    
     content: ''
     
-    position: relative
-    top: 13px
+    margin: 0 3px 6px 0
     
-    padding-left: 8px
-    margin-right: 3px
+    height: 8px
+    width: 8px
     
   .yes:before
-    border-top: 8px solid #5ED57B
+    background: #5ED57B
       
   .no:before
-    border-top: 8px solid #F93F47
+    background: #F93F47
 
 .validation-error input,
 input.error,

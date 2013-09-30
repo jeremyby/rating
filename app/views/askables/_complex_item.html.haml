@@ -1,12 +1,47 @@
 .answerable(class='#{ answerable.vote > 0 ? "yes" : "no" unless answerable.vote.blank? }' id='answerable_#{ answerable.id }')
-  .answerer= answerable_user_info(answerable.user, answerable.vote, current_user)
+  - orig, langs = answerable.available_langs
+  - user_link_text = (answerable.user == current_user) ? 'You' : answerable.user.to_s
   
+  .answerer(class='#{ (answerable.vote > 0 ? "yes" : "no") unless answerable.vote.blank? }')
+    %span= user_avatar_link(answerable.user,  size: '24x24')
+    %span= link_to user_link_text, user_path(answerable.user)
+    
+    - unless answerable.body.blank? 
+      - unless orig == I18n.locale
+        - unless langs.blank?
+          %span.info.translation>
+            - if answerable.auto_translated.to_i > 0
+              = t('askable.show.auto')
+            - else
+              = t('askable.show.translator')
+              = user_avatar_link(User.find(answerable.translation.versions.last.whodunnit), size: '16x16')
+        %span.info.orig>
+          = t('askable.show.orig_answerable', orig: t("language.#{orig}"))
+    
+    
+    %span.info>= time_ago_in_words(answerable.translation_for(I18n.locale).updated_at)
+    
   - unless answerable.body.blank?
     .answerable_body
       .ellipsis.ellips
         .html= answerable.body.html_safe
-      .ans_clps
-        = link_to_function t('askable.show.collapse'), 'javascript: aac.eclipsis_collapse($(this))'
+      
+      - if false
+        .ans_clps
+          = link_to_function t('askable.show.collapse'), 'javascript: aac.eclipsis_collapse($(this))'
+          
+    - if can_edit?(answerable) || can_improve?(answerable)
+      .edit_body
+        = form_for answerable, as: 'answerable', url: answerable_path(answerable), html: { id: "edit_answerable_#{ answerable.id }" }, remote: true do |f|
+          .answer
+            = f.text_area :body, id: "answerable_body_#{ answerable.id }"
+
+          .submit
+            = f.hidden_field :country_code, :value => @country.code
+            = f.hidden_field :askable_id, :value => @askable.id
+
+            = f.submit t('submit')
+            = link_to_function t('cancel'), "aac.toggle_edit_answerable(#{ answerable.id })"
 
 - unless answerable.body.blank?
   = render 'askables/answer_comments', :answerable => answerable

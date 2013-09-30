@@ -1,10 +1,7 @@
 require "spec_helper"
 
 describe "User" do
-  it 'should have an accessor: password_confirmation' do
-    u = User.first
-    u.should respond_to(:password_confirmation)
-  end
+  # fixtures :users
   
   context 'when being created,' do
     before do
@@ -30,17 +27,21 @@ describe "User" do
       @new.save.should be_false
       @new.errors[:email].should be_present
     end
+  end
+  
+  context 'of yangb' do
+    before do
+      @user = create(:yangb)
+    end
     
     it 'should not have duplicated emails' do
-      @new.email = 'b.yang@live.com'
+      @new = User.new(:first_name => 'yangb', :email  => 'b.yang@live.com', :country_code => "us", :password => '19781115', :password_confirmation  => '19781115')
       @new.save.should be_false
       @new.errors[:email].should be_present
     end
-  end
-  
-  context 'with id = 1' do
-    before do
-      @user = User.find(1)
+    
+    it 'should have an accessor: password_confirmation' do
+      @user.should respond_to(:password_confirmation)
     end
     
     it 'should belong to a country' do

@@ -6,7 +6,7 @@ zh:
   ans_no: 否
   
   default_title: 爱问国
-  logo: /assets/logo-zh.png
+  logo: /assets/logo-zh-beta.png
   country_title: 爱问%{country_name}
   
   home_link: 主页
@@ -21,6 +21,7 @@ zh:
   close: 关闭
   vote: 投票
   submit: 发布
+  share: 分享
   
   language:
     en: 英文
@@ -77,12 +78,20 @@ zh:
       follow: '+ 关注这个问题 '
       following: 关注中
       share: 分享到
+      atv: 我要投票！
+      edit_vote: 你投票给“%{vote}”
+      ata: 我来回答！
+      edit_answer: 修改你的回答
       is_orig_title: 这是问题被创建时使用的语言
       is_orig: 原文语言
       t_from_to: 这个问题是由%{from}翻译为%{to}
       auto: 自动翻译
+      translator: 当前翻译来自
       available: 可用的翻译有
       improve: 改进翻译
+      more: '更多回答…'
+      orig_answerable: 原文为%{orig}
+      orig_desc_empty: 问题原文没有详细说明。
   
   views:
     pagination:
@@ -95,6 +104,9 @@ zh:
       zero: 评论
       one: 1条评论
       other: "%{count}条评论"
+    people_answered:
+      one: 现在有一个回答
+      other: "现有%{count}个回答"
   
   date:
     abbr_day_names:
@@ -153,13 +165,13 @@ zh:
     distance_in_words:
       about_x_hours:
         one: 大约一小时前
-        other: 大约%{count}小时
+        other: 大约%{count}小时前
       about_x_months:
         one: 大约一个月前
-        other: 大约%{count}个月
+        other: 大约%{count}个月前
       about_x_years:
         one: 大约一年前
-        other: 大约%{count}年
+        other: 大约%{count}年前
       almost_x_years:
         one: 接近一年前
         other: 接近%{count}年前
@@ -197,6 +209,9 @@ zh:
     submit_error: 提交没有成功，请重试。
     askable_type_missing: 请给新问题选择一个合适的格式。
     askable_created: 成功创建一个%{country_name}的新问题。
+    askable_updated: 问题成功更新。
+    translation_updated: 翻译成功更新。
+    no_update: 没有内容可更新。
 
   activerecord:
     errors: &errors
@@ -224,6 +239,7 @@ zh:
       odd: 必须为单数
       record_invalid: ! "验证失败: %{errors}"
       taken: 已经被使用
+      remove_ballot_answer_translation: 您的翻译不可以为空白。
       too_long: 过长（最长为 %{count} 个字符）
       too_short: 过短（最短为 %{count} 个字符）
       too_long_words: 最长为%{count}个词

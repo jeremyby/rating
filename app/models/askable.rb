@@ -41,7 +41,7 @@ class Askable < ActiveRecord::Base
   has_many    :answerables
 
   belongs_to  :country,   :foreign_key => "country_code",     :primary_key => "code",     :counter_cache => true
-  belongs_to  :owner,     :foreign_key => "user_id",          :class_name => "User"
+  belongs_to  :user
   
   has_many    :events, :dependent => :destroy
   

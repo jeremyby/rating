@@ -3,15 +3,15 @@
 
 .feed
   .avatar
-    = user_small_avatar_link(p.owner)
+    = user_small_avatar_link(p.user)
 
   .poll
     .info  
-      = user_country_flag_link p.owner, current_user, :title => "#{p.owner} is from #{p.owner.country}"
+      = user_country_flag_link p.user, current_user, :title => "#{p.user} is from #{p.user.country}"
       created a new poll
       - if show_country
         for #{ link_to p.country, country_path(p.country) }
   
     .question
-      = link_to p.to_s, country_askable_path(p.country, p)
+      = link_to p, country_askable_path(p.country, p)
   

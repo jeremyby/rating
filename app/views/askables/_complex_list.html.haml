@@ -1,12 +1,7 @@
-- if item.keys[0] > 0
-  .answerable.yes
-    .answerer
-      - item.values[0].each do |v|
-        = user_small_avatar_link(v.user)
-      / voted affirmatively
-- else
-  .answerable.no
-    .answerer
-      / nay vote#{ 's' if item.values[0].size > 1 } by
-      - item.values[0].each do |v|
-        = user_small_avatar_link(v.user)
+
+.answerable(class='#{ item.keys[0] > 0 ? "yes" : "no" }')
+  .answerer
+    - item.values[0].each do |v|
+      %span= user_small_avatar_link(v.user)
+    %span.info>= time_ago_in_words(item.values[0].last.updated_at)
+    / voted affirmatively

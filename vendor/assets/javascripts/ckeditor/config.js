@@ -47,5 +47,5 @@ CKEDITOR.editorConfig = function( config ) {
 	
   config.resize_enabled = false;
   
-  config.extraPlugins = 'autosave,autogrow';
+  config.extraPlugins = 'autosave,autogrow,divarea';
 };

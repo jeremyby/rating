@@ -5,23 +5,19 @@
   
     - if @answerable.new_record?
       .table.vote.new    
-        .cell
-          Vote NOW!
+        .cell= t('askable.show.atv')
     - else
       - vote_class, vote =  @answerable.vote > 0 ? ['yes', @askable.yes] : ['no', @askable.no]
       .table.vote.update(class='#{ vote_class }')
-        .cell
-          You voted for
-          = truncate(vote, :separator => ' ')
+        .cell= t('askable.show.edit_vote', vote: truncate(vote, :separator => ' '))
           
   - when 'Answer'
     - if @answerable.new_record?
       .table.answer.new
-        .cell
-          Answer NOW!
+        .cell= t('askable.show.ata')
     - else
       .table.answer.update
-        .cell
-          Edit Answer
+        .cell= t('askable.show.edit_answer')
+
 
       

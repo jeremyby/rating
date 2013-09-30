@@ -200,9 +200,8 @@ aac.eclipsis_init = (el) ->
   
   
 aac.eclipsis_expand = (el) ->
-  el.css('cursor', '').removeClass('ellips').removeClass('ellipsis', 600, ->
-    el.closest('.answerable_body').find('.ans_clps').show()
-  )
+  el.css('cursor', '').removeClass('ellips').removeClass('ellipsis', 600)
+  # el.closest('.answerable_body').find('.ans_clps').show()
   
 aac.eclipsis_collapse = (el) ->
   el.parent().hide()

@@ -9,7 +9,7 @@ en:
   ans_no: "No"
   
   default_title: Ask a Country
-  logo: /assets/logo.png
+  logo: /assets/logo-beta.png
   country_title: Ask %{country_name}
   
   home_link: Home
@@ -24,6 +24,7 @@ en:
   close: close
   vote: Vote
   submit: Submit
+  share: Share
   
   language:
     en: English
@@ -77,19 +78,30 @@ en:
       follow: + Follow Question
       following: Following
       share: Share to
+      atv: Vote NOW!
+      edit_vote: You voted for "%{vote}"
+      ata: Answer NOW!
+      edit_answer: Edit Your Answer
       is_orig_title: This is the original language in which the question was created
       is_orig: Original Language
       original: Originally in
-      t_from_to: The question was translated into %{to} from %{from}
+      t_from_to: The question was translated from %{from} into %{to}
       auto: Auto Translation
+      translator: Translation by
       available: Available in
       improve: Improve Translation
+      more: more answers…
+      orig_answerable: originally in %{orig}
+      orig_desc_empty: The original question has no description.
 
   plural:
     comment:
       zero: Comment
       one: 1 comment
       other: "%{count} comments"
+    people_answered:
+      one: 1 people has answered
+      other: "%{count} people have answered"
           
   datetime:
     distance_in_words:
@@ -105,7 +117,7 @@ en:
       almost_x_years:
         one: ~=1yr ago
         other: ~=%{count}yrs ago
-      half_a_minute: 30s ago
+      half_a_minute: half a minute ago
       less_than_x_minutes:
         one: <1min ago
         other: < %{count}min ago
@@ -132,8 +144,12 @@ en:
     submit_error: Submission was not successful. Please check and try again.
     askbale_type_missing: Please choose the right type for the question.
     askable_created: New question is added for %{country_name}.
+    askable_updated: Question is updated.
+    translation_updated: Translation is updated.
+    no_update: There was nothing to update.
   
   errors: &errors
     messages:
+      remove_ballot_answer_translation: The translation can't be empty.
       too_short_words: must have at least %{count} words
       too_long_words: must have at most %{count} words

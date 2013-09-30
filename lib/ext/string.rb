@@ -15,4 +15,8 @@ class String
   
     slugged.downcase
   end
+  
+  def capital_first!
+    self[0] = self.first.upcase
+  end
 end

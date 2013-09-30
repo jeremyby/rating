@@ -2,3 +2,11 @@
 div = $("<%= j (render 'question') %>").hide();
 $('#sph .question').replaceWith(div);
 $('#sph .question, #sph .actions').fadeIn('fast');
+
+<% if @no_update %>
+  aac.notify('notice', '<%= t("notice.no_update") %>')
+<% elsif @askable.auto_translated.nil? %>
+  aac.notify('notice', '<%= t("notice.askable_updated") %>')
+<% else %>
+  aac.notify('notice', '<%= t("notice.translation_updated") %>')
+<% end %>

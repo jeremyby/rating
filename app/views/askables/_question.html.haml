@@ -1,6 +1,5 @@
-- @is_owner ||= (current_user.present? && current_user == @askable.owner)
-- @orig_lang ||= @askable.translations.collect {|t| t.locale}.first
 
+- @orig_lang ||= @askable.translations.first.locale
 
 .question
   .header
@@ -18,7 +17,7 @@
     - unless @askable.description.blank?
       .desc= @askable.description
     
-  - if can_edit || can_improve
+  - if can_edit?(@askable) || can_improve?(@askable)
     .edit
       = form_for @askable, as: 'askable', remote: true, url: country_askable_path(@country, @askable) do |f|
         = f.hidden_field :country_code, :value => @country.code
@@ -31,12 +30,10 @@
                 
               - if @askable.is_a?(Poll)
                 .yesno
-                  - if @askable.is_a?(Poll)
-                    %span.yes= @askable.yes
-                    %em= t('or')
-                    %span.no= @askable.no
+                  %span.yes= @askable.yes
+                  %em= t('or')
+                  %span.no= @askable.no
                   
-          
         .body= f.text_area :body
         
         - if @askable.is_a?(Poll)
@@ -46,7 +43,12 @@
             .cell.no= f.text_field :no, class: 'field'
             
         - unless @orig_lang == I18n.locale
-          .orig.desc= I18n.with_locale(@orig_lang) { @askable.description.blank? ? '...' : @askable.description }
+          - orig_desc = I18n.with_locale(@orig_lang) { @askable.description }
+          .orig.desc
+            - if orig_desc.blank?
+              = t('askable.show.orig_desc_empty')
+            - else
+              = orig_desc
 
         .text= f.text_area :description
 
@@ -56,4 +58,4 @@
               #{ t('askable.show.is_orig') }:
               = t("language.#{ @orig_lang }")
           = f.submit t('done')
-          = link_to_function t('cancel'), 'aac.toggle_edit()'
+          = link_to_function t('cancel'), 'aac.toggle_edit_askable()'

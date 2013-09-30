@@ -8,8 +8,8 @@ class HomeController < ApplicationController
 
       askables = current_user.following_askables.map(&:id)
 
-      @events = Event.where('country_code in (?) or askable_id in (?)', countries, askables)
-                      .where('locales LIKE ?', "%#{ I18n.locale.to_s }%")
+      @events = Event.where('locales LIKE ?', "%#{ I18n.locale.to_s }%")
+                      .where('country_code in (?) or askable_id in (?)', countries, askables)
                       .order('created_at DESC')
 
       render 'users/home'

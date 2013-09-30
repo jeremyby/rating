@@ -5,7 +5,7 @@ class Answerable < ActiveRecord::Base
   attr_accessible :askable_id, :country_code, :vote, :body
   
   after_create :log_create, unless: 'self.body.blank?'
-  after_update :log_update, unless: 'self.body.blank?'
+  after_update :log_update, if: Proc.new { |a| a.body.present? && a.auto_translated.nil? }
   
   validates_presence_of :askable_id, :user_id, :country_code
   validates_uniqueness_of :askable_id, :scope => [:country_code, :user_id]
@@ -19,7 +19,7 @@ class Answerable < ActiveRecord::Base
       :maximum   => 3000,
       :too_long  => I18n.t('errors.messages.too_long')
     }, if: Proc.new { |a| a.type == 'Ballot' }
-      
+  
   validates :body, length: {
       :minimum   => 3,
       :maximum   => 3000,
@@ -41,7 +41,7 @@ class Answerable < ActiveRecord::Base
   def translate(from, to, is_update = false)
     doc = Nokogiri::HTML(self.body)
     
-    # only translates certain all support texts, except href/text, image/alt
+    # only translates texts in certain supported tags, excluding href/text, image/alt
     elements = doc.xpath('//h2/text()', '//h3/text()', '//p/text()', '//span/text()', '//em/text()', '//strong/text()', '//s/text()', '//li/text()', '//pre/text()')
     
     objs = elements.map { |e| e.content.gsub(/[\n\r\t]/, '').blank? ? nil : e }.compact
@@ -64,7 +64,7 @@ class Answerable < ActiveRecord::Base
     end
   end
   
-  private
+  protected
   def log_create
     # when a user answers a question or in a poll
     self.events.create(
@@ -76,11 +76,18 @@ class Answerable < ActiveRecord::Base
     )
   end
   
+  private
   def log_update
     event = Event.find_by_answerable_id(self.id)
     
-    if event.blank?
-      self.log_create
+    if event.blank? # Existing ballot with newly added body
+      self.log_create # Prepare the creation event
+      
+      # update the event locales prior real translation, so we know it can be shown for those locale
+      locales = I18n.available_locales
+      locales.delete_if { |l| l == I18n.locale }
+      
+      self.events.first.update_attribute('locales', ([ I18n.locale ] + locales).join(' '))
     else
       event.update_attribute('updated_at', Time.now)
     end

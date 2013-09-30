@@ -45,8 +45,8 @@ describe "Askable" do
     end
     
     it 'should have an owner' do
-      @poll.owner.should be_an_instance_of(User)
-      @poll.owner.id.should == 1
+      @poll.user.should be_an_instance_of(User)
+      @poll.user.id.should == 1
     end
     
     it 'should to_s body' do

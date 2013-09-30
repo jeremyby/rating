@@ -19,11 +19,30 @@ class AnswerablesController < ApplicationController
   def update
     begin
       @answerable = Answerable.find(params[:id])
-      body_updated = (params[:answerable][:body] != @answerable.body)
+      orig_body = @answerable.body
       
-      @answerable.update_from(params[:answerable])
+      @answerable.attributes = params[:answerable].delete_if {|k, v| k == 'country_code' || k == 'askable_id'}
       
-      @answerable.translate_on_update if @answerable.auto_translated.nil? && @answerable.body.present? && body_updated
+      unless @answerable.auto_translated.nil? # improving a translation
+        submit_error(t('errors.messages.remove_ballot_answer_translation')) and return false if @answerable.body.blank?
+        
+        @answerable.auto_translated = false
+      end
+        
+      @answerable.save!
+      
+      if @answerable.auto_translated.nil? && @answerable.body != orig_body  && (orig_body.present? || @answerable.body.present?) # Original Answer and there is changes on body
+        if @answerable.body.blank? # Ballot body is deleted, therefore log_update was not triggered
+          array = @answerable.translations.drop(1)
+        
+          # if the translation is auto-translated, remove its body
+          array.each { |t| t.update_attribute('body', '') if t.auto_translated == '1' }
+        
+          @answerable.events.first.destroy if array.reject {|t| t.body.blank? }.empty?
+        else
+          @answerable.translate_on_update
+        end
+      end
       
       @askable = @answerable.askable
       @country = @answerable.country

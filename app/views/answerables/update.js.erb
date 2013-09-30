@@ -1,15 +1,16 @@
 
 <% create ||= false %>
 
-aac.enable_submit('#answerable .submit');
-aac.toggle_answerable();
+if ($('#answerable').is(':visible')) {
+  $("#sph .blocks").children().last().replaceWith("<%= (j render 'askables/answer_block').html_safe %>");
+  $("#sph .blocks .update .cell").effect('highlight')
+  $('#spb').removeClass('lower');
+}
 
-$("#sph .blocks").children().last().replaceWith("<%= (j render 'askables/answer_block').html_safe %>");
-$("#sph .blocks .update .cell").effect('highlight')
+$("#answerable").replaceWith("<%= (j render 'askables/answerable').html_safe %>")
 
 <% if create %>
-  $("#answerable").replaceWith("<%= (j render 'askables/answerable').html_safe %>") // Need to update the ballot form, so future edit will update instead of create again
-  $("#answers h2").html("<%= @askable.answerables.size %> people have voted");
+    $("#answers h2").html("<%= @askable.answerables.size %> people have voted");
 <% else %>
   if ($('#answerable_<%= @answerable.id %>').length)
     $('#answerable_<%= @answerable.id %>, #comment_<%= @answerable.id %>').remove();

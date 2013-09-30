@@ -1,15 +1,19 @@
 - answerable ||= @commentable
 
 .comments(class='#{ (answerable.vote > 0 ? "yes" : "no") unless answerable.vote.blank? }' id='comment_#{answerable.id}')
-  .actions
+  .actions<
     = link_to 'Like', '#'
     
-    = link_to_function t('plural.comment', count: answerable.comment_threads.size), "aac.ans_comments($(this))", :class => 'scs'
+    = link_to_function t('plural.comment', count: answerable.comment_threads.size), "aac.ans_comments($(this))", class: 'scs'
     
-    - if answerable.auto_translated.nil?
-      = link_to_if(current_user == answerable.user, t('edit'), 'javascript: aac.toggle_answerable()') {|name| ''}
-    - else
-      = link_to 'Improve translation', '#'
+    %span.others
+      - if false
+        = link_to t('share'), '#'
+    
+      - if answerable.auto_translated.nil?
+        = link_to_if(current_user == answerable.user, t('edit'), "javascript: aac.toggle_edit_answerable(#{answerable.id});", class: 'edit') {|name| ''}
+      - else
+        = link_to_function t('askable.show.improve'), "aac.toggle_edit_answerable(#{answerable.id})", class: 'it'
     
   .detail
     .form

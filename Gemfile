@@ -22,6 +22,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2', :github => 'jeremyby/omniauth-google-oauth2'
+# gem 'omniauth-weibo-oauth2'
 
 gem 'mini_magick'
 gem 'carrierwave'
@@ -92,6 +93,10 @@ group :development, :test do
   gem 'spork-rails'
   
   gem 'simplecov'
+  
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'launchy'
   
   gem 'equivalent-xml'
   gem 'linkeddata'

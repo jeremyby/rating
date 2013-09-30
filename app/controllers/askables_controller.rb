@@ -16,9 +16,9 @@ class AskablesController < ApplicationController
       @askable = type.constantize.new(params[:askable])
       
       @askable.user_id = current_user.id
-      @askable.body.capitalize!
-      @askable.yes.capitalize! unless @askable.yes.blank?
-      @askable.no.capitalize! unless @askable.no.blank?
+      @askable.body.capital_first!
+      @askable.yes.capital_first! unless @askable.yes.blank?
+      @askable.no.capital_first! unless @askable.no.blank?
       
       @country = Country.find_by_code(@askable.country_code)
       
@@ -34,12 +34,9 @@ class AskablesController < ApplicationController
     render :new
   end
 
-  def edit
-  end
-
   def update
     if @askable.should_update?(params[:askable])
-      @askable.attributes = params[:askable]
+      @askable.attributes = params[:askable].delete_if {|k, v| k == 'country_code'}
       
       if @askable.valid?
         flag = @askable.auto_translated
@@ -53,6 +50,8 @@ class AskablesController < ApplicationController
       else
         submit_error
       end
+    else
+      @no_update = true
     end
   end
 
@@ -61,8 +60,7 @@ class AskablesController < ApplicationController
       redirect_to country_askable_path(@country, @askable), status: :moved_permanently and return
     end
     
-    @langs = @askable.translations.collect {|t| t.locale}
-    @orig_lang = @langs.shift
+    @orig_lang, @langs = @askable.available_langs
     
     current_uid = current_user.present? ? current_user.id : 0
   

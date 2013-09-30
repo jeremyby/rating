@@ -38,8 +38,8 @@ class ApplicationController < ActionController::Base
       end
     end
     
-    def submit_error
-      flash.now[:alert] = t('notice.submit_error')
+    def submit_error(msg = t('notice.submit_error'))
+      flash.now[:alert] = msg
 
       render 'layouts/notify'
     end

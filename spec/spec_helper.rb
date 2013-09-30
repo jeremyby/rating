@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'rake'
 require 'spork'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
@@ -7,7 +8,6 @@ Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
-  
   unless ENV['DRB']
     require 'simplecov'
     SimpleCov.start 'rails'
@@ -21,10 +21,7 @@ Spork.prefork do
   
   Capybara.javascript_driver = :webkit
   
-  require %(#{Rails.root}/db/seeds/countries)
-  require %(#{Rails.root}/db/seeds/users)
-  require %(#{Rails.root}/db/seeds/askables)
-  require %(#{Rails.root}/db/seeds/answerables)
+  require %(#{Rails.root}/db/seeds)
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -38,9 +35,11 @@ Spork.prefork do
     # config.mock_with :mocha
     # config.mock_with :flexmock
     # config.mock_with :rr
-
+    
+    config.include FactoryGirl::Syntax::Methods
+    
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-    config.fixture_path = "#{::Rails.root}/spec/fixtures"
+    config.fixture_path = "#{Rails.root}/spec/fixtures"
 
     # If you're not using ActiveRecord, or you'd prefer not to run each of your
     # examples within a transaction, remove the following line or assign false

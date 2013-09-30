@@ -7,4 +7,4 @@
 - last_answerable = @complex.last.kind_of?(Hash) ? @complex.last.values[0].last : @complex.last
 
 - unless @is_end
-  .lmv= link_to 'more answers…', country_askable_path(@country, @askable, :last_answerable => last_answerable.id), :remote => true
+  .lmv= link_to I18n.t('askable.show.more'), country_askable_path(@country, @askable, :last_answerable => last_answerable.id), :remote => true

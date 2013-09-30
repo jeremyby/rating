@@ -6,8 +6,4 @@ class Ballot < Answerable
   
   YES_VOTE = 1
   NO_VOTE = -1
-  
-  def update_from(params)
-    self.update_attributes!(:vote => params[:vote], :body => params[:body])
-  end
 end

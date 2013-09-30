@@ -2,7 +2,10 @@
 
 +multiline-ellipsis(190px, 1.4em, 9em)
 
-#cke_answerable_body
+span.cke_top
+  +box-shadow(none)
+
+div.cke
   +box-shadow(none)
   
   .cke_contents
@@ -11,6 +14,8 @@
     .cke_wysiwyg_frame,
     .cke_wysiwyg_div
       background: none
+      min-height: 200px
+    
     
 .comments
   .detail
@@ -22,10 +27,9 @@
     .form
       input
         +small-button
+        +button-orange
       
   .comments_holder
-    +clearfix
-  
     .comment
       +clearfix
       
@@ -149,10 +153,10 @@ span.lang
   position: relative
 
   padding: 35px 30px 10px 30px
-  background: white
+  background: #fafafa
   
-  +box-shadow(#ccc 0 0 3px)
-  +border-left-radius(10px)
+  +box-shadow(#ccc 0 0 2px)
+  +border-top-left-radius(5px)
   
   &:hover
     .actions
@@ -167,7 +171,7 @@ span.lang
     height: 74px
     margin-left: -37px /* Half the width */
 
-    background: white
+    background: #fafafa
     border-top: 2px solid #d0d0d0
     +border-radius(100px)
 
@@ -204,7 +208,7 @@ span.lang
       &.share
         height: 25%
 
-        border-bottom: 1px solid white
+        border-bottom: 1px solid #fafafa
         background: #aaa
         +background-image(linear-gradient(left, #808080, #999 6px, #aaa))
         
@@ -259,26 +263,26 @@ span.lang
     h1
       margin: 0
       
+      color: #000
+      font-size: 2em
       line-height: 1.4em
       
-      span.yes:before,
-      span.no:before
-        top: 17px
-        margin: 0 5px 0 3px
+      .yes:before,
+      .no:before
+        margin: 0 5px 5px 0
       
       em
         margin: 0 3px
 
     .desc
-      margin-top: 11px
-      padding: 15px 20px
+      margin-top: 20px
+      padding: 10px 15px
       
       line-height: 1.4em
 
-      background: #fff
       border: 2px dashed #cecece
 
-      color: #666
+      color: #444
 
     .edit
       display: none
@@ -291,7 +295,7 @@ span.lang
           +helv
           
           font:
-            size: 1.7em
+            size: 1.8em
             weight: bold
         
           height: 1.4em
@@ -310,13 +314,9 @@ span.lang
             style: italic
                     
         .cell
-          &.yes:before,
-          &.no:before
-            top: 10px
-            
           input
             +helv
-            width: 316px
+            width: 315px
             
             font:
               size: 1.4em
@@ -330,12 +330,19 @@ span.lang
           
           font-size: 1em
           
+          padding: 10px 5px 10px 7px
+          
           &.vague
             +opacity(0.8)
             +box-shadow(#eee 1px 1px 3px inset)
             border: 1px solid #eee
             
-            color: #666
+            color: #444
+      
+      .orig + .text
+        textarea.vague
+          +box-shadow(#ddd 1px 1px 3px inset)
+          border: 1px solid #ddd
       
       .submit
         +clearfix
@@ -345,27 +352,29 @@ span.lang
         text-align: right
         
         &.low
-          padding-top: 30px
+          padding-top: 20px
         
         input
           +button
+          +button-orange
           
         a
           margin-left: 3px
           +small
         
       .orig
-        background: #f0f0f0
-        border: 1px solid #ddd
-        
-        margin-bottom: 5px
+        background: #eee
+        // border: 2px dashed #ddd
+
         padding: 5px 10px
 
         h1
+          color: #222
           padding-top: 6px
+          font-size: 1.8em
         
         div.yesno
-          margin: 5px 0 0 0
+          color: #222
           
           +helv
 
@@ -373,21 +382,25 @@ span.lang
             size: 1.4em
             weight: bold
           
+          .yes:before,
+          .no:before
+            margin: 0 3px 4px 0
+              
           em
             +small
             padding: 0 3px
-            
-          .yes:before,
-          .no:before
-            top: 15px
-          
+
         &.desc
-          margin: 30px 0 -3px 0
+          margin: 30px 0 -8px 0
+          border: none
           
-        
+
+          
+          
         &.legend
           float: left
           margin-top: 3px
+          border-bottom: 1px solid #ddd
           
         
         
@@ -396,7 +409,7 @@ span.lang
     
     max-width: 695px
     
-    color: #666
+    color: #555
     
     .others
       visibility: hidden
@@ -407,7 +420,7 @@ span.lang
     
     span.comments
       img
-        margin: 0 3px -3px 0
+        margin: 0 4px -3px 0
         
     .translation
       .lang
@@ -424,7 +437,7 @@ span.lang
       
       a
         .lang
-          padding: 1px 2px
+          padding: 0 1px
           font-weight: normal
           
         &:hover
@@ -436,24 +449,23 @@ span.lang
             
             +box-shadow(#ccc 1px 1px 1px)
         
-    .translation:after,
-    .availables:after,
-    .coverage:after,
-    .comments:after
-      content: ''
-      padding: 0 6px
+    .translation,
+    .availables,
+    .coverage,
+    .comments
+      margin-right: 12px
     
     .edit
       img
-        margin: 0 3px -2px 0
+        margin: 0 5px -2px 0
 
     .translate
       margin-top: -3px
       float: right
       
       a
-        +small-grey-button
-      
+        +small-button
+        +button-grey
 
 .blinder
   display: none
@@ -465,7 +477,6 @@ span.lang
   margin-right: 200px
   
   padding-top: 10px
-  
   background: transparent url('/assets/tri_bw.png') top left no-repeat
   
   .wrapper
@@ -499,7 +510,7 @@ span.lang
     
 #answerable
   .msg
-    padding: 20px 0 5px 0
+    padding: 10px 0 22px 0
   
   h2
     margin: 20px 0 8px 0
@@ -565,7 +576,7 @@ span.lang
     
     textarea
       visibility: hidden
-    
+      
       height: 235px
       
       max-width: 590px
@@ -591,6 +602,7 @@ span.lang
   
     input
       +button
+      +button-orange
 
 
 #spb
@@ -654,29 +666,57 @@ span.lang
 
     #answers
       .answerable
-        position: relative
-        
         margin-bottom: 10px
-        border: 1px solid #ddd
         
         .answerer
-          position: relative
-          padding: 6px 6px 9px 6px
+          +clearfix
           
-          +small
+          padding: 0 5px
           
-          background: #f0f0f0
+          line-height: 35px
+          height: 35px
+          
+          background: rgba(black, 0.04)
+          
+          a
+            img
+              margin-bottom: -8px
+          
+          span
+            float: left
+            +small
             
-          img
-            margin-bottom: -6px
+            margin-right: 5px
+          
+          span.info
+            margin: 8px 0 0 5px
+            padding: 2px 5px
+            
+            line-height: 14px
+            +smaller
+            color: #b0b0b0
+
+            border: 1px solid #d6d6d6
+            +border-radius(5px)
+            
+            &.orig,
+            &.translation
+              border-color: #d0d0d0
+              color: #999
+              
+            &.translation
+              img
+                margin: -1px 0 -4px 0
         
         .answerable_body
           position: relative
           
-          padding: 1px 15px
+          padding: 0 15px
+
+          background: #fafafa
+          border: 1px solid #e8e8e8
+          border-top: 1px solid #dedede
           
-          background: white
-        
           .ans_clps
             display: none
           
@@ -688,46 +728,148 @@ span.lang
               font:
                 style: italic
                 size: 11px
-              
+        
+        .edit_body
+          display: none
+          position: relative
+          margin-bottom: 50px
+          
+          .answer
+            textarea
+              height: 234px
+          
+          .cke
+            border: none
+
+            .cke_inner
+              background: none
+
+              .cke_top
+                border: 1px solid #ddd
+                // border-bottom: none
+                // background: rgba(black, 0.04)
+
+              .cke_contents
+                background: white
+                border: 1px solid #ddd
+                border-top: none
+                +box-shadow(#e0e0e0 1px 1px 3px inset)
+          
+          .submit
+            position: absolute
+            bottom: -35px
+            right: 15px
+            
+            width: 100%
+          
+            margin: 10px 15px 0 0
+            
+            text-align: right
+
+            a
+              +small
+
+              color: #888
+              margin-left: 5px
+
+            input
+              +small-button
+              +button-orange
+
         &.yes
+          margin-right: 1px
           border-left: 2px solid #5ED57B
           
+          .answerable_body
+            border-left: none
+          
+          .cke
+            .cke_inner
+              .cke_top,
+              .cke_contents
+                border-left: none
+          
         &.no
+          margin-left: 1px
           border-right: 2px solid #F93F47
           
           .answerer
-            text-align: right
+            span
+              float: right
+              margin: 0 0 0 5px
             
-      .comments
-        margin: -8px 0 13px 0
-        padding: 2px 10px
+              &.info
+                margin: 8px 5px 0 0
+                
+          .answerable_body
+            border-right: none
 
-        +small
+          .cke
+            .cke_inner
+              .cke_top,
+              .cke_contents
+                border-right: none
+                    
+      .comments
+        margin: -10px 0 10px 0
+        padding: 4px 5px
 
         .actions
+          +clearfix
+
           a
-            margin-right: 5px
-        
+            float: left
+            
+            +small
+            padding: 2px 0
+            margin: 0 10px 0 0
+
+          .others
+            visibility: hidden
+
+          .it
+            padding: 2px 5px 3px 5px
+
+            +smaller
+            
+            background: #e0e0e0
+            +border-radius(5px)
+
+            &:hover
+              text-decoration: none
+              background: #d0d0d0
+
+
         .detail
           padding: 0 5px
-        
+
           .form
             padding: 10px 0
-        
+
             textarea
-              width: 320px
-              max-width: 320px
+              width: 400px
+              max-width: 400px
 
         &.no
           .actions
-            text-align: right
+            a
+              float: right
+              margin: 0 0 0 10px
+        
+      .answerable:hover + .comments,
+      .comments:hover
+        .actions
+          .others
+            visibility: visible
+          
       
       .lmv
         margin-top: 15px
         text-align: center
         
         a
-          +grey-button
+          +small-button
+          +button-grey
   
   .rc
     width: 320px
@@ -735,6 +877,7 @@ span.lang
     margin-right: 15px
     
     h3
+      color: #333
       margin: 20px 0 8px 0
     
     ul
@@ -744,6 +887,4 @@ span.lang
       
       li
         margin-bottom: 10px
-
-
 

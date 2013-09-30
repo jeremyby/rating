@@ -30,11 +30,15 @@ module AskableHelper
     return content_tag(:span, str.html_safe, :title => title)
   end
   
-  def can_edit
-    @is_owner && @askable.auto_translated.nil?
+  def owner_of?(obj)
+    current_user == obj.user
   end
   
-  def can_improve
-    current_user && @askable.auto_translated.present?
+  def can_edit?(obj)
+    owner_of?(obj) && obj.auto_translated.nil?
+  end
+  
+  def can_improve?(obj)
+    obj.auto_translated.present?
   end
 end

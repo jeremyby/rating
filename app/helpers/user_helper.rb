@@ -26,14 +26,4 @@ module UserHelper
   def user_small_avatar_link(u, options = {})
     link_to image_tag(u.avatar_url(:thumb), :size => '24x24'), user_path(u)
   end
-  
-  def answerable_user_info(answerer, vote, u)
-    user_link_text = (answerer == u) ? 'You' : answerer.to_s 
-    
-    if vote.blank? || vote > 0 #no vote(it's a Q&A) or positive vote
-      "#{user_small_avatar_link(answerer)} #{link_to user_link_text, user_path(answerer)}".html_safe
-    else
-      "#{link_to user_link_text, user_path(answerer)} #{user_small_avatar_link(answerer)}".html_safe
-    end
-  end
 end

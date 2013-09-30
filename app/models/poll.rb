@@ -3,17 +3,15 @@ class Poll < Askable
   has_many :results
 
   def to_s
-    str = self.body
-    
-    unless self.simple?
-      unless self.or_negative?
-        str << " #{ self.yes }"
+    if self.simple?
+      return self.body
+    else
+      if self.or_negative?
+        return "#{ self.body } #{ I18n.t('or') } #{ self.no }?"
+      else
+        return "#{ self.body } #{ self.yes } #{ I18n.t('or') } #{ self.no }?"
       end
-
-      str << " or #{ self.no }?"
     end
-
-    return str
   end
   
   def simple?

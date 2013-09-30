@@ -2,8 +2,6 @@ class Event < ActiveRecord::Base
   scope :new_poll, where(kind: 'poll')
   scope :new_question, where(kind: 'question')
   
-  scope :given_locale, where('locales LIKE ?', "%#{ I18n.locale.to_s }%")
-  
   belongs_to :user
   belongs_to :askable
   belongs_to :answerable
