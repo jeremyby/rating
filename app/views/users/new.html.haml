@@ -1,46 +1,44 @@
 
 - content_for :title_string do
-  = 'Sign up to Ask a Country'
+  = 'Sign up Ask a Country'
 
 - content_for :js do
   = javascript_include_tag 'home'
 
 - flash.now[:alert] = signup_validation_error if @user.errors.present?
 
-#goodie
-  %h2 Goodies
+
+#signup.home
+  %h1 Sign up
   
-
-#signup
-  %h1 Sign Up a new account
-
-  .form
-    = form_for @user do |f|
-      .wrapper
-        = f.label :email, "Email: "
-        .stroke= f.text_field :email, :tabindex => 1
+  .holder
+    = render 'user_sessions/links'
     
-      #flnames.wrapper
-        %table
-          %tr
-            %td
-              = f.label :first_name, "First name:"
-              .stroke= f.text_field :first_name, :tabindex => 2
-            %td.optional
-              = f.label :last_name, "Last name:"
-              .stroke= f.text_field :last_name, :tabindex => 3
+    .email
+      %strong.or
+        or
+        = link_to_function 'sign up with email', 'aac.toggle_login_form()'
+      
+      .form(style='#{ "display: none" unless  @user.errors.present? }')
+        = form_for @user do |f|
+          .wrapper
+            = f.text_field :email, :tabindex => 1
+            = f.label :email, 'Your Email', class: 'placeholder'
+    
+          .wrapper
+            = f.text_field :first_name, :tabindex => 2
+            = f.label :first_name, 'First(display) name', class: 'placeholder'
+          
+            .wrapper
+              = f.text_field :last_name, :tabindex => 3
+              = f.label :last_name, 'Last name(optional)', class: 'placeholder'
   
-      .wrapper
-        = f.label :password, "Password: "
-        .stroke= f.password_field :password , :tabindex => 4
+          .wrapper
+            = f.password_field :password , :tabindex => 4
+            = f.label :password, "Password", class: 'placeholder'
   
-      .wrapper
-        = f.label :password_confirmation, "Password again: "
-        .stroke= f.password_field :password_confirmation, :tabindex => 5
 
-      .wrapper
-        .submit= f.submit "Submit", :type => :image, :src => "/assets/signup.png", :tabindex => 6
-
-#ali
-  %h2 Already have an account?
-  %p= link_to 'Log in here.', login_path
+          .submit= f.submit "Sign up", :tabindex => 5
+    
+    .reminder
+      Have an account already? #{ link_to 'Log in here', login_path }.

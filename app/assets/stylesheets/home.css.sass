@@ -1,18 +1,19 @@
 @import global
 
 #hh1
-  padding-top: 120px
+  
+  padding: 150px 0 60px 0
   
   h1
     margin: 0
 
-    font-size: 2.88em
+    font-size: 5em
     color: #fff8f5
     
     span
       font:
         family: "museo slab bold", sans-serif
-        size: 20px
+        size: 24px
 
 #hcs
   padding-bottom: 60px
@@ -271,81 +272,95 @@
         border-color: #ccc
 
 
-#auth 
-  float: right
-  
-  padding-top: 64px
-  max-width: 360px
-  
-  margin: 0
-  
-  h2 
-    color: #888
-    background: url('/assets/2bits.png') bottom left repeat-x
-    padding: 7px 0 11px 0
-    margin: 0
-  
-  
-  .links 
-    padding: 30px 0 0 50px
-
-
 
 #login
-  margin: 100px 15px 0 15px
-  min-height: 500px
+  .holder
+    .form
+      .forgot 
+        margin: -5px 5px 5px 0
+        font-size: 0.875em
+        text-align: right
+
+        a 
+          color: #999
+
+      .remember 
+        float: left
+        color: #444
+        font-size: 0.875em
+
+
+#signup
+  .holder
+    .form
+      width: 500px
+      
+      .wrapper
+      
+        .wrapper // last name only
+          position: absolute
+          top: 0
+          left: 255px
+          
+          .placeholder
+            color: #ddd
+      
+        
+      .submit
+        padding-right: 248px
+      
+
+#forgot,
+#reset,
+#confirm
+  padding: 42px 0 0 60px
 
   h1
-    padding: 10px 0
-    background: url('/assets/2bits.png') bottom left repeat-x
-
-
-
-
-
-#goodie 
-  float: right
-  
-  max-width: 280px
-  
-  margin: 0
-  padding-top: 64px
-  
-  h2 
-    color: #888
-    background: url('/assets/2bits.png') bottom left repeat-x
-    padding: 7px 0 11px 0
-    margin: 0
-
-
-#signup 
-  max-width: 640px
-  
-  .form 
-    position: relative
-    right: 191px
-    margin-right: 0
+    left: 0
     
-    #flnames 
-      position: relative
-      right: -236px
+    font-size: 1.4em
+    line-height: 42px
+    
+    width: auto
+    padding: 0 20px
+    
+  .holder
+    margin: 0 210px 0 0
+    
+    .email
+      +clearfix
+      margin: 0
+      background: rgba(black, 0.1)
+      
+#forgot
+  
+  .holder
+    .form
+      width: 500px
+  
+    .wrapper,
+    .submit
+      float: left
+      
+    .submit
+      margin: 0 0 0 16px
 
-      table 
-        width: 590px
-        
-        tr 
-          td.auto 
-            width: 200px
-            
-          td 
-            text-align: right
-            
-            &.optional 
-              label 
-                color: #bbb
-            
-            input 
-              width: 160px
+#reset
+  .holder
+    
+    h2
+      margin: 0 0 0 20px
+      padding: 0
+      
+    .form
+      margin: 0
+
+
+#confirm
+  .holder
+    .form
+      width: 500px
+
 
 #ali 
   margin: 50px 0

@@ -153,14 +153,19 @@ body
             
       text-align: right
       line-height: 40px
-
+      
+      span,
       a,
       a:link,
       a:active,
-      a:visited 
+      a:visited
         color: #eee
       
-      span 
+      img
+        margin-bottom: -13px
+      
+      
+      span.or
         color: #f16022
         font:
           style: italic
@@ -171,7 +176,7 @@ body
 
     #logo 
       position: absolute
-      top: 9px
+      top: 10px
       left: 5px
       +opacity(0.9)
       
@@ -190,7 +195,7 @@ body
   
   background: rgba(246, 112, 55, .96)
   
-  +box-shadow(#666 0 2px 6px -2px)
+  +box-shadow(#777 0 2px 5px -2px)
   
   .inner
     display: none
@@ -384,64 +389,119 @@ footer#page_footer
 
 // login/signup
 .home 
-  margin: 50px 0 0 0
+  margin: 90px 0 40px 0
+  position: relative
+  padding: 0 0 0 80px
   
-  h1 
-    color: #f16022
-    background: url('/assets/2bits.png') bottom left repeat-x
-    padding: 10px 0
-  
-  .form 
-    padding-top: 20px
-  
-  label 
-    color: #555
-    line-height: 48px
-    padding-right: 3px
-    font-size: 1.125em
-  
-  .wrapper 
-    overflow: hidden
+  min-height: 460px
+
+  h1
+    position: absolute
+    top: 0
+    left: 5px
+    line-height: 65px
+    margin: 0
     
-    text-align: right
-    margin-bottom: 15px
+    width: 110px
     
-    .stroke 
-      float: right
-      padding: 5px
-      background: #dedede
+    font-size: 1.6em
+    text-align: center
+    color: white
+
+    +background-image(linear-gradient(right, #E0622F, #f67037 6px, #f67037))
+    
+  .holder
+    position: relative
+    margin: 15px 210px 0 35px
+
+    background: white
+
+    h2
+      color: #333
+      margin: 0 0 15px 40px
+      padding-top: 35px
+
+    .links
+      a
+        margin-left: 60px
+        +hoverable
+
+    .email
+      margin: 45px 0 0 0
+      padding: 40px 40px
+      background: rgba(black, 0.08)
+
+    .or
+      +opacity(0.9)
+
+    .form
+      margin: 15px 0 0 20px
+      width: 246px
+
+      .wrapper 
+        overflow: hidden
+        position: relative
+    
+        margin-bottom: 15px
+        
+        input 
+          width: 230px
       
-      +border-radius(7px)
-      +opacity(0.7)
+          padding: 8px
+
+          color: #222
+
+          +box-shadow(#d0d0d0 1px 1px 3px inset)
+
+          border: none
+          background: #fafafa
+
+          &:focus 
+            background: #fff
+            outline: none
+    
+        label.placeholder
+          position: absolute
+          top: 7px
+          left: 9px
       
-      input 
-        height: 36px
-        width: 270px
-        
-        padding: 0 10px
-        
-        color: #000
-        font-size: 1.125em
-        
-        +border-radius(5px)
-        +box-shadow(#ddd 2px 2px 3px inset)
-        
-        border: 1px solid #bbb
-        background: #fefefa
-        
-        
+          color: #bbb
+      
+          cursor: text
+      
+          &.light
+            color: #ddd
+      
+      
+        .validation-error input,
+        input.error
+          background: #ffdfdf
+    
+      .submit 
+        margin: 10px 1px 0 0
+        text-align: right
+
+        input
+          +button
+          +button-blue
+
         &:focus 
-          background: #fff
           outline: none
 
-        +box-shadow(none)
-    
-    .submit 
-      margin: 10px 5px 0 0
+    .reminder
+      position: absolute
+      top: 100%
+      right: 0
 
-      &:focus 
-        outline: none
+      +small
 
+      padding: 5px 15px
+      text-align: right
+
+      color: #999
+
+      a
+        +opacity(0.9)
 
 
 /* search  */
@@ -495,13 +555,14 @@ footer#page_footer
 
 
 /*other widgets */
-.ui-tooltip 
+body .ui-tooltip 
   background: #fff
-  border: 1px solid #ccc
+  border: 1px solid #bbb
   max-width: 500px
+  +box-shadow(#c0c0c0 2px 2px 5px)
 
 
 .ui-widget-content 
   color: #888
   font-family: verdana
-  font-size: 0.875em
+  font-size: 0.8em

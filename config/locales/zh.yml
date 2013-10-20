@@ -1,6 +1,7 @@
 zh:
   hello: 你好，世界
   or: 或
+  or1: 或者
   done: 完成
   ans_yes: 是
   ans_no: 否
@@ -11,7 +12,7 @@ zh:
   
   home_link: 主页
   logout: 登出
-  login: 登陆
+  login: 登录
   signup: 注册
   
   reply: 回复
@@ -48,7 +49,18 @@ zh:
   
   home:
     index:
-      headline1: "向一个国家提任何问题"
+      headline1: 向一个国家提任何问题
+    
+    login:
+      with_email: 使用email登录
+      one_click: 一键登录：
+      your_email: email地址
+      forgot: 忘记密码了？
+      password: 登录密码
+      remember: 记住我
+      dont_have: 还没有账户？
+      now: 现在去注册
+    signup:
     
   askable:
     coverage:
@@ -98,6 +110,10 @@ zh:
       next: 下一页 >
       previous: < 上一页
       truncate: …
+  
+  user_mailer:
+    password_reset:
+      subject: 密码重置链接
   
   plural:
     comment:

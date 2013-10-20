@@ -14,7 +14,7 @@ class CreateUsers < ActiveRecord::Migration
       
       t.string    :persistence_token
       #t.string    :single_access_token, :null => false                # optional, see Authlogic::Session::Params
-      #t.string    :perishable_token,    :null => false                # optional, see Authlogic::Session::Perishability
+      t.string    :perishable_token,    :default => '', :null => false                # optional, see Authlogic::Session::Perishability
 
       # magic fields (all optional, see Authlogic::Session::MagicColumns)
       t.integer   :login_count,         :null => false, :default => 0
@@ -30,6 +30,7 @@ class CreateUsers < ActiveRecord::Migration
 
     add_index :users, :email, :unique => true
     add_index :users, :persistence_token, :unique => true
+    add_index :users, :perishable_token
     add_index :users, :country_code
   end
 end

@@ -3,13 +3,12 @@ class UserSessionsController < ApplicationController
   before_filter :require_user, :only => :destroy
   
   def new
-    @user_session = UserSession.new
-    @user_session.remember_me = true
+    @user_session = UserSession.new(remember_me: true)
     
     session[:return_to] = params[:return_to] if params[:return_to].present?
   end
 
-  def create    
+  def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       flash[:notice] = "Login successful!"
@@ -21,6 +20,7 @@ class UserSessionsController < ApplicationController
   
   def destroy
     current_user_session.destroy
+    clear_shuffled_polls
     flash[:notice] = "You have logged out."
     redirect_back_or_default root_url
   end

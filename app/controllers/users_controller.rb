@@ -3,15 +3,15 @@ class UsersController < ApplicationController
 
   def new
     @info = session[:info]
-
+    # session[:info] = nil
+    
     if @info.present?
       @user = User.build_from_info(@info, country_code_from_request)
 
       render :new_auth
     else
       @user = User.new
-
-      render :new
+      UserSessionsController.new
     end
   end
 
@@ -21,17 +21,16 @@ class UsersController < ApplicationController
 
     @user = User.new(params[:user])
     @user.country_code = country_code_from_request
-
-
+    
     #TODO: test below block
     if @user.save
       @user.authorizations.create!(
-        :provider => info.provider,
-        :uid  => info.uid,
-        :token => info.token,
-        :link => info.link
+        :provider => @info.provider,
+        :uid  => @info.uid,
+        :token => @info.token,
+        :link => @info.link
       ) if @info.present?
-
+      
       flash[:notice] = "Sign up successful!"
       redirect_to root_url
     else

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130620052301) do
+ActiveRecord::Schema.define(:version => 20131009044129) do
 
   create_table "answerable_translations", :force => true do |t|
     t.integer  "answerable_id"
@@ -247,10 +247,12 @@ ActiveRecord::Schema.define(:version => 20130620052301) do
     t.string   "last_login_ip"
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
+    t.string   "perishable_token",                      :null => false
   end
 
   add_index "users", ["country_code"], :name => "index_users_on_country_code"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token", :unique => true
 
   create_table "versions", :force => true do |t|

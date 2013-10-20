@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :answered_askables,      :through => :answerables,           :source => :askable
 
   has_many :events
-  
+
   acts_as_authentic do |c|
     c.ignore_blank_passwords = true #ignoring passwords
     c.validate_password_field = false #ignoring validations for password fields
@@ -31,14 +31,13 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name, :email, :message => presence_msg
   validates_uniqueness_of :email
 
-  #here we add required validations for a new record and pre-existing record
+  # there is no need to verify password for a new record
+  # but only for changing password
   validate do |user|
-    #adds validation if it is a new record
-    #adds validation if password or password_confirmation are modified
-    if user.new_record? || !(!user.new_record? && user.password.blank? && user.password_confirmation.blank?)
-      user.errors.add(:password, presence_msg) if user.password.blank?
+    user.errors.add(:password, presence_msg) if user.password.blank?
+    user.errors.add(:password, "should have at least 6 characters") if (user.password.present? && user.password.length < 6)
+    unless user.new_record?
       user.errors.add(:password_confirmation, presence_msg) if user.password_confirmation.blank?
-      user.errors.add(:password, "should have at least 6 characters") if (user.password.present? && user.password.length < 6)
       user.errors.add(:password, "and confirmation must match") if user.password != user.password_confirmation
     end
   end
@@ -49,13 +48,10 @@ class User < ActiveRecord::Base
     User.new(:first_name => info.name[0], :last_name => info.name[1], :email => info.email, :country_code => country_code)
   end
 
-  # def self.create_with_omniauth(info, country_code)
-  #   #TODO: first/last names
-  #   user = User.new(:first_name => info.name[0], :last_name => info.name[1], :email => info.email, :country_code => country_code)
-  #   user.save(:validate => false) #create the user without performing validations. This is because most of the fields are not set.
-  #   user.reset_persistence_token! #set persistence_token else sessions will not be created
-  #   user
-  # end
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    UserMailer.password_reset(self).deliver
+  end
 
   def is_admin?
     self.admin
@@ -64,7 +60,7 @@ class User < ActiveRecord::Base
   def name
     self.last_name.present? ? self.first_name + " #{self.last_name.capitalize}" : self.first_name
   end
-  
+
   alias_method :to_s, :name
 
   #********************************************
@@ -102,7 +98,7 @@ class User < ActiveRecord::Base
   def process_names
     #TODO: setting up unique id for permalinks here
   end
-  
+
   def get_follow_type(followable)
     followable.kind_of?(Askable) ? 'Askable' : followable.class.name
   end

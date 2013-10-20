@@ -1,0 +1,26 @@
+- content_for :title_string do
+  = 'Reset Password'
+  
+- content_for :js do
+  = javascript_include_tag 'home'
+    
+- flash.now[:alert]  = signup_validation_error if @user.errors.present?
+
+#reset.home
+  %h1 Reset Password
+  
+  .holder
+    .email
+      %h2 Your new password
+      .form
+        = form_for @user, :url => password_reset_path(params[:id]) do |f|
+          .wrapper
+            = f.password_field :password
+            = f.label :password, 'New Password', class: 'placeholder'
+            
+          .wrapper
+            = f.password_field :password_confirmation
+            = f.label :password_confirmation, "Password again", class: 'placeholder'
+        
+          .submit
+            = submit_tag 'Update'

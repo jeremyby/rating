@@ -1,7 +1,11 @@
 
 #notice<
-  - unless flash.blank?
+  - if flash.present?
     - flash_type, messages = parse_flash(flash)
 
     - messages.each do |m|
       %span(class='#{ flash_type }')= m.html_safe
+      
+  - elsif session[:auth_msg].present?
+    %span(class='notice')= session[:auth_msg].html_safe
+    - session[:auth_msg] = nil

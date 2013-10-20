@@ -1,0 +1,30 @@
+!!! 5
+%html
+  %head
+    %meta{:charset => "utf-8"}
+    %title= @title
+    :css
+      body {
+        color: #444;
+        height: 100%;
+        padding: 50px 30px;
+        border-top: 6px solid #f67037;
+      }
+      h1 {
+        font-size: 26px;
+        font-family: museo, georgia, serif;
+      }
+      h2 {
+        font-size: 18px;
+        font-family: 'Helvetica Neue', helvetica, 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+      }
+      
+  %body= yield
+
+  :javascript
+    if(window.opener) {
+      if ("#{ j(@dest) }") {
+        window.opener.location.replace("#{ j(@dest) }");
+      }
+      setTimeout(function() { window.close(); }, 8000);
+    }

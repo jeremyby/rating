@@ -4,6 +4,7 @@
 en:
   hello: Hello world
   or: or
+  or1: or
   done: Done
   ans_yes: "Yes"
   ans_no: "No"
@@ -50,6 +51,18 @@ en:
   home:
     index:
       headline1: "Ask a country anything" 
+      
+    login:
+      one_click: 'One-click login:'
+      with_email: ' log in with email'
+      your_email: Your Email
+      forgot: Forgot password?
+      password: Password
+      remember: Remember me
+      dont_have: Don't have an account?
+      now: Sign up now
+      
+    signup:
   
   askable:
     coverage:
@@ -94,6 +107,11 @@ en:
       orig_answerable: originally in %{orig}
       orig_desc_empty: The original question has no description.
 
+
+  user_mailer:
+    password_reset:
+      subject: Password Reset Link
+        
   plural:
     comment:
       zero: Comment

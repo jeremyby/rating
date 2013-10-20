@@ -1,4 +1,6 @@
 Askacountry::Application.routes.draw do
+  get "password_resets/new"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -70,6 +72,8 @@ Askacountry::Application.routes.draw do
   match '/auth/:provider/callback' => "authorizations#create"
   match '/auth/failure'  => "authorizations#failure"
   match '/auth/:provider'  => "authorizations#blank"
+  
+  resources :password_resets
   
   resources :answerables, :only => [:create, :update] do
     member do

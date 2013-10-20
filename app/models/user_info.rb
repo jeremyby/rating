@@ -12,10 +12,10 @@ class UserInfo
         @name = [callback['info']['first_name'], callback['info']['last_name']]
         @email = callback['info']['email']
         @link = callback['info']['urls']['Facebook']
-      when 'twitter' # Twitter does not give user's email away, so it can only used to connect, not signup
-        name = callback['info']['name'].split(' ')
-        last_name = name.pop if name.size > 1
-        @name = [name.join(' '), last_name]
+      when 'twitter' # Twitter does not give user's email away, so we have to ask for it
+        # name = callback['info']['name'].split(' ')
+        # last_name = name.pop if name.size > 1
+        @name = [callback['info']['nickname'], '']
         @link = callback['info']['urls']['Twitter']
       when 'google'
         @name = [callback['info']['first_name'], callback['info']['last_name']]

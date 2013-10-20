@@ -21,14 +21,11 @@ $default-text-shadow-h-offset: 1px
   font-family: "museo slab", georgia, serif
   font-weight: normal
 
-  +sassy-button-structure(5px, 15px, 0.6em .8em 0.35em .8em)
-
-
-@mixin blue-button
-  +button
-
-  +sassy-button-structure(5px, 14px, 0.5em 1em 0.4em 1em)
-  +sassy-button-gradient("simple", #64aee2, #0460a1, #fff, "raised")
+  +box-shadow(#bbb 0 1px 3px)
+  +sassy-button-structure(4px, 14px, 0.6em 1em 0.5em 1em)
+  
+  &:hover
+    +box-shadow(#999 0 1px 3px)
 
 
 @mixin small-button
@@ -41,10 +38,13 @@ $default-text-shadow-h-offset: 1px
   +sassy-button-gradient("flat", #64aee2, #0460a1, #fff, "none")
 
 @mixin button-orange
-  +sassy-button-gradient("simple", #f37e4b, #c95320, #fff, "raised")
+  +sassy-button-gradient("flat", $theme-bg-color, #EA5C1E, #fff, "none")
+
+@mixin button-blue
+  +sassy-button-gradient("flat", #286ADF, #2461D2, #fff, "none")
 
 @mixin button-grey
-  +sassy-button-gradient("simple", #ccc, #999, #fff, "raised")
+  +sassy-button-gradient("flat", #ccc, #999, #fff, "none")
 
 @mixin small
   font-size: 0.95em
@@ -62,7 +62,7 @@ $default-text-shadow-h-offset: 1px
   font-family: "Helvetica Neue", helvetica, "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif
 
 @mixin hoverable
-  +opacity(0.8)
+  +opacity(0.9)
   
   &:hover
     +opacity(1)

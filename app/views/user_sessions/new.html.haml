@@ -7,16 +7,35 @@
 
 - flash.now[:alert]  = login_validation_error if @user_session.errors.present?
 
-
-
-#login
-  %h1 Log In to your account
+#login.home
+  %h1
+    %span= t('login')
   
-
-  
-  #auth
-    %h2 or, through these sites
-    .links
-      = link_to image_tag('/assets/facebook_login.png'), '/auth/facebook'
-      = link_to image_tag('/assets/twitter_login.png'), '/auth/twitter'
-      = link_to image_tag('/assets/google_login.png'), '/auth/google'
+  .holder
+    = render 'links'    
+    
+    .email      
+      %strong.or<
+        = t('or1') 
+        = link_to_function t('home.login.with_email'), 'aac.toggle_login_form()'
+      
+      .form(style='#{ "display: none" unless  @user_session.errors.present? }')
+        = form_for @user_session do |f|
+          .wrapper
+            = f.text_field :email, tabindex: 1
+            = f.label :email, t('home.login.your_email'), class: 'placeholder'
+    
+          .forgot= link_to t('home.login.forgot'), password_resets_path
+          .wrapper
+            = f.password_field :password, tabindex: 2
+            = f.label :password, t('home.login.password'), class: 'placeholder'
+    
+          .remember
+            = f.check_box :remember_me, tabindex: 3
+            = f.label :remember_me, t('home.login.remember')
+          .submit
+            = f.submit t('login'), tabindex: 4
+          
+    .reminder
+      = t('home.login.dont_have')
+      = link_to t('home.login.now'), signup_path

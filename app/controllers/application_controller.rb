@@ -4,8 +4,13 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   
   helper_method :current_user_session, :current_user
+
   
   private
+    def clear_shuffled_polls
+      session[:shuffled_polls] = nil
+    end
+  
     def set_locale
       I18n.locale = extract_locale_from_subdomain
 

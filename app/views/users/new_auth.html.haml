@@ -1,34 +1,33 @@
 
-- title = "Log In with #{@info.provider.capitalize}"
+- title = "Log in with #{@info.provider.capitalize}"
 
 - content_for :title_string do
   = title
 
-#signup.home
-  %h1= title
+#confirm.home
+  %h1 Confirm your account
   
-  .form
-    = form_for @user do |f|
-      .wrapper
-        = f.label :email, "Email: "
-        .stroke= f.text_field :email, :tabindex => 1
+  .holder
+    .form
+      = form_for @user do |f|
+        .avatar
+          = image_tag @info.image
+          %br
+          = link_to_function 'change it', '#'
+          = f.file_field :avatar, :value => @info.image, :tabindex => 4
+        
+        .wrapper
+          = f.label :email, "Email: "
+          .stroke= f.text_field :email, :tabindex => 1
     
-      #flnames.wrapper
-        %table
-          %tr
-            %td
-              = f.label :first_name, "First name:"
-              .stroke= f.text_field :first_name, :tabindex => 2
-            %td.optional
-              = f.label :last_name, "last name:"
-              .stroke= f.text_field :last_name, :tabindex => 3
+        #flnames.wrapper
+          %table
+            %tr
+              %td
+                = f.label :first_name, "First name:"
+                .stroke= f.text_field :first_name, :tabindex => 2
+              %td.optional
+                = f.label :last_name, "Last name:"
+                .stroke= f.text_field :last_name, :tabindex => 3
               
-      .wrapper
-        Your Avatar:
-        = image_tag @info.image
-        %br
-        = f.label :avatar, "Upload a new avatar:"
-        = f.file_field :avatar, :value => @info.image, :tabindex => 4
-            
-      .wrapper
-        .submit= f.submit "Submit", :type => :image, :src => "/assets/signup.png", :tabindex => 5
+          .submit= f.submit "Save", :tabindex => 5

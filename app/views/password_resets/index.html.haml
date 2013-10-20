@@ -1,0 +1,21 @@
+- content_for :title_string do
+  = 'Forgot Password'
+
+- content_for :js do
+  = javascript_include_tag 'home'
+
+#forgot.home
+  %h1 Forgot Password
+  
+  .holder
+    .email
+      .form
+        = form_tag password_resets_path, method: :post do
+          .wrapper
+            = text_field_tag :email, params[:email]
+            = label_tag :email, 'Your email', class: 'placeholder'
+          .submit
+            = submit_tag 'Reset Password'
+      
+
+  
